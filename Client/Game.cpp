@@ -9,7 +9,7 @@ void Game::Run()
 }
 
 // 게임 요소 업데이트 (Scene 업데이트)
-void Game::Update(int64 delta_time)
+void Game::Update(const int64 delta_time)
 {
 
 }
