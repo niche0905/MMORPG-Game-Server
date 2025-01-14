@@ -10,7 +10,7 @@ private:
 
 private:
 	void Run();
-	void Update(int64 delta_time);
+	void Update(const int64 delta_time);
 	void Draw();
 	void HandleInput();
 
