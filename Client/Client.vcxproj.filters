@@ -4,16 +4,25 @@
     <Filter Include="PCH">
       <UniqueIdentifier>{d26298e5-d4f7-41ba-9f57-dcb1b6f892c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{0f549efc-5aba-4fb3-8c88-b72eb02e8ef9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>PCH</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
