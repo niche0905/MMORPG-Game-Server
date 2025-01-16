@@ -1,6 +1,13 @@
 #pragma once
 
 
+enum SceneType
+{
+	TitleScene,
+	GameScene,
+};
+
+
 class BaseScene
 {
 protected:	// 게임 요소들 (변수들)

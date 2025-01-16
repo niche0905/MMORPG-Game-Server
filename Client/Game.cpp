@@ -25,3 +25,16 @@ void Game::HandleInput()
 {
 
 }
+
+void Game::SceneLoad(SceneType scene_type)
+{
+	switch (scene_type)
+	{
+	case TitleScene:
+		break;
+	case GameScene:
+		break;
+	default:
+		break;
+	}
+}
