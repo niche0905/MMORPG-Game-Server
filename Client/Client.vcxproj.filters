@@ -10,6 +10,9 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{aaf47826-5e0d-46ab-a36e-3bdbc047cf88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{a9e9616d-4dc8-4734-a36d-e3e850da0470}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -25,6 +28,9 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Communication.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -38,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
