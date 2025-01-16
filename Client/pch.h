@@ -4,6 +4,7 @@
 #define SFML_STATIC
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 // 윈속2 메인 헤더
