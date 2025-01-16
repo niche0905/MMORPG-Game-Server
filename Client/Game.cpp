@@ -2,6 +2,14 @@
 #include "Game.h"
 
 
+// Game 생성자
+Game::Game()
+	: window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MMORPG GAME")
+{
+	// TODO : 아래의 코드가 BaseScene이 아니라 BaseScene을 상속받는 Scene이어야 함
+	scene = std::make_shared<BaseScene>();
+}
+
 // 게임 실행 루프 (Input 받고, timer 업데이트, Scene Update, Draw)
 void Game::Run()
 {
@@ -26,6 +34,7 @@ void Game::HandleInput()
 
 }
 
+// Scene을 Load 한다
 void Game::SceneLoad(SceneType scene_type)
 {
 	switch (scene_type)
