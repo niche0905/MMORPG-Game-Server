@@ -22,6 +22,9 @@
     <ClCompile Include="BaseScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -31,6 +34,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="BaseScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
