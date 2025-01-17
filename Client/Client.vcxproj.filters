@@ -13,6 +13,9 @@
     <Filter Include="Network">
       <UniqueIdentifier>{a9e9616d-4dc8-4734-a36d-e3e850da0470}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{41aef49b-5c2b-4e3f-afd5-3427e8c438f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -31,6 +34,9 @@
     <ClCompile Include="Communication.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -47,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="Communication.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
