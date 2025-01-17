@@ -9,9 +9,17 @@ constexpr int WINDOW_HEIGHT{ 600 };
 class Game
 {
 private:
-	sf::RenderWindow window;
+	using Window = sf::RenderWindow;
+	using Epoch = std::chrono::system_clock;
+	using TimePoint = std::chrono::time_point<Epoch>;
+	using MicroSeconds = std::chrono::microseconds;
+
+private:
+	Window window;
 
 	std::shared_ptr<BaseScene> scene;
+
+	TimePoint last_time;
 
 public:
 	Game();
