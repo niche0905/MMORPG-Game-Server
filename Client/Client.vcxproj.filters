@@ -43,6 +43,9 @@
     <ClCompile Include="World.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -64,6 +67,9 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
