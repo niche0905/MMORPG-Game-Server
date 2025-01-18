@@ -1,0 +1,7 @@
+{
+    "textures": [
+        { "key": "grass", "path": "grass.png" },
+        { "key": "water", "path": "water.png" },
+        { "key": "sand", "path": "sand.png" }
+    ]
+}
