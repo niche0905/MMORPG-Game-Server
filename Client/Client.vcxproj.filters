@@ -46,6 +46,9 @@
     <ClCompile Include="Tile.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="TileManager.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -70,6 +73,9 @@
       <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="TileManager.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
