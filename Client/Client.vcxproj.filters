@@ -49,6 +49,9 @@
     <ClCompile Include="TileManager.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -77,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="TileManager.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
