@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "TextureManager.h"
+#include <json/json.h>
 
 
 // TextureManager 싱글톤
@@ -23,6 +24,25 @@ bool TextureManager::LoadTexture(const std::string& key, const std::string& file
 
 	textures[key] = std::move(texture);
 	return true;
+}
+
+// JSON 파일에 저장된 key와 경로를 이용해 모든 텍스쳐 Load
+void TextureManager::LoadAllTextures(const std::string& json_file_path)
+{
+	std::ifstream file(json_file_path);
+
+	if(not file.is_open())
+		throw std::runtime_error("Failed to open JSON file: " + json_file_path);
+
+	Json::Value root;
+	file >> root;
+
+	for (const auto& item : root["textures"]) {
+		std::string key = item["key"].asString();
+		std::string path = item["path"].asString();
+
+		LoadTexture(key, path);
+	}
 }
 
 // key에 해당하는 텍스쳐 얻기
