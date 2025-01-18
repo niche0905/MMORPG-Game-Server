@@ -1,6 +1,6 @@
 #pragma once
 
-// TODO : 용량 작게 int8로 사용하기
+
 enum TileType : uint8_t
 {
 
