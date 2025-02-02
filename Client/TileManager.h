@@ -15,5 +15,9 @@ private:
 public:
 	static TileManager& Instance();
 
+	void Add(TileType tile_type, std::string texture_key);
+
+	Tile& GetTile(TileType tile_type);
+
 };
 

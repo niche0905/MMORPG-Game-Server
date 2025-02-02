@@ -1,15 +1,17 @@
 #pragma once
 #include "BaseScene.h"
+#include "World.h"
 
 
 class GameScene : public BaseScene
 {
 private:
 	// TODO : 사용 변수들 (Pawn, Item 등등) 필요
-	// TEMP : Draw 테스트를위한 임시 shape
-	sf::RectangleShape shape;
+	World world;
 
 public:
+	GameScene();
+
 	void Init();
 
 	void Update(const int64 delta_time) override;

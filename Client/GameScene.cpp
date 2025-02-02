@@ -1,14 +1,19 @@
 #include "pch.h"
 #include "GameScene.h"
+#include "TileManager.h"
+#include "TextureManager.h"
 
+
+GameScene::GameScene()
+	: world{ 100, 100 }
+{
+	Init();
+}
 
 void GameScene::Init()
 {
-	// TEMP : Draw 테스트를위한 임시 shape
-	shape.setSize(sf::Vector2f(50, 50));
-	shape.setOrigin(25, 50);
-	shape.setPosition(50, 50);
-	shape.setFillColor(sf::Color::Green);
+	TextureManager::Instance().LoadTexture("grass", "/Resource/Texture/TestGrass.jpg");
+	TileManager::Instance().Add(TileType::grass, "grass");
 }
 
 // Scene에 존재하는 Object 업데이트
@@ -20,10 +25,7 @@ void GameScene::Update(const int64 delta_time)
 // Scene에 존재하는 Object 그리기
 void GameScene::Draw(sf::RenderWindow& window)
 {
-	// TEMP : Draw 테스트를위한 임시 Init 위치
-	Init();
-	// TEMP : Draw 테스트를위한 임시 shape
-	window.draw(shape);
+	world.Draw(window);
 }
 
 // Player에게 Input 전달하기
