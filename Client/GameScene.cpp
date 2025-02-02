@@ -6,7 +6,7 @@ void GameScene::Init()
 {
 	shape.setSize(sf::Vector2f(50, 50));
 	shape.setOrigin(25, 50);
-	shape.setPosition(0, 0);
+	shape.setPosition(50, 50);
 	shape.setFillColor(sf::Color::Green);
 }
 
@@ -19,6 +19,7 @@ void GameScene::Update(const int64 delta_time)
 // Scene에 존재하는 Object 그리기
 void GameScene::Draw(sf::RenderWindow& window)
 {
+	Init();
 	window.draw(shape);
 }
 
