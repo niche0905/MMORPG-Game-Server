@@ -19,6 +19,9 @@
     <Filter Include="World">
       <UniqueIdentifier>{a59b257c-d549-408b-bc3b-1f1c8f5027e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{59a630d5-755d-4fb9-a664-e39485c86db7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -52,6 +55,9 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="GlobalVariable.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -83,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalVariable.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
