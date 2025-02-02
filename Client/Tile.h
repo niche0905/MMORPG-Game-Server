@@ -14,6 +14,7 @@ private:
 	sf::Sprite sprite;
 
 public:
+	Tile();
 	Tile(std::string texture_key);
 	Tile(sf::Texture& texture, int start_x, int start_y, int width, int height);
 

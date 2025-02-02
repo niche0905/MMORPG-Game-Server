@@ -4,6 +4,12 @@
 
 
 // 타일 기본 생성자
+Tile::Tile()
+{
+
+}
+
+// 타일 텍스쳐 key 기반 생성자
 Tile::Tile(std::string texture_key)
 {
 	sprite.setTexture(TextureManager::Instance().GetTexture(texture_key));
