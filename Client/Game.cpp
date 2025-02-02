@@ -8,7 +8,7 @@ Game::Game()
 	: window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MMORPG GAME")
 {
 	// TODO : 아래의 코드가 BaseScene이 아니라 BaseScene을 상속받는 Scene이어야 함
-	scene = std::make_shared<BaseScene>();
+	scene = std::make_shared<GameScene>();
 
 	// TODO : Loading이 끝나고 나서 last_time을 초기화 해야 함
 	last_time = Epoch::now();
