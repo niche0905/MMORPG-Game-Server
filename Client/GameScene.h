@@ -6,6 +6,7 @@ class GameScene : public BaseScene
 {
 private:
 	// TODO : 사용 변수들 (Pawn, Item 등등) 필요
+	// TEMP : Draw 테스트를위한 임시 shape
 	sf::RectangleShape shape;
 
 public:
