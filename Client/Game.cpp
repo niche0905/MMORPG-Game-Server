@@ -22,6 +22,8 @@ void Game::Run()
 		TimePoint now_time = Epoch::now();
 		MicroSeconds delta_time = std::chrono::duration_cast<MicroSeconds>(now_time - last_time);
 
+		HandleInput();
+
 		window.clear();
 
 		// Recv 하고 패킷 처리
@@ -35,13 +37,13 @@ void Game::Run()
 // 게임 요소 업데이트 (Scene 업데이트)
 void Game::Update(const int64 delta_time)
 {
-
+	scene->Update(delta_time);
 }
 
 // 게임 요소 렌더링 (Scene Draw)
 void Game::Draw()
 {
-
+	scene->Draw(window);
 }
 
 // Input 받기 (받아서 Scene으로 넘기기)

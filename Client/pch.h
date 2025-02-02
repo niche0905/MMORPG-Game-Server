@@ -29,6 +29,7 @@
 #include <chrono>
 #include <ranges>
 #include <algorithm>
+#include <thread>
 
 // ÀÔÃâ·Â
 #include <iostream>
