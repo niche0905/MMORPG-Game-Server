@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Game.h"
+#include "GameScene.h"
 
 
 // Game »ý¼ºÀÚ
@@ -54,9 +55,9 @@ void Game::SceneLoad(SceneType scene_type)
 {
 	switch (scene_type)
 	{
-	case TitleScene:
+	case SceneType::TitleScene:
 		break;
-	case GameScene:
+	case SceneType::GameScene:
 		break;
 	default:
 		break;

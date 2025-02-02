@@ -1,7 +1,7 @@
 #pragma once
 
 
-enum SceneType : uint8_t
+enum class SceneType : uint8_t
 {
 	TitleScene,
 	GameScene,
