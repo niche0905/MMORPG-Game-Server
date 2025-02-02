@@ -47,7 +47,14 @@ void Game::Draw()
 // Input 받기 (받아서 Scene으로 넘기기)
 void Game::HandleInput()
 {
+	sf::Event input_event;
 
+	while (window.pollEvent(input_event)) {
+
+		// TODO : 모든 상황에서 필요한 입력 처리
+
+		scene->HandleInput(input_event);
+	}
 }
 
 // Scene을 Load 한다
