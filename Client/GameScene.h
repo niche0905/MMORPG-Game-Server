@@ -9,7 +9,7 @@ class GameScene : public BaseScene
 {
 private:
 	// TODO : 사용 변수들 (Pawn, Item 등등) 필요
-	World world;
+	std::shared_ptr<World> world;
 
 public:
 	GameScene();
