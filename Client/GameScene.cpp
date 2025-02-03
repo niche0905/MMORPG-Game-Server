@@ -12,7 +12,7 @@ GameScene::GameScene()
 
 void GameScene::Init()
 {
-	TextureManager::Instance().LoadTexture("grass", "./Resource/Texture/TestGrass.jpg");
+	TextureManager::Instance().LoadTexture("grass", "./Resource/Texture/grass.png");
 	TileManager::Instance().Add(TileType::grass, "grass");
 }
 
