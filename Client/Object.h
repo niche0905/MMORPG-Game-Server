@@ -50,5 +50,8 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void SetName(const std::string& input_name);
 
+	sf::Vector2i GetPosition() const;
+	float GetOffset() const;
+
 };
 

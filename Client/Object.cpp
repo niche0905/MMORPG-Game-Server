@@ -107,7 +107,7 @@ void Object::Draw(sf::RenderWindow& window)
 	if (not showing) return;
 
 	sf::Vector2f draw_position(position.x * tile_size, position.y * tile_size);
-	float offset = tile_size / 2 - size / 2;
+	float offset = GetOffset();
 	draw_position += sf::Vector2f{ offset, offset };
 	sprite.setPosition(draw_position);
 
@@ -121,4 +121,15 @@ void Object::Draw(sf::RenderWindow& window)
 void Object::SetName(const std::string& input_name)
 {
 	// TODO : name ¼³Á¤
+}
+
+sf::Vector2i Object::GetPosition() const
+{
+	return position;
+}
+
+float Object::GetOffset() const
+{
+	float offset = tile_size / 2 - size / 2;
+	return offset;
 }
