@@ -112,8 +112,6 @@ void Object::Draw(sf::RenderWindow& window)
 
 	window.draw(sprite);
 
-	std::cout << position.x << " " << position.y << " " << size << "\n";
-
 	// TODO : name이 있다면 출력
 
 }
