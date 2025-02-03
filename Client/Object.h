@@ -39,5 +39,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void SetName(const std::string& input_name);
 
+	void HandleInput(const sf::Event& event);
+
 };
 
