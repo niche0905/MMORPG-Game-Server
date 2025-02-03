@@ -22,6 +22,15 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{59a630d5-755d-4fb9-a664-e39485c86db7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World\TileManager">
+      <UniqueIdentifier>{30bd6ede-8a7d-4880-8a6d-c5b5197a1626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\BaseScene">
+      <UniqueIdentifier>{1b645bfc-ca9e-45a5-84f1-d64be924fb77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\TextureManager">
+      <UniqueIdentifier>{2653c44e-d6a2-4f17-889d-17254f4d4be8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -30,9 +39,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseScene.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>Scene</Filter>
@@ -49,14 +55,17 @@
     <ClCompile Include="Tile.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="TileManager.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="GlobalVariable.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="TileManager.cpp">
+      <Filter>World\TileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseScene.cpp">
+      <Filter>Scene\BaseScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Object\TextureManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,9 +74,6 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseScene.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>Scene</Filter>
@@ -84,14 +90,17 @@
     <ClInclude Include="Tile.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="TileManager.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="GlobalVariable.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TileManager.h">
+      <Filter>World\TileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseScene.h">
+      <Filter>Scene\BaseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Object\TextureManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
