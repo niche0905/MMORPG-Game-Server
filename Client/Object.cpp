@@ -31,6 +31,18 @@ void Object::Hide()
 	showing = false;
 }
 
+// 오브젝트 활성화 (움직이기, 상호작용 등)
+void Object::Active()
+{
+	active = true;
+}
+
+// 오브젝트 비활성화
+void Object::Disactive()
+{
+	active = false;
+}
+
 // 오브젝트 위치 이동
 void Object::Move(int x, int y)
 {

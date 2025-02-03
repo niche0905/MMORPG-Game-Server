@@ -23,6 +23,11 @@ void World::Draw(sf::RenderWindow& window)
 	}
 }
 
+sf::Vector2i World::GetArea() const
+{
+	return area;
+}
+
 // 월드 파일에서 불러오기
 void World::LoadWorld()
 {

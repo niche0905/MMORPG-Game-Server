@@ -17,6 +17,8 @@ public:
 
 	void Draw(sf::RenderWindow& window);
 
+	sf::Vector2i GetArea() const;
+
 	void LoadWorld();
 	void StoreWorld();
 

@@ -1,15 +1,22 @@
 #pragma once
+#include "World.h"
+
+class World;
 
 
 class Object
 {
 private:
 	bool showing{ true };
+	bool active{ true };
+
 	sf::Sprite sprite;
 	sf::Text name_text;
 
 	sf::Vector2i position;
 	std::string name;
+
+	std::shared_ptr<World> world;
 
 public:
 	Object();
@@ -17,6 +24,9 @@ public:
 
 	void Show();
 	void Hide();
+
+	void Active();
+	void Disactive();
 
 	void Move(int x, int y);
 	void Shift(int dx, int dy);
