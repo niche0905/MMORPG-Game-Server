@@ -35,6 +35,8 @@ protected:
 	void SetSprite(const std::string& key);
 	void SetSprite(const sf::Texture& texture);
 
+	void SetScale();
+
 public:
 	void Show();
 	void Hide();

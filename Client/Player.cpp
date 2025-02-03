@@ -11,7 +11,7 @@ Player::Player()
 
 void Player::Init()
 {
+	SetSize(player_size);
 	TextureManager::Instance().LoadTexture("player", "./Resource/Texture/player.png");
 	SetSprite("player");
-	SetSize(player_size);
 }

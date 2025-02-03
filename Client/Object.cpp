@@ -85,11 +85,20 @@ void Object::Shift(int dx, int dy)
 void Object::SetSprite(const std::string& key)
 {
 	sprite.setTexture(TextureManager::Instance().GetTexture(key));
+	SetScale();
 }
 
 void Object::SetSprite(const sf::Texture& texture)
 {
 	sprite.setTexture(texture);
+	SetScale();
+}
+
+void Object::SetScale()
+{
+	sf::Vector2u texture_size = sprite.getTexture()->getSize();
+
+	sprite.setScale(size / texture_size.x, size / texture_size.y);
 }
 
 // 오브젝트 그리기
@@ -97,7 +106,9 @@ void Object::Draw(sf::RenderWindow& window)
 {
 	if (not showing) return;
 
-	// TODO : 체스판에서 위치 계산 후 배치
+	sf::Vector2f draw_position{ position.x * tile_size, position.y * tile_size };
+	float offset = tile_size / 2 + size / 2;
+	draw_position += sf::Vector2f{ offset, offset };
 
 	window.draw(sprite);
 
