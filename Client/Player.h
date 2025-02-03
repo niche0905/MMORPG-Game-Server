@@ -3,6 +3,8 @@
 
 constexpr double player_size{ 48.0 };
 
+class World;
+
 
 class Player : public Object
 {
@@ -11,6 +13,7 @@ private:
 
 public:
 	Player();
+	Player(std::shared_ptr<World> world);
 
 	void Init();
 

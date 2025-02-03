@@ -18,7 +18,7 @@ void GameScene::Init()
 	TextureManager::Instance().LoadTexture("grass", "./Resource/Texture/grass.png");
 	TileManager::Instance().Add(TileType::grass, "grass");
 
-	client_player = std::make_shared<Player>();
+	client_player = std::make_shared<Player>(world);
 }
 
 // Scene에 존재하는 Object 업데이트
@@ -36,7 +36,22 @@ void GameScene::Draw(sf::RenderWindow& window)
 }
 
 // Player에게 Input 전달하기
-void GameScene::HandleInput(const sf::Event& event)
+void GameScene::HandleInput(const sf::Event& input_event)
 {
+	if (input_event.type == sf::Event::KeyPressed) {
+		if (input_event.key.code == sf::Keyboard::Left) {
+			client_player->Shift(-1, 0);
+		}
+		if (input_event.key.code == sf::Keyboard::Right) {
+			client_player->Shift(+1, 0);
+		}
+		if (input_event.key.code == sf::Keyboard::Up) {
+			client_player->Shift(0, -1);
+		}
+		if (input_event.key.code == sf::Keyboard::Down) {
+			client_player->Shift(0, +1);
+		}
 
+
+	}
 }
