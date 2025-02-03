@@ -1,6 +1,8 @@
 #pragma once
 #include "World.h"
 
+constexpr double default_object_size{ 60.0 };
+
 class World;
 
 
@@ -10,6 +12,7 @@ private:
 	bool showing{ true };
 	bool active{ true };
 
+	double size;
 	sf::Sprite sprite;
 	sf::Text name_text;
 
@@ -26,6 +29,12 @@ public:
 private:
 	bool Validate(int x, int y) const;
 
+protected:
+	void SetSize(double size);
+
+	void SetSprite(const std::string& key);
+	void SetSprite(const sf::Texture& texture);
+
 public:
 	void Show();
 	void Hide();
@@ -35,9 +44,6 @@ public:
 
 	void Move(int x, int y);
 	void Shift(int dx, int dy);
-
-	void SetSprite(const std::string& key);
-	void SetSprite(const sf::Texture& texture);
 
 	void Draw(sf::RenderWindow& window);
 	void SetName(const std::string& input_name);

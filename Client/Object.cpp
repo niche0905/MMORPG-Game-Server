@@ -7,6 +7,7 @@
 Object::Object()
 	: showing{ true }
 	, active{ true }
+	, size{ default_object_size }
 	, position{ 0, 0 }
 {
 
@@ -36,6 +37,11 @@ bool Object::Validate(int x, int y) const
 	}
 
 	return false;
+}
+
+void Object::SetSize(double size)
+{
+	size = size;
 }
 
 // 오브젝트 보이게
