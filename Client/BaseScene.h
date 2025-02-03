@@ -17,6 +17,7 @@ public:
 	virtual void Update(const int64 delta_time) = 0;
 	virtual void Draw(sf::RenderWindow& window) = 0;
 	virtual void HandleInput(const sf::Event& event) = 0;
+	virtual sf::Vector2f GetCameraCenter() const = 0;
 
 protected:	// 게임에 필요한 함수들
 private:
