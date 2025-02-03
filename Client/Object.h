@@ -36,6 +36,9 @@ public:
 	void Move(int x, int y);
 	void Shift(int dx, int dy);
 
+	void SetSprite(const std::string& key);
+	void SetSprite(const sf::Texture& texture);
+
 	void Draw(sf::RenderWindow& window);
 	void SetName(const std::string& input_name);
 

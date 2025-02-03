@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Object.h"
+#include "TextureManager.h"
 
 
 // 오브젝트 기본 생성자
@@ -73,6 +74,16 @@ void Object::Shift(int dx, int dy)
 {
 	if (Validate(position.x + dx, position.y + dy))
 		position += sf::Vector2i(dx, dy);
+}
+
+void Object::SetSprite(const std::string& key)
+{
+	sprite.setTexture(TextureManager::Instance().GetTexture(key));
+}
+
+void Object::SetSprite(const sf::Texture& texture)
+{
+	sprite.setTexture(texture);
 }
 
 // 오브젝트 그리기
