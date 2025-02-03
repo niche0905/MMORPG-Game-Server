@@ -2,6 +2,8 @@
 #include "BaseScene.h"
 #include "World.h"
 
+class World;
+
 
 class GameScene : public BaseScene
 {

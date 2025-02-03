@@ -1,6 +1,8 @@
 #pragma once
 #include "Tile.h"
 
+enum class TileType;
+
 
 class World
 {
