@@ -18,6 +18,7 @@ private:
 
 private:
 	Window window;
+	sf::View view;
 
 	std::shared_ptr<BaseScene> scene;
 
@@ -30,6 +31,8 @@ public:
 	void Update(const int64 delta_time);
 	void Draw();
 	void HandleInput();
+
+	void SetCameraView();
 
 	void SceneLoad(SceneType scene_type);
 

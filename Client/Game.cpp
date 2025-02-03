@@ -5,7 +5,8 @@
 
 // Game 생성자
 Game::Game()
-	: window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MMORPG GAME")
+	: window{sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MMORPG GAME"}
+	, view{sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)}
 {
 	// TODO : 아래의 코드가 BaseScene이 아니라 BaseScene을 상속받는 Scene이어야 함
 	scene = std::make_shared<GameScene>();
@@ -28,6 +29,7 @@ void Game::Run()
 
 		// Recv 하고 패킷 처리
 		Update(delta_time.count());
+		SetCameraView();
 		Draw();
 
 		window.display();
@@ -58,8 +60,15 @@ void Game::HandleInput()
 			window.close();
 		}
 
-		scene->HandleInput(input_event);
+		if (scene)
+			scene->HandleInput(input_event);
 	}
+}
+
+void Game::SetCameraView()
+{
+	view.setCenter(scene->GetCameraCenter());
+	window.setView(view);
 }
 
 // Scene을 Load 한다
