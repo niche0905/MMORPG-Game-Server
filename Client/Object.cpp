@@ -26,6 +26,17 @@ Object::Object(sf::Texture& texture, int texture_x, int texture_y, int width, in
 	sprite.setTextureRect(sf::IntRect(texture_x, texture_y, width, height));
 }
 
+bool Object::Validate(int x, int y) const
+{
+	if (auto w = world.lock()) {
+		sf::Vector2i area = w->GetArea();
+
+		return 0 <= x and x < area.x and 0 <= y < area.y;
+	}
+
+	return false;
+}
+
 // 오브젝트 보이게
 void Object::Show()
 {
@@ -53,17 +64,15 @@ void Object::Disactive()
 // 오브젝트 위치 이동
 void Object::Move(int x, int y)
 {
-	position = sf::Vector2i(x, y);
+	if (Validate(x, y))
+		position = sf::Vector2i(x, y);
 }
 
 // 오브젝트 위치 옮김
 void Object::Shift(int dx, int dy)
 {
-	position += sf::Vector2i(dx, dy);
-
-	// TODO : validate check
-
-
+	if (Validate(position.x + dx, position.y + dy))
+		position += sf::Vector2i(dx, dy);
 }
 
 // 오브젝트 그리기

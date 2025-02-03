@@ -23,6 +23,10 @@ public:
 	Object(std::shared_ptr<World> world);
 	Object(sf::Texture& texture, int texture_x, int texture_y, int width, int height, std::shared_ptr<World> world);
 
+private:
+	bool Validate(int x, int y) const;
+
+public:
 	void Show();
 	void Hide();
 
