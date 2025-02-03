@@ -2,6 +2,8 @@
 #include "GameScene.h"
 #include "TileManager.h"
 #include "TextureManager.h"
+#include "World.h"
+#include "Player.h"
 
 
 GameScene::GameScene()
@@ -15,6 +17,8 @@ void GameScene::Init()
 
 	TextureManager::Instance().LoadTexture("grass", "./Resource/Texture/grass.png");
 	TileManager::Instance().Add(TileType::grass, "grass");
+
+	client_player = std::make_shared<Player>();
 }
 
 // Scene에 존재하는 Object 업데이트
@@ -27,6 +31,8 @@ void GameScene::Update(const int64 delta_time)
 void GameScene::Draw(sf::RenderWindow& window)
 {
 	world->Draw(window);
+
+	client_player->Draw(window);
 }
 
 // Player에게 Input 전달하기

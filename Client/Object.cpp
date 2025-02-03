@@ -41,7 +41,7 @@ bool Object::Validate(int x, int y) const
 
 void Object::SetSize(double size)
 {
-	size = size;
+	this->size = size;
 }
 
 // 오브젝트 보이게
@@ -111,6 +111,8 @@ void Object::Draw(sf::RenderWindow& window)
 	draw_position += sf::Vector2f{ offset, offset };
 
 	window.draw(sprite);
+
+	std::cout << position.x << " " << position.y << " " << size << "\n";
 
 	// TODO : name이 있다면 출력
 

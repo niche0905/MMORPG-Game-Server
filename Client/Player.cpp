@@ -6,7 +6,7 @@
 Player::Player()
 	: Object{}
 {
-
+	Init();
 }
 
 void Player::Init()

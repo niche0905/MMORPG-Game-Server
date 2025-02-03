@@ -1,8 +1,8 @@
 #pragma once
 #include "BaseScene.h"
-#include "World.h"
 
 class World;
+class Player;
 
 
 class GameScene : public BaseScene
@@ -10,6 +10,8 @@ class GameScene : public BaseScene
 private:
 	// TODO : 사용 변수들 (Pawn, Item 등등) 필요
 	std::shared_ptr<World> world;
+	
+	std::shared_ptr<Player> client_player;
 
 public:
 	GameScene();
