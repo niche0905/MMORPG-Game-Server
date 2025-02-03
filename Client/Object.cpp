@@ -106,7 +106,7 @@ void Object::Draw(sf::RenderWindow& window)
 {
 	if (not showing) return;
 
-	sf::Vector2f draw_position{ position.x * tile_size, position.y * tile_size };
+	sf::Vector2f draw_position(position.x * tile_size, position.y * tile_size);
 	float offset = tile_size / 2 + size / 2;
 	draw_position += sf::Vector2f{ offset, offset };
 

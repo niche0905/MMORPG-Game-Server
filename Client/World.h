@@ -1,7 +1,7 @@
 #pragma once
 #include "Tile.h"
 
-enum class TileType;
+enum class TileType : uint8_t;
 
 
 class World
