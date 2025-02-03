@@ -55,3 +55,11 @@ void GameScene::HandleInput(const sf::Event& input_event)
 
 	}
 }
+
+sf::Vector2f GameScene::GetCameraCenter() const
+{
+	sf::Vector2i player_position = client_player->GetPosition();
+	float offset = client_player->GetOffset();;
+	sf::Vector2f camera_center = sf::Vector2f(player_position.x * tile_size + offset, player_position.y * tile_size + offset);
+	return camera_center;
+}
