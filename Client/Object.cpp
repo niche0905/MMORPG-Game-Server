@@ -93,8 +93,3 @@ void Object::SetName(const std::string& input_name)
 {
 	// TODO : name ¼³Á¤
 }
-
-void Object::HandleInput(const sf::Event& event)
-{
-
-}
