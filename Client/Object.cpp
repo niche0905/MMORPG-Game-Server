@@ -5,15 +5,22 @@
 // 오브젝트 기본 생성자
 Object::Object()
 	: showing{ true }
-	, position{ 0,0 }
+	, active{ true }
+	, position{ 0, 0 }
 {
 
 }
 
+// 오브젝트 world 생성자
+Object::Object(std::shared_ptr<World> world)
+	: Object{}
+{
+	this->world = world;
+}
+
 // 오브젝트 텍스쳐 설정 생성자
-Object::Object(sf::Texture& texture, int texture_x, int texture_y, int width, int height)
-	: showing{ true }
-	, position{ 0,0 }
+Object::Object(sf::Texture& texture, int texture_x, int texture_y, int width, int height, std::shared_ptr<World> world)
+	: Object{ world }
 {
 	sprite.setTexture(texture);
 	sprite.setTextureRect(sf::IntRect(texture_x, texture_y, width, height));

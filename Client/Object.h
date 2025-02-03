@@ -16,11 +16,12 @@ private:
 	sf::Vector2i position;
 	std::string name;
 
-	std::shared_ptr<World> world;
+	std::weak_ptr<World> world;
 
 public:
 	Object();
-	Object(sf::Texture& texture, int texture_x, int texture_y, int width, int height);
+	Object(std::shared_ptr<World> world);
+	Object(sf::Texture& texture, int texture_x, int texture_y, int width, int height, std::shared_ptr<World> world);
 
 	void Show();
 	void Hide();
