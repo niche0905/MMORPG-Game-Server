@@ -31,6 +31,9 @@
     <Filter Include="Object\TextureManager">
       <UniqueIdentifier>{2653c44e-d6a2-4f17-889d-17254f4d4be8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Player">
+      <UniqueIdentifier>{4e7593cc-7e12-484e-be4e-950e30ec777f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -67,6 +70,9 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Object\TextureManager</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -101,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>Object\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
