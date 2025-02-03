@@ -26,7 +26,6 @@ Tile::Tile(sf::Texture& texture, int start_x, int start_y, int width, int height
 void Tile::Draw(sf::RenderWindow& window, int x, int y)
 {
 	sf::Vector2u texture_size = sprite.getTexture()->getSize();
-	const double tile_size = 60.0;
 	
 	sprite.setScale(tile_size / texture_size.x, tile_size / texture_size.y);
 	sprite.setPosition(x * tile_size, y * tile_size);

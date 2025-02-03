@@ -1,4 +1,7 @@
 #pragma once
+#include "Game.h"
+
+constexpr double tile_size{ WINDOW_HEIGHT / 10.0 };
 
 
 enum class TileType : uint8_t
