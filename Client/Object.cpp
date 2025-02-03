@@ -33,7 +33,7 @@ bool Object::Validate(int x, int y) const
 	if (auto w = world.lock()) {
 		sf::Vector2i area = w->GetArea();
 
-		return 0 <= x and x < area.x and 0 <= y < area.y;
+		return 0 <= x and x < area.x and 0 <= y  and y < area.y;
 	}
 
 	return false;
