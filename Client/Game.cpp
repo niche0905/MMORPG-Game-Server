@@ -40,7 +40,6 @@ void Game::Run()
 
 		// Recv 하고 패킷 처리
 		Update(delta_time.count());
-		SetCameraView();
 		Draw();
 
 		window.display();
@@ -56,7 +55,11 @@ void Game::Update(const int64 delta_time)
 // 게임 요소 렌더링 (Scene Draw)
 void Game::Draw()
 {
+	SetCameraView();
 	scene->Draw(window);
+
+	window.setView(window.getDefaultView());
+	scene->HUD(window);
 }
 
 // Input 받기 (받아서 Scene으로 넘기기)

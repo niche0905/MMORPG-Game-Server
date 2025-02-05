@@ -45,7 +45,10 @@ void GameScene::Draw(sf::RenderWindow& window)
 	world->Draw(window);
 
 	client_player->Draw(window);
+}
 
+void GameScene::HUD(sf::RenderWindow& window)
+{
 	window.draw(player_coordinate);
 }
 
