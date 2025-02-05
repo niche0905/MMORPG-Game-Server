@@ -33,6 +33,7 @@ void Game::Run()
 
 		TimePoint now_time = Epoch::now();
 		MicroSeconds delta_time = std::chrono::duration_cast<MicroSeconds>(now_time - last_time);
+		last_time = now_time;
 
 		HandleInput();
 
