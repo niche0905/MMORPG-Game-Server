@@ -13,6 +13,8 @@ private:
 	
 	std::shared_ptr<Player> client_player;
 
+	sf::Text player_coordinate;
+
 public:
 	GameScene();
 
