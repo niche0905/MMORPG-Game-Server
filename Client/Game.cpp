@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Game.h"
 #include "GameScene.h"
+#include "FontManager.h"
 
 
 // Game 생성자
@@ -13,7 +14,7 @@ Game::Game()
 
 void Game::Init()
 {
-	if (not font.loadFromFile("Resource/Font/neodgm.ttf")) {
+	if (not FontManager::Instance().LoadFont("neodot", "Resource/Font/neodgm.ttf")) {
 		std::wcout << L"폰트 로드 실패\n";
 
 		exit(-1);

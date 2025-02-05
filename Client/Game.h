@@ -20,8 +20,6 @@ private:
 	Window window;
 	sf::View view;
 
-	sf::Font font;
-
 	std::shared_ptr<BaseScene> scene;
 
 	TimePoint last_time;
