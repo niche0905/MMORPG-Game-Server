@@ -20,5 +20,6 @@ Tile& TileManager::GetTile(TileType tile_type)
 		return tiles[tile_type];
 
 	// 문제 상황!!
+	std::wcout << L"타일 오류!!\n";
 	exit(-1);
 }

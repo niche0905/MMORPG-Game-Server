@@ -20,12 +20,16 @@ private:
 	Window window;
 	sf::View view;
 
+	sf::Font font;
+
 	std::shared_ptr<BaseScene> scene;
 
 	TimePoint last_time;
 
 public:
 	Game();
+
+	void Init();
 
 	void Run();
 	void Update(const int64 delta_time);

@@ -8,7 +8,17 @@ Game::Game()
 	: window{sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MMORPG GAME"}
 	, view{sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)}
 {
-	// TODO : 아래의 코드가 BaseScene이 아니라 BaseScene을 상속받는 Scene이어야 함
+	Init();
+}
+
+void Game::Init()
+{
+	if (not font.loadFromFile("Resource/Font/neodgm.ttf")) {
+		std::wcout << L"폰트 로드 실패\n";
+
+		exit(-1);
+	}
+
 	scene = std::make_shared<GameScene>();
 
 	// TODO : Loading이 끝나고 나서 last_time을 초기화 해야 함
