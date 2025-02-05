@@ -26,6 +26,8 @@ void GameScene::Init()
 	player_coordinate.setFillColor(sf::Color::White);
 	player_coordinate.setStyle(sf::Text::Regular);
 	player_coordinate.setPosition(10.0f, 10.0f);
+	player_coordinate.setOutlineColor(sf::Color::Black);
+	player_coordinate.setOutlineThickness(1.0f);
 }
 
 // Scene에 존재하는 Object 업데이트
