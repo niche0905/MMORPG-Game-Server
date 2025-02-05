@@ -14,7 +14,7 @@ private:
 public:
 	static TextureManager& Instance();
 
-	bool LoadTexture(const std::string& key, const std::string& fild_path);
+	bool LoadTexture(const std::string& key, const std::string& file_path);
 	void LoadAllTextures(const std::string& json_file_path);
 	const sf::Texture& GetTexture(const std::string& key) const;
 

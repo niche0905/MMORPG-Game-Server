@@ -34,6 +34,9 @@
     <Filter Include="Utils\TextureManager">
       <UniqueIdentifier>{2653c44e-d6a2-4f17-889d-17254f4d4be8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils\FontManager">
+      <UniqueIdentifier>{1f202c5f-5c77-4826-95c8-6554b575f252}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -73,6 +76,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Utils\FontManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -110,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Utils\FontManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
