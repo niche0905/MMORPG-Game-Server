@@ -28,11 +28,11 @@
     <Filter Include="Scene\BaseScene">
       <UniqueIdentifier>{1b645bfc-ca9e-45a5-84f1-d64be924fb77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\TextureManager">
-      <UniqueIdentifier>{2653c44e-d6a2-4f17-889d-17254f4d4be8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Player">
       <UniqueIdentifier>{4e7593cc-7e12-484e-be4e-950e30ec777f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils\TextureManager">
+      <UniqueIdentifier>{2653c44e-d6a2-4f17-889d-17254f4d4be8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -68,7 +68,7 @@
       <Filter>Scene\BaseScene</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
-      <Filter>Object\TextureManager</Filter>
+      <Filter>Utils\TextureManager</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Object\Player</Filter>
@@ -106,7 +106,7 @@
       <Filter>Scene\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
-      <Filter>Object\TextureManager</Filter>
+      <Filter>Utils\TextureManager</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Object\Player</Filter>
