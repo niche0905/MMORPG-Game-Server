@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="BaseScene.h" />
     <ClInclude Include="Communication.h" />
     <ClInclude Include="FontManager.h" />
@@ -34,6 +36,8 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="Communication.cpp" />
     <ClCompile Include="FontManager.cpp" />

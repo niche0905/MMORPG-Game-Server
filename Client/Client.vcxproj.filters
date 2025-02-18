@@ -37,6 +37,9 @@
     <Filter Include="Utils\FontManager">
       <UniqueIdentifier>{1f202c5f-5c77-4826-95c8-6554b575f252}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{d3b3c8fc-833e-4163-8806-87f5e80bac58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -79,6 +82,12 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>Utils\FontManager</Filter>
     </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -119,6 +128,12 @@
     </ClInclude>
     <ClInclude Include="FontManager.h">
       <Filter>Utils\FontManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
