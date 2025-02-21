@@ -1,0 +1,51 @@
+스프라이트 애니메이션 관리와 구조를 어떻게 할 지를 정해야한다.
+
+일단 지금 생각나는 구조는 오브젝트가 애니메이션을 가질 수 있으므로 Object를 상속받는 AnimaitionObject를 만들고
+이 애니메이션 오브젝트마다 유효한 Animation 집합을 가질 수 있으므로 Animation 클래스는 해당 정보(한 프레임의 w, h, frame_num)만 가지고 있게끔 한다,
+오브젝트마다 Animation 집합을 가질 수 있으므로 이를 관리하기 위한 클래스, AnimationManager를 만들어 주고 싱글톤으로 사용(또는 AnimationObject 멤버로 소유)
+하는 방식으로 사용하게 한다
+이때 AnimationOjbect의 Draw 및 Update 함수를 수정해서 Update 시 AnimationManager로 현재 Animation의 정보를 가지고, Update에 적용할 수 있도록 하고
+AnimationManager로 현재 Animation를 바꿀 수 있도록 한다
+
+Animation
+	// 해당 애니메이션의 정보만 (인스턴스가 아닌 정보만 소유)
+{
+	frame_w, frame_h
+	frame_number
+	frame_time
+}
+
+(싱글톤 버전)
+AnimationManager
+{
+	map<class_name, AnimationSet> object_animations
+	getAnimationSet()
+}
+AnimationSet
+{
+	map<animation_name, animation> animation_set
+	getAnimation()
+}
+PresentAnimation		<- AnimationObject에 소유될 인스턴스
+{
+	animation_name
+	animation_frame
+	frame_still_time
+}
+
+(멤버 변수 버전)
+static Animator
+	// (AnimationManager 의 역할) static으로 AnimationObject 마다 하나만 가지게 (메모리 절약)
+{
+	map<animation_name, animation> animation_set
+	getAnimation()
+}
+PresentAnimation		<- 위와 같음
+{
+	animation_name
+	animation_frame
+	frame_still_time
+}
+
+Update는 PresentAnimation의 animation_name을 가지면 Animation을 구할 수 있고 이 Animation 정보를 바탕으로
+다음 프레임으로 넘어갈지 말지와 다음 프레임의 정보를 얻을 수 있음
