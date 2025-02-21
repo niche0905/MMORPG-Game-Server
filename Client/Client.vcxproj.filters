@@ -91,6 +91,9 @@
     <ClCompile Include="AnimationSet.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="PresentAnimation.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -139,6 +142,9 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="AnimationSet.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="PresentAnimation.h">
       <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
