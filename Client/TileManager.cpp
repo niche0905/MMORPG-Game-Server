@@ -9,7 +9,7 @@ TileManager& TileManager::Instance()
 	return instance;
 }
 
-void TileManager::Add(TileType tile_type, std::string texture_key)
+void TileManager::AddTile(TileType tile_type, std::string texture_key)
 {
 	tiles.insert(std::make_pair(tile_type, Tile{texture_key}));
 }
