@@ -32,3 +32,13 @@ Animation& AnimationSet::GetAnimation(const std::string& animation_name)
     static Animation empty_animation;
     return empty_animation;
 }
+
+void AnimationSet::AddAnimation(const std::string& animation_name, int start_x, int start_y, int frame_width, int frame_height, int frame_number, float frame_duration)
+{
+    auto it = animation_set.find(animation_name);
+    if (it != animation_set.end()) {
+        return;
+    }
+
+    animation_set.emplace(animation_name, Animation(start_x, start_y, frame_width, frame_height, frame_number, frame_duration));
+}
