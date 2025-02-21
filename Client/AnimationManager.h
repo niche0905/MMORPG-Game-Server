@@ -1,4 +1,6 @@
 #pragma once
+#include "Animation.h"
+#include "AnimationSet.h"
 
 class Animation;
 class AnimationSet;
