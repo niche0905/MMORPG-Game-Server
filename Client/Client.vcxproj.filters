@@ -82,9 +82,6 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>Utils\FontManager</Filter>
     </ClCompile>
-    <ClCompile Include="AnimatedSprite.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
@@ -130,9 +127,6 @@
       <Filter>Utils\FontManager</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedSprite.h">
       <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
