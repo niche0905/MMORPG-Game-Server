@@ -31,3 +31,13 @@ AnimationSet& AnimationManager::GetAnimationSet(const std::string& object_name)
     static AnimationSet empty_animation_set;
     return empty_animation_set;
 }
+
+void AnimationManager::AddAnimationObject(const std::string& object_name)
+{
+    auto it = object_animations.find(object_name);
+    if (it != object_animations.end()) {
+        return;
+    }
+
+    object_animations.emplace(object_name, AnimationSet());
+}

@@ -15,5 +15,7 @@ public:
 	const AnimationSet& GetAnimationSet(const std::string& object_name) const;
 	AnimationSet& GetAnimationSet(const std::string& object_name);
 
+	void AddAnimationObject(const std::string& object_name);
+
 };
 
