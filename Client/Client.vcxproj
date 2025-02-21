@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="BaseScene.h" />
     <ClInclude Include="Communication.h" />
     <ClInclude Include="FontManager.h" />
@@ -36,6 +38,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="Communication.cpp" />
     <ClCompile Include="FontManager.cpp" />
