@@ -4,19 +4,13 @@
 class Animation
 {
 private:
-	int offset_x, offset_y;
-	int frame_width, frame_height;
-	int number_of_frames;
-	float frame_flip_time;
-
-	int current_frame;
-	float elapsed_time;
+	int offset_x, offset_y;				// Texture에서 시작되는 해당 애니메이션 프레임의 시작 위치
+	int frame_width, frame_height;		// 한 프레임의 넓이, 높이 값
+	int number_of_frames;				// 프레임의 수
+	float frame_flip_time;				// 프레임의 전환 시간
 
 public:
 	Animation(sf::Sprite& sprite, int start_x, int start_y, int frame_w, int frame_h, int num_frames, float frame_time);
-
-	// TODO : 애니메이션에 필요한 함수들 만들기
-	// TODO : 구조를 어떻게 가져갈지 생각하기
 
 };
 
