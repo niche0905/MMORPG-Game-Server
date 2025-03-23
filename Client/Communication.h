@@ -1,7 +1,7 @@
 #pragma once
 
 // 네트워크 관련 상수
-const char* IP_ADDRESS{ "127.0.0.1" };
+inline constexpr const char* LOOPBACK_ADDRESS = "127.0.0.1";
 constexpr int PORT_NUM{ /*A*/21004 };
 constexpr int BUF_SIZE{ 200 };
 
@@ -13,11 +13,10 @@ private:
 
 public:
 	Communication();
-	Communication(const char* ip_addrsss);
 
 	~Communication();
 
-	void Init(const char* ip_address = IP_ADDRESS);
+	void Init();
 	void Connect(const char* ip_address);
 
 	// TODO : Send / Recv + Process 추가하기

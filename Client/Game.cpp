@@ -8,6 +8,7 @@
 Game::Game()
 	: window{sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MMORPG GAME"}
 	, view{sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)}
+	, communication{}
 {
 	Init();
 }

@@ -14,7 +14,7 @@ GameScene::GameScene()
 
 void GameScene::Init()
 {
-	world = std::make_shared<World>(100, 100);
+	world = std::make_shared<World>(8, 8);
 
 	TextureManager::Instance().LoadTexture("grass", "./Resource/Texture/grass.png");
 	TileManager::Instance().AddTile(TileType::grass, "grass");
