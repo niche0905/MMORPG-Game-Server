@@ -15,6 +15,8 @@ Game::Game()
 
 void Game::Init()
 {
+	std::wcout.imbue(std::locale("korean"));			// 표준 출력 스트림에 적용
+
 	if (not FontManager::Instance().LoadFont("neodot", "Resource/Font/neodgm.ttf")) {
 		std::wcout << L"폰트 로드 실패\n";
 
@@ -30,6 +32,8 @@ void Game::Init()
 // 게임 실행 루프 (Input 받고, timer 업데이트, Scene Update, Draw)
 void Game::Run()
 {
+	ConnectServer();
+
 	while (window.isOpen()) {
 
 		TimePoint now_time = Epoch::now();
@@ -79,6 +83,15 @@ void Game::HandleInput()
 		if (scene)
 			scene->HandleInput(input_event);
 	}
+}
+
+void Game::ConnectServer()
+{
+	std::wcout << L"접속할 주소를 입력해 주세요 : ";
+	std::string ip_address;
+	std::cin >> ip_address;
+
+	communication.Connect(ip_address.data());
 }
 
 void Game::SetCameraView()

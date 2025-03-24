@@ -38,6 +38,8 @@ public:
 	void Draw();
 	void HandleInput();
 
+	void ConnectServer();
+
 	void SetCameraView();
 
 	void SceneLoad(SceneType scene_type);
