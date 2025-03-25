@@ -34,7 +34,7 @@ void CALLBACK send_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, 
 void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
 {
 	for (int i = 0; i < num_bytes; ++i) {
-		char dir = recv_buffer[num_bytes];
+		char dir = recv_buffer[i];
 
 		switch (dir)
 		{
