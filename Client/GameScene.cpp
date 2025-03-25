@@ -3,6 +3,7 @@
 #include "TileManager.h"
 #include "TextureManager.h"
 #include "FontManager.h"
+#include "Game.h"
 #include "World.h"
 #include "Player.h"
 
@@ -57,20 +58,30 @@ void GameScene::HandleInput(const sf::Event& input_event)
 {
 	if (input_event.type == sf::Event::KeyPressed) {
 		if (input_event.key.code == sf::Keyboard::Left) {
-			client_player->Shift(-1, 0);
+			//client_player->Shift(-1, 0);
+			game.SendArrowKey(1);
 		}
 		if (input_event.key.code == sf::Keyboard::Right) {
-			client_player->Shift(+1, 0);
+			//client_player->Shift(+1, 0);
+			game.SendArrowKey(3);
 		}
 		if (input_event.key.code == sf::Keyboard::Up) {
-			client_player->Shift(0, -1);
+			//client_player->Shift(0, -1);
+			game.SendArrowKey(0);
 		}
 		if (input_event.key.code == sf::Keyboard::Down) {
-			client_player->Shift(0, +1);
+			//client_player->Shift(0, +1);
+			game.SendArrowKey(2);
 		}
 
 
 	}
+}
+
+void GameScene::ProcessPacket(std::string packet)
+{
+	char x{ packet[0] }, y{ packet[1] };
+	client_player->Move(x, y);
 }
 
 sf::Vector2f GameScene::GetCameraCenter() const

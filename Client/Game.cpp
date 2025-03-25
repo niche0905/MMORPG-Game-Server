@@ -34,6 +34,9 @@ void Game::Run()
 {
 	ConnectServer();
 
+	std::string data = communication.Recv();
+	ProcessPacket(data);
+
 	while (window.isOpen()) {
 
 		TimePoint now_time = Epoch::now();
@@ -83,6 +86,19 @@ void Game::HandleInput()
 		if (scene)
 			scene->HandleInput(input_event);
 	}
+}
+
+void Game::SendArrowKey(char dir)
+{
+	communication.Send(dir);
+
+	std::string data = communication.Recv();
+	ProcessPacket(data);
+}
+
+void Game::ProcessPacket(std::string packet)
+{
+	scene->ProcessPacket(packet);
 }
 
 void Game::ConnectServer()

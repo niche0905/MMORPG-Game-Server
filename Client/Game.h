@@ -38,6 +38,9 @@ public:
 	void Draw();
 	void HandleInput();
 
+	void SendArrowKey(char dir);
+	void ProcessPacket(std::string packet);
+
 	void ConnectServer();
 
 	void SetCameraView();

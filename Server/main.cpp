@@ -23,6 +23,8 @@ void CALLBACK send_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, 
 
 void CALLBACK send_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
 {
+	std::cout << "Send 성공\n";
+	
 	recv_wsabuf[0].buf = recv_buffer;
 	recv_wsabuf[0].len = sizeof(recv_buffer);
 
@@ -59,6 +61,9 @@ void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, 
 			break;
 		}
 	}
+
+	std::cout << "Recv 성공\n";
+
 	char buffer[2];
 	buffer[0] = pos_x;
 	buffer[1] = pos_y;
@@ -122,6 +127,8 @@ int main()
 
 	INT addr_size = sizeof(SOCKADDR_IN);
 	SOCKET client_socket = WSAAccept(server_socket, reinterpret_cast<sockaddr*>(&addr), &addr_size, NULL, NULL);
+
+	std::cout << "클라이언트 접속\n";
 
 	pos_x = uid(dre); pos_y = uid(dre);
 	char buffer[2];

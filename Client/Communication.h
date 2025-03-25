@@ -19,6 +19,9 @@ public:
 	void Init();
 	void Connect(const char* ip_address);
 
+	void Send(char c);
+	std::string Recv();
+
 	// TODO : Send / Recv + Process 추가하기
 	//		  그리고 패킷 설계 하기
 

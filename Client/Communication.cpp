@@ -17,7 +17,7 @@ Communication::~Communication()
 // 초기에 필요한 작업들 ex) 논블로킹 설정
 void Communication::Init()
 {
-	socket.setBlocking(false);	// 소켓 통신을 논블로킹으로 설정
+	//socket.setBlocking(false);	// 소켓 통신을 논블로킹으로 설정
 }
 
 // 주소와 통신 연결
@@ -29,4 +29,34 @@ void Communication::Connect(const char* ip_address)
 		getchar();
 		exit(-1);
 	}
+}
+
+void Communication::Send(char c)
+{
+	sf::Socket::Status status = socket.send(&c, 1);
+	if (status != sf::Socket::Done) {
+		std::wcout << L"Send 오류!!!\n";
+		getchar();
+		exit(-1);
+	}
+
+	std::cout << "Send dir: " << static_cast<int>(c) << '\n';
+}
+
+std::string Communication::Recv()
+{
+	sf::Packet packet;
+	sf::Socket::Status status = socket.receive(packet);
+	if (status != sf::Socket::Done) {
+		std::wcout << L"Recv 오류!!!\n";
+		getchar();
+		exit(-1);
+	}
+
+	std::string data;
+	packet >> data;
+
+	std::cout << "Recv x: " << static_cast<int>(data[0]) << ", y :" << static_cast<int>(data[1]) << '\n';
+
+	return data;
 }
