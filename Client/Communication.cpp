@@ -33,7 +33,9 @@ void Communication::Connect(const char* ip_address)
 
 void Communication::Send(char c)
 {
-	sf::Socket::Status status = socket.send(&c, 1);
+	char buffer[1];
+	buffer[0] = c;
+	sf::Socket::Status status = socket.send(buffer, 1);
 	if (status != sf::Socket::Done) {
 		std::wcout << L"Send 오류!!!\n";
 		getchar();
@@ -45,16 +47,24 @@ void Communication::Send(char c)
 
 std::string Communication::Recv()
 {
-	sf::Packet packet;
-	sf::Socket::Status status = socket.receive(packet);
+	char buffer[2];
+	std::size_t received;
+	sf::Socket::Status status = socket.receive(buffer, sizeof(buffer), received);
 	if (status != sf::Socket::Done) {
 		std::wcout << L"Recv 오류!!!\n";
 		getchar();
 		exit(-1);
 	}
 
-	std::string data;
-	packet >> data;
+	if (received != 2) {
+		std::wcout << L"Recv byte 오류!!!\n";
+		getchar();
+		exit(-1);
+	}
+
+	std::string data = "";
+	data += buffer[0];
+	data += buffer[1];
 
 	std::cout << "Recv x: " << static_cast<int>(data[0]) << ", y :" << static_cast<int>(data[1]) << '\n';
 

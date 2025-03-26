@@ -35,6 +35,8 @@ void CALLBACK send_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, 
 
 void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
 {
+	std::cout << "Recv 己傍 贸府吝\n";
+
 	for (int i = 0; i < num_bytes; ++i) {
 		char dir = recv_buffer[i];
 
@@ -62,7 +64,7 @@ void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, 
 		}
 	}
 
-	std::cout << "Recv 己傍\n";
+	std::cout << "Recv 贸府 肯丰\n";
 
 	char buffer[2];
 	buffer[0] = pos_x;
