@@ -128,7 +128,7 @@ int main()
 	listen(server_socket, SOMAXCONN);
 
 	INT addr_size = sizeof(SOCKADDR_IN);
-	SOCKET client_socket = WSAAccept(server_socket, reinterpret_cast<sockaddr*>(&addr), &addr_size, NULL, NULL);
+	client_socket = WSAAccept(server_socket, reinterpret_cast<sockaddr*>(&addr), &addr_size, NULL, NULL);
 
 	std::cout << "클라이언트 접속\n";
 
