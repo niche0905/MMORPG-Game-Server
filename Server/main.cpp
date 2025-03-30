@@ -1,18 +1,24 @@
 #include <iostream>
 #include <random>
+#include <unordered_map>
 #include <WS2tcpip.h>
+#include "Packet.h"
+
 #pragma comment (lib, "WS2_32.LIB")
 
 constexpr int PORT_NUM{ /*A*/21004 };
 constexpr int BUF_SIZE{ 200 };
 
-char pos_x, pos_y;
+constexpr int MIN_X{ 0 };
+constexpr int MIN_Y{ 0 };
+constexpr int MAX_X{ 8 };
+constexpr int MAX_Y{ 8 };
 
-SOCKET server_socket;
-SOCKET client_socket;
-char recv_buffer[BUF_SIZE];
-WSABUF recv_wsabuf[1];
-WSAOVERLAPPED recv_over;
+class EXP_OVER;
+class SESSION;
+
+
+std::unordered_map<int64_t, SESSION> g_clients;
 
 std::default_random_engine dre;
 std::uniform_int_distribution<int> uid{ 0, 7 };
@@ -20,86 +26,6 @@ std::uniform_int_distribution<int> uid{ 0, 7 };
 void print_error_message(int err_no);
 void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag);
 void CALLBACK send_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag);
-
-void CALLBACK send_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
-{
-	std::cout << "Send 성공\n";
-	
-	recv_wsabuf[0].buf = recv_buffer;
-	recv_wsabuf[0].len = sizeof(recv_buffer);
-
-	DWORD recv_flag = 0;
-	ZeroMemory(&recv_over, sizeof(recv_over));
-	WSARecv(client_socket, recv_wsabuf, 1, NULL, &recv_flag, &recv_over, recv_callback);
-}
-
-void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
-{
-	std::cout << "Recv 성공 처리중\n";
-
-	for (int i = 0; i < num_bytes; ++i) {
-		char dir = recv_buffer[i];
-
-		switch (dir)
-		{
-		case 0:
-			if (pos_y - 1 >= 0)
-				pos_y -= 1;
-			break;
-		case 1:
-			if (pos_x - 1 >= 0)
-				pos_x -= 1;
-			break;
-		case 2:
-			if (pos_y + 1 < 8)
-				pos_y += 1;
-			break;
-		case 3:
-			if (pos_x + 1 < 8)
-				pos_x += 1;
-			break;
-		default:
-			std::cout << "에러, 의도되지 않은 방향 " << dir << '\n';
-			break;
-		}
-	}
-
-	std::cout << "Recv 처리 완료\n";
-
-	char buffer[2];
-	buffer[0] = pos_x;
-	buffer[1] = pos_y;
-
-	WSABUF wsabuf[1];
-	wsabuf[0].buf = buffer;
-	wsabuf[0].len = 2;
-
-	DWORD sent_size;
-	WSAOVERLAPPED send_over;
-	ZeroMemory(&send_over, sizeof(send_over));
-
-	int ret = WSASend(client_socket, wsabuf, 1, &sent_size, 0, &send_over, send_callback);
-	if (SOCKET_ERROR == ret) {
-		auto err_code = WSAGetLastError();
-		print_error_message(err_code);
-	}
-}
-
-
-void print_error_message(int err_no)
-{
-	WCHAR* lpMsgBuf;
-	FormatMessage(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER |
-		FORMAT_MESSAGE_FROM_SYSTEM,
-		NULL, err_no,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		(LPTSTR)&lpMsgBuf, 0, NULL);
-	std::wcout << L" 에러 : " << lpMsgBuf << std::endl;
-	while (true);
-	// 디버깅 용
-	LocalFree(lpMsgBuf);
-}
 
 
 int main()
@@ -109,7 +35,7 @@ int main()
 	WSADATA WSAData;
 	WSAStartup(MAKEWORD(2, 2), &WSAData);	// MS 네트워크를 사용하지 않고 표준 네트워크를 사용하기 위한 호출
 
-	server_socket = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, 0, 0, WSA_FLAG_OVERLAPPED);
+	SOCKET server_socket = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, 0, 0, WSA_FLAG_OVERLAPPED);
 	if (server_socket == INVALID_SOCKET) {
 		auto err_code = WSAGetLastError();
 		print_error_message(err_code);
@@ -127,37 +53,195 @@ int main()
 
 	listen(server_socket, SOMAXCONN);
 
-	INT addr_size = sizeof(SOCKADDR_IN);
-	client_socket = WSAAccept(server_socket, reinterpret_cast<sockaddr*>(&addr), &addr_size, NULL, NULL);
+	int64_t client_id;
 
-	std::cout << "클라이언트 접속\n";
+	while (true) {
 
-	pos_x = uid(dre); pos_y = uid(dre);
-	char buffer[2];
-	buffer[0] = pos_x;
-	buffer[1] = pos_y;
+		INT addr_size = sizeof(SOCKADDR_IN);
+		SOCKET client_socket = WSAAccept(server_socket, reinterpret_cast<sockaddr*>(&addr), &addr_size, NULL, NULL);
 
-	WSABUF wsabuf[1];
-	wsabuf[0].buf = buffer;
-	wsabuf[0].len = 2;
-
-	DWORD sent_size;
-	WSAOVERLAPPED send_over;
-	ZeroMemory(&send_over, sizeof(send_over));
-
-	int ret = WSASend(client_socket, wsabuf, 1, &sent_size, 0, &send_over, send_callback);
-	if (SOCKET_ERROR == ret) {
-		auto err_code = WSAGetLastError();
-		print_error_message(err_code);
+		g_clients.emplace(client_id, client_id, client_socket);
+		client_id++;
 	}
 
-	while (true)
-	{
-		SleepEx(0, TRUE);
-	}
-
-	closesocket(client_socket);
+	closesocket(server_socket);
 	WSACleanup();
 
 	return 0;
+}
+
+class EXP_OVER
+{
+public:
+	WSAOVERLAPPED _over;
+	int64_t _id;
+	char _buffer[1024];
+	WSABUF _wsabuf[1];
+
+public:
+	EXP_OVER()
+	{
+		std::cout << "EXP_OVER 기본 생성자 호출;;;\n";
+		exit(-1);
+	}
+
+	EXP_OVER(int64_t id, char* message, int size)
+		: _id{ id }
+	{
+		ZeroMemory(&_over, sizeof(_over));
+
+		memcpy(_buffer, message, size);
+
+		_wsabuf[0].buf = _buffer;
+		_wsabuf[0].len = static_cast<ULONG>(size);
+	}
+
+	void Init()
+	{
+		ZeroMemory(&_over, sizeof(_over));
+	}
+
+};
+
+class SESSION
+{
+private:
+	SOCKET _socket;
+	int64_t _id;
+
+	EXP_OVER _recv_exp;
+
+	int _x, _y;
+
+public:
+	SESSION()
+	{
+		std::cout << "SESSION 기본 생성자 호출;;;\n";
+		exit(-1);
+	}
+
+	SESSION(int64_t id, SOCKET socket)
+		: _id{ id }
+		, _socket{ socket }
+		, _recv_exp{_id, nullptr, 1024}
+	{
+		_x = uid(dre);
+		_y = uid(dre);
+
+		do_recv();
+
+		// TODO : 다른 클라에 LOGIN 패킷
+		// 내 클라에 LOGIN 패킷 보내주어야 함
+	}
+
+	~SESSION()
+	{
+		// TODO : 다른 클라들에게 LOGOUT 패킷
+		closesocket(_socket);
+	}
+
+	void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
+	{
+		// recv 한 내용 처리
+		// 키 입력에 따라 위치를 이동시키고
+		// 해당 움직임을 브로드캐스트
+		
+		EXP_OVER* exp_over = reinterpret_cast<EXP_OVER*>(p_over);
+		myNP::BASE_PACKET* base_packet = reinterpret_cast<myNP::BASE_PACKET*>(exp_over->_buffer);
+		switch (base_packet->_id)
+		{
+		case myNP::PacketID::CS_KEY_INPUT:
+		{
+			myNP::CS_KEY_INPUT* packet = reinterpret_cast<myNP::CS_KEY_INPUT*>(exp_over->_buffer);
+
+			switch (packet->_direction)
+			{
+			case 0:
+				if (_y - 1 >= MIN_Y)
+					_y -= 1;
+				break;
+			case 1:
+				if (_x - 1 >= MIN_X)
+					_x -= 1;
+				break;
+			case 2:
+				if (_y + 1 < MAX_Y)
+					_y += 1;
+				break;
+			case 3:
+				if (_x + 1 < MAX_X)
+					_x += 1;
+				break;
+			default:
+				std::cout << "CS_KEY_INPUT 에러, 의도되지 않은 방향 " << packet->_direction << '\n';
+				break;
+			}
+		}
+			break;
+		default:
+			std::cout << "패킷 id 없는 패킷 오류\n";
+			break;
+		}
+
+		// 전역 변수 SESSIONS을 이용해서 브로드캐스트 (본인에게도)
+		myNP::SC_MOVE_USER* packet = new myNP::SC_MOVE_USER{ _id, _x, _y };
+
+		for (auto client : g_clients) {
+			client.second.do_send(_id, reinterpret_cast<char*>(packet), sizeof(myNP::SC_MOVE_USER));
+		}
+
+		do_recv();
+	}
+
+private:
+	void do_send(int64_t id, char* message, int size)
+	{
+		EXP_OVER* send_exp = new EXP_OVER{ id, message, size };
+		DWORD sent_size;
+		WSASend(_socket, send_exp->_wsabuf, 1, &sent_size, 0, &send_exp->_over, ::send_callback);
+	}
+
+	void do_recv()
+	{
+		_recv_exp.Init();
+
+		DWORD recv_flag = 0;
+		auto ret = WSARecv(_socket, _recv_exp._wsabuf, 1, NULL, &recv_flag, &_recv_exp._over, ::recv_callback);
+		if (SOCKET_ERROR != ret) {
+			auto err_no = WSAGetLastError();
+			if (WSA_IO_PENDING != err_no) {
+				print_error_message(err_no);
+				exit(-1);
+			}
+		}
+	}
+
+};
+
+void print_error_message(int err_no)
+{
+	WCHAR* lpMsgBuf;
+	FormatMessage(
+		FORMAT_MESSAGE_ALLOCATE_BUFFER |
+		FORMAT_MESSAGE_FROM_SYSTEM,
+		NULL, err_no,
+		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+		(LPTSTR)&lpMsgBuf, 0, NULL);
+	std::wcout << L" 에러 : " << lpMsgBuf << std::endl;
+	while (true);
+	// 디버깅 용
+	LocalFree(lpMsgBuf);
+}
+
+void CALLBACK send_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
+{
+	EXP_OVER* exp_over = reinterpret_cast<EXP_OVER*>(p_over);
+	delete exp_over;
+}
+
+void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
+{
+	EXP_OVER* exp_over = reinterpret_cast<EXP_OVER*>(p_over);
+	int64_t my_id = exp_over->_id;
+
 }

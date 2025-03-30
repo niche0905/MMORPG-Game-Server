@@ -5,7 +5,7 @@
 
 namespace myNP		//	my Network Protocol
 {
-	enum PacketID : uint8_t
+	enum class PacketID : uint8_t
 	{
 		CS_KEY_INPUT = 1,
 		SC_LOGIN_USER,
@@ -34,10 +34,12 @@ namespace myNP		//	my Network Protocol
 	struct CS_KEY_INPUT : public BASE_PACKET
 	{
 		uint8_t _user_id;
+		uint8_t _direction;
 
-		CS_KEY_INPUT(uint8_t user_id)
+		CS_KEY_INPUT(uint8_t user_id, uint8_t direction)
 			: BASE_PACKET(sizeof(CS_KEY_INPUT), PacketID::CS_KEY_INPUT)
-			, _user_id{ user_id } {}
+			, _user_id{ user_id }
+			, _direction{ direction } {}
 	};
 
 	struct SC_LOGIN_USER : public BASE_PACKET
