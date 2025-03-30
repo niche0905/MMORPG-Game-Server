@@ -3,4 +3,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Packet.h" />
+  </ItemGroup>
 </Project>
