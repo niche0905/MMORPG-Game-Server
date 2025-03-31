@@ -69,6 +69,7 @@ std::vector<char> Communication::Recv()
 	}
 
 	std::vector<char> data(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
+	remain_buffer.erase(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
 
 	return data;
 }
