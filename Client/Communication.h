@@ -6,11 +6,17 @@ constexpr int PORT_NUM{ /*A*/21004 };
 constexpr int BUF_SIZE{ 200 };
 constexpr int HEADER_SIZE{ 2 };
 
+class MyTcpSocket : public sf::TcpSocket
+{
+public:
+	sf::SocketHandle getHandlePublic();
+};
+
 
 class Communication
 {
 private:
-	sf::TcpSocket socket;
+	MyTcpSocket socket;
 
 	std::vector<char> remain_buffer;
 
