@@ -36,8 +36,7 @@ void Game::Run()
 	ConnectServer();
 
 	while (my_id == 0) {
-		std::vector<char> data = communication.Recv();
-		ProcessPacket(data);
+		ProcessPacket(communication.Recv());
 	}
 
 	while (window.isOpen()) {
@@ -52,8 +51,7 @@ void Game::Run()
 		window.clear();
 
 		// Recv 하고 패킷 처리
-		std::vector<char> data = communication.Recv();
-		ProcessPacket(data);
+		ProcessPacket(communication.Recv());
 
 		Update(delta_time.count());
 		Draw();
