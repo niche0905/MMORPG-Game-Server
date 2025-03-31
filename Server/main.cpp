@@ -60,7 +60,7 @@ int main()
 		INT addr_size = sizeof(SOCKADDR_IN);
 		SOCKET client_socket = WSAAccept(server_socket, reinterpret_cast<sockaddr*>(&addr), &addr_size, NULL, NULL);
 
-		g_clients.emplace(client_id, client_id, client_socket);
+		g_clients.try_emplace(client_id, client_id, client_socket);
 		client_id++;
 	}
 
@@ -130,7 +130,7 @@ public:
 
 		do_recv();
 
-		myNP::SC_LOGIN_USER* packet1 = new myNP::SC_LOGIN_USER{ _id, _x, _y };
+		myNP::SC_LOGIN_USER* packet1 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
 
 		for (auto client : g_clients) {
 			client.second.do_send(client.second.Get_ID(), reinterpret_cast<char*>(packet1), sizeof(myNP::SC_LOGIN_USER));
@@ -141,7 +141,7 @@ public:
 		for (auto client : g_clients) {
 			if (client.second.Get_ID() != _id) {
 				std::pair<int, int> pos = client.second.Get_Pos();
-				myNP::SC_LOGIN_USER* packet2 = new myNP::SC_LOGIN_USER{ client.second.Get_ID(), pos.first, pos.second };
+				myNP::SC_LOGIN_USER* packet2 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(client.second.Get_ID()), static_cast<uint8_t>(pos.first), static_cast<uint8_t>(pos.second) };
 				do_send(_id, reinterpret_cast<char*>(packet2), sizeof(myNP::SC_LOGIN_USER));
 				delete packet2;
 			}
@@ -150,7 +150,7 @@ public:
 
 	~SESSION()
 	{
-		myNP::SC_LOGOUT_USER* packet = new myNP::SC_LOGOUT_USER{ _id };
+		myNP::SC_LOGOUT_USER* packet = new myNP::SC_LOGOUT_USER{ static_cast<uint8_t>(_id) };
 
 		for (auto client : g_clients) {
 			if (client.second.Get_ID() != _id) {
@@ -215,7 +215,7 @@ public:
 		}
 
 		// 전역 변수 SESSIONS을 이용해서 브로드캐스트 (본인에게도)
-		myNP::SC_MOVE_USER* packet = new myNP::SC_MOVE_USER{ _id, _x, _y };
+		myNP::SC_MOVE_USER* packet = new myNP::SC_MOVE_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
 
 		for (auto client : g_clients) {
 			client.second.do_send(_id, reinterpret_cast<char*>(packet), sizeof(myNP::SC_MOVE_USER));
