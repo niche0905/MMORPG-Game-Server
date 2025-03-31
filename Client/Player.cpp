@@ -39,6 +39,6 @@ uint64_t Player::GetID() const
 
 void Player::SetDummy()
 {
-	TextureManager::Instance().LoadTexture("player", "./Resource/Texture/dummy.png");
+	TextureManager::Instance().LoadTexture("dummy", "./Resource/Texture/dummy.png");
 	SetSprite("dummy");
 }

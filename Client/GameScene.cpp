@@ -44,6 +44,10 @@ void GameScene::Draw(sf::RenderWindow& window)
 	world->Draw(window);
 
 	client_player->Draw(window);
+
+	for (auto& other_player : other_players) {
+		other_player.second.Draw(window);
+	}
 }
 
 void GameScene::HUD(sf::RenderWindow& window)
@@ -89,15 +93,14 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 		myNP::SC_LOGIN_USER* login_packet = reinterpret_cast<myNP::SC_LOGIN_USER*>(packet.data());
 
 		if (game.GetID() == 0) {
-
 			game.SetID(static_cast<uint64_t>(login_packet->_user_id));
 
 			client_player = std::make_shared<Player>(world, game.GetID());
 			client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
 		}
 		else {
-
 			uint64_t now_id = static_cast<uint64_t>(login_packet->_user_id);
+			
 			other_players.try_emplace(now_id, world, now_id);
 			other_players[now_id].Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
 			other_players[now_id].SetDummy();
