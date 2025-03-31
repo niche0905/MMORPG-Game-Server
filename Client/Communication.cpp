@@ -63,14 +63,26 @@ void Communication::Connect(const char* ip_address)
 void Communication::Send(char c)
 {
 	myNP::CS_KEY_INPUT* packet = new myNP::CS_KEY_INPUT{ static_cast<uint8_t>(game.GetID()), static_cast<uint8_t>(c) };
-	sf::Socket::Status status = socket.send(packet, sizeof(myNP::CS_KEY_INPUT));
-	if (status != sf::Socket::Done) {
-		std::wcout << L"Send 오류!!!\n";
-		getchar();
-		exit(-1);
+	char* buffer = reinterpret_cast<char*>(packet);
+
+	std::size_t total_sent = 0;
+	std::size_t size = sizeof(myNP::CS_KEY_INPUT);
+
+	while (total_sent < size) {
+		std::size_t sent;
+		sf::Socket::Status status = socket.send(buffer + total_sent, size - total_sent, sent);
+
+		if (status == sf::Socket::Done || status == sf::Socket::Partial) {
+			total_sent += sent;
+		}
+		else {
+			std::wcout << L"Send 오류 발생!\n";
+			exit(-1);
+		}
 	}
 
 	std::cout << "Send dir: " << static_cast<int>(c) << '\n';
+	delete packet;
 }
 
 std::vector<char> Communication::Recv()
