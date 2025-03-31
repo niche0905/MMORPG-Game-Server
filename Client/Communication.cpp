@@ -81,7 +81,6 @@ void Communication::Send(char c)
 		}
 	}
 
-	std::cout << "Send dir: " << static_cast<int>(c) << '\n';
 	delete packet;
 }
 
@@ -119,8 +118,6 @@ std::vector<char> Communication::Recv()
 
 	std::vector<char> data(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
 	remain_buffer.erase(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
-
-	std::cout << static_cast<int>(data[0]) << ' ' << static_cast<int>(data[1]) << '\n';
 
 	return data;
 }

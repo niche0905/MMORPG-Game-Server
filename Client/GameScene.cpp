@@ -86,11 +86,9 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 	{
 	case myNP::PacketID::SC_LOGIN_USER:
 	{
-		std::cout << "LoginPakcet Processing\n";
 		myNP::SC_LOGIN_USER* login_packet = reinterpret_cast<myNP::SC_LOGIN_USER*>(packet.data());
 
 		if (game.GetID() == 0) {
-			std::cout << "Set Gaem ID\n";
 
 			game.SetID(static_cast<uint64_t>(login_packet->_user_id));
 
@@ -98,17 +96,12 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 			client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
 		}
 		else {
-			std::cout << "Add other Client\n";
 
 			uint64_t now_id = static_cast<uint64_t>(login_packet->_user_id);
 			other_players.try_emplace(now_id, world, now_id);
 			other_players[now_id].Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
 			other_players[now_id].SetDummy();
 		}
-
-		std::cout << "LoginPakcet id: " << static_cast<uint64_t>(login_packet->_user_id) << " x: " << static_cast<int>(login_packet->_x) << " y: " << static_cast<int>(login_packet->_y) << '\n';
-
-		std::cout << "LoginPakcet Processing Done\n";
 	}
 		break;
 
@@ -122,19 +115,15 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 
 	case myNP::PacketID::SC_MOVE_USER:
 	{
-		std::cout << "MovePakcet Processing\n";
 		myNP::SC_MOVE_USER* move_packet = reinterpret_cast<myNP::SC_MOVE_USER*>(packet.data());
 
 		uint64_t now_id = static_cast<uint64_t>(move_packet->_user_id);
 		if (game.GetID() == now_id) {
-			std::cout << "is my id\n";
 			client_player->Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
 		}
 		else {
-			std::cout << "other client\n";
 			other_players[now_id].Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
 		}
-		std::cout << "MovePakcet Processing Done\n";
 	}
 		break;
 

@@ -146,7 +146,7 @@ public:
 		myNP::SC_LOGIN_USER* packet1 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
 		do_send(_id, reinterpret_cast<char*>(packet1), sizeof(myNP::SC_LOGIN_USER));
 
-		for (auto client : g_clients) {
+		for (auto& client : g_clients) {
 			if (client.second.Get_ID() != _id) {
 				client.second.do_send(client.second.Get_ID(), reinterpret_cast<char*>(packet1), sizeof(myNP::SC_LOGIN_USER));
 			}
@@ -154,7 +154,7 @@ public:
 		delete packet1;
 
 		// 본인 클라이언트에게 Login 전달
-		for (auto client : g_clients) {
+		for (auto& client : g_clients) {
 			if (client.second.Get_ID() != _id) {
 				std::pair<int, int> pos = client.second.Get_Pos();
 				myNP::SC_LOGIN_USER* packet2 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(client.second.Get_ID()), static_cast<uint8_t>(pos.first), static_cast<uint8_t>(pos.second) };
@@ -170,7 +170,7 @@ public:
 	{
 		myNP::SC_LOGOUT_USER* packet = new myNP::SC_LOGOUT_USER{ static_cast<uint8_t>(_id) };
 
-		for (auto client : g_clients) {
+		for (auto& client : g_clients) {
 			if (client.second.Get_ID() != _id) {
 				client.second.do_send(_id, reinterpret_cast<char*>(packet), sizeof(myNP::SC_LOGOUT_USER));
 			}
@@ -243,47 +243,35 @@ public:
 
 		myNP::SC_MOVE_USER* move_packet = new myNP::SC_MOVE_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
 
-		for (auto client : g_clients) {
-			std::cout << client.first << " Broad Casting\n";
+		for (auto& client : g_clients) {
 			client.second.do_send(client.first, reinterpret_cast<char*>(move_packet), sizeof(myNP::SC_MOVE_USER));
 		}
 
-		std::cout << _id << " Delete Before\n";
-
 		delete move_packet;
 
-		std::cout << _id << " Do Recv Before\n";
 		do_recv();
-		std::cout << _id << " Do Recv After\n";
 	}
 
 private:
 	void do_send(int64_t id, char* message, int size)
 	{
-		std::cout << _id << " Send Packet " << static_cast<int>(message[0]) << ' ' << static_cast<int>(message[1]) << '\n';
-
 		EXP_OVER* send_exp = new EXP_OVER{ id, message, size };
 		DWORD sent_size;
 		auto ret = WSASend(_socket, send_exp->_wsabuf, 1, &sent_size, 0, &send_exp->_over, ::send_callback);
 		if (SOCKET_ERROR == ret) {
 			int err_no = WSAGetLastError();
-			std::cout << _id << " Do Send Error\n";
 
 			if (err_no == WSA_IO_PENDING) {
-				std::cout << _id << " Do Send Pending\n";
 				return;
 			}
 
 			print_error_message(err_no);
 			exit(-1);
 		}
-
-		std::cout << _id << " Do Send End\n";
 	}
 
 	void do_recv()
 	{
-		std::cout << _id << " Recv Wait\n";
 		_recv_exp.Init();
 
 		DWORD recv_flag = 0;
@@ -292,7 +280,8 @@ private:
 			auto err_no = WSAGetLastError();
 			if (WSA_IO_PENDING != err_no) {
 				print_error_message(err_no);
-				exit(-1);
+				//exit(-1);
+				return;
 			}
 		}
 	}
@@ -316,9 +305,7 @@ void print_error_message(int err_no)
 
 void CALLBACK send_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
 {
-	std::cout << "Send callback Start\n";
 	EXP_OVER* exp_over = reinterpret_cast<EXP_OVER*>(p_over);
-	std::cout << exp_over->_id << " Send callback\n";
 	delete exp_over;
 }
 
