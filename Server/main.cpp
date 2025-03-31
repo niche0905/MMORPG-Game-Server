@@ -53,7 +53,7 @@ int main()
 
 	listen(server_socket, SOMAXCONN);
 
-	int64_t client_id{};
+	int64_t client_id{ 1 };
 
 	while (true) {
 
@@ -132,17 +132,25 @@ public:
 
 		// 다른 클라이언트들에게 Login 통보
 		myNP::SC_LOGIN_USER* packet1 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
-		for (auto client : g_clients) {
-			client.second.do_send(client.second.Get_ID(), reinterpret_cast<char*>(packet1), sizeof(myNP::SC_LOGIN_USER));
-		}
+		do_send(_id, reinterpret_cast<char*>(packet1), sizeof(myNP::SC_LOGIN_USER));
 		delete packet1;
+
+		myNP::SC_LOGIN_USER* packet2 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
+		for (auto client : g_clients) {
+			if (client.second.Get_ID() != _id) {
+				client.second.do_send(client.second.Get_ID(), reinterpret_cast<char*>(packet2), sizeof(myNP::SC_LOGIN_USER));
+			}
+		}
+		delete packet2;
 
 		// 본인 클라이언트에게 Login 전달
 		for (auto client : g_clients) {
-			std::pair<int, int> pos = client.second.Get_Pos();
-			myNP::SC_LOGIN_USER* packet2 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(client.second.Get_ID()), static_cast<uint8_t>(pos.first), static_cast<uint8_t>(pos.second) };
-			do_send(_id, reinterpret_cast<char*>(packet2), sizeof(myNP::SC_LOGIN_USER));
-			delete packet2;
+			if (client.second.Get_ID() != _id) {
+				std::pair<int, int> pos = client.second.Get_Pos();
+				myNP::SC_LOGIN_USER* packet3 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(client.second.Get_ID()), static_cast<uint8_t>(pos.first), static_cast<uint8_t>(pos.second) };
+				do_send(_id, reinterpret_cast<char*>(packet3), sizeof(myNP::SC_LOGIN_USER));
+				delete packet3;
+			}
 		}
 	}
 

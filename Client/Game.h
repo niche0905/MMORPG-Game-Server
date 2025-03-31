@@ -28,6 +28,8 @@ private:
 
 	Communication communication;
 
+	uint64_t my_id;
+
 public:
 	Game();
 
@@ -46,6 +48,9 @@ public:
 	void SetCameraView();
 
 	void SceneLoad(SceneType scene_type);
+
+	void SetID(uint64_t id);
+	uint64_t GetID() const;
 
 };
 

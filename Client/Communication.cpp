@@ -33,9 +33,8 @@ void Communication::Connect(const char* ip_address)
 
 void Communication::Send(char c)
 {
-	char buffer[1];
-	buffer[0] = c;
-	sf::Socket::Status status = socket.send(buffer, 1);
+	myNP::CS_KEY_INPUT* packet = new myNP::CS_KEY_INPUT{ static_cast<uint8_t>(game.GetID()), static_cast<uint8_t>(c) };
+	sf::Socket::Status status = socket.send(packet, sizeof(myNP::CS_KEY_INPUT));
 	if (status != sf::Socket::Done) {
 		std::wcout << L"Send ¿À·ù!!!\n";
 		getchar();

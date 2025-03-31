@@ -20,8 +20,6 @@ void GameScene::Init()
 	TextureManager::Instance().LoadTexture("grass", "./Resource/Texture/grass.png");
 	TileManager::Instance().AddTile(TileType::grass, "grass");
 
-	client_player = std::make_shared<Player>(world);
-
 	player_coordinate.setFont(FontManager::Instance().GetFont("neodot"));
 	player_coordinate.setCharacterSize(20);
 	player_coordinate.setFillColor(sf::Color::White);
@@ -80,6 +78,50 @@ void GameScene::HandleInput(const sf::Event& input_event)
 
 void GameScene::ProcessPacket(std::string packet)
 {
+	myNP::BASE_PACKET* base_packet = reinterpret_cast<myNP::BASE_PACKET*>(packet.data());
+	switch (base_packet->_id)
+	{
+	case myNP::PacketID::SC_LOGIN_USER:
+	{
+		myNP::SC_LOGIN_USER* login_packet = reinterpret_cast<myNP::SC_LOGIN_USER*>(packet.data());
+
+		if (game.GetID() == 0) {
+			game.SetID(login_packet->_user_id);
+
+			client_player = std::make_shared<Player>(world, login_packet->_user_id);
+		}
+		else {
+			other_players.try_emplace(login_packet->_user_id, world, login_packet->_user_id, login_packet->_x, login_packet->_y);
+		}
+	}
+		break;
+
+	case myNP::PacketID::SC_LOGOUT_USER:
+	{
+		myNP::SC_LOGOUT_USER* logout_packet = reinterpret_cast<myNP::SC_LOGOUT_USER*>(packet.data());
+
+		other_players.erase(logout_packet->_user_id);
+	}
+		break;
+
+	case myNP::PacketID::SC_MOVE_USER:
+	{
+		myNP::SC_MOVE_USER* move_packet = reinterpret_cast<myNP::SC_MOVE_USER*>(packet.data());
+
+		if (game.GetID() == move_packet->_user_id) {
+			client_player->Move(move_packet->_x, move_packet->_y);
+		}
+		else {
+			other_players[move_packet->_user_id].Move(move_packet->_x, move_packet->_y);
+		}
+	}
+		break;
+
+	default:
+		std::cout << "패킷 id 없는 패킷 오류\n";
+		break;
+	}
+
 	char x{ packet[0] }, y{ packet[1] };
 	client_player->Move(x, y);
 }

@@ -9,6 +9,7 @@ Game::Game()
 	: window{sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MMORPG GAME"}
 	, view{sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)}
 	, communication{}
+	, my_id{ 0 }
 {
 	Init();
 }
@@ -92,6 +93,7 @@ void Game::SendArrowKey(char dir)
 {
 	communication.Send(dir);
 
+	// NOW : 아래 구조 바꾸기
 	std::string data = communication.Recv();
 	ProcessPacket(data);
 }
@@ -128,4 +130,14 @@ void Game::SceneLoad(SceneType scene_type)
 	default:
 		break;
 	}
+}
+
+void Game::SetID(uint64_t id)
+{
+	my_id = id;
+}
+
+uint64_t Game::GetID() const
+{
+	return my_id;
 }

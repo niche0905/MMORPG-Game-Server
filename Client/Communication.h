@@ -22,6 +22,8 @@ public:
 	void Send(char c);
 	std::string Recv();
 
+	// NOW : 논블로킹으로 Recv 받을 수 있게
+
 	// TODO : Send / Recv + Process 추가하기
 	//		  그리고 패킷 설계 하기
 
