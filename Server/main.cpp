@@ -33,7 +33,11 @@ int main()
 	std::wcout.imbue(std::locale("korean"));
 
 	WSADATA WSAData;
-	WSAStartup(MAKEWORD(2, 2), &WSAData);	// MS 네트워크를 사용하지 않고 표준 네트워크를 사용하기 위한 호출
+	int wsaStartupResult = WSAStartup(MAKEWORD(2, 2), &WSAData);	// MS 네트워크를 사용하지 않고 표준 네트워크를 사용하기 위한 호출
+	if (wsaStartupResult != 0) {
+		std::wcout << L"WSAStartup 실패, 오류 코드: " << wsaStartupResult << std::endl;
+		return -1;  // 프로그램 종료
+	}
 
 	SOCKET server_socket = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, 0, 0, WSA_FLAG_OVERLAPPED);
 	if (server_socket == INVALID_SOCKET) {
@@ -59,6 +63,13 @@ int main()
 
 		INT addr_size = sizeof(SOCKADDR_IN);
 		SOCKET client_socket = WSAAccept(server_socket, reinterpret_cast<sockaddr*>(&addr), &addr_size, NULL, NULL);
+
+		if (client_socket == INVALID_SOCKET) {
+			int err_code = WSAGetLastError();
+			print_error_message(err_code);
+			continue;
+		}
+		std::wcout << L"클라이언트 연결 수락됨, id: " << client_id << std::endl;
 
 		g_clients.try_emplace(client_id, client_id, client_socket);
 		client_id++;
@@ -128,30 +139,28 @@ public:
 		_x = uid(dre);
 		_y = uid(dre);
 
-		do_recv();
-
 		// 다른 클라이언트들에게 Login 통보
 		myNP::SC_LOGIN_USER* packet1 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
 		do_send(_id, reinterpret_cast<char*>(packet1), sizeof(myNP::SC_LOGIN_USER));
-		delete packet1;
 
-		myNP::SC_LOGIN_USER* packet2 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
 		for (auto client : g_clients) {
 			if (client.second.Get_ID() != _id) {
-				client.second.do_send(client.second.Get_ID(), reinterpret_cast<char*>(packet2), sizeof(myNP::SC_LOGIN_USER));
+				client.second.do_send(client.second.Get_ID(), reinterpret_cast<char*>(packet1), sizeof(myNP::SC_LOGIN_USER));
 			}
 		}
-		delete packet2;
+		delete packet1;
 
 		// 본인 클라이언트에게 Login 전달
 		for (auto client : g_clients) {
 			if (client.second.Get_ID() != _id) {
 				std::pair<int, int> pos = client.second.Get_Pos();
-				myNP::SC_LOGIN_USER* packet3 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(client.second.Get_ID()), static_cast<uint8_t>(pos.first), static_cast<uint8_t>(pos.second) };
-				do_send(_id, reinterpret_cast<char*>(packet3), sizeof(myNP::SC_LOGIN_USER));
-				delete packet3;
+				myNP::SC_LOGIN_USER* packet2 = new myNP::SC_LOGIN_USER{ static_cast<uint8_t>(client.second.Get_ID()), static_cast<uint8_t>(pos.first), static_cast<uint8_t>(pos.second) };
+				do_send(_id, reinterpret_cast<char*>(packet2), sizeof(myNP::SC_LOGIN_USER));
+				delete packet2;
 			}
 		}
+
+		do_recv();
 	}
 
 	~SESSION()
@@ -177,6 +186,12 @@ public:
 		// recv 한 내용 처리
 		// 키 입력에 따라 위치를 이동시키고
 		// 해당 움직임을 브로드캐스트
+
+		if (err != 0) {
+			std::wcout << L"Recv 오류 발생, 코드: " << err << std::endl;
+			g_clients.erase(_id);
+			return;
+		}
 
 		if (num_bytes == 0) {
 			g_clients.erase(_id);
@@ -213,6 +228,8 @@ public:
 				std::cout << "CS_KEY_INPUT 에러, 의도되지 않은 방향 " << packet->_direction << '\n';
 				break;
 			}
+
+			delete packet;
 		}
 			break;
 		default:
@@ -237,7 +254,12 @@ private:
 	{
 		EXP_OVER* send_exp = new EXP_OVER{ id, message, size };
 		DWORD sent_size;
-		WSASend(_socket, send_exp->_wsabuf, 1, &sent_size, 0, &send_exp->_over, ::send_callback);
+		auto ret = WSASend(_socket, send_exp->_wsabuf, 1, &sent_size, 0, &send_exp->_over, ::send_callback);
+		if (SOCKET_ERROR == ret) {
+			int err_no = WSAGetLastError();
+			print_error_message(err_no);
+			exit(-1);
+		}
 	}
 
 	void do_recv()
@@ -246,7 +268,7 @@ private:
 
 		DWORD recv_flag = 0;
 		auto ret = WSARecv(_socket, _recv_exp._wsabuf, 1, NULL, &recv_flag, &_recv_exp._over, ::recv_callback);
-		if (SOCKET_ERROR != ret) {
+		if (SOCKET_ERROR == ret) {
 			auto err_no = WSAGetLastError();
 			if (WSA_IO_PENDING != err_no) {
 				print_error_message(err_no);

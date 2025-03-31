@@ -76,7 +76,7 @@ void Communication::Send(char c)
 std::vector<char> Communication::Recv()
 {
 	char buffer[1024];
-	std::size_t received;
+	std::size_t received = 0;
 	sf::Socket::Status status = socket.receive(buffer, sizeof(buffer), received);
 	if (status == sf::Socket::Done) {
 		remain_buffer.insert(remain_buffer.end(), buffer, buffer + received);
@@ -85,8 +85,13 @@ std::vector<char> Communication::Recv()
 		// 데이터를 받은게 없음
 		return std::vector<char>();
 	}
+	else if (status == sf::Socket::Disconnected) {
+		std::wcout << L"서버와의 연결이 끊어졌습니다.\n";
+		exit(-1);
+	}
 	else {
 		std::wcout << L"Recv 오류!!!\n";
+		std::wcout << L"에러 코드: " << WSAGetLastError() << std::endl;
 		getchar();
 		exit(-1);
 	}

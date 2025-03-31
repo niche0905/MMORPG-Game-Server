@@ -78,7 +78,7 @@ void GameScene::HandleInput(const sf::Event& input_event)
 
 void GameScene::ProcessPacket(std::vector<char> packet)
 {
-	if (packet.size() < 2)
+	if (packet.size() == 0)
 		return;
 
 	myNP::BASE_PACKET* base_packet = reinterpret_cast<myNP::BASE_PACKET*>(packet.data());
