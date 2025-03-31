@@ -53,7 +53,7 @@ int main()
 
 	listen(server_socket, SOMAXCONN);
 
-	int64_t client_id;
+	int64_t client_id{};
 
 	while (true) {
 
@@ -130,21 +130,52 @@ public:
 
 		do_recv();
 
-		// TODO : 다른 클라에 LOGIN 패킷
-		// 내 클라에 LOGIN 패킷 보내주어야 함
+		myNP::SC_LOGIN_USER* packet1 = new myNP::SC_LOGIN_USER{ _id, _x, _y };
+
+		for (auto client : g_clients) {
+			client.second.do_send(client.second.Get_ID(), reinterpret_cast<char*>(packet1), sizeof(myNP::SC_LOGIN_USER));
+		}
+
+		delete packet1;
+
+		for (auto client : g_clients) {
+			if (client.second.Get_ID() != _id) {
+				std::pair<int, int> pos = client.second.Get_Pos();
+				myNP::SC_LOGIN_USER* packet2 = new myNP::SC_LOGIN_USER{ client.second.Get_ID(), pos.first, pos.second };
+				do_send(_id, reinterpret_cast<char*>(packet2), sizeof(myNP::SC_LOGIN_USER));
+				delete packet2;
+			}
+		}
 	}
 
 	~SESSION()
 	{
-		// TODO : 다른 클라들에게 LOGOUT 패킷
+		myNP::SC_LOGOUT_USER* packet = new myNP::SC_LOGOUT_USER{ _id };
+
+		for (auto client : g_clients) {
+			if (client.second.Get_ID() != _id) {
+				client.second.do_send(_id, reinterpret_cast<char*>(packet), sizeof(myNP::SC_LOGOUT_USER));
+			}
+		}
+
+		delete packet;
+
 		closesocket(_socket);
 	}
+
+	int64_t Get_ID() const { return _id; }
+	std::pair<int, int> Get_Pos() const { return { _x, _y }; }
 
 	void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
 	{
 		// recv 한 내용 처리
 		// 키 입력에 따라 위치를 이동시키고
 		// 해당 움직임을 브로드캐스트
+
+		if (num_bytes == 0) {
+			g_clients.erase(_id);
+			return;
+		}
 		
 		EXP_OVER* exp_over = reinterpret_cast<EXP_OVER*>(p_over);
 		myNP::BASE_PACKET* base_packet = reinterpret_cast<myNP::BASE_PACKET*>(exp_over->_buffer);
@@ -189,6 +220,8 @@ public:
 		for (auto client : g_clients) {
 			client.second.do_send(_id, reinterpret_cast<char*>(packet), sizeof(myNP::SC_MOVE_USER));
 		}
+
+		delete packet;
 
 		do_recv();
 	}
@@ -243,5 +276,5 @@ void CALLBACK recv_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, 
 {
 	EXP_OVER* exp_over = reinterpret_cast<EXP_OVER*>(p_over);
 	int64_t my_id = exp_over->_id;
-
+	g_clients[my_id].recv_callback(err, num_bytes, p_over, flag);
 }

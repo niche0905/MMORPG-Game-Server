@@ -45,10 +45,14 @@ namespace myNP		//	my Network Protocol
 	struct SC_LOGIN_USER : public BASE_PACKET
 	{
 		uint8_t _user_id;
+		uint8_t _x;
+		uint8_t _y;
 
-		SC_LOGIN_USER(uint8_t user_id)
+		SC_LOGIN_USER(uint8_t user_id, uint8_t x, uint8_t y)
 			: BASE_PACKET(sizeof(SC_LOGIN_USER), PacketID::SC_LOGIN_USER)
-			, _user_id{ user_id } {}
+			, _user_id{ user_id }
+			, _x{ x }
+			, _y{ y } {}
 	};
 
 	struct SC_LOGOUT_USER : public BASE_PACKET
