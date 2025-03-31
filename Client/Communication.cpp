@@ -17,7 +17,7 @@ Communication::~Communication()
 // 초기에 필요한 작업들 ex) 논블로킹 설정
 void Communication::Init()
 {
-	//socket.setBlocking(false);	// 소켓 통신을 논블로킹으로 설정
+	socket.setBlocking(false);	// 소켓 통신을 논블로킹으로 설정
 }
 
 // 주소와 통신 연결
@@ -44,28 +44,31 @@ void Communication::Send(char c)
 	std::cout << "Send dir: " << static_cast<int>(c) << '\n';
 }
 
-std::string Communication::Recv()
+std::vector<char> Communication::Recv()
 {
-	char buffer[2];
+	char buffer[1024];
 	std::size_t received;
 	sf::Socket::Status status = socket.receive(buffer, sizeof(buffer), received);
 	if (status != sf::Socket::Done) {
-		std::wcout << L"Recv 오류!!!\n";
-		getchar();
-		exit(-1);
+		if (status != sf::Socket::NotReady) {
+			std::wcout << L"Recv 오류!!!\n";
+			getchar();
+			exit(-1);
+		}
+	}
+	
+	remain_buffer.insert(remain_buffer.end(), buffer, buffer + received);
+
+	if (remain_buffer.size() < HEADER_SIZE) {
+		return std::vector<char>();
 	}
 
-	if (received != 2) {
-		std::wcout << L"Recv byte 오류!!!\n";
-		getchar();
-		exit(-1);
+	myNP::BASE_PACKET* packet = reinterpret_cast<myNP::BASE_PACKET*>(remain_buffer.data());
+	if (remain_buffer.size() < packet->_size) {
+		return std::vector<char>();
 	}
 
-	std::string data = "";
-	data += buffer[0];
-	data += buffer[1];
-
-	std::cout << "Recv x: " << static_cast<int>(data[0]) << ", y :" << static_cast<int>(data[1]) << '\n';
+	std::vector<char> data(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
 
 	return data;
 }

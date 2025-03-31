@@ -26,7 +26,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 	void HUD(sf::RenderWindow& window) override;
 	void HandleInput(const sf::Event& input_event) override;
-	void ProcessPacket(std::string packet) override;
+	void ProcessPacket(std::vector<char> packet) override;
 	sf::Vector2f GetCameraCenter() const override;
 
 private:

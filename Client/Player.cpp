@@ -6,14 +6,14 @@
 
 Player::Player()
 	: Object{}
-	, id{ -1 }
+	, id{ 0 }
 {
 	Init();
 }
 
 Player::Player(std::shared_ptr<World> world)
 	: Object{ world }
-	, id{ -1 }
+	, id{ 0 }
 {
 	Init();
 }

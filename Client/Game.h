@@ -41,7 +41,7 @@ public:
 	void HandleInput();
 
 	void SendArrowKey(char dir);
-	void ProcessPacket(std::string packet);
+	void ProcessPacket(std::vector<char> packet);
 
 	void ConnectServer();
 

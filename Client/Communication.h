@@ -4,12 +4,15 @@
 inline constexpr const char* LOOPBACK_ADDRESS = "127.0.0.1";
 constexpr int PORT_NUM{ /*A*/21004 };
 constexpr int BUF_SIZE{ 200 };
+constexpr int HEADER_SIZE{ 2 };
 
 
 class Communication
 {
 private:
 	sf::TcpSocket socket;
+
+	std::vector<char> remain_buffer;
 
 public:
 	Communication();
@@ -20,9 +23,7 @@ public:
 	void Connect(const char* ip_address);
 
 	void Send(char c);
-	std::string Recv();
-
-	// NOW : 논블로킹으로 Recv 받을 수 있게
+	std::vector<char> Recv();
 
 	// TODO : Send / Recv + Process 추가하기
 	//		  그리고 패킷 설계 하기

@@ -35,8 +35,10 @@ void Game::Run()
 {
 	ConnectServer();
 
-	std::string data = communication.Recv();
-	ProcessPacket(data);
+	while (my_id == 0) {
+		std::vector<char> data = communication.Recv();
+		ProcessPacket(data);
+	}
 
 	while (window.isOpen()) {
 
@@ -46,9 +48,13 @@ void Game::Run()
 
 		HandleInput();
 
+
 		window.clear();
 
 		// Recv 하고 패킷 처리
+		std::vector<char> data = communication.Recv();
+		ProcessPacket(data);
+
 		Update(delta_time.count());
 		Draw();
 
@@ -92,13 +98,9 @@ void Game::HandleInput()
 void Game::SendArrowKey(char dir)
 {
 	communication.Send(dir);
-
-	// NOW : 아래 구조 바꾸기
-	std::string data = communication.Recv();
-	ProcessPacket(data);
 }
 
-void Game::ProcessPacket(std::string packet)
+void Game::ProcessPacket(std::vector<char> packet)
 {
 	scene->ProcessPacket(packet);
 }
