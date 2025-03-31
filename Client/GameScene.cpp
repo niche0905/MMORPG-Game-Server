@@ -86,21 +86,29 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 	{
 	case myNP::PacketID::SC_LOGIN_USER:
 	{
+		std::cout << "LoginPakcet Processing\n";
 		myNP::SC_LOGIN_USER* login_packet = reinterpret_cast<myNP::SC_LOGIN_USER*>(packet.data());
 
 		if (game.GetID() == 0) {
-			game.SetID(login_packet->_user_id);
+			std::cout << "Set Gaem ID\n";
 
-			client_player = std::make_shared<Player>(world, login_packet->_user_id);
-			client_player->Move(login_packet->_x, login_packet->_y);
+			game.SetID(static_cast<uint64_t>(login_packet->_user_id));
+
+			client_player = std::make_shared<Player>(world, game.GetID());
+			client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
 		}
 		else {
-			other_players.try_emplace(login_packet->_user_id, world, login_packet->_user_id);
-			other_players[login_packet->_user_id].Move(login_packet->_x, login_packet->_y);
-			other_players[login_packet->_user_id].SetDummy();
+			std::cout << "Add other Client\n";
+
+			uint64_t now_id = static_cast<uint64_t>(login_packet->_user_id);
+			other_players.try_emplace(now_id, world, now_id);
+			other_players[now_id].Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
+			other_players[now_id].SetDummy();
 		}
 
-		delete login_packet;
+		std::cout << "LoginPakcet id: " << static_cast<uint64_t>(login_packet->_user_id) << " x: " << static_cast<int>(login_packet->_x) << " y: " << static_cast<int>(login_packet->_y) << '\n';
+
+		std::cout << "LoginPakcet Processing Done\n";
 	}
 		break;
 
@@ -109,8 +117,6 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 		myNP::SC_LOGOUT_USER* logout_packet = reinterpret_cast<myNP::SC_LOGOUT_USER*>(packet.data());
 
 		other_players.erase(logout_packet->_user_id);
-
-		delete logout_packet;
 	}
 		break;
 
@@ -124,8 +130,6 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 		else {
 			other_players[move_packet->_user_id].Move(move_packet->_x, move_packet->_y);
 		}
-
-		delete move_packet;
 	}
 		break;
 
@@ -133,9 +137,6 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 		std::cout << "패킷 id 없는 패킷 오류\n";
 		break;
 	}
-
-	char x{ packet[0] }, y{ packet[1] };
-	client_player->Move(x, y);
 }
 
 sf::Vector2f GameScene::GetCameraCenter() const

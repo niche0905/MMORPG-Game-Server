@@ -23,10 +23,10 @@ namespace myNP		//	my Network Protocol
 		uint8_t _size;
 		PacketID _id;
 
-		BASE_PACKET(uint8_t packet_size, PacketID packet_id) 
+		BASE_PACKET(uint8_t packet_size, PacketID packet_id)
 			: _size(packet_size)
 			, _id(packet_id) {}
-		BASE_PACKET() 
+		BASE_PACKET()
 			: _size(2)
 			, _id(static_cast<PacketID>(0)) {}
 	};

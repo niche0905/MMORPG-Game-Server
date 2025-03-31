@@ -32,7 +32,7 @@ void Communication::Connect(const char* ip_address)
 {
 	sf::Socket::Status status = socket.connect(ip_address, PORT_NUM);
 	if (status == sf::Socket::Done) {
-		std::wcout << L"서버와 연결되었습니다\n";
+		std::wcout << L"서버와 바로 연결되었습니다\n";
 	}
 	else if (status == sf::Socket::NotReady) {
 		// 논블로킹 소켓에서는 NotReady가 발생 -> select()로 연결 확인
@@ -109,6 +109,8 @@ std::vector<char> Communication::Recv()
 
 	std::vector<char> data(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
 	remain_buffer.erase(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
+
+	std::cout << static_cast<int>(data[0]) << ' ' << static_cast<int>(data[1]) << '\n';
 
 	return data;
 }

@@ -75,6 +75,8 @@ int main()
 		client_id++;
 	}
 
+	std::cout << "Server Close\n";
+
 	closesocket(server_socket);
 	WSACleanup();
 
@@ -101,7 +103,8 @@ public:
 	{
 		ZeroMemory(&_over, sizeof(_over));
 
-		memcpy(_buffer, message, size);
+		if (message != nullptr)
+			memcpy(_buffer, message, size);
 
 		_wsabuf[0].buf = _buffer;
 		_wsabuf[0].len = static_cast<ULONG>(size);
@@ -188,16 +191,17 @@ public:
 		// 해당 움직임을 브로드캐스트
 
 		if (err != 0) {
-			std::wcout << L"Recv 오류 발생, 코드: " << err << std::endl;
+			print_error_message(err);
 			g_clients.erase(_id);
 			return;
 		}
 
 		if (num_bytes == 0) {
+			std::cout << _id << "더 이상 데이터가 오지 않음\n";
 			g_clients.erase(_id);
 			return;
 		}
-		
+
 		EXP_OVER* exp_over = reinterpret_cast<EXP_OVER*>(p_over);
 		myNP::BASE_PACKET* base_packet = reinterpret_cast<myNP::BASE_PACKET*>(exp_over->_buffer);
 		switch (base_packet->_id)
@@ -205,6 +209,7 @@ public:
 		case myNP::PacketID::CS_KEY_INPUT:
 		{
 			myNP::CS_KEY_INPUT* packet = reinterpret_cast<myNP::CS_KEY_INPUT*>(exp_over->_buffer);
+			std::cout << _id << " 방향키를 받았음 " << static_cast<int>(packet->_direction) << '\n';
 
 			switch (packet->_direction)
 			{
@@ -228,8 +233,6 @@ public:
 				std::cout << "CS_KEY_INPUT 에러, 의도되지 않은 방향 " << packet->_direction << '\n';
 				break;
 			}
-
-			delete packet;
 		}
 			break;
 		default:
@@ -237,14 +240,13 @@ public:
 			break;
 		}
 
-		// 전역 변수 SESSIONS을 이용해서 브로드캐스트 (본인에게도)
-		myNP::SC_MOVE_USER* packet = new myNP::SC_MOVE_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
+		myNP::SC_MOVE_USER* move_packet = new myNP::SC_MOVE_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
 
 		for (auto client : g_clients) {
-			client.second.do_send(_id, reinterpret_cast<char*>(packet), sizeof(myNP::SC_MOVE_USER));
+			client.second.do_send(client.first, reinterpret_cast<char*>(move_packet), sizeof(myNP::SC_MOVE_USER));
 		}
 
-		delete packet;
+		delete move_packet;
 
 		do_recv();
 	}
@@ -252,6 +254,8 @@ public:
 private:
 	void do_send(int64_t id, char* message, int size)
 	{
+		std::cout << _id << " Send Packet " << static_cast<int>(message[0]) << ' ' << static_cast<int>(message[1]) << '\n';
+
 		EXP_OVER* send_exp = new EXP_OVER{ id, message, size };
 		DWORD sent_size;
 		auto ret = WSASend(_socket, send_exp->_wsabuf, 1, &sent_size, 0, &send_exp->_over, ::send_callback);

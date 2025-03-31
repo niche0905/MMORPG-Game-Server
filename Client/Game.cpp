@@ -39,6 +39,8 @@ void Game::Run()
 		ProcessPacket(communication.Recv());
 	}
 
+	std::cout << "Login Done\n";
+
 	while (window.isOpen()) {
 
 		TimePoint now_time = Epoch::now();
@@ -46,7 +48,6 @@ void Game::Run()
 		last_time = now_time;
 
 		HandleInput();
-
 
 		window.clear();
 
