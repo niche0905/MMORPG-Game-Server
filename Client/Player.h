@@ -21,5 +21,7 @@ public:
 
 	uint64_t GetID() const;
 
+	void SetDummy();
+
 };
 

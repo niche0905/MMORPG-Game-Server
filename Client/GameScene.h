@@ -13,7 +13,6 @@ private:
 	
 	std::shared_ptr<Player> client_player;
 
-	// NOW : Dummy 추가하기 (스프라이트가 다르기에)
 	std::unordered_map<uint64_t, Player> other_players;
 
 	sf::Text player_coordinate;

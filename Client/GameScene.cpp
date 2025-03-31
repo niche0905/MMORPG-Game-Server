@@ -89,10 +89,15 @@ void GameScene::ProcessPacket(std::string packet)
 			game.SetID(login_packet->_user_id);
 
 			client_player = std::make_shared<Player>(world, login_packet->_user_id);
+			client_player->Move(login_packet->_x, login_packet->_y);
 		}
 		else {
-			other_players.try_emplace(login_packet->_user_id, world, login_packet->_user_id, login_packet->_x, login_packet->_y);
+			other_players.try_emplace(login_packet->_user_id, world, login_packet->_user_id);
+			other_players[login_packet->_user_id].Move(login_packet->_x, login_packet->_y);
+			other_players[login_packet->_user_id].SetDummy();
 		}
+
+		delete login_packet;
 	}
 		break;
 
@@ -101,6 +106,8 @@ void GameScene::ProcessPacket(std::string packet)
 		myNP::SC_LOGOUT_USER* logout_packet = reinterpret_cast<myNP::SC_LOGOUT_USER*>(packet.data());
 
 		other_players.erase(logout_packet->_user_id);
+
+		delete logout_packet;
 	}
 		break;
 
@@ -114,6 +121,8 @@ void GameScene::ProcessPacket(std::string packet)
 		else {
 			other_players[move_packet->_user_id].Move(move_packet->_x, move_packet->_y);
 		}
+
+		delete move_packet;
 	}
 		break;
 
