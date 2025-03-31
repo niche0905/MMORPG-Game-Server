@@ -116,20 +116,25 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 	{
 		myNP::SC_LOGOUT_USER* logout_packet = reinterpret_cast<myNP::SC_LOGOUT_USER*>(packet.data());
 
-		other_players.erase(logout_packet->_user_id);
+		other_players.erase(static_cast<uint64_t>(logout_packet->_user_id));
 	}
 		break;
 
 	case myNP::PacketID::SC_MOVE_USER:
 	{
+		std::cout << "MovePakcet Processing\n";
 		myNP::SC_MOVE_USER* move_packet = reinterpret_cast<myNP::SC_MOVE_USER*>(packet.data());
 
-		if (game.GetID() == move_packet->_user_id) {
-			client_player->Move(move_packet->_x, move_packet->_y);
+		uint64_t now_id = static_cast<uint64_t>(move_packet->_user_id);
+		if (game.GetID() == now_id) {
+			std::cout << "is my id\n";
+			client_player->Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
 		}
 		else {
-			other_players[move_packet->_user_id].Move(move_packet->_x, move_packet->_y);
+			std::cout << "other client\n";
+			other_players[now_id].Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
 		}
+		std::cout << "MovePakcet Processing Done\n";
 	}
 		break;
 

@@ -98,7 +98,7 @@ std::vector<char> Communication::Recv()
 		return std::vector<char>();
 	}
 	else if (status == sf::Socket::Disconnected) {
-		std::wcout << L"서버와의 연결이 끊어졌습니다.\n";
+		std::wcout << L"Recv 중 서버와의 연결이 끊어졌습니다.\n";
 		exit(-1);
 	}
 	else {
@@ -108,8 +108,6 @@ std::vector<char> Communication::Recv()
 		exit(-1);
 	}
 	
-	remain_buffer.insert(remain_buffer.end(), buffer, buffer + received);
-
 	if (remain_buffer.size() < HEADER_SIZE) {
 		return std::vector<char>();
 	}

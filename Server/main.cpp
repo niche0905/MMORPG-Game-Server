@@ -178,6 +178,7 @@ public:
 
 		delete packet;
 
+		std::cout << _id << " Close Socket\n";
 		closesocket(_socket);
 	}
 
@@ -243,12 +244,17 @@ public:
 		myNP::SC_MOVE_USER* move_packet = new myNP::SC_MOVE_USER{ static_cast<uint8_t>(_id), static_cast<uint8_t>(_x), static_cast<uint8_t>(_y) };
 
 		for (auto client : g_clients) {
+			std::cout << client.first << " Broad Casting\n";
 			client.second.do_send(client.first, reinterpret_cast<char*>(move_packet), sizeof(myNP::SC_MOVE_USER));
 		}
 
+		std::cout << _id << " Delete Before\n";
+
 		delete move_packet;
 
+		std::cout << _id << " Do Recv Before\n";
 		do_recv();
+		std::cout << _id << " Do Recv After\n";
 	}
 
 private:
@@ -261,13 +267,23 @@ private:
 		auto ret = WSASend(_socket, send_exp->_wsabuf, 1, &sent_size, 0, &send_exp->_over, ::send_callback);
 		if (SOCKET_ERROR == ret) {
 			int err_no = WSAGetLastError();
+			std::cout << _id << " Do Send Error\n";
+
+			if (err_no == WSA_IO_PENDING) {
+				std::cout << _id << " Do Send Pending\n";
+				return;
+			}
+
 			print_error_message(err_no);
 			exit(-1);
 		}
+
+		std::cout << _id << " Do Send End\n";
 	}
 
 	void do_recv()
 	{
+		std::cout << _id << " Recv Wait\n";
 		_recv_exp.Init();
 
 		DWORD recv_flag = 0;
@@ -300,7 +316,9 @@ void print_error_message(int err_no)
 
 void CALLBACK send_callback(DWORD err, DWORD num_bytes, LPWSAOVERLAPPED p_over, DWORD flag)
 {
+	std::cout << "Send callback Start\n";
 	EXP_OVER* exp_over = reinterpret_cast<EXP_OVER*>(p_over);
+	std::cout << exp_over->_id << " Send callback\n";
 	delete exp_over;
 }
 
