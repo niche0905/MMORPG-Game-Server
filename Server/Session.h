@@ -6,6 +6,9 @@ private:
 	SOCKET		_socket;
 	int64		_id;
 
+	ExOver		_recv_overlapped;
+	int32		_remain_size;
+
 	// 게임에 필요한 정보 (컨텐츠 관련)
 
 public:

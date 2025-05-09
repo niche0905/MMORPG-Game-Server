@@ -13,3 +13,4 @@
 
 #include "Packet.h"
 #include "Enums.h"
+#include "ExpansionOverlapped.h"

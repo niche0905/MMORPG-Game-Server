@@ -11,6 +11,8 @@ Session::Session()
 Session::Session(SOCKET socket, int64 id) 
 	: _socket(socket)
 	, _id(id)
+	, _recv_overlapped(IoOperation::IO_RECV)
+	, _remain_size(0)
 {
 
 }
@@ -26,17 +28,37 @@ Session::~Session()
 void Session::Send(void* packet)
 {
 	// TODO : 패킷 프로토콜에 맞게 분석 후 Packet Size에 맞게 전송
-	// WSASend()
+	ExOver* send_overlapped = new ExOver(IoOperation::IO_SEND);
+	// send_overlapped->SetBuffer(packet, packet[0/*패킷 사이즈가 저장된 위치*/]);
+
+	DWORD sent_bytes = 0;
+	auto ret = WSASend(_socket, send_overlapped->GetWSABuf(), 1, &sent_bytes, 0, send_overlapped->GetOverlapped(), nullptr);
+	if (ret == SOCKET_ERROR) {
+		// TEMP : 에러 메시지 출력 (임시)
+		int error = WSAGetLastError();
+		if (error != ERROR_IO_PENDING) {
+			std::cout << "Send Error : " << error << "\n";
+		}
+	}
 }
 
 void Session::Recv()
 {
-	// TODO : Recv Overlapped 구조체를 만들어서 Recv 하기
-	// WSARecv()
+	_recv_overlapped.Reset(_remain_size);
+
+	DWORD flags = 0;
+	auto ret = WSARecv(_socket, _recv_overlapped.GetWSABuf(), 1, nullptr, &flags, _recv_overlapped.GetOverlapped(), nullptr);
+	if (ret == SOCKET_ERROR) {
+		// TEMP : 에러 메시지 출력 (임시)
+		int error = WSAGetLastError();
+		if (error != ERROR_IO_PENDING) {
+			std::cout << "Recv Error : " << error << "\n";
+		}
+	}
 }
 
 void Session::ProcessPacket(BYTE* packet)
 {
 	// TODO : 패킷 프로토콜에 맞게 분석 후 처리하기
-
+	
 }
