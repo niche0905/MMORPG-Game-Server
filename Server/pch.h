@@ -12,3 +12,4 @@
 #include "CorePch.h"
 
 #include "Packet.h"
+#include "Enums.h"
