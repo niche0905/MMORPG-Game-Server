@@ -11,6 +11,9 @@
     <ClCompile Include="Session.cpp">
       <Filter>Core\Session</Filter>
     </ClCompile>
+    <ClCompile Include="ExpansionOverlapped.cpp">
+      <Filter>Core\Overlapped</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -28,6 +31,12 @@
     <Filter Include="Core\Session">
       <UniqueIdentifier>{fcb08fa4-490b-4c9f-bca4-fb77198b2228}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Overlapped">
+      <UniqueIdentifier>{1726d7d9-5a45-4bdd-9f43-a24cb8f3978c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{05a896f9-6a4f-4b57-b414-57bb723a3da8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Packet.h">
@@ -41,6 +50,12 @@
     </ClInclude>
     <ClInclude Include="Session.h">
       <Filter>Core\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpansionOverlapped.h">
+      <Filter>Core\Overlapped</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
