@@ -2,8 +2,36 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="IocpCore.cpp">
+      <Filter>Core\IOCP</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>PCH</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Packet.h" />
+    <Filter Include="Network">
+      <UniqueIdentifier>{a875dcf8-73da-4ea9-9ff7-3b3de82a55a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{a075421c-01fb-4ad4-8e8e-fb8fa39d2d09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\IOCP">
+      <UniqueIdentifier>{ebd7d633-6c86-4e59-ab97-4726e7b0d1d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PCH">
+      <UniqueIdentifier>{ab311225-8463-4dd1-b544-9bfc2c361ab9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Packet.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="IocpCore.h">
+      <Filter>Core\IOCP</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>PCH</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
