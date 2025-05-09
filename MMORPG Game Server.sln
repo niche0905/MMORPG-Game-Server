@@ -4,8 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{268B3EF8-E312-4976-8BD5-B0C0E25FFE2B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2ED430D1-6E51-4DCB-9EF3-F60979B08B71} = {2ED430D1-6E51-4DCB-9EF3-F60979B08B71}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Server\Server.vcxproj", "{1558DDBD-1D56-4485-96DF-DF22EA842B2F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2ED430D1-6E51-4DCB-9EF3-F60979B08B71} = {2ED430D1-6E51-4DCB-9EF3-F60979B08B71}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicTest", "GraphicTest\GraphicTest.vcxproj", "{B3F2865D-F526-4238-A399-D648BA54CDEA}"
 EndProject
