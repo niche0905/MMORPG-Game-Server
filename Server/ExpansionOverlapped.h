@@ -9,56 +9,23 @@ private:
 	IoOperation							_operation;
 
 public:
-	ExpansionOverlapped(IoOperation io_type = IoOperation::IO_NONE)
-		: _wsa_overlapped{}
-		, _wsabuf{}
-		, _buffer{}
-	{
-		ZeroMemory(&_wsa_overlapped, sizeof(_wsa_overlapped));
-		SetOperation(io_type);
-		_wsabuf[0].buf = reinterpret_cast<char*>(_buffer.data());
-		_wsabuf[0].len = static_cast<ULONG>(_buffer.size());
-	}
+	ExpansionOverlapped(IoOperation io_type = IoOperation::IO_NONE);
 
 	~ExpansionOverlapped() = default;
 
-	void Reset(int index)
-	{
-		ZeroMemory(&_wsa_overlapped, sizeof(_wsa_overlapped));
-		_wsabuf[0].buf = reinterpret_cast<char*>(_buffer.data() + index);
-		_wsabuf[0].len = static_cast<ULONG>(_buffer.size() - index);
-	}
+	void Reset(int index);
 
-	void SetBuffer(void* packet, int size)
-	{
-		_wsabuf[0].buf = reinterpret_cast<char*>(packet);
-		_wsabuf[0].len = static_cast<ULONG>(size);
-	}
+	void SetBuffer(void* packet, int size);
 
-	void SetOperation(IoOperation operation)
-	{
-		_operation = operation;
-	}
+	void SetOperation(IoOperation operation);
 
-	IoOperation GetOperation() const
-	{
-		return _operation;
-	}
+	IoOperation GetOperation() const;
 
-	WSAOVERLAPPED* GetOverlapped()
-	{
-		return &_wsa_overlapped;
-	}
+	WSAOVERLAPPED* GetOverlapped();
 
-	WSABUF* GetWSABuf()
-	{
-		return _wsabuf;
-	}
+	WSABUF* GetWSABuf();
 
-	BYTE* GetBuffer()
-	{
-		return _buffer.data();
-	}
+	BYTE* GetBuffer();
 
 };
 
