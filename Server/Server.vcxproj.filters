@@ -8,6 +8,9 @@
     <ClCompile Include="pch.cpp">
       <Filter>PCH</Filter>
     </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Core\Session</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -22,6 +25,9 @@
     <Filter Include="PCH">
       <UniqueIdentifier>{ab311225-8463-4dd1-b544-9bfc2c361ab9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Session">
+      <UniqueIdentifier>{fcb08fa4-490b-4c9f-bca4-fb77198b2228}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Packet.h">
@@ -32,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Core\Session</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
