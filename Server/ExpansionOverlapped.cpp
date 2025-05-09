@@ -2,7 +2,7 @@
 #include "ExpansionOverlapped.h"
 
 
-ExpansionOverlapped::ExpansionOverlapped(IoOperation io_type = IoOperation::IO_NONE)
+ExpansionOverlapped::ExpansionOverlapped(IoOperation io_type)
 	: _wsa_overlapped{}
 	, _wsabuf{}
 	, _buffer{}
