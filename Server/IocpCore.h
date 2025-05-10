@@ -16,7 +16,7 @@ public:
 
 	void AddSocket(SOCKET socket, ULONG_PTR id);
 
-	void Dispatch(DWORD& bytes_transferred, ULONG_PTR& key, LPOVERLAPPED& overlapped);
+	bool Dispatch(DWORD& bytes_transferred, ULONG_PTR& key, LPOVERLAPPED& overlapped);
 
 };
 

@@ -36,12 +36,15 @@ void IocpCore::AddSocket(SOCKET socket, ULONG_PTR id)
 	}
 }
 
-void IocpCore::Dispatch(DWORD& bytes_transferred, ULONG_PTR& key, LPOVERLAPPED& overlapped)
+bool IocpCore::Dispatch(DWORD& bytes_transferred, ULONG_PTR& key, LPOVERLAPPED& overlapped)
 {
 	BOOL ret = GetQueuedCompletionStatus(_iocp_handle, &bytes_transferred, &key, &overlapped, INFINITE);
 	if (FALSE == ret) {
-		// TODO : 에러가 난 소켓을 확인하고, 소켓을 닫는 로직 추가 <- SESSION을 닫아야 함
 		int err_code = GetLastError();
 		PrintErrorMessage(L"IOCP get result", err_code);
+
+		return false;
 	}
+
+	return true;
 }

@@ -151,7 +151,7 @@ void ServerCore::Worker()
 		ULONG_PTR key = 0;
 		LPOVERLAPPED overlapped = nullptr;
 
-		_iocp_core.Dispatch(bytes_transferred, key, overlapped);
+		bool success = _iocp_core.Dispatch(bytes_transferred, key, overlapped);
 
 		if (overlapped == nullptr) {
 			std::cout << "overlapped is nullptr\n";
@@ -159,6 +159,15 @@ void ServerCore::Worker()
 		}
 
 		ExOver* exp_overlapped = reinterpret_cast<ExOver*>(overlapped);
+		IoOperation operation = exp_overlapped->GetOperation();
+		if ((success == false) and ((operation == IoOperation::IO_RECV) or (operation == IoOperation::IO_SEND)) and (bytes_transferred == 0)) {
+			if (_clients.count(key) != 0) {
+				_clients.at(key).store(nullptr);	// <- _clients.at(key) = nullptr;
+			}
+			
+			continue;
+		}
+
 		switch (exp_overlapped->GetOperation())
 		{
 		case IoOperation::IO_ACCEPT:
@@ -181,7 +190,7 @@ void ServerCore::Worker()
 			}
 
 			// TODO : Session이 알아서 패킷 재조립 하도록 함수 만들고 여기서 호출하도록
-			//session->ReassemblePacket(...);
+			session->ReassemblePacket(exp_overlapped->GetBuffer(), bytes_transferred);
 
 			session->Recv();
 		}
