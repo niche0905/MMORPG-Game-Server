@@ -63,7 +63,7 @@
     <ClInclude Include="ExpansionOverlapped.h">
       <Filter>Core\Overlapped</Filter>
     </ClInclude>
-    <ClInclude Include="Enums.h">
+    <ClInclude Include="ServerDefines.h">
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="ServerCore.h">

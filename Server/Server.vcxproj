@@ -170,7 +170,7 @@
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enums.h" />
+    <ClInclude Include="ServerDefines.h" />
     <ClInclude Include="ExpansionOverlapped.h" />
     <ClInclude Include="IocpCore.h" />
     <ClInclude Include="Packet.h" />
