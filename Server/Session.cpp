@@ -27,9 +27,8 @@ Session::~Session()
 
 void Session::Send(void* packet)
 {
-	// TODO : 패킷 프로토콜에 맞게 분석 후 Packet Size에 맞게 전송
 	ExOver* send_overlapped = new ExOver(IoOperation::IO_SEND);
-	// send_overlapped->SetBuffer(packet, packet[0/*패킷 사이즈가 저장된 위치*/]);
+	send_overlapped->SetBuffer(packet, static_cast<int>(reinterpret_cast<BYTE*>(packet)[0/*패킷 사이즈가 저장된 위치*/]));
 
 	DWORD sent_bytes = 0;
 	auto ret = WSASend(_socket, send_overlapped->GetWSABuf(), 1, &sent_bytes, 0, send_overlapped->GetOverlapped(), nullptr);
