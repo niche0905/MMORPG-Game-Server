@@ -29,5 +29,8 @@
     <ClInclude Include="Container.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
