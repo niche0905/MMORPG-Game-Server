@@ -17,6 +17,9 @@
     <ClCompile Include="ServerCore.cpp">
       <Filter>Core\ServerCore</Filter>
     </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -65,6 +68,9 @@
     </ClInclude>
     <ClInclude Include="ServerCore.h">
       <Filter>Core\ServerCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

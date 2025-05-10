@@ -13,6 +13,7 @@
 
 #include <concurrent_unordered_map.h>
 
+#include "Util.h"
 #include "Packet.h"
 #include "Enums.h"
 #include "IocpCore.h"
