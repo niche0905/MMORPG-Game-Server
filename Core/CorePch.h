@@ -2,6 +2,7 @@
 
 #include "Types.h"
 #include "Container.h"
+#include "Defines.h"
 
 // 알고리즘
 #include <random>
