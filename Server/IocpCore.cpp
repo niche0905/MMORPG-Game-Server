@@ -9,7 +9,7 @@ IocpCore::IocpCore()
 
 IocpCore::~IocpCore()
 {
-
+	CloseHandle(_iocp_handle);
 }
 
 HANDLE IocpCore::GetHandle() const
