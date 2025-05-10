@@ -60,3 +60,26 @@ void Session::ProcessPacket(BYTE* packet)
 	// TODO : 패킷 프로토콜에 맞게 분석 후 처리하기
 	
 }
+
+void Session::ReassemblePacket(DWORD recv_size)
+{
+	BYTE* packet = _recv_overlapped.GetBuffer();
+	int data_size = _remain_size + recv_size;
+	while (true) {
+		BYTE packet_size = packet[0];
+
+		if (data_size >= packet_size) {
+			ProcessPacket(_recv_overlapped.GetBuffer());
+			packet += packet_size;
+			data_size -= packet_size;
+		}
+		else {
+			break;
+		}
+	}
+
+	if (data_size > 0) {
+		_recv_overlapped.CopyToBuffer(packet, data_size);
+	}
+	_remain_size = data_size;
+}

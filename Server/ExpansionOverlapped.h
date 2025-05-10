@@ -18,6 +18,8 @@ public:
 	void SetBuffer(void* packet, int size);
 
 	void SetOperation(IoOperation operation);
+	
+	void CopyToBuffer(void* data, int size);
 
 	IoOperation GetOperation() const;
 

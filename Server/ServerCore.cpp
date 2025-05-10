@@ -190,7 +190,7 @@ void ServerCore::Worker()
 			}
 
 			// TODO : Session이 알아서 패킷 재조립 하도록 함수 만들고 여기서 호출하도록
-			session->ReassemblePacket(exp_overlapped->GetBuffer(), bytes_transferred);
+			session->ReassemblePacket(bytes_transferred);
 
 			session->Recv();
 		}

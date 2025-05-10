@@ -20,7 +20,8 @@ public:
 	void Send(void* packet);
 	void Recv();
 
-	void ProcessPacket(BYTE* packet);
+	void ProcessPacket(BYTE* packet);	// 얘는 private 이여도 될 듯?
+	void ReassemblePacket(BYTE* recv_data, DWORD recv_size);
 
 };
 

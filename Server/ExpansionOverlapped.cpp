@@ -31,6 +31,11 @@ void ExpansionOverlapped::SetOperation(IoOperation operation)
 	_operation = operation;
 }
 
+void ExpansionOverlapped::CopyToBuffer(void* data, int size)
+{
+	memcpy(_buffer.data(), data, size);
+}
+
 IoOperation ExpansionOverlapped::GetOperation() const
 {
 	return _operation;
