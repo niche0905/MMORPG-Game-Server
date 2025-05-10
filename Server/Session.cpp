@@ -69,7 +69,7 @@ void Session::ReassemblePacket(DWORD recv_size)
 		BYTE packet_size = packet[0];
 
 		if (data_size >= packet_size) {
-			ProcessPacket(_recv_overlapped.GetBuffer());
+			ProcessPacket(packet);
 			packet += packet_size;
 			data_size -= packet_size;
 		}
