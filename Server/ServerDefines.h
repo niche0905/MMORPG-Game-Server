@@ -1,5 +1,9 @@
 #pragma once
 
+
+constexpr int16 VIEW_RANGE = 5;
+
+
 enum IoOperation
 {
 	IO_START = 0,

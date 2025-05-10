@@ -15,7 +15,7 @@
 
 #include "Util.h"
 #include "Packet.h"
-#include "Enums.h"
+#include "ServerDefines.h"
 #include "IocpCore.h"
 #include "Session.h"
 #include "ExpansionOverlapped.h"

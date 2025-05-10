@@ -4,9 +4,8 @@
 
 bool CanSee(short p1_x, short p1_y, short p2_x, short p2_y)
 {
-	// TODO : VIEW_RANGE를 상수로
-	//if (abs(p1_x - p2_x) > VIEW_RANGE) return false;
-	//return abs(p1_y - p2_y) <= VIEW_RANGE;
+	if (abs(p1_x - p2_x) > VIEW_RANGE) return false;
+	return abs(p1_y - p2_y) <= VIEW_RANGE;
 }
 
 void PrintErrorMessage(DWORD err_code)
