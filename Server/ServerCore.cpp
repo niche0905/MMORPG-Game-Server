@@ -185,15 +185,18 @@ void ServerCore::Worker()
 
 			session->Recv();
 		}
-		break;;
+		break;
 		case IoOperation::IO_SEND:
 		{
 			delete exp_overlapped;
 		}
-		break;;
+		break;
 		default:
+		{
 			std::cout << "Unknown IO Operation\n";
-			break;
+			exit(-1);	// 정의되지 않은 Operation이 발생했을 경우 종료하는 것이 맞음
+		}
+		break;
 		} 
 	}
 }
