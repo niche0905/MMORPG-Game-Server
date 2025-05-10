@@ -34,10 +34,9 @@ void Session::Send(void* packet)
 	DWORD sent_bytes = 0;
 	auto ret = WSASend(_socket, send_overlapped->GetWSABuf(), 1, &sent_bytes, 0, send_overlapped->GetOverlapped(), nullptr);
 	if (ret == SOCKET_ERROR) {
-		// TEMP : 에러 메시지 출력 (임시)
 		int error = WSAGetLastError();
 		if (error != ERROR_IO_PENDING) {
-			std::cout << "Send Error : " << error << "\n";
+			PrintErrorMessage(L"WSASend", error);
 		}
 	}
 }
@@ -49,10 +48,9 @@ void Session::Recv()
 	DWORD flags = 0;
 	auto ret = WSARecv(_socket, _recv_overlapped.GetWSABuf(), 1, nullptr, &flags, _recv_overlapped.GetOverlapped(), nullptr);
 	if (ret == SOCKET_ERROR) {
-		// TEMP : 에러 메시지 출력 (임시)
 		int error = WSAGetLastError();
 		if (error != ERROR_IO_PENDING) {
-			std::cout << "Recv Error : " << error << "\n";
+			PrintErrorMessage(L"WSARecv", error);
 		}
 	}
 }

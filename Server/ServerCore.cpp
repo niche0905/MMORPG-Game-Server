@@ -68,10 +68,9 @@ void ServerCore::Accept()
 	BOOL ret = AcceptEx(_listen_socket, _accept_socket, _accept_overlapped.GetBuffer(), 0, 
 		sizeof(SOCKADDR_IN) + 16, sizeof(SOCKADDR_IN) + 16, nullptr, _accept_overlapped.GetOverlapped());
 	if (ret == FALSE) {
-		// TEMP : 에러 메시지 출력 (임시)
 		int error = WSAGetLastError();
 		if (error != ERROR_IO_PENDING) {
-			std::cout << "AcceptEx Error : " << error << "\n";
+			PrintErrorMessage(L"AcceptEx", error);
 		}
 	}
 }
