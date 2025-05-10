@@ -5,7 +5,7 @@ class ExpansionOverlapped
 private:
 	WSAOVERLAPPED						_wsa_overlapped;
 	WSABUF								_wsabuf[1];
-	std::array<BYTE, 1024/*buff_size*/>	_buffer;	// TODO : BUF_SIZE 정의 후 변경하기
+	std::array<BYTE, BUF_SIZE>			_buffer;
 	IoOperation							_operation;
 
 public:

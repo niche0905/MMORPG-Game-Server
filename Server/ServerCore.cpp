@@ -119,8 +119,6 @@ void ServerCore::ThreadPoolInit()
 
 	_is_running = true;
 	for (int i = 0; i < thread_count; ++i) {
-		// TODO : 작업해야 하는 함수에 맞게 thread 생성
-		//threads.emplace_back(worker, ...)
 		_threads.emplace_back([this]() { Worker(); });
 	}
 }
