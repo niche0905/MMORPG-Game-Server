@@ -7,8 +7,8 @@
 
 #pragma comment (lib, "WS2_32.LIB")
 
-constexpr int PORT_NUM{ /*A*/21004 };
-constexpr int BUF_SIZE{ 200 };
+//constexpr int PORT_NUM{ /*A*/21004 };
+//constexpr int BUF_SIZE{ 200 };
 
 constexpr int MIN_X{ 0 };
 constexpr int MIN_Y{ 0 };

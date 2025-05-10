@@ -1,5 +1,6 @@
 #pragma once
 
+
 class Session
 {
 private:
@@ -21,7 +22,7 @@ public:
 	void Recv();
 
 	void ProcessPacket(BYTE* packet);	// 얘는 private 이여도 될 듯?
-	void ReassemblePacket(BYTE* recv_data, DWORD recv_size);
+	void ReassemblePacket(DWORD recv_size);
 
 };
 
