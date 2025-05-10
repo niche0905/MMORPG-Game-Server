@@ -40,6 +40,7 @@ void ServerCore::Run()
 
 void ServerCore::Release()
 {
+	_is_running = false;
 	for (auto& thread : _threads) {
 		if (thread.joinable()) {
 			thread.join();
@@ -117,9 +118,11 @@ void ServerCore::ThreadPoolInit()
 	uint32 thread_count = std::thread::hardware_concurrency();
 	_threads.reserve(thread_count);
 
+	_is_running = true;
 	for (int i = 0; i < thread_count; ++i) {
 		// TODO : 작업해야 하는 함수에 맞게 thread 생성
 		//threads.emplace_back(worker, ...)
+		_threads.emplace_back([this]() { Worker(); });
 	}
 }
 
@@ -138,5 +141,60 @@ void ServerCore::CreateAcceptSocket()
 	if (_accept_socket == INVALID_SOCKET) {
 		std::cout << "accept socket Instance Error\n";
 		exit(-1);
+	}
+}
+
+void ServerCore::Worker()
+{
+	while (_is_running) {
+
+		DWORD bytes_transferred = 0;
+		ULONG_PTR key = 0;
+		LPOVERLAPPED overlapped = nullptr;
+
+		_iocp_core.Dispatch(bytes_transferred, key, overlapped);
+
+		if (overlapped == nullptr) {
+			std::cout << "overlapped is nullptr\n";
+			continue;
+		}
+
+		ExOver* exp_overlapped = reinterpret_cast<ExOver*>(overlapped);
+		switch (exp_overlapped->GetOperation())
+		{
+		case IoOperation::IO_ACCEPT:
+		{
+			int now_id = _id_counter++;
+			_iocp_core.AddSocket(_accept_socket, now_id);
+			LocalClient new_session = std::make_shared<Session>(_accept_socket, now_id);
+			_clients.insert(std::make_pair(now_id, new_session));
+			new_session->Recv();
+
+			Accept();
+		}
+		break;
+		case IoOperation::IO_RECV:
+		{
+			LocalClient session = _clients.at(key).load();
+			if (session == nullptr) {
+				std::cout << "Session is nullptr\n";
+				break;
+			}
+
+			// TODO : Session이 알아서 패킷 재조립 하도록 함수 만들고 여기서 호출하도록
+			//session->ReassemblePacket(...);
+
+			session->Recv();
+		}
+		break;;
+		case IoOperation::IO_SEND:
+		{
+			delete exp_overlapped;
+		}
+		break;;
+		default:
+			std::cout << "Unknown IO Operation\n";
+			break;
+		} 
 	}
 }

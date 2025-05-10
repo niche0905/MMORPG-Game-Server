@@ -8,6 +8,7 @@ private:
 	using container = concurrency::concurrent_unordered_map<K, V>;
 
 	using Client = std::atomic<std::shared_ptr<Session>>;
+	using LocalClient = std::shared_ptr<Session>;
 
 private:
 	IocpCore					_iocp_core;			// IOCP 핸들 관리 하는 클래스
@@ -40,6 +41,8 @@ private:
 
 	void CreateListenSocket();
 	void CreateAcceptSocket();
+
+	void Worker();
 
 };
 
