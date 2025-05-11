@@ -12,6 +12,8 @@
 #include "CorePch.h"
 
 #include <concurrent_unordered_map.h>
+#include <atomic>
+#include <mutex>
 
 #include "Util.h"
 #include "Packet.h"
