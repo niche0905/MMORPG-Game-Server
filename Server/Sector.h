@@ -31,6 +31,8 @@ public:
 	void AddClient(int64 id);
 	void RemoveClient(int64 id);
 
+	std::unordered_set<int64>& GetClientList();
+
 	void Lock();
 	void Unlock();
 

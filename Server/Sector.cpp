@@ -30,6 +30,11 @@ void Sector::RemoveClient(int64 id)
 	Unlock();
 }
 
+std::unordered_set<int64>& Sector::GetClientList()
+{
+	return _clients;
+}
+
 void Sector::Lock()
 {
 	_sector_mutex->lock();

@@ -21,7 +21,10 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Sector.cpp">
-      <Filter>Contents</Filter>
+      <Filter>Contents\Sector</Filter>
+    </ClCompile>
+    <ClCompile Include="SectorManager.cpp">
+      <Filter>Contents\Sector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +55,9 @@
     <Filter Include="Contents">
       <UniqueIdentifier>{03fcd062-7da2-4a73-93e9-0c277b95b4b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Sector">
+      <UniqueIdentifier>{3cfc02b6-6685-4b91-a473-7dd9cad4b15a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Packet.h">
@@ -79,7 +85,10 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Sector.h">
-      <Filter>Contents</Filter>
+      <Filter>Contents\Sector</Filter>
+    </ClInclude>
+    <ClInclude Include="SectorManager.h">
+      <Filter>Contents\Sector</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

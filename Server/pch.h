@@ -21,3 +21,4 @@
 #include "IocpCore.h"
 #include "ExpansionOverlapped.h"
 #include "Session.h"
+#include "Sector.h"
