@@ -20,6 +20,9 @@
     <ClCompile Include="Util.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Sector.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -46,6 +49,9 @@
     <Filter Include="Core\ServerCore">
       <UniqueIdentifier>{771229e1-4f20-43c1-8196-09f03a665991}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{03fcd062-7da2-4a73-93e9-0c277b95b4b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Packet.h">
@@ -71,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Sector.h">
+      <Filter>Contents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
