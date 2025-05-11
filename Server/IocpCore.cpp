@@ -5,6 +5,7 @@
 IocpCore::IocpCore()
 {
 	Init();
+	std::cout << "IOCP Init Success\n";
 }
 
 IocpCore::~IocpCore()

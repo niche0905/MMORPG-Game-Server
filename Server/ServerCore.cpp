@@ -22,10 +22,8 @@ ServerCore::~ServerCore()
 void ServerCore::Init()
 {
 	NetworkInit();
-	std::cout << "Network Init Success\n";
 
 	ThreadPoolInit();
-	std::cout << "Thread Pool Init Success\n";
 
 	Run();
 }
@@ -92,6 +90,8 @@ void ServerCore::NetworkInit()
 
 	CreateListenSocket();
 	_iocp_core.AddSocket(_listen_socket, -1);
+
+	std::cout << "Network Init Success\n";
 }
 
 void ServerCore::BindAndListen()
@@ -110,6 +110,8 @@ void ServerCore::BindAndListen()
 		std::cout << "listen Error\n";
 		exit(-1);
 	}
+
+	std::cout << "Bind and Listen Success\n";
 }
 
 void ServerCore::ThreadPoolInit()
@@ -121,6 +123,9 @@ void ServerCore::ThreadPoolInit()
 	for (int i = 0; i < thread_count; ++i) {
 		_threads.emplace_back([this]() { Worker(); });
 	}
+
+	std::cout << "Thread Pool Init Success\n";
+	std::cout << "Thread Count : " << thread_count << "\n";
 }
 
 void ServerCore::CreateListenSocket()
