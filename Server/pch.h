@@ -18,7 +18,11 @@
 #include "Util.h"
 #include "Packet.h"
 #include "ServerDefines.h"
+#include "Stat.h"
 #include "IocpCore.h"
 #include "ExpansionOverlapped.h"
 #include "Session.h"
+#include "ServerCore.h"
 #include "Sector.h"
+
+#include "GlobalVariable.h"

@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ExpansionOverlapped.cpp" />
+    <ClCompile Include="GlobalVariable.cpp" />
     <ClCompile Include="IocpCore.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
@@ -173,6 +174,7 @@
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="Sector.h" />
     <ClInclude Include="SectorManager.h" />
     <ClInclude Include="ServerDefines.h" />

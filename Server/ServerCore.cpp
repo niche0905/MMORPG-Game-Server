@@ -25,7 +25,7 @@ void ServerCore::Init()
 
 	ThreadPoolInit();
 
-	Run();
+	//Run();
 }
 
 void ServerCore::Run()
