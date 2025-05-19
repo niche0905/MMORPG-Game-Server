@@ -156,6 +156,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseSession.cpp" />
+    <ClCompile Include="Bot.cpp" />
     <ClCompile Include="ExpansionOverlapped.cpp" />
     <ClCompile Include="GlobalVariable.cpp" />
     <ClCompile Include="IocpCore.cpp" />
@@ -174,6 +176,8 @@
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseSession.h" />
+    <ClInclude Include="Bot.h" />
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="Sector.h" />
     <ClInclude Include="SectorManager.h" />

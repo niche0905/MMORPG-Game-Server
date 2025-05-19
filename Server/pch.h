@@ -21,6 +21,8 @@
 #include "Stat.h"
 #include "IocpCore.h"
 #include "ExpansionOverlapped.h"
+#include "BaseSession.h"
+#include "Bot.h"
 #include "Session.h"
 #include "ServerCore.h"
 #include "Sector.h"

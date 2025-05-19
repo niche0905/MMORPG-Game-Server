@@ -8,7 +8,7 @@
       <Filter>PCH</Filter>
     </ClCompile>
     <ClCompile Include="Session.cpp">
-      <Filter>Core\Session</Filter>
+      <Filter>Core\BaseSession\Session</Filter>
     </ClCompile>
     <ClCompile Include="ExpansionOverlapped.cpp">
       <Filter>Core\Overlapped</Filter>
@@ -32,6 +32,12 @@
       <Filter>Utils\GrobalVariable</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Bot.cpp">
+      <Filter>Core\BaseSession\Bot</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseSession.cpp">
+      <Filter>Core\BaseSession</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -45,9 +51,6 @@
     </Filter>
     <Filter Include="PCH">
       <UniqueIdentifier>{ab311225-8463-4dd1-b544-9bfc2c361ab9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Session">
-      <UniqueIdentifier>{fcb08fa4-490b-4c9f-bca4-fb77198b2228}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Overlapped">
       <UniqueIdentifier>{1726d7d9-5a45-4bdd-9f43-a24cb8f3978c}</UniqueIdentifier>
@@ -70,6 +73,15 @@
     <Filter Include="Utils\GrobalVariable">
       <UniqueIdentifier>{3e0d0a8d-e697-4b60-8b33-35f4157ed3d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\BaseSession">
+      <UniqueIdentifier>{db0e1dfe-f632-42fc-8868-8e960cb551db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\BaseSession\Session">
+      <UniqueIdentifier>{fcb08fa4-490b-4c9f-bca4-fb77198b2228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\BaseSession\Bot">
+      <UniqueIdentifier>{42f72b96-5858-4123-8fa1-069b1500092c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Packet.h">
@@ -82,7 +94,7 @@
       <Filter>PCH</Filter>
     </ClInclude>
     <ClInclude Include="Session.h">
-      <Filter>Core\Session</Filter>
+      <Filter>Core\BaseSession\Session</Filter>
     </ClInclude>
     <ClInclude Include="ExpansionOverlapped.h">
       <Filter>Core\Overlapped</Filter>
@@ -107,6 +119,12 @@
     </ClInclude>
     <ClInclude Include="GlobalVariable.h">
       <Filter>Utils\GrobalVariable</Filter>
+    </ClInclude>
+    <ClInclude Include="Bot.h">
+      <Filter>Core\BaseSession\Bot</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseSession.h">
+      <Filter>Core\BaseSession</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

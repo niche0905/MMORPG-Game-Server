@@ -1,11 +1,10 @@
 #pragma once
 
 
-class Session
+class Session : public BaseSession
 {
 private:
 	SOCKET		_socket;
-	int64		_id;
 
 	ExOver		_recv_overlapped;
 	int32		_remain_size;
@@ -17,6 +16,9 @@ public:
 	Session(SOCKET socket, int64 id);
 
 	~Session();
+
+	bool IsPlayer() const override;
+	bool IsNPC() const override;
 
 	void Send(void* packet);
 	void Recv();

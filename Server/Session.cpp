@@ -5,16 +5,17 @@
 Session::Session()
 {
 	// unordered_map을 사용할 것이기에 기본 생성자가 호출되면 안되는 것임
-	std::cout << "기본 생성자 호출 에러\n";
+	std::cout << "Session 기본 생성자 호출 에러\n";
+	exit(-1);
 }
 
 Session::Session(SOCKET socket, int64 id) 
-	: _socket(socket)
-	, _id(id)
+	: BaseSession{ id }
+	, _socket(socket)
 	, _recv_overlapped(IoOperation::IO_RECV)
 	, _remain_size(0)
 {
-
+	
 }
 
 Session::~Session()
@@ -23,6 +24,16 @@ Session::~Session()
 
 	// TODO : 소켓을 닫아도 된다면 판단 후에 닫기 or IOCP 소켓 작업 다 캔슬하고 바로 닫기
 	closesocket(_socket);
+}
+
+bool Session::IsPlayer() const
+{
+	return true;
+}
+
+bool Session::IsNPC() const
+{
+	return false;
 }
 
 void Session::Send(void* packet)
