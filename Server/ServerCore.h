@@ -31,7 +31,6 @@ public:
 	void Release();
 
 	void Accept();
-	void ProcessPacket(int64 id, BYTE* packet);
 
 private:
 	void NetworkInit();

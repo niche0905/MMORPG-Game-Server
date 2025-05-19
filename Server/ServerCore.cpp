@@ -73,13 +73,6 @@ void ServerCore::Accept()
 	}
 }
 
-void ServerCore::ProcessPacket(int64 id, BYTE* packet)
-{
-	// TODO : 패킷 프로토콜에 맞게 분석 후 처리하기
-
-
-}
-
 void ServerCore::NetworkInit()
 {
 	WSADATA wsa_data;
