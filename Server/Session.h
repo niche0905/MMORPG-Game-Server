@@ -1,7 +1,7 @@
 #pragma once
 
 
-class Session : public BaseSession
+class Session : public Creature
 {
 private:
 	SOCKET		_socket;

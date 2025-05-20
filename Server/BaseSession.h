@@ -1,7 +1,7 @@
 #pragma once
 
 
-class BaseSession
+class Creature
 {
 protected:
 	int64		_id;
@@ -11,9 +11,9 @@ protected:
 	Stats		_temp_stats;
 
 public:
-	BaseSession();
-	BaseSession(int64 id);
-	~BaseSession();
+	Creature();
+	Creature(int64 id);
+	~Creature();
 
 	// 필요한 메서드
 	int64 GetID() const;

@@ -1,7 +1,7 @@
 #pragma once
 
 
-class Bot : public BaseSession
+class Bot : public Creature
 {
 private:
 

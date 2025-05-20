@@ -9,7 +9,7 @@ Bot::Bot()
 }
 
 Bot::Bot(int64 id)
-	: BaseSession{ id }
+	: Creature{ id }
 {
 
 }

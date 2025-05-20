@@ -10,7 +10,7 @@ Session::Session()
 }
 
 Session::Session(SOCKET socket, int64 id) 
-	: BaseSession{ id }
+	: Creature{ id }
 	, _socket(socket)
 	, _recv_overlapped(IoOperation::IO_RECV)
 	, _remain_size(0)

@@ -2,13 +2,13 @@
 #include "BaseSession.h"
 
 
-BaseSession::BaseSession()
-	: BaseSession(-1)
+Creature::Creature()
+	: Creature(-1)
 {
 
 }
 
-BaseSession::BaseSession(int64 id)
+Creature::Creature(int64 id)
 	: _id{ id }
 	, _basic_stats{}
 	, _temp_stats{}
@@ -16,12 +16,12 @@ BaseSession::BaseSession(int64 id)
 
 }
 
-BaseSession::~BaseSession()
+Creature::~Creature()
 {
 
 }
 
-int64 BaseSession::GetID() const
+int64 Creature::GetID() const
 {
 	return _id;
 }
