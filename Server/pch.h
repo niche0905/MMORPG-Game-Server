@@ -14,6 +14,7 @@
 #include <concurrent_unordered_map.h>
 
 #include "Util.h"
+#include "Position.h"
 #include "Packet.h"
 #include "ServerDefines.h"
 #include "Stat.h"

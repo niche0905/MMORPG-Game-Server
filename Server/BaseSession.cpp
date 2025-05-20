@@ -3,17 +3,22 @@
 
 
 Creature::Creature()
-	: Creature(-1)
+	: Creature{ -1, 0, 0 }
 {
 
 }
 
-Creature::Creature(int64 id)
+Creature::Creature(int64 id, int16 x, int16 y)
 	: _id{ id }
-	, _basic_stats{}
-	, _temp_stats{}
+	, _position{ x, y }
 {
 
+}
+
+Creature::Creature(int64 id, Position pos)
+	: _id{ id }
+	, _position{ pos }
+{
 }
 
 Creature::~Creature()

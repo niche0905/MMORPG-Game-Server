@@ -38,6 +38,9 @@
     <ClCompile Include="BaseSession.cpp">
       <Filter>Core\BaseSession</Filter>
     </ClCompile>
+    <ClCompile Include="Position.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="BaseSession.h">
       <Filter>Core\BaseSession</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
