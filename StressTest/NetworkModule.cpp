@@ -1,4 +1,4 @@
-#define _WINSOCK_DEPRECATED_NO_WARNINGS
+ï»¿#define _WINSOCK_DEPRECATED_NO_WARNINGS
 
 #ifdef DEBUG
 #pragma comment(lib, "Debug\\Core.lib")
@@ -9,7 +9,7 @@
 #include "CorePch.h"
 
 
-#define LOOPBACK	// ·çÇÁ¹é ¿¬°á
+#define LOOPBACK	// ë£¨í”„ë°± ì—°ê²°
 
 using namespace std;
 using namespace chrono;
@@ -24,7 +24,7 @@ const static int MAX_BUFF_SIZE = 255;
 
 #pragma comment (lib, "ws2_32.lib")
 
-//#include "..\GameServer\GameHeader.h"	// ³» ¶óÀÌºê·¯¸®·Î º¯°æ
+//#include "..\GameServer\GameHeader.h"	// ë‚´ ë¼ì´ë¸ŒëŸ¬ë¦¬ë¡œ ë³€ê²½
 
 HANDLE g_hiocp;
 
@@ -60,7 +60,7 @@ atomic_int num_connections;
 atomic_int client_to_close;
 atomic_int active_clients;
 
-int			global_delay;				// ms´ÜÀ§, 1000ÀÌ ³ÑÀ¸¸é Å¬¶óÀÌ¾ğÆ® Áõ°¡ Á¾·á
+int			global_delay;				// msë‹¨ìœ„, 1000ì´ ë„˜ìœ¼ë©´ í´ë¼ì´ì–¸íŠ¸ ì¦ê°€ ì¢…ë£Œ
 
 vector <thread*> worker_threads;
 thread test_thread;
@@ -68,7 +68,7 @@ char serverIP[64];
 
 float point_cloud[MAX_TEST * 2];
 
-// ³ªÁß¿¡ NPC±îÁö Ãß°¡ È®Àå ¿ë
+// ë‚˜ì¤‘ì— NPCê¹Œì§€ ì¶”ê°€ í™•ì¥ ìš©
 struct ALIEN {
 	int id;
 	int x, y;
@@ -85,7 +85,7 @@ void error_display(const char* msg, int err_no)
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 		(LPTSTR)&lpMsgBuf, 0, NULL);
 	std::cout << msg;
-	std::wcout << L"¿¡·¯" << lpMsgBuf << std::endl;
+	std::wcout << L"ì—ëŸ¬" << lpMsgBuf << std::endl;
 
 	MessageBox(hWnd, lpMsgBuf, L"ERROR", 0);
 	LocalFree(lpMsgBuf);
@@ -201,7 +201,7 @@ void Worker_Thread()
 			while (io_size > 0) {
 				if (0 == psize) psize = buf[0];
 				if (io_size + pr_size >= psize) {
-					// Áö±İ ÆĞÅ¶ ¿Ï¼º °¡´É
+					// ì§€ê¸ˆ íŒ¨í‚· ì™„ì„± ê°€ëŠ¥
 					unsigned char packet[MAX_PACKET_SIZE];
 					memcpy(packet, g_clients[ci].packet_buf, pr_size);
 					memcpy(packet + pr_size, buf, psize - pr_size);
@@ -365,7 +365,7 @@ void InitializeNetwork()
 #ifdef LOOPBACK
 	strcpy_s(serverIP, "127.0.0.1");
 #else
-	std::cout << "½ºÆ®·¹½º Å×½ºÆ® ¼­¹ö IP¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ";
+	std::cout << "ìŠ¤íŠ¸ë ˆìŠ¤ í…ŒìŠ¤íŠ¸ ì„œë²„ IPë¥¼ ì…ë ¥í•˜ì„¸ìš”: ";
 	std::cin >> serverIP;
 #endif // LOOPBACK
 

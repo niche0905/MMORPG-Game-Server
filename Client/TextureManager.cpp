@@ -1,24 +1,24 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "TextureManager.h"
 #include <json/json.h>
 
 
-// TextureManager ½Ì±ÛÅæ
+// TextureManager ì‹±ê¸€í†¤
 TextureManager& TextureManager::Instance()
 {
 	static TextureManager instance;
 	return instance;
 }
 
-// key¿¡ ÇØ´çÇÏ´Â ÅØ½ºÃÄ¸¦ file_pathÀÇ ÆÄÀÏ·Î ºÒ·¯¿À±â
+// keyì— í•´ë‹¹í•˜ëŠ” í…ìŠ¤ì³ë¥¼ file_pathì˜ íŒŒì¼ë¡œ ë¶ˆëŸ¬ì˜¤ê¸°
 bool TextureManager::LoadTexture(const std::string& key, const std::string& file_path)
 {
-	// ÀÌ¹Ì ÇØ´ç ÅØ½ºÃÄ°¡ ÀÖ¾î¼­ false
+	// ì´ë¯¸ í•´ë‹¹ í…ìŠ¤ì³ê°€ ìˆì–´ì„œ false
 	if (textures.find(key) != textures.end())
 		return false;
 
 	sf::Texture texture;
-	// ÅØ½ºÃÄ ÆÄÀÏ ·Îµå¿¡ ½ÇÆĞÇÒ °æ¿ì
+	// í…ìŠ¤ì³ íŒŒì¼ ë¡œë“œì— ì‹¤íŒ¨í•  ê²½ìš°
 	if (not texture.loadFromFile(file_path))
 		throw std::runtime_error("Failed to load texture: " + file_path);
 
@@ -26,7 +26,7 @@ bool TextureManager::LoadTexture(const std::string& key, const std::string& file
 	return true;
 }
 
-// JSON ÆÄÀÏ¿¡ ÀúÀåµÈ key¿Í °æ·Î¸¦ ÀÌ¿ëÇØ ¸ğµç ÅØ½ºÃÄ Load
+// JSON íŒŒì¼ì— ì €ì¥ëœ keyì™€ ê²½ë¡œë¥¼ ì´ìš©í•´ ëª¨ë“  í…ìŠ¤ì³ Load
 void TextureManager::LoadAllTextures(const std::string& json_file_path)
 {
 	std::ifstream file(json_file_path);
@@ -45,7 +45,7 @@ void TextureManager::LoadAllTextures(const std::string& json_file_path)
 	}
 }
 
-// key¿¡ ÇØ´çÇÏ´Â ÅØ½ºÃÄ ¾ò±â
+// keyì— í•´ë‹¹í•˜ëŠ” í…ìŠ¤ì³ ì–»ê¸°
 const sf::Texture& TextureManager::GetTexture(const std::string& key) const
 {
 	auto it = textures.find(key);

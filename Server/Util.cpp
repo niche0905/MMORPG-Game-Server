@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Util.h"
 
 
@@ -17,7 +17,7 @@ void PrintErrorMessage(DWORD err_code)
 		NULL, err_code,
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 		(LPTSTR)&lpMsgBuf, 0, NULL);
-	std::wcout << L"¿¡·¯ : " << lpMsgBuf << std::endl;
+	std::wcout << L"ì—ëŸ¬ : " << lpMsgBuf << std::endl;
 	LocalFree(lpMsgBuf);
 }
 
@@ -30,6 +30,6 @@ void PrintErrorMessage(const std::wstring pos, DWORD err_code)
 		NULL, err_code,
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 		(LPTSTR)&lpMsgBuf, 0, NULL);
-	std::wcout << pos << L" ¿¡·¯ : " << lpMsgBuf << std::endl;
+	std::wcout << pos << L" ì—ëŸ¬ : " << lpMsgBuf << std::endl;
 	LocalFree(lpMsgBuf);
 }

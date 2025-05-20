@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 class ServerCore
@@ -11,16 +11,16 @@ private:
 	using LocalClient = std::shared_ptr<Session>;
 
 private:
-	IocpCore					_iocp_core;			// IOCP ÇÚµé °ü¸® ÇÏ´Â Å¬·¡½º
-	container<int64, Client>	_clients;			// Å¬¶óÀÌ¾ğÆ® ¼¼¼Ç °ü¸®ÇÏ´Â ÄÁÅ×ÀÌ³Ê
+	IocpCore					_iocp_core;			// IOCP í•¸ë“¤ ê´€ë¦¬ í•˜ëŠ” í´ë˜ìŠ¤
+	container<int64, Client>	_clients;			// í´ë¼ì´ì–¸íŠ¸ ì„¸ì…˜ ê´€ë¦¬í•˜ëŠ” ì»¨í…Œì´ë„ˆ
 
-	volatile bool				_is_running;		// ¼­¹ö°¡ ½ÇÇàÁßÀÎÁö Ã¼Å©ÇÏ´Â º¯¼ö
-	std::vector<std::thread>	_threads;			// ½º·¹µå Ç® °ü¸®ÇÏ´Â º¤ÅÍ
+	volatile bool				_is_running;		// ì„œë²„ê°€ ì‹¤í–‰ì¤‘ì¸ì§€ ì²´í¬í•˜ëŠ” ë³€ìˆ˜
+	std::vector<std::thread>	_threads;			// ìŠ¤ë ˆë“œ í’€ ê´€ë¦¬í•˜ëŠ” ë²¡í„°
 
-	std::atomic<int64>			_id_counter;		// Å¬¶óÀÌ¾ğÆ® ¾ÆÀÌµğ Ä«¿îÅÍ
-	SOCKET 						_listen_socket;		// ¸®½¼ ¼ÒÄÏ (¼­¹ö listen ¿ë)
-	SOCKET						_accept_socket;		// Å¬¶óÀÌ¾ğÆ® ¼ÒÄÏ (accept Àü¿ë)
-	ExOver						_accept_overlapped;	// accept¿ë overlapped ±¸Á¶Ã¼
+	std::atomic<int64>			_id_counter;		// í´ë¼ì´ì–¸íŠ¸ ì•„ì´ë”” ì¹´ìš´í„°
+	SOCKET 						_listen_socket;		// ë¦¬ìŠ¨ ì†Œì¼“ (ì„œë²„ listen ìš©)
+	SOCKET						_accept_socket;		// í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ (accept ì „ìš©)
+	ExOver						_accept_overlapped;	// acceptìš© overlapped êµ¬ì¡°ì²´
 
 public:
 	ServerCore();

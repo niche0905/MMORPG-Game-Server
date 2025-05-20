@@ -1,28 +1,28 @@
-#define SFML_STATIC
+ï»¿#define SFML_STATIC
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
 int main() {
-    // SFML Ã¢ »ı¼º
+    // SFML ì°½ ìƒì„±
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Text Example");
 
-    // ÆùÆ® °´Ã¼ »ı¼º
+    // í°íŠ¸ ê°ì²´ ìƒì„±
     sf::Font font;
-    if (!font.loadFromFile("ARIAL.TTF")) { // ÆùÆ® ÆÄÀÏ ·Îµå
-        std::cerr << "ÆùÆ® ·Îµå ½ÇÆĞ!" << std::endl;
+    if (!font.loadFromFile("ARIAL.TTF")) { // í°íŠ¸ íŒŒì¼ ë¡œë“œ
+        std::cerr << "í°íŠ¸ ë¡œë“œ ì‹¤íŒ¨!" << std::endl;
         return -1;
     }
 
-    // ÅØ½ºÆ® °´Ã¼ »ı¼º ¹× ¼³Á¤
+    // í…ìŠ¤íŠ¸ ê°ì²´ ìƒì„± ë° ì„¤ì •
     sf::Text text;
-    text.setFont(font);                // ÆùÆ® ¼³Á¤
-    text.setString("Hello, SFML!");    // Ãâ·ÂÇÒ ¹®ÀÚ¿­ ¼³Á¤
-    text.setCharacterSize(50);         // ±ÛÀÚ Å©±â
-    text.setFillColor(sf::Color::White); // ±ÛÀÚ »ö»ó
-    text.setStyle(sf::Text::Bold);     // ±½°Ô ¼³Á¤
-    text.setPosition(200.f, 250.f);    // À§Ä¡ ¼³Á¤
+    text.setFont(font);                // í°íŠ¸ ì„¤ì •
+    text.setString("Hello, SFML!");    // ì¶œë ¥í•  ë¬¸ìì—´ ì„¤ì •
+    text.setCharacterSize(50);         // ê¸€ì í¬ê¸°
+    text.setFillColor(sf::Color::White); // ê¸€ì ìƒ‰ìƒ
+    text.setStyle(sf::Text::Bold);     // êµµê²Œ ì„¤ì •
+    text.setPosition(200.f, 250.f);    // ìœ„ì¹˜ ì„¤ì •
 
-    // °ÔÀÓ ·çÇÁ
+    // ê²Œì„ ë£¨í”„
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -30,7 +30,7 @@ int main() {
                 window.close();
         }
 
-        // È­¸é Áö¿ì°í ÅØ½ºÆ® ±×¸®±â
+        // í™”ë©´ ì§€ìš°ê³  í…ìŠ¤íŠ¸ ê·¸ë¦¬ê¸°
         window.clear(sf::Color::Black);
         window.draw(text);
         window.display();

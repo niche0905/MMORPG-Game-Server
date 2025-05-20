@@ -1,11 +1,11 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Session.h"
 
 
 Session::Session()
 {
-	// unordered_mapÀ» »ç¿ëÇÒ °ÍÀÌ±â¿¡ ±âº» »ı¼ºÀÚ°¡ È£ÃâµÇ¸é ¾ÈµÇ´Â °ÍÀÓ
-	std::cout << "Session ±âº» »ı¼ºÀÚ È£Ãâ ¿¡·¯\n";
+	// unordered_mapì„ ì‚¬ìš©í•  ê²ƒì´ê¸°ì— ê¸°ë³¸ ìƒì„±ìê°€ í˜¸ì¶œë˜ë©´ ì•ˆë˜ëŠ” ê²ƒì„
+	std::cout << "Session ê¸°ë³¸ ìƒì„±ì í˜¸ì¶œ ì—ëŸ¬\n";
 	exit(-1);
 }
 
@@ -22,7 +22,7 @@ Session::~Session()
 {
 
 
-	// TODO : ¼ÒÄÏÀ» ´İ¾Æµµ µÈ´Ù¸é ÆÇ´Ü ÈÄ¿¡ ´İ±â or IOCP ¼ÒÄÏ ÀÛ¾÷ ´Ù Äµ½½ÇÏ°í ¹Ù·Î ´İ±â
+	// TODO : ì†Œì¼“ì„ ë‹«ì•„ë„ ëœë‹¤ë©´ íŒë‹¨ í›„ì— ë‹«ê¸° or IOCP ì†Œì¼“ ì‘ì—… ë‹¤ ìº”ìŠ¬í•˜ê³  ë°”ë¡œ ë‹«ê¸°
 	closesocket(_socket);
 }
 
@@ -39,7 +39,7 @@ bool Session::IsNPC() const
 void Session::Send(void* packet)
 {
 	ExOver* send_overlapped = new ExOver(IoOperation::IO_SEND);
-	send_overlapped->SetBuffer(packet, static_cast<int>(reinterpret_cast<BYTE*>(packet)[0/*ÆĞÅ¶ »çÀÌÁî°¡ ÀúÀåµÈ À§Ä¡*/]));
+	send_overlapped->SetBuffer(packet, static_cast<int>(reinterpret_cast<BYTE*>(packet)[0/*íŒ¨í‚· ì‚¬ì´ì¦ˆê°€ ì €ì¥ëœ ìœ„ì¹˜*/]));
 
 	DWORD sent_bytes = 0;
 	auto ret = WSASend(_socket, send_overlapped->GetWSABuf(), 1, &sent_bytes, 0, send_overlapped->GetOverlapped(), nullptr);
@@ -67,7 +67,7 @@ void Session::Recv()
 
 void Session::ProcessPacket(BYTE* packet)
 {
-	// TODO : ÆĞÅ¶ ÇÁ·ÎÅäÄİ¿¡ ¸Â°Ô ºĞ¼® ÈÄ Ã³¸®ÇÏ±â
+	// TODO : íŒ¨í‚· í”„ë¡œí† ì½œì— ë§ê²Œ ë¶„ì„ í›„ ì²˜ë¦¬í•˜ê¸°
 	
 }
 

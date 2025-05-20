@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // type define
 using BYTE = unsigned char;

@@ -1,24 +1,24 @@
-#define SFML_STATIC
+ï»¿#define SFML_STATIC
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
 
 int main() {
-    // 1. SFML Ã¢ »ı¼º
+    // 1. SFML ì°½ ìƒì„±
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Image Example");
 
-    // 2. ÅØ½ºÃ³ ·Îµå
+    // 2. í…ìŠ¤ì²˜ ë¡œë“œ
     sf::Texture texture;
-    if (!texture.loadFromFile("test0.png")) {  // ÀÌ¹ÌÁö °æ·Î¸¦ ½ÇÁ¦ ÆÄÀÏ °æ·Î·Î º¯°æ
-        std::cerr << "ÀÌ¹ÌÁö¸¦ ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù!" << std::endl;
+    if (!texture.loadFromFile("test0.png")) {  // ì´ë¯¸ì§€ ê²½ë¡œë¥¼ ì‹¤ì œ íŒŒì¼ ê²½ë¡œë¡œ ë³€ê²½
+        std::cerr << "ì´ë¯¸ì§€ë¥¼ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!" << std::endl;
         return -1;
     }
 
-    // 3. ½ºÇÁ¶óÀÌÆ® »ı¼º ¹× ÅØ½ºÃ³ Àû¿ë
+    // 3. ìŠ¤í”„ë¼ì´íŠ¸ ìƒì„± ë° í…ìŠ¤ì²˜ ì ìš©
     sf::Sprite sprite;
     sprite.setTexture(texture);
 
-    // 4. °ÔÀÓ ·çÇÁ
+    // 4. ê²Œì„ ë£¨í”„
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -26,10 +26,10 @@ int main() {
                 window.close();
         }
 
-        // 5. È­¸é¿¡ ½ºÇÁ¶óÀÌÆ® ±×¸®±â
-        window.clear(sf::Color::Black);  // ¹è°æÀ» °ËÀº»öÀ¸·Î Áö¿ì±â
-        window.draw(sprite);  // ½ºÇÁ¶óÀÌÆ®¸¦ È­¸é¿¡ ±×¸²
-        window.display();  // È­¸é ¾÷µ¥ÀÌÆ®
+        // 5. í™”ë©´ì— ìŠ¤í”„ë¼ì´íŠ¸ ê·¸ë¦¬ê¸°
+        window.clear(sf::Color::Black);  // ë°°ê²½ì„ ê²€ì€ìƒ‰ìœ¼ë¡œ ì§€ìš°ê¸°
+        window.draw(sprite);  // ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ í™”ë©´ì— ê·¸ë¦¼
+        window.display();  // í™”ë©´ ì—…ë°ì´íŠ¸
     }
 
     return 0;

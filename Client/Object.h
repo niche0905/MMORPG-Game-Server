@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "World.h"
 
 constexpr double default_object_size{ 60.0 };

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 enum class SceneType : uint8_t
@@ -10,7 +10,7 @@ enum class SceneType : uint8_t
 
 class BaseScene
 {
-protected:	// °ÔÀÓ ¿ä¼Òµé (º¯¼öµé)
+protected:	// ê²Œì„ ìš”ì†Œë“¤ (ë³€ìˆ˜ë“¤)
 
 
 private:
@@ -23,7 +23,7 @@ public:
 	virtual void ProcessPacket(std::vector<char> packet) = 0;
 	virtual sf::Vector2f GetCameraCenter() const = 0;
 
-protected:	// °ÔÀÓ¿¡ ÇÊ¿äÇÑ ÇÔ¼öµé
+protected:	// ê²Œì„ì— í•„ìš”í•œ í•¨ìˆ˜ë“¤
 private:
 public:
 

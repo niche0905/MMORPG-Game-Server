@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GameScene.h"
 #include "TileManager.h"
 #include "TextureManager.h"
@@ -29,7 +29,7 @@ void GameScene::Init()
 	player_coordinate.setOutlineThickness(1.0f);
 }
 
-// Scene¿¡ Á¸ÀçÇÏ´Â Object ¾÷µ¥ÀÌÆ®
+// Sceneì— ì¡´ì¬í•˜ëŠ” Object ì—…ë°ì´íŠ¸
 void GameScene::Update(const int64 delta_time)
 {
 	sf::Vector2i player_position = client_player->GetPosition();
@@ -38,7 +38,7 @@ void GameScene::Update(const int64 delta_time)
 	player_coordinate.setString(position_str);
 }
 
-// Scene¿¡ Á¸ÀçÇÏ´Â Object ±×¸®±â
+// Sceneì— ì¡´ì¬í•˜ëŠ” Object ê·¸ë¦¬ê¸°
 void GameScene::Draw(sf::RenderWindow& window)
 {
 	world->Draw(window);
@@ -55,7 +55,7 @@ void GameScene::HUD(sf::RenderWindow& window)
 	window.draw(player_coordinate);
 }
 
-// Player¿¡°Ô Input Àü´ŞÇÏ±â
+// Playerì—ê²Œ Input ì „ë‹¬í•˜ê¸°
 void GameScene::HandleInput(const sf::Event& input_event)
 {
 	if (input_event.type == sf::Event::KeyPressed) {
@@ -131,7 +131,7 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 		break;
 
 	default:
-		std::cout << "ÆĞÅ¶ id ¾ø´Â ÆĞÅ¶ ¿À·ù\n";
+		std::cout << "íŒ¨í‚· id ì—†ëŠ” íŒ¨í‚· ì˜¤ë¥˜\n";
 		break;
 	}
 }

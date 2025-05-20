@@ -1,10 +1,10 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Game.h"
 #include "GameScene.h"
 #include "FontManager.h"
 
 
-// Game »ı¼ºÀÚ
+// Game ìƒì„±ì
 Game::Game()
 	: window{sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "MMORPG GAME"}
 	, view{sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)}
@@ -16,21 +16,21 @@ Game::Game()
 
 void Game::Init()
 {
-	std::wcout.imbue(std::locale("korean"));			// Ç¥ÁØ Ãâ·Â ½ºÆ®¸²¿¡ Àû¿ë
+	std::wcout.imbue(std::locale("korean"));			// í‘œì¤€ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ì— ì ìš©
 
 	if (not FontManager::Instance().LoadFont("neodot", "Resource/Font/neodgm.ttf")) {
-		std::wcout << L"ÆùÆ® ·Îµå ½ÇÆĞ\n";
+		std::wcout << L"í°íŠ¸ ë¡œë“œ ì‹¤íŒ¨\n";
 
 		exit(-1);
 	}
 
 	scene = std::make_shared<GameScene>();
 
-	// TODO : LoadingÀÌ ³¡³ª°í ³ª¼­ last_timeÀ» ÃÊ±âÈ­ ÇØ¾ß ÇÔ
+	// TODO : Loadingì´ ëë‚˜ê³  ë‚˜ì„œ last_timeì„ ì´ˆê¸°í™” í•´ì•¼ í•¨
 	last_time = Epoch::now();
 }
 
-// °ÔÀÓ ½ÇÇà ·çÇÁ (Input ¹Ş°í, timer ¾÷µ¥ÀÌÆ®, Scene Update, Draw)
+// ê²Œì„ ì‹¤í–‰ ë£¨í”„ (Input ë°›ê³ , timer ì—…ë°ì´íŠ¸, Scene Update, Draw)
 void Game::Run()
 {
 	ConnectServer();
@@ -51,7 +51,7 @@ void Game::Run()
 
 		window.clear();
 
-		// Recv ÇÏ°í ÆĞÅ¶ Ã³¸®
+		// Recv í•˜ê³  íŒ¨í‚· ì²˜ë¦¬
 		ProcessPacket(communication.Recv());
 
 		Update(delta_time.count());
@@ -61,13 +61,13 @@ void Game::Run()
 	}
 }
 
-// °ÔÀÓ ¿ä¼Ò ¾÷µ¥ÀÌÆ® (Scene ¾÷µ¥ÀÌÆ®)
+// ê²Œì„ ìš”ì†Œ ì—…ë°ì´íŠ¸ (Scene ì—…ë°ì´íŠ¸)
 void Game::Update(const int64 delta_time)
 {
 	scene->Update(delta_time);
 }
 
-// °ÔÀÓ ¿ä¼Ò ·»´õ¸µ (Scene Draw)
+// ê²Œì„ ìš”ì†Œ ë Œë”ë§ (Scene Draw)
 void Game::Draw()
 {
 	SetCameraView();
@@ -77,14 +77,14 @@ void Game::Draw()
 	scene->HUD(window);
 }
 
-// Input ¹Ş±â (¹Ş¾Æ¼­ SceneÀ¸·Î ³Ñ±â±â)
+// Input ë°›ê¸° (ë°›ì•„ì„œ Sceneìœ¼ë¡œ ë„˜ê¸°ê¸°)
 void Game::HandleInput()
 {
 	sf::Event input_event;
 
 	while (window.pollEvent(input_event)) {
 
-		// TODO : ¸ğµç »óÈ²¿¡¼­ ÇÊ¿äÇÑ ÀÔ·Â Ã³¸®
+		// TODO : ëª¨ë“  ìƒí™©ì—ì„œ í•„ìš”í•œ ì…ë ¥ ì²˜ë¦¬
 		if (input_event.type == sf::Event::Closed) {
 			window.close();
 		}
@@ -106,7 +106,7 @@ void Game::ProcessPacket(std::vector<char> packet)
 
 void Game::ConnectServer()
 {
-	std::wcout << L"Á¢¼ÓÇÒ ÁÖ¼Ò¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ";
+	std::wcout << L"ì ‘ì†í•  ì£¼ì†Œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ";
 	std::string ip_address;
 	std::cin >> ip_address;
 
@@ -119,7 +119,7 @@ void Game::SetCameraView()
 	window.setView(view);
 }
 
-// SceneÀ» Load ÇÑ´Ù
+// Sceneì„ Load í•œë‹¤
 void Game::SceneLoad(SceneType scene_type)
 {
 	switch (scene_type)

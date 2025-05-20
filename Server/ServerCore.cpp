@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ServerCore.h"
 
 
@@ -91,7 +91,7 @@ void ServerCore::BindAndListen()
 {
 	SOCKADDR_IN server_addr;
 	server_addr.sin_family = AF_INET;
-	server_addr.sin_port = htons(9000);		// TODO : Æ÷Æ® ¹øÈ£ ¼³Á¤ (CoreÀÇ »ó¼ö·Î ¼³Á¤)
+	server_addr.sin_port = htons(9000);		// TODO : í¬íŠ¸ ë²ˆí˜¸ ì„¤ì • (Coreì˜ ìƒìˆ˜ë¡œ ì„¤ì •)
 	server_addr.sin_addr.s_addr = INADDR_ANY;
 
 	if (bind(_listen_socket, reinterpret_cast<SOCKADDR*>(&server_addr), sizeof(server_addr)) == SOCKET_ERROR) {
@@ -198,7 +198,7 @@ void ServerCore::Worker()
 		default:
 		{
 			std::cout << "Unknown IO Operation\n";
-			exit(-1);	// Á¤ÀÇµÇÁö ¾ÊÀº OperationÀÌ ¹ß»ıÇßÀ» °æ¿ì Á¾·áÇÏ´Â °ÍÀÌ ¸ÂÀ½
+			exit(-1);	// ì •ì˜ë˜ì§€ ì•Šì€ Operationì´ ë°œìƒí–ˆì„ ê²½ìš° ì¢…ë£Œí•˜ëŠ” ê²ƒì´ ë§ìŒ
 		}
 		break;
 		} 

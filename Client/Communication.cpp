@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Communication.h"
 
 
@@ -9,52 +9,52 @@ sf::SocketHandle MyTcpSocket::getHandlePublic()
 }
 
 
-// ±âº» »ı¼ºÀÚ
+// ê¸°ë³¸ ìƒì„±ì
 Communication::Communication()
 {
 	Init();
 }
 
-// ¼Ò¸êÀÚ·Î Á¤¸® ÇÊ¿äÇÑ Ç×¸ñ Á¤¸®
+// ì†Œë©¸ìë¡œ ì •ë¦¬ í•„ìš”í•œ í•­ëª© ì •ë¦¬
 Communication::~Communication()
 {
 
 }
 
-// ÃÊ±â¿¡ ÇÊ¿äÇÑ ÀÛ¾÷µé ex) ³íºí·ÎÅ· ¼³Á¤
+// ì´ˆê¸°ì— í•„ìš”í•œ ì‘ì—…ë“¤ ex) ë…¼ë¸”ë¡œí‚¹ ì„¤ì •
 void Communication::Init()
 {
-	socket.setBlocking(false);	// ¼ÒÄÏ Åë½ÅÀ» ³íºí·ÎÅ·À¸·Î ¼³Á¤
+	socket.setBlocking(false);	// ì†Œì¼“ í†µì‹ ì„ ë…¼ë¸”ë¡œí‚¹ìœ¼ë¡œ ì„¤ì •
 }
 
-// ÁÖ¼Ò¿Í Åë½Å ¿¬°á
+// ì£¼ì†Œì™€ í†µì‹  ì—°ê²°
 void Communication::Connect(const char* ip_address)
 {
 	sf::Socket::Status status = socket.connect(ip_address, PORT_NUM);
 	if (status == sf::Socket::Done) {
-		std::wcout << L"¼­¹ö¿Í ¹Ù·Î ¿¬°áµÇ¾ú½À´Ï´Ù\n";
+		std::wcout << L"ì„œë²„ì™€ ë°”ë¡œ ì—°ê²°ë˜ì—ˆìŠµë‹ˆë‹¤\n";
 	}
 	else if (status == sf::Socket::NotReady) {
-		// ³íºí·ÎÅ· ¼ÒÄÏ¿¡¼­´Â NotReady°¡ ¹ß»ı -> select()·Î ¿¬°á È®ÀÎ
+		// ë…¼ë¸”ë¡œí‚¹ ì†Œì¼“ì—ì„œëŠ” NotReadyê°€ ë°œìƒ -> select()ë¡œ ì—°ê²° í™•ì¸
 		fd_set writeSet;
 		FD_ZERO(&writeSet);
 		FD_SET(socket.getHandlePublic(), &writeSet);
 
 		timeval timeout;
-		timeout.tv_sec = 5;  // ÃÖ´ë 5ÃÊ µ¿¾È ´ë±â
+		timeout.tv_sec = 5;  // ìµœëŒ€ 5ì´ˆ ë™ì•ˆ ëŒ€ê¸°
 		timeout.tv_usec = 0;
 
 		int result = select(socket.getHandlePublic() + 1, nullptr, &writeSet, nullptr, &timeout);
 		if (result > 0) {
-			std::wcout << L"¼­¹ö¿Í ¿¬°áµÇ¾ú½À´Ï´Ù.\n";
+			std::wcout << L"ì„œë²„ì™€ ì—°ê²°ë˜ì—ˆìŠµë‹ˆë‹¤.\n";
 		}
 		else {
-			std::wcout << L"¼­¹ö¿Í ¿¬°áÇÒ ¼ö ¾ø½À´Ï´Ù. ÇÁ·Î±×·¥À» Á¾·á ÈÄ ´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä.\n";
+			std::wcout << L"ì„œë²„ì™€ ì—°ê²°í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œ í›„ ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì„¸ìš”.\n";
 			exit(-1);
 		}
 	}
 	else {
-		std::wcout << L"¼­¹ö¿Í ¿¬°á ÇÒ ¼ö ¾ø½À´Ï´Ù. ÇÁ·Î±×·¥À» Á¾·á ÈÄ ´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä\n";
+		std::wcout << L"ì„œë²„ì™€ ì—°ê²° í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œ í›„ ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì„¸ìš”\n";
 		getchar();
 		exit(-1);
 	}
@@ -76,7 +76,7 @@ void Communication::Send(char c)
 			total_sent += sent;
 		}
 		else {
-			std::wcout << L"Send ¿À·ù ¹ß»ı!\n";
+			std::wcout << L"Send ì˜¤ë¥˜ ë°œìƒ!\n";
 			exit(-1);
 		}
 	}
@@ -93,16 +93,16 @@ std::vector<char> Communication::Recv()
 		remain_buffer.insert(remain_buffer.end(), buffer, buffer + received);
 	}
 	else if (status == sf::Socket::NotReady) {
-		// µ¥ÀÌÅÍ¸¦ ¹ŞÀº°Ô ¾øÀ½
+		// ë°ì´í„°ë¥¼ ë°›ì€ê²Œ ì—†ìŒ
 		return std::vector<char>();
 	}
 	else if (status == sf::Socket::Disconnected) {
-		std::wcout << L"Recv Áß ¼­¹ö¿ÍÀÇ ¿¬°áÀÌ ²÷¾îÁ³½À´Ï´Ù.\n";
+		std::wcout << L"Recv ì¤‘ ì„œë²„ì™€ì˜ ì—°ê²°ì´ ëŠì–´ì¡ŒìŠµë‹ˆë‹¤.\n";
 		exit(-1);
 	}
 	else {
-		std::wcout << L"Recv ¿À·ù!!!\n";
-		std::wcout << L"¿¡·¯ ÄÚµå: " << WSAGetLastError() << std::endl;
+		std::wcout << L"Recv ì˜¤ë¥˜!!!\n";
+		std::wcout << L"ì—ëŸ¬ ì½”ë“œ: " << WSAGetLastError() << std::endl;
 		getchar();
 		exit(-1);
 	}

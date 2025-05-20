@@ -1,13 +1,13 @@
-#pragma once
+ï»¿#pragma once
 
 
 class Animation
 {
 private:
-	int offset_x, offset_y;				// Texture¿¡¼­ ½ÃÀÛµÇ´Â ÇØ´ç ¾Ö´Ï¸ŞÀÌ¼Ç ÇÁ·¹ÀÓÀÇ ½ÃÀÛ À§Ä¡
-	int frame_width, frame_height;		// ÇÑ ÇÁ·¹ÀÓÀÇ ³ĞÀÌ, ³ôÀÌ °ª
-	int number_of_frames;				// ÇÁ·¹ÀÓÀÇ ¼ö
-	float frame_flip_time;				// ÇÁ·¹ÀÓÀÇ ÀüÈ¯ ½Ã°£
+	int offset_x, offset_y;				// Textureì—ì„œ ì‹œì‘ë˜ëŠ” í•´ë‹¹ ì• ë‹ˆë©”ì´ì…˜ í”„ë ˆì„ì˜ ì‹œì‘ ìœ„ì¹˜
+	int frame_width, frame_height;		// í•œ í”„ë ˆì„ì˜ ë„“ì´, ë†’ì´ ê°’
+	int number_of_frames;				// í”„ë ˆì„ì˜ ìˆ˜
+	float frame_flip_time;				// í”„ë ˆì„ì˜ ì „í™˜ ì‹œê°„
 
 public:
 	Animation();

@@ -1,9 +1,9 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Object.h"
 #include "TextureManager.h"
 
 
-// ¿ÀºêÁ§Æ® ±âº» »ı¼ºÀÚ
+// ì˜¤ë¸Œì íŠ¸ ê¸°ë³¸ ìƒì„±ì
 Object::Object()
 	: showing{ true }
 	, active{ true }
@@ -13,14 +13,14 @@ Object::Object()
 
 }
 
-// ¿ÀºêÁ§Æ® world »ı¼ºÀÚ
+// ì˜¤ë¸Œì íŠ¸ world ìƒì„±ì
 Object::Object(std::shared_ptr<World> world)
 	: Object{}
 {
 	this->world = world;
 }
 
-// ¿ÀºêÁ§Æ® ÅØ½ºÃÄ ¼³Á¤ »ı¼ºÀÚ
+// ì˜¤ë¸Œì íŠ¸ í…ìŠ¤ì³ ì„¤ì • ìƒì„±ì
 Object::Object(sf::Texture& texture, int texture_x, int texture_y, int width, int height, std::shared_ptr<World> world)
 	: Object{ world }
 {
@@ -44,38 +44,38 @@ void Object::SetSize(double size)
 	this->size = size;
 }
 
-// ¿ÀºêÁ§Æ® º¸ÀÌ°Ô
+// ì˜¤ë¸Œì íŠ¸ ë³´ì´ê²Œ
 void Object::Show()
 {
 	showing = true;
 }
 
-// ¿ÀºêÁ§Æ® ¾Èº¸ÀÌ°Ô
+// ì˜¤ë¸Œì íŠ¸ ì•ˆë³´ì´ê²Œ
 void Object::Hide()
 {
 	showing = false;
 }
 
-// ¿ÀºêÁ§Æ® È°¼ºÈ­ (¿òÁ÷ÀÌ±â, »óÈ£ÀÛ¿ë µî)
+// ì˜¤ë¸Œì íŠ¸ í™œì„±í™” (ì›€ì§ì´ê¸°, ìƒí˜¸ì‘ìš© ë“±)
 void Object::Active()
 {
 	active = true;
 }
 
-// ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
+// ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”
 void Object::Disactive()
 {
 	active = false;
 }
 
-// ¿ÀºêÁ§Æ® À§Ä¡ ÀÌµ¿
+// ì˜¤ë¸Œì íŠ¸ ìœ„ì¹˜ ì´ë™
 void Object::Move(int x, int y)
 {
 	if (Validate(x, y))
 		position = sf::Vector2i(x, y);
 }
 
-// ¿ÀºêÁ§Æ® À§Ä¡ ¿Å±è
+// ì˜¤ë¸Œì íŠ¸ ìœ„ì¹˜ ì˜®ê¹€
 void Object::Shift(int dx, int dy)
 {
 	if (Validate(position.x + dx, position.y + dy))
@@ -101,7 +101,7 @@ void Object::SetScale()
 	sprite.setScale(size / texture_size.x, size / texture_size.y);
 }
 
-// ¿ÀºêÁ§Æ® ±×¸®±â
+// ì˜¤ë¸Œì íŠ¸ ê·¸ë¦¬ê¸°
 void Object::Draw(sf::RenderWindow& window)
 {
 	if (not showing) return;
@@ -113,14 +113,14 @@ void Object::Draw(sf::RenderWindow& window)
 
 	window.draw(sprite);
 
-	// TODO : nameÀÌ ÀÖ´Ù¸é Ãâ·Â
+	// TODO : nameì´ ìˆë‹¤ë©´ ì¶œë ¥
 
 }
 
-// ¿ÀºêÁ§Æ® ÀÌ¸§ ¼³Á¤
+// ì˜¤ë¸Œì íŠ¸ ì´ë¦„ ì„¤ì •
 void Object::SetName(const std::string& input_name)
 {
-	// TODO : name ¼³Á¤
+	// TODO : name ì„¤ì •
 }
 
 sf::Vector2i Object::GetPosition() const

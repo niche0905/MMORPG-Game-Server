@@ -1,7 +1,7 @@
-#pragma once
+﻿#pragma once
 
 
-// �ڷᱸ��
+// 자료구조
 #include <vector>
 #include <list>
 #include <string>

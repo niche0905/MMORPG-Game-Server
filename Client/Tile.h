@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Game.h"
 
 constexpr double tile_size{ WINDOW_HEIGHT / 10.0 };

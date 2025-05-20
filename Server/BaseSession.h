@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 class Creature
@@ -6,11 +6,11 @@ class Creature
 protected:
 	int64		_id;
 
-	// User¿Í NPC ¸ğµÎ °¡Áö´Â °øÅë Game Contents¸¦ ´ã´Â º¯¼ö
+	// Userì™€ NPC ëª¨ë‘ ê°€ì§€ëŠ” ê³µí†µ Game Contentsë¥¼ ë‹´ëŠ” ë³€ìˆ˜
 	Position	_position;
 
-	Stats		_basic_stats = {};		// ±âº» ½ºÅİ(·¹º§¿¡ µû¸¥ ½ºÅİ)
-	Stats		_temp_stats = {};		// ÀÓ½Ã ½ºÅİ(¹öÇÁ, µğ¹öÇÁ)
+	Stats		_basic_stats = {};		// ê¸°ë³¸ ìŠ¤í…Ÿ(ë ˆë²¨ì— ë”°ë¥¸ ìŠ¤í…Ÿ)
+	Stats		_temp_stats = {};		// ì„ì‹œ ìŠ¤í…Ÿ(ë²„í”„, ë””ë²„í”„)
 
 public:
 	Creature();
@@ -18,7 +18,7 @@ public:
 	Creature(int64 id, Position pos);
 	~Creature();
 
-	// ÇÊ¿äÇÑ ¸Ş¼­µå
+	// í•„ìš”í•œ ë©”ì„œë“œ
 	int64 GetID() const;
 	virtual bool IsPlayer() const = 0;
 	virtual bool IsNPC() const = 0;

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 class Session : public Creature
@@ -9,8 +9,8 @@ private:
 	ExOver		_recv_overlapped;
 	int32		_remain_size;
 
-	// °ÔÀÓ¿¡ ÇÊ¿äÇÑ Á¤º¸ (ÄÁÅÙÃ÷ °ü·Ã)
-	Stats		_equip_stats;		// Àåºñ ½ºÅİ(ÀåÂøÇÑ Àåºñ¿¡ µû¶ó Áõ°¡ÇÑ ½ºÅİ)
+	// ê²Œì„ì— í•„ìš”í•œ ì •ë³´ (ì»¨í…ì¸  ê´€ë ¨)
+	Stats		_equip_stats;		// ì¥ë¹„ ìŠ¤í…Ÿ(ì¥ì°©í•œ ì¥ë¹„ì— ë”°ë¼ ì¦ê°€í•œ ìŠ¤í…Ÿ)
 
 public:
 	Session();
@@ -24,7 +24,7 @@ public:
 	void Send(void* packet);
 	void Recv();
 
-	void ProcessPacket(BYTE* packet);	// ¾ê´Â private ÀÌ¿©µµ µÉ µí?
+	void ProcessPacket(BYTE* packet);	// ì–˜ëŠ” private ì´ì—¬ë„ ë  ë“¯?
 	void ReassemblePacket(DWORD recv_size);
 
 };

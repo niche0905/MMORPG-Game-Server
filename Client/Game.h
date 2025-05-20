@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "Communication.h"
 #include "BaseScene.h"
 
-// window¿¡ °üÇÑ »ó¼ö
+// windowì— ê´€í•œ ìƒìˆ˜
 constexpr int WINDOW_WIDTH{ 600 };
 constexpr int WINDOW_HEIGHT{ 600 };
 

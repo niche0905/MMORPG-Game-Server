@@ -1,8 +1,8 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "TileManager.h"
 
 
-// TileManager ½Ì±ÛÅæ
+// TileManager ì‹±ê¸€í†¤
 TileManager& TileManager::Instance()
 {
 	static TileManager instance;
@@ -19,7 +19,7 @@ Tile& TileManager::GetTile(TileType tile_type)
 	if (tiles.find(tile_type) != tiles.end())
 		return tiles[tile_type];
 
-	// ¹®Á¦ »óÈ²!!
-	std::wcout << L"Å¸ÀÏ ¿À·ù!!\n";
+	// ë¬¸ì œ ìƒí™©!!
+	std::wcout << L"íƒ€ì¼ ì˜¤ë¥˜!!\n";
 	exit(-1);
 }

@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 
 
 class SectorManager
 {
 private:
-	std::vector<Sector>		_sectors;		// Sector °´Ã¼¸¦ ´ã°í ÀÖ´Â º¤ÅÍ (2D ¹è¿­ ÇüÅÂ·Î »ç¿ëÇØ¾ß ÇÔ)
-	int						_sector_size;	// ¼½ÅÍ Å©±â
-	int						_sector_width;	// ¼½ÅÍ ³ĞÀÌ
+	std::vector<Sector>		_sectors;		// Sector ê°ì²´ë¥¼ ë‹´ê³  ìˆëŠ” ë²¡í„° (2D ë°°ì—´ í˜•íƒœë¡œ ì‚¬ìš©í•´ì•¼ í•¨)
+	int						_sector_size;	// ì„¹í„° í¬ê¸°
+	int						_sector_width;	// ì„¹í„° ë„“ì´
 
 public:
 	SectorManager(int sector_size = SECTOR_SIZE, uint16 width = MAX_WIDTH, uint16 height = MAX_HEIGHT);

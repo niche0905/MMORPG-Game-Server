@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Object.h"
 
 constexpr double player_size{ 48.0 };
@@ -9,7 +9,7 @@ class World;
 class Player : public Object
 {
 private:
-	// TODO : ¸â¹ö º¯¼ö Ãß°¡
+	// TODO : ë©¤ë²„ ë³€ìˆ˜ ì¶”ê°€
 	uint64_t id;
 
 public:

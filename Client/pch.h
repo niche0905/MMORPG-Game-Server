@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 
 #define WIN32_LEAN_AND_MEAN
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
@@ -10,7 +10,7 @@
 #pragma comment(lib, "Release\\Core.lib")
 #endif
 
-// SFML ∂Û¿Ã∫Í∑Ø∏Æ
+// SFML ÎùºÏù¥Î∏åÎü¨Î¶¨
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>

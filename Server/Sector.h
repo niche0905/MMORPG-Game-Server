@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 
 class Sector
 {
 private:
-	std::unordered_set<int64>		_clients;		// ÇØ´ç ±¸¿ª¿¡ ÀÖ´Â Å¬¶óÀÌ¾ğÆ®µé
-	std::unique_ptr<std::mutex>		_sector_mutex;	// ÇØ´ç ±¸¿ª¿¡ ´ëÇÑ ¹ÂÅØ½º
+	std::unordered_set<int64>		_clients;		// í•´ë‹¹ êµ¬ì—­ì— ìˆëŠ” í´ë¼ì´ì–¸íŠ¸ë“¤
+	std::unique_ptr<std::mutex>		_sector_mutex;	// í•´ë‹¹ êµ¬ì—­ì— ëŒ€í•œ ë®¤í…ìŠ¤
 
 public:
 	Sector();

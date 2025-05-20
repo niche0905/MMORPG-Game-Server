@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 
 constexpr int16 VIEW_RANGE = 5;
-constexpr int32 SECTOR_SIZE = 20;	// ¼½ÅÍÀÇ ±âº» Å©±â
+constexpr int32 SECTOR_SIZE = 20;	// ì„¹í„°ì˜ ê¸°ë³¸ í¬ê¸°
 
-constexpr std::array<int16, 4> vx = { -1, 1, -1, 1 };	// ²ÀÁöÁ¡ x
-constexpr std::array<int16, 4> vy = { -1, -1, 1, 1 };	// ²ÀÁöÁ¡ y
+constexpr std::array<int16, 4> vx = { -1, 1, -1, 1 };	// ê¼­ì§€ì  x
+constexpr std::array<int16, 4> vy = { -1, -1, 1, 1 };	// ê¼­ì§€ì  y
 
 
 enum IoOperation

@@ -1,14 +1,14 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "AnimationManager.h"
 #include "AnimationSet.h"
 
 
-// AnimationManagerÀÇ ±âº» »ı¼ºÀÚ
+// AnimationManagerì˜ ê¸°ë³¸ ìƒì„±ì
 AnimationManager::AnimationManager()
 {
 }
 
-// AnimationSetÀ» ¾ò¾î¿À´Â ÇÔ¼ö const ¹öÀü
+// AnimationSetì„ ì–»ì–´ì˜¤ëŠ” í•¨ìˆ˜ const ë²„ì „
 const AnimationSet& AnimationManager::GetAnimationSet(const std::string& object_name) const
 {
     auto it = object_animations.find(object_name);
@@ -20,7 +20,7 @@ const AnimationSet& AnimationManager::GetAnimationSet(const std::string& object_
     return empty_animation_set;
 }
 
-// AnimationSetÀ» ¾ò¾î¿À´Â ÇÔ¼ö ¼öÁ¤ °¡´É ¹öÀü
+// AnimationSetì„ ì–»ì–´ì˜¤ëŠ” í•¨ìˆ˜ ìˆ˜ì • ê°€ëŠ¥ ë²„ì „
 AnimationSet& AnimationManager::GetAnimationSet(const std::string& object_name)
 {
     auto it = object_animations.find(object_name);

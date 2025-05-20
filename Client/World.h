@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Tile.h"
 
 enum class TileType : uint8_t;
@@ -8,7 +8,7 @@ class World
 {
 private:
 	sf::Vector2i area;
-	// TODO : Tile ¸¸µé°í TileÀ» °¡Áö°Ô 2000*2000 (Ã³À½¿£ ÀÛ°Ô 100*100)
+	// TODO : Tile ë§Œë“¤ê³  Tileì„ ê°€ì§€ê²Œ 2000*2000 (ì²˜ìŒì—” ì‘ê²Œ 100*100)
 	
 	std::vector<TileType> maps;
 	

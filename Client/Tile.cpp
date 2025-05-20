@@ -1,28 +1,28 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Tile.h"
 #include "TextureManager.h"
 
 
-// Å¸ÀÏ ±âº» »ý¼ºÀÚ
+// íƒ€ì¼ ê¸°ë³¸ ìƒì„±ìž
 Tile::Tile()
 {
 
 }
 
-// Å¸ÀÏ ÅØ½ºÃÄ key ±â¹Ý »ý¼ºÀÚ
+// íƒ€ì¼ í…ìŠ¤ì³ key ê¸°ë°˜ ìƒì„±ìž
 Tile::Tile(std::string texture_key)
 {
 	sprite.setTexture(TextureManager::Instance().GetTexture(texture_key));
 }
 
-// Å¸ÀÏ ÅØ½ºÃÄ »ý¼ºÀÚ
+// íƒ€ì¼ í…ìŠ¤ì³ ìƒì„±ìž
 Tile::Tile(sf::Texture& texture, int start_x, int start_y, int width, int height)
 {
 	sprite.setTexture(texture);
 	sprite.setTextureRect(sf::IntRect(start_x, start_y, width, height));
 }
 
-// Å¸ÀÏ ±×¸®±â
+// íƒ€ì¼ ê·¸ë¦¬ê¸°
 void Tile::Draw(sf::RenderWindow& window, int x, int y)
 {
 	sf::Vector2u texture_size = sprite.getTexture()->getSize();

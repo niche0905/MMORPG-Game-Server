@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 
 
-struct BaseStats			// ¸ğµç Ä³¸¯ÅÍ/Àåºñ°¡ °¡Áö´Â ½ºÅİ
+struct BaseStats			// ëª¨ë“  ìºë¦­í„°/ì¥ë¹„ê°€ ê°€ì§€ëŠ” ìŠ¤í…Ÿ
 {
-	uint16 HP	= 0;		// Ã¼·Â
-	uint16 ATK	= 0;		// °ø°İ·Â
-	uint16 DEF	= 0;		// ¹æ¾î·Â
-	uint16 STR	= 0;		// Èû
-	uint16 INT	= 0;		// Áö´É
-	uint16 DEX	= 0;		// ¼Ø¾¾
-	uint16 CRT	= 0;		// Ä¡¸íÅ¸
-	uint16 MOV	= 0;		// ÀÌµ¿·Â
+	uint16 HP	= 0;		// ì²´ë ¥
+	uint16 ATK	= 0;		// ê³µê²©ë ¥
+	uint16 DEF	= 0;		// ë°©ì–´ë ¥
+	uint16 STR	= 0;		// í˜
+	uint16 INT	= 0;		// ì§€ëŠ¥
+	uint16 DEX	= 0;		// ì†œì”¨
+	uint16 CRT	= 0;		// ì¹˜ëª…íƒ€
+	uint16 MOV	= 0;		// ì´ë™ë ¥
 
 	BaseStats();
 	BaseStats(uint16 hp, uint16 atk, uint16 def, uint16 str, uint16 intelli, uint16 dex, uint16 crt, uint16 mov);
@@ -21,12 +21,12 @@ struct BaseStats			// ¸ğµç Ä³¸¯ÅÍ/Àåºñ°¡ °¡Áö´Â ½ºÅİ
 
 struct CharacterStats	
 {
-	uint8	level = 1;	// Ä³¸¯ÅÍ°¡ °¡Áö´Â ·¹º§ (Àû µµ ÀÖ¾î¾ß ÇÔ)
+	uint8	level = 1;	// ìºë¦­í„°ê°€ ê°€ì§€ëŠ” ë ˆë²¨ (ì  ë„ ìˆì–´ì•¼ í•¨)
 };
 
 struct UserStats : CharacterStats
 {
-	uint32	exp = 0;	// ÇÃ·¹ÀÌ¾î¸¸ °¡Áö´Â °æÇèÄ¡
+	uint32	exp = 0;	// í”Œë ˆì´ì–´ë§Œ ê°€ì§€ëŠ” ê²½í—˜ì¹˜
 };
 
 using Stats = BaseStats;

@@ -1,10 +1,10 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Bot.h"
 
 
 Bot::Bot()
 {
-	std::cout << "Bot ±âº» »ý¼ºÀÚ È£Ãâ ¿¡·¯\n";
+	std::cout << "Bot ê¸°ë³¸ ìƒì„±ìž í˜¸ì¶œ ì—ëŸ¬\n";
 	exit(-1);
 }
 

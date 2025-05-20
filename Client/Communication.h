@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 
-// ³×Æ®¿öÅ© °ü·Ã »ó¼ö
+// ë„¤íŠ¸ì›Œí¬ ê´€ë ¨ ìƒìˆ˜
 inline constexpr const char* LOOPBACK_ADDRESS = "127.0.0.1";
 constexpr int PORT_NUM{ /*A*/21004 };
 constexpr int BUF_SIZE{ 200 };
@@ -31,8 +31,8 @@ public:
 	void Send(char c);
 	std::vector<char> Recv();
 
-	// TODO : Send / Recv + Process Ãß°¡ÇÏ±â
-	//		  ±×¸®°í ÆĞÅ¶ ¼³°è ÇÏ±â
+	// TODO : Send / Recv + Process ì¶”ê°€í•˜ê¸°
+	//		  ê·¸ë¦¬ê³  íŒ¨í‚· ì„¤ê³„ í•˜ê¸°
 
 };
 

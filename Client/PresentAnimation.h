@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 class PresentAnimation
@@ -8,8 +8,8 @@ private:
 	int current_frame;
 	int64 elapsed_time;
 
-	// TODO : Ãß°¡·Î »ı°¢ÇØ º¼ °Í
-	//		  ¾Ö´Ï¸ŞÀÌ¼Ç ·çÇÁ true / false ¼³Á¤, ÀÌÈÄ µ¹¾Æ°¡±â À§ÇÑ stack?
+	// TODO : ì¶”ê°€ë¡œ ìƒê°í•´ ë³¼ ê²ƒ
+	//		  ì• ë‹ˆë©”ì´ì…˜ ë£¨í”„ true / false ì„¤ì •, ì´í›„ ëŒì•„ê°€ê¸° ìœ„í•œ stack?
 
 };
 

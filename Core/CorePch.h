@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Types.h"
 #include "Container.h"
 #include "Defines.h"
 #include "Protocol.h"
 
-// ¾Ë°í¸®Áò
+// ì•Œê³ ë¦¬ì¦˜
 #include <random>
 #include <chrono>
 #include <ranges>
@@ -15,7 +15,7 @@
 #include <mutex>
 #include <memory>
 
-// ÀÔÃâ·Â
+// ìž…ì¶œë ¥
 #include <iostream>
 #include <fstream>
 #include <filesystem>

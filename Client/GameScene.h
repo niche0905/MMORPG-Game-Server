@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "BaseScene.h"
 #include "Player.h"
 
@@ -9,7 +9,7 @@ class Player;
 class GameScene : public BaseScene
 {
 private:
-	// TODO : »ç¿ë º¯¼öµé (Pawn, Item µîµî) ÇÊ¿ä
+	// TODO : ì‚¬ìš© ë³€ìˆ˜ë“¤ (Pawn, Item ë“±ë“±) í•„ìš”
 	std::shared_ptr<World> world;
 	
 	std::shared_ptr<Player> client_player;
@@ -31,7 +31,7 @@ public:
 	sf::Vector2f GetCameraCenter() const override;
 
 private:
-	// TODO : Å¬·¡½º ³»ºÎ¿¡¼­ »ç¿ëÇÒ ÇÔ¼ö
+	// TODO : í´ë˜ìŠ¤ ë‚´ë¶€ì—ì„œ ì‚¬ìš©í•  í•¨ìˆ˜
 
 };
 

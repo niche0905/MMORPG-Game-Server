@@ -1,15 +1,15 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "AnimationSet.h"
 #include "Animation.h"
 
 
-// AnimationSet ±âº» »ı¼ºÀÚ (¾ÆÁ÷ ¾Æ¹«°Íµµ ÇÒ °Ô ¾øÀ½)
+// AnimationSet ê¸°ë³¸ ìƒì„±ì (ì•„ì§ ì•„ë¬´ê²ƒë„ í•  ê²Œ ì—†ìŒ)
 AnimationSet::AnimationSet()
 {
 
 }
 
-// AnimationÀ» °¡Á®¿À´Â ÇÔ¼ö const ¹öÀü
+// Animationì„ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜ const ë²„ì „
 const Animation& AnimationSet::GetAnimation(const std::string& animation_name) const
 {
     auto it = animation_set.find(animation_name);
@@ -21,7 +21,7 @@ const Animation& AnimationSet::GetAnimation(const std::string& animation_name) c
     return empty_animation;
 }
 
-// AnimationÀ» °¡Á®¿À´Â ÇÔ¼ö ¼öÁ¤ °¡´ÉÇÑ ¹öÀü
+// Animationì„ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜ ìˆ˜ì • ê°€ëŠ¥í•œ ë²„ì „
 Animation& AnimationSet::GetAnimation(const std::string& animation_name)
 {
     auto it = animation_set.find(animation_name);

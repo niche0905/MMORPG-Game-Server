@@ -1,24 +1,24 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "FontManager.h"
 #include <json/json.h>
 
 
-// FontManager ½Ì±ÛÅæ
+// FontManager ì‹±ê¸€í†¤
 FontManager& FontManager::Instance()
 {
 	static FontManager instance;
 	return instance;
 }
 
-// key¿¡ ÇØ´çÇÏ´Â ÆùÆ®¸¦ file_pathÀÇ ÆÄÀÏ·Î ºÒ·¯¿À±â
+// keyì— í•´ë‹¹í•˜ëŠ” í°íŠ¸ë¥¼ file_pathì˜ íŒŒì¼ë¡œ ë¶ˆëŸ¬ì˜¤ê¸°
 bool FontManager::LoadFont(const std::string& key, const std::string& file_path)
 {
-	// ÀÌ¹Ì ÇØ´ç ÅØ½ºÃÄ°¡ ÀÖ¾î¼­ false
+	// ì´ë¯¸ í•´ë‹¹ í…ìŠ¤ì³ê°€ ìˆì–´ì„œ false
 	if (fonts.find(key) != fonts.end())
 		return false;
 
 	sf::Font font;
-	// ÅØ½ºÃÄ ÆÄÀÏ ·Îµå¿¡ ½ÇÆĞÇÒ °æ¿ì
+	// í…ìŠ¤ì³ íŒŒì¼ ë¡œë“œì— ì‹¤íŒ¨í•  ê²½ìš°
 	if (not font.loadFromFile(file_path))
 		throw std::runtime_error("Failed to load font: " + file_path);
 
@@ -26,7 +26,7 @@ bool FontManager::LoadFont(const std::string& key, const std::string& file_path)
 	return true;
 }
 
-// JSON ÆÄÀÏ¿¡ ÀúÀåµÈ key¿Í °æ·Î¸¦ ÀÌ¿ëÇØ ¸ğµç ÆùÆ® Load
+// JSON íŒŒì¼ì— ì €ì¥ëœ keyì™€ ê²½ë¡œë¥¼ ì´ìš©í•´ ëª¨ë“  í°íŠ¸ Load
 void FontManager::LoadAllFonts(const std::string& json_file_path)
 {
 	std::ifstream file(json_file_path);
@@ -45,7 +45,7 @@ void FontManager::LoadAllFonts(const std::string& json_file_path)
 	}
 }
 
-// key¿¡ ÇØ´çÇÏ´Â ÆùÆ® ¾ò±â
+// keyì— í•´ë‹¹í•˜ëŠ” í°íŠ¸ ì–»ê¸°
 const sf::Font& FontManager::GetFont(const std::string& key) const
 {
 	auto it = fonts.find(key);

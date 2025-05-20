@@ -1,9 +1,9 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "World.h"
 #include "TileManager.h"
 
 
-// ¿ùµå ±âº» »ı¼ºÀÚ
+// ì›”ë“œ ê¸°ë³¸ ìƒì„±ì
 World::World(int size_x, int size_y)
 	: area{ size_x, size_y }
 {
@@ -13,7 +13,7 @@ World::World(int size_x, int size_y)
 		tile = TileType::grass;
 }
 
-// ¿ùµå ±×¸®±â ÇÔ¼ö
+// ì›”ë“œ ê·¸ë¦¬ê¸° í•¨ìˆ˜
 void World::Draw(sf::RenderWindow& window)
 {
 	for (int y = 0; y < area.y; ++y) {
@@ -28,13 +28,13 @@ sf::Vector2i World::GetArea() const
 	return area;
 }
 
-// ¿ùµå ÆÄÀÏ¿¡¼­ ºÒ·¯¿À±â
+// ì›”ë“œ íŒŒì¼ì—ì„œ ë¶ˆëŸ¬ì˜¤ê¸°
 void World::LoadWorld()
 {
 
 }
 
-// ¿ùµå ÆÄÀÏ¿¡ ÀúÀåÇÏ±â
+// ì›”ë“œ íŒŒì¼ì— ì €ì¥í•˜ê¸°
 void World::StoreWorld()
 {
 
