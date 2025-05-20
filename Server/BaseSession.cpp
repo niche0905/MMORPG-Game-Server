@@ -1,9 +1,15 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "BaseSession.h"
 
 
 Creature::Creature()
 	: Creature{ -1, 0, 0 }
+{
+
+}
+
+Creature::Creature(int64 id)
+	: Creature{ id, 0, 0 }
 {
 
 }

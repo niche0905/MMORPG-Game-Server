@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 class Creature
@@ -14,6 +14,7 @@ protected:
 
 public:
 	Creature();
+	Creature(int64 id);
 	Creature(int64 id, int16 x, int16 y);
 	Creature(int64 id, Position pos);
 	~Creature();
