@@ -7,8 +7,8 @@ protected:
 	int64		_id;
 
 	// User와 NPC 모두 가지는 공통 Game Contents를 담는 변수
-	Stats		_basic_stats;
-	Stats		_temp_stats;
+	Stats		_basic_stats;		// 기본 스텟(레벨에 따른 스텟)
+	Stats		_temp_stats;		// 임시 스텟(버프, 디버프)
 
 public:
 	Creature();
