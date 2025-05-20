@@ -84,9 +84,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Packet.h">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="IocpCore.h">
       <Filter>Core\IOCP</Filter>
     </ClInclude>

@@ -17,5 +17,5 @@
 
 #include "CorePch.h"
 
-#include "Packet.h"
+//#include "Packet.h"
 #include "GlobalVariable.h"

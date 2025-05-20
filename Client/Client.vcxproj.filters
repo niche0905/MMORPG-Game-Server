@@ -147,8 +147,5 @@
     <ClInclude Include="PresentAnimation.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Packet.h">
-      <Filter>Network</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

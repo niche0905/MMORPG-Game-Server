@@ -3,6 +3,7 @@
 #include "Types.h"
 #include "Container.h"
 #include "Defines.h"
+#include "Protocol.h"
 
 // 알고리즘
 #include <random>
@@ -10,6 +11,9 @@
 #include <ranges>
 #include <algorithm>
 #include <thread>
+#include <atomic>
+#include <mutex>
+#include <memory>
 
 // 입출력
 #include <iostream>

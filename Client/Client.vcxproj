@@ -29,7 +29,6 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Packet.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PresentAnimation.h" />
