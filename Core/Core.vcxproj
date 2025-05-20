@@ -32,6 +32,7 @@
     <ClInclude Include="CorePch.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Protocol.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

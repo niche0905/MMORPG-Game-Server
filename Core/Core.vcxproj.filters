@@ -32,5 +32,8 @@
     <ClInclude Include="Defines.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Protocol.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
