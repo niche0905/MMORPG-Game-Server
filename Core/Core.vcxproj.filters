@@ -7,6 +7,12 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{bb6f3e0e-71c6-4bb2-abe8-03ffaa4d35c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EBR">
+      <UniqueIdentifier>{08cbdbdc-8a7c-4fc0-8dc1-61ab0a629853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thread">
+      <UniqueIdentifier>{9020d7e9-2b99-438b-9cd2-bc99b0ab27c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -14,6 +20,12 @@
     </ClCompile>
     <ClCompile Include="CorePch.cpp">
       <Filter>PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="EpochBasedReclamation.cpp">
+      <Filter>EBR</Filter>
+    </ClCompile>
+    <ClCompile Include="TLS.cpp">
+      <Filter>thread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +46,12 @@
     </ClInclude>
     <ClInclude Include="Protocol.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="EpochBasedReclamation.h">
+      <Filter>EBR</Filter>
+    </ClInclude>
+    <ClInclude Include="TLS.h">
+      <Filter>thread</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

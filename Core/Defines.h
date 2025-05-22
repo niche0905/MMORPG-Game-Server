@@ -1,9 +1,11 @@
-﻿#pragma once
+#pragma once
 #include "Types.h"
 
 
 constexpr int16 PORT_NUM = 8252;
 constexpr int32 BUF_SIZE = 1024;
+
+constexpr int32 CACHE_LINE_SIZE = 64;
 
 constexpr int32 MAX_NAME_LEN = 20;
 constexpr int32 CHAT_SIZE = 118;

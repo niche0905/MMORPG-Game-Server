@@ -1,7 +1,8 @@
-﻿#pragma once
+#pragma once
 
 #include "Types.h"
 #include "Container.h"
+#include "TLS.h"
 #include "Defines.h"
 #include "Protocol.h"
 
@@ -27,3 +28,5 @@
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "MSWSock.lib")
 #include <windows.h>
+
+#include "EpochBasedReclamation.h"
