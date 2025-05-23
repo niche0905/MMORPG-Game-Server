@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Session.h"
 
 
@@ -67,8 +67,30 @@ void Session::Recv()
 
 void Session::ProcessPacket(BYTE* packet)
 {
-	// TODO : 패킷 프로토콜에 맞게 분석 후 처리하기
-	
+	BASE_PACKET* packet_header = reinterpret_cast<BASE_PACKET*>(packet);
+	uint8 packet_id = packet_header->_packet_id;
+
+	switch (packet_id)
+	{
+	case PacketID::C2S_LOGIN:
+	{
+		LoginProcess(packet);
+	}
+	break;
+
+	case PacketID::C2S_MOVE:
+	{
+
+	}
+	break;
+
+	case PacketID::C2S_CHAT:
+	{
+
+	}
+	break;
+
+	}
 }
 
 void Session::ReassemblePacket(DWORD recv_size)
@@ -92,4 +114,15 @@ void Session::ReassemblePacket(DWORD recv_size)
 		_recv_overlapped.CopyToBuffer(packet, data_size);
 	}
 	_remain_size = data_size;
+}
+
+void Session::LoginProcess(BYTE* packet)
+{
+	CS_LOGIN_PACKET* login_packet = reinterpret_cast<CS_LOGIN_PACKET*>(packet);
+	_nick_name = login_packet->_name;
+
+	_position.x = rand() % MAX_WIDTH;
+	_position.y = rand() % MAX_WIDTH;
+
+	_state = State::ST_INGAME;
 }

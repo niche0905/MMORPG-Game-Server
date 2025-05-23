@@ -10,7 +10,9 @@ private:
 	int32		_remain_size;
 
 	// 게임에 필요한 정보 (컨텐츠 관련)
-	Stats		_equip_stats;		// 장비 스텟(장착한 장비에 따라 증가한 스텟)
+	Stats		_equip_stats = {};		// 장비 스텟(장착한 장비에 따라 증가한 스텟)
+
+	std::string _nick_name;				// 몬스터도 있어야 할 지도
 
 public:
 	Session();

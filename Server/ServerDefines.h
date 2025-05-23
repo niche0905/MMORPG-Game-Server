@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 constexpr int16 VIEW_RANGE = 5;
@@ -19,4 +19,18 @@ enum IoOperation
 	IO_NONE,
 
 	IO_END
+};
+
+enum State : uint8
+{
+	STATE_START = 0,
+
+	ST_ALLOC,
+	ST_INGAME,
+	ST_CLOSE,
+
+	ST_ALIVE,
+	ST_DEAD,
+
+	STATE_END
 };

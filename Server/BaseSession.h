@@ -9,6 +9,8 @@ protected:
 	// User와 NPC 모두 가지는 공통 Game Contents를 담는 변수
 	Position	_position;
 
+	std::atomic<uint8> _state = State::ST_ALLOC;
+
 	Stats		_basic_stats = {};		// 기본 스텟(레벨에 따른 스텟)
 	Stats		_temp_stats = {};		// 임시 스텟(버프, 디버프)
 
