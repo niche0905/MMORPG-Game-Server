@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 class Session : public Creature
@@ -26,6 +26,8 @@ public:
 
 	void ProcessPacket(BYTE* packet);	// 얘는 private 이여도 될 듯?
 	void ReassemblePacket(DWORD recv_size);
+
+	void LoginProcess(BYTE* packet);
 
 };
 

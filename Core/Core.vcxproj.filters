@@ -13,6 +13,9 @@
     <Filter Include="thread">
       <UniqueIdentifier>{9020d7e9-2b99-438b-9cd2-bc99b0ab27c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{e8963a63-ddcf-432e-a528-b946dc98aac3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -44,14 +47,14 @@
     <ClInclude Include="Defines.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Protocol.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="EpochBasedReclamation.h">
       <Filter>EBR</Filter>
     </ClInclude>
     <ClInclude Include="TLS.h">
       <Filter>thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.h">
+      <Filter>Protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
