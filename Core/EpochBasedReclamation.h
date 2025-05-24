@@ -22,7 +22,7 @@ struct alignas(CACHE_LINE_SIZE) FreeList
 template<class T>
 class EpochBasedReclamation
 {
-	static uint64 MAX_ULLONG = std::numeric_limits<uint64>::max();
+	static constexpr uint64 MAX_ULLONG = (std::numeric_limits<uint64>::max)();
 
 private:
 	int32 _thread_num;
@@ -49,7 +49,7 @@ public:
 
 
 template<class T>
-using EBR = EpochBasedReclamation;
+using EBR = EpochBasedReclamation<T>;
 
 
 template<class T>
