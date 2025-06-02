@@ -34,15 +34,10 @@ void ServerCore::Run()
 	std::cout << "Listenning...\n";
 
 	Accept();
-
-	while (true) {
-
-	}
 }
 
 void ServerCore::Release()
 {
-	_is_running = false;
 	for (auto& thread : _threads) {
 		if (thread.joinable()) {
 			thread.join();
@@ -50,6 +45,7 @@ void ServerCore::Release()
 	}
 	_threads.clear();
 
+	_is_running = false;
 	if (_listen_socket != INVALID_SOCKET) {
 		closesocket(_listen_socket);
 		_listen_socket = INVALID_SOCKET;
