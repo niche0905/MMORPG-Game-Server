@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "BaseScene.h"
 #include "Player.h"
 
@@ -27,7 +27,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 	void HUD(sf::RenderWindow& window) override;
 	void HandleInput(const sf::Event& input_event) override;
-	void ProcessPacket(std::vector<char> packet) override;
+	void ProcessPacket(std::vector<BYTE> packet) override;
 	sf::Vector2f GetCameraCenter() const override;
 
 private:

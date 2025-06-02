@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "GameScene.h"
 #include "TileManager.h"
 #include "TextureManager.h"
@@ -61,66 +61,73 @@ void GameScene::HandleInput(const sf::Event& input_event)
 	if (input_event.type == sf::Event::KeyPressed) {
 		if (input_event.key.code == sf::Keyboard::Left) {
 			//client_player->Shift(-1, 0);
-			game.SendArrowKey(1);
+			game.SendArrowKey(MOVE_LEFT);
 		}
 		if (input_event.key.code == sf::Keyboard::Right) {
 			//client_player->Shift(+1, 0);
-			game.SendArrowKey(3);
+			game.SendArrowKey(MOVE_RIGHT);
 		}
 		if (input_event.key.code == sf::Keyboard::Up) {
 			//client_player->Shift(0, -1);
-			game.SendArrowKey(0);
+			game.SendArrowKey(MOVE_UP);
 		}
 		if (input_event.key.code == sf::Keyboard::Down) {
 			//client_player->Shift(0, +1);
-			game.SendArrowKey(2);
+			game.SendArrowKey(MOVE_DOWN);
 		}
-
-
 	}
 }
 
-void GameScene::ProcessPacket(std::vector<char> packet)
+void GameScene::ProcessPacket(std::vector<BYTE> packet)
 {
-	if (packet.size() == 0)
-		return;
+	BASE_PACKET* base_packet = reinterpret_cast<BASE_PACKET*>(packet.data());
 
-	myNP::BASE_PACKET* base_packet = reinterpret_cast<myNP::BASE_PACKET*>(packet.data());
-	switch (base_packet->_id)
+	switch (base_packet->_packet_id)
 	{
-	case myNP::PacketID::SC_LOGIN_USER:
+	case PacketID::S2C_LOGIN_ALLOW:
 	{
-		myNP::SC_LOGIN_USER* login_packet = reinterpret_cast<myNP::SC_LOGIN_USER*>(packet.data());
+		SC_LOGIN_ALLOW_PACKET* login_packet = reinterpret_cast<SC_LOGIN_ALLOW_PACKET*>(packet.data());
 
 		if (game.GetID() == 0) {
-			game.SetID(static_cast<uint64_t>(login_packet->_user_id));
+			game.SetID(static_cast<uint64_t>(login_packet->_id));
 
 			client_player = std::make_shared<Player>(world, game.GetID());
 			client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
 		}
 		else {
-			uint64_t now_id = static_cast<uint64_t>(login_packet->_user_id);
-			
-			other_players.try_emplace(now_id, world, now_id);
-			other_players[now_id].Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
-			other_players[now_id].SetDummy();
+			std::cout << "re Login Allow Error\n";
+			exit(-1);
+
 		}
 	}
 		break;
 
-	case myNP::PacketID::SC_LOGOUT_USER:
+	case PacketID::S2C_ENTER:
 	{
-		myNP::SC_LOGOUT_USER* logout_packet = reinterpret_cast<myNP::SC_LOGOUT_USER*>(packet.data());
+		SC_ENTER_PACKET* enter_packet = reinterpret_cast<SC_ENTER_PACKET*>(packet.data());
 
-		other_players.erase(static_cast<uint64_t>(logout_packet->_user_id));
+		uint64_t now_id = static_cast<uint64_t>(enter_packet->_id);
+
+		other_players.try_emplace(now_id, world, now_id);
+		other_players[now_id].Move(static_cast<int>(enter_packet->_x), static_cast<int>(enter_packet->_y));
+		other_players[now_id].SetDummy();
+	}
+	break;
+
+	case PacketID::S2C_LEAVE:
+	{
+		SC_LEAVE_PACKET* logout_packet = reinterpret_cast<SC_LEAVE_PACKET*>(packet.data());
+
+		other_players.erase(static_cast<uint64_t>(logout_packet->_id));
+		// TODO: 또는 비활성화 처리
 	}
 		break;
 
-	case myNP::PacketID::SC_MOVE_USER:
+	case PacketID::S2C_MOVE:
 	{
-		myNP::SC_MOVE_USER* move_packet = reinterpret_cast<myNP::SC_MOVE_USER*>(packet.data());
+		SC_MOVE_PACKET* move_packet = reinterpret_cast<SC_MOVE_PACKET*>(packet.data());
 
-		uint64_t now_id = static_cast<uint64_t>(move_packet->_user_id);
+		uint64_t now_id = static_cast<uint64_t>(move_packet->_id);
 		if (game.GetID() == now_id) {
 			client_player->Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
 		}
@@ -129,6 +136,19 @@ void GameScene::ProcessPacket(std::vector<char> packet)
 		}
 	}
 		break;
+
+	case PacketID::S2C_CHAT:
+	{
+		SC_CHAT_PACKET* move_packet = reinterpret_cast<SC_CHAT_PACKET*>(packet.data());
+
+		uint64_t now_id = static_cast<uint64_t>(move_packet->_id);
+		// TODO: 채팅 기능 채우기
+		if (game.GetID() == now_id) {
+		}
+		else {
+		}
+	}
+	break;
 
 	default:
 		std::cout << "패킷 id 없는 패킷 오류\n";

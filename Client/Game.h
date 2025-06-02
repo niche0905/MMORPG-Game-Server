@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Communication.h"
 #include "BaseScene.h"
 
@@ -40,10 +40,11 @@ public:
 	void Draw();
 	void HandleInput();
 
-	void SendArrowKey(char dir);
-	void ProcessPacket(std::vector<char> packet);
+	void SendArrowKey(uint8 dir);
+	void ProcessPacket(std::vector<BYTE> packet);
 
 	void ConnectServer();
+	void AttemptLogin();
 
 	void SetCameraView();
 

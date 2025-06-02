@@ -80,13 +80,13 @@ void Session::ProcessPacket(BYTE* packet)
 
 	case PacketID::C2S_MOVE:
 	{
-
+		MoveProcess(packet);
 	}
 	break;
 
 	case PacketID::C2S_CHAT:
 	{
-
+		ChatProcess(packet);
 	}
 	break;
 
@@ -96,24 +96,26 @@ void Session::ProcessPacket(BYTE* packet)
 void Session::ReassemblePacket(DWORD recv_size)
 {
 	BYTE* packet = _recv_overlapped.GetBuffer();
+
 	int data_size = _remain_size + recv_size;
-	while (true) {
+	int proccess_size = 0;
+	while (packet < _recv_overlapped.GetBuffer() + data_size) {
 		BYTE packet_size = packet[0];
 
 		if (data_size >= packet_size) {
 			ProcessPacket(packet);
 			packet += packet_size;
-			data_size -= packet_size;
+			proccess_size += packet_size;
 		}
 		else {
 			break;
 		}
 	}
 
-	if (data_size > 0) {
-		_recv_overlapped.CopyToBuffer(packet, data_size);
+	if (data_size - proccess_size > 0) {
+		_recv_overlapped.CopyToBuffer(packet, data_size - proccess_size);
 	}
-	_remain_size = data_size;
+	_remain_size = data_size - proccess_size;
 }
 
 void Session::LoginProcess(BYTE* packet)
@@ -125,4 +127,54 @@ void Session::LoginProcess(BYTE* packet)
 	_position.y = rand() % MAX_WIDTH;
 
 	_state = State::ST_INGAME;
+
+	// TODO: 값 제대로 사용하기
+	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, 100, 100, 1, 0 };
+	Send(&login_allow_packet);
+}
+
+void Session::MoveProcess(BYTE* packet)
+{
+	// TODO: move_time 적용
+	CS_MOVE_PACKET* move_packet = reinterpret_cast<CS_MOVE_PACKET*>(packet);
+
+	Position new_position = _position;
+	switch (move_packet->_direction)
+	{
+	case MOVE_UP:
+		if (new_position.y > 0) --new_position.y;
+		break;
+	case MOVE_DOWN:
+		if (new_position.y < MAX_HEIGHT - 1) ++new_position.y;
+		break;
+	case MOVE_LEFT:
+		if (new_position.x > 0) --new_position.x;
+		break;
+	case MOVE_RIGHT:
+		if (new_position.x < MAX_WIDTH) ++new_position.x;
+		break;
+	}
+
+	if (_position == new_position) {
+		// 변한게 없다면 스스로에게만 시간 Update
+		SelfUpdate();
+		return;
+	}
+
+	_position = new_position;
+	SelfUpdate();
+
+	// TODO: Creature가 ServerCore를 weak_ptr로 가지고 접근 할 수 있어야 함
+}
+
+void Session::ChatProcess(BYTE* packet)
+{
+	// TODO: 내용 채우기 (일정 범위 내 전송)
+}
+
+void Session::SelfUpdate()
+{
+	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y, 0 };
+
+	Send(&update_packet);
 }

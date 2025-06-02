@@ -30,6 +30,10 @@ public:
 	void ReassemblePacket(DWORD recv_size);
 
 	void LoginProcess(BYTE* packet);
+	void MoveProcess(BYTE* packet);
+	void ChatProcess(BYTE* packet);
+
+	void SelfUpdate();
 
 };
 

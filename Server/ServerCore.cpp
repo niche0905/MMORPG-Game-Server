@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ServerCore.h"
 
 
@@ -6,7 +6,7 @@
 ServerCore::ServerCore()
 	: _iocp_core()
 	, _is_running(false)
-	, _id_counter(0)
+	, _id_counter(1)
 	, _listen_socket(INVALID_SOCKET)
 	, _accept_socket(INVALID_SOCKET)
 	, _accept_overlapped(IoOperation::IO_ACCEPT)	
@@ -34,6 +34,10 @@ void ServerCore::Run()
 	std::cout << "Listenning...\n";
 
 	Accept();
+
+	while (true) {
+
+	}
 }
 
 void ServerCore::Release()
@@ -91,7 +95,7 @@ void ServerCore::BindAndListen()
 {
 	SOCKADDR_IN server_addr;
 	server_addr.sin_family = AF_INET;
-	server_addr.sin_port = htons(9000);		// TODO : 포트 번호 설정 (Core의 상수로 설정)
+	server_addr.sin_port = htons(PORT_NUM);
 	server_addr.sin_addr.s_addr = INADDR_ANY;
 
 	if (bind(_listen_socket, reinterpret_cast<SOCKADDR*>(&server_addr), sizeof(server_addr)) == SOCKET_ERROR) {
@@ -149,6 +153,7 @@ void ServerCore::Worker()
 
 		bool success = _iocp_core.Dispatch(bytes_transferred, key, overlapped);
 
+
 		if (overlapped == nullptr) {
 			std::cout << "overlapped is nullptr\n";
 			continue;
@@ -158,6 +163,7 @@ void ServerCore::Worker()
 		IoOperation operation = exp_overlapped->GetOperation();
 		if ((success == false) or ((operation == IoOperation::IO_RECV) or (operation == IoOperation::IO_SEND)) and (bytes_transferred == 0)) {
 			if (_clients.count(key) != 0) {
+
 				_clients.at(key).store(nullptr);	// <- _clients.at(key) = nullptr;
 			}
 			

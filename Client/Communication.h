@@ -1,9 +1,7 @@
-﻿#pragma once
+#pragma once
 
 // 네트워크 관련 상수
 inline constexpr const char* LOOPBACK_ADDRESS = "127.0.0.1";
-constexpr int PORT_NUM{ /*A*/21004 };
-constexpr int BUF_SIZE{ 200 };
 constexpr int HEADER_SIZE{ 2 };
 
 class MyTcpSocket : public sf::TcpSocket
@@ -18,7 +16,7 @@ class Communication
 private:
 	MyTcpSocket socket;
 
-	std::vector<char> remain_buffer;
+	std::vector<BYTE> remain_buffer;
 
 public:
 	Communication();
@@ -28,8 +26,8 @@ public:
 	void Init();
 	void Connect(const char* ip_address);
 
-	void Send(char c);
-	std::vector<char> Recv();
+	void Send(BYTE* buffer, uint16 len);
+	std::vector<BYTE> Recv();
 
 	// TODO : Send / Recv + Process 추가하기
 	//		  그리고 패킷 설계 하기

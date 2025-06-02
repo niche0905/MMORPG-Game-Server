@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 struct Position
@@ -10,5 +10,7 @@ struct Position
 
 	Position operator+(const Position& other) const;
 	Position operator+=(const Position& other);
+
+	bool operator==(const Position& other) const;
 };
 

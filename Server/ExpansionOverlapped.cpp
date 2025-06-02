@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ExpansionOverlapped.h"
 
 
@@ -22,7 +22,9 @@ void ExpansionOverlapped::Reset(int index)
 
 void ExpansionOverlapped::SetBuffer(void* packet, int size)
 {
-	_wsabuf[0].buf = reinterpret_cast<char*>(packet);
+	memcpy(_buffer.data(), packet, size);
+
+	_wsabuf[0].buf = reinterpret_cast<char*>(_buffer.data());
 	_wsabuf[0].len = static_cast<ULONG>(size);
 }
 

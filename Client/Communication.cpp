@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Communication.h"
 
 
@@ -60,13 +60,10 @@ void Communication::Connect(const char* ip_address)
 	}
 }
 
-void Communication::Send(char c)
+void Communication::Send(BYTE* buffer, uint16 len)
 {
-	myNP::CS_KEY_INPUT* packet = new myNP::CS_KEY_INPUT{ static_cast<uint8_t>(game.GetID()), static_cast<uint8_t>(c) };
-	char* buffer = reinterpret_cast<char*>(packet);
-
 	std::size_t total_sent = 0;
-	std::size_t size = sizeof(myNP::CS_KEY_INPUT);
+	std::size_t size = len;
 
 	while (total_sent < size) {
 		std::size_t sent;
@@ -80,11 +77,9 @@ void Communication::Send(char c)
 			exit(-1);
 		}
 	}
-
-	delete packet;
 }
 
-std::vector<char> Communication::Recv()
+std::vector<BYTE> Communication::Recv()
 {
 	char buffer[1024];
 	std::size_t received = 0;
@@ -94,7 +89,7 @@ std::vector<char> Communication::Recv()
 	}
 	else if (status == sf::Socket::NotReady) {
 		// 데이터를 받은게 없음
-		return std::vector<char>();
+		return std::vector<BYTE>();
 	}
 	else if (status == sf::Socket::Disconnected) {
 		std::wcout << L"Recv 중 서버와의 연결이 끊어졌습니다.\n";
@@ -108,15 +103,15 @@ std::vector<char> Communication::Recv()
 	}
 	
 	if (remain_buffer.size() < HEADER_SIZE) {
-		return std::vector<char>();
+		return std::vector<BYTE>();
 	}
 
-	myNP::BASE_PACKET* packet = reinterpret_cast<myNP::BASE_PACKET*>(remain_buffer.data());
+	BASE_PACKET* packet = reinterpret_cast<BASE_PACKET*>(remain_buffer.data());
 	if (remain_buffer.size() < packet->_size) {
-		return std::vector<char>();
+		return std::vector<BYTE>();
 	}
 
-	std::vector<char> data(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
+	std::vector<BYTE> data(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
 	remain_buffer.erase(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
 
 	return data;

@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Game.h"
 #include "GameScene.h"
 #include "FontManager.h"
@@ -34,6 +34,8 @@ void Game::Init()
 void Game::Run()
 {
 	ConnectServer();
+
+	AttemptLogin();
 
 	while (my_id == 0) {
 		ProcessPacket(communication.Recv());
@@ -94,23 +96,43 @@ void Game::HandleInput()
 	}
 }
 
-void Game::SendArrowKey(char dir)
+void Game::SendArrowKey(uint8 dir)
 {
-	communication.Send(dir);
+	// TODO: move_time 적용하기
+	CS_MOVE_PACKET move_packet{ dir, 0 };
+	communication.Send(reinterpret_cast<BYTE*>(&move_packet), sizeof(move_packet));
 }
 
-void Game::ProcessPacket(std::vector<char> packet)
+void Game::ProcessPacket(std::vector<BYTE> packet)
 {
+	if (packet.size() == 0)
+		return;
+
 	scene->ProcessPacket(packet);
 }
 
 void Game::ConnectServer()
 {
+#ifdef LOOPBACK
+	std::wcout << L"루프백 접속 중...\n";
+	std::string ip_address = LOOPBACK_ADDRESS;
+#else
 	std::wcout << L"접속할 주소를 입력해 주세요 : ";
 	std::string ip_address;
 	std::cin >> ip_address;
+#endif
 
 	communication.Connect(ip_address.data());
+}
+
+void Game::AttemptLogin()
+{
+	std::wcout << L"사용할 닉네임을 입력해 주세요 : ";
+	std::string nickname;
+	std::cin >> nickname;
+
+	CS_LOGIN_PACKET login_packet(nickname.data());
+	communication.Send(reinterpret_cast<BYTE*>(&login_packet), sizeof(login_packet));
 }
 
 void Game::SetCameraView()

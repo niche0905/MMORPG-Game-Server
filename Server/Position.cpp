@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Position.h"
 
 
@@ -27,4 +27,9 @@ Position Position::operator+=(const Position& other)
 	x += other.x;
 	y += other.y;
 	return *this;
+}
+
+bool Position::operator==(const Position& other) const
+{
+	return (x == other.x and y == other.y);
 }
