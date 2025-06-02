@@ -39,9 +39,7 @@ void ServerCore::Run()
 void ServerCore::Release()
 {
 	for (auto& thread : _threads) {
-		if (thread.joinable()) {
-			thread.join();
-		}
+		thread.join();
 	}
 	_threads.clear();
 
