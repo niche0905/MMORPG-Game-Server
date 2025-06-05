@@ -7,8 +7,10 @@ private:
 	template<typename K, typename V>
 	using container = concurrency::concurrent_unordered_map<K, V>;
 
-	using Client = std::atomic<std::shared_ptr<Session>>;
+	using Client = std::atomic<std::shared_ptr<Creature>>;
+	using LocalCreature = std::shared_ptr<Creature>;
 	using LocalClient = std::shared_ptr<Session>;
+	using LocalBot = std::shared_ptr<Bot>;
 
 private:
 	IocpCore					_iocp_core;			// IOCP 핸들 관리 하는 클래스
@@ -48,6 +50,8 @@ private:
 	void CreateAcceptSocket();
 
 	void Worker();
+
+	// TODO: _clients Getter 작성하기
 
 };
 

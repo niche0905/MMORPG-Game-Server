@@ -195,15 +195,21 @@ void ServerCore::Worker()
 		break;
 		case IoOperation::IO_RECV:
 		{
-			LocalClient session = _clients.at(key).load();
-			if (session == nullptr) {
-				std::cout << "Session is nullptr\n";
+			LocalCreature client = _clients.at(key).load();
+			if (client == nullptr) {
+				std::cout << "Client is nullptr\n";
 				break;
 			}
 
-			session->ReassemblePacket(bytes_transferred);
+			if (auto session = std::dynamic_pointer_cast<Session>(client)) {
+				session->ReassemblePacket(bytes_transferred);
 
-			session->Recv();
+				session->Recv();
+			}
+			else {
+				std::cout << "Session is Not Session\n";
+				exit(-1);
+			}
 		}
 		break;
 		case IoOperation::IO_SEND:
