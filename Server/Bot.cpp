@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Bot.h"
 
 
@@ -9,7 +9,7 @@ Bot::Bot()
 }
 
 Bot::Bot(int64 id)
-	: Creature{ id }
+	: Creature{ id, false }
 {
 
 }
