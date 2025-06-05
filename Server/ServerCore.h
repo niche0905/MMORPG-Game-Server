@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 class ServerCore
@@ -13,6 +13,8 @@ private:
 private:
 	IocpCore					_iocp_core;			// IOCP 핸들 관리 하는 클래스
 	container<int64, Client>	_clients;			// 클라이언트 세션 관리하는 컨테이너
+
+	DatabaseManager				_db_manager;
 
 	volatile bool				_is_running;		// 서버가 실행중인지 체크하는 변수
 	std::vector<std::thread>	_threads;			// 스레드 풀 관리하는 벡터
@@ -35,6 +37,8 @@ public:
 private:
 	void NetworkInit();
 	void BindAndListen();
+
+	void DatabaseInit();
 
 	void ThreadPoolInit();
 

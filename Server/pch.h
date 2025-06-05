@@ -11,7 +11,9 @@
 
 #include "CorePch.h"
 
+#include <concurrent_queue.h>
 #include <concurrent_unordered_map.h>
+#include <sqlext.h>
 
 #include "Util.h"
 #include "Position.h"
@@ -23,6 +25,7 @@
 #include "BaseSession.h"
 #include "Bot.h"
 #include "Session.h"
+#include "DatabaseManager.h"
 #include "ServerCore.h"
 #include "Sector.h"
 

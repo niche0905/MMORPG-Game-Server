@@ -5,6 +5,7 @@
 
 ServerCore::ServerCore()
 	: _iocp_core()
+	, _db_manager()
 	, _is_running(false)
 	, _id_counter(1)
 	, _listen_socket(INVALID_SOCKET)
@@ -23,9 +24,9 @@ void ServerCore::Init()
 {
 	NetworkInit();
 
-	ThreadPoolInit();
+	DatabaseInit();
 
-	//Run();
+	ThreadPoolInit();
 }
 
 void ServerCore::Run()
@@ -103,6 +104,13 @@ void ServerCore::BindAndListen()
 	}
 
 	std::cout << "Bind and Listen Success\n";
+}
+
+void ServerCore::DatabaseInit()
+{
+	_db_manager.Init();
+
+	_db_manager.DatabaseThread();
 }
 
 void ServerCore::ThreadPoolInit()

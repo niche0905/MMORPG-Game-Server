@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="BaseSession.cpp" />
     <ClCompile Include="Bot.cpp" />
+    <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="ExpansionOverlapped.cpp" />
     <ClCompile Include="GlobalVariable.cpp" />
     <ClCompile Include="IocpCore.cpp" />
@@ -186,6 +187,7 @@
   <ItemGroup>
     <ClInclude Include="BaseSession.h" />
     <ClInclude Include="Bot.h" />
+    <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Sector.h" />

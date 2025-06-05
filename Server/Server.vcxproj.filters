@@ -41,6 +41,9 @@
     <ClCompile Include="Position.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="DatabaseManager.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -85,6 +88,9 @@
     <Filter Include="Core\BaseSession\Bot">
       <UniqueIdentifier>{42f72b96-5858-4123-8fa1-069b1500092c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DB">
+      <UniqueIdentifier>{b567da72-393e-4884-97d3-8bb9e398211a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IocpCore.h">
@@ -128,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="Position.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseManager.h">
+      <Filter>DB</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
