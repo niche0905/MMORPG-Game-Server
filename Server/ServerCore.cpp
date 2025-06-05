@@ -157,6 +157,8 @@ void ServerCore::Worker()
 {
 	while (_is_running) {
 
+		_ebr_sessions.StartEpoch();
+
 		DWORD bytes_transferred = 0;
 		ULONG_PTR key = 0;
 		LPOVERLAPPED overlapped = nullptr;
@@ -166,6 +168,8 @@ void ServerCore::Worker()
 
 		if (overlapped == nullptr) {
 			std::cout << "overlapped is nullptr\n";
+
+			_ebr_sessions.EndEpoch();
 			continue;
 		}
 
@@ -183,6 +187,7 @@ void ServerCore::Worker()
 				}
 			}
 			
+			_ebr_sessions.EndEpoch();
 			continue;
 		}
 
@@ -225,4 +230,7 @@ void ServerCore::Worker()
 		break;
 		} 
 	}
+
+	_ebr_sessions.EndEpoch();
+
 }
