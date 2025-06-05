@@ -64,7 +64,13 @@ void DatabaseManager::DatabaseThread()
 void DatabaseManager::DatabaseWorker()
 {
 	while (true) {
-		// TODO: 구현하기
+		DatabaseEvent db_event;
+		if (_queue.try_pop(db_event)) {
+			// TODO: DB OP에 따라 처리하기
+		}
+		else {
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
 	}
 }
 

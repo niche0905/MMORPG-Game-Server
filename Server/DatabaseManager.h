@@ -10,8 +10,7 @@ private:
 	std::vector<SQLHSTMT> _hstmts;
 
 	std::vector<std::thread> _threads;
-	// db event 클래스 만들어야함
-	//concurrency::concurrent_queue<event_type> db_queue;
+	concurrency::concurrent_queue<DatabaseEvent> _queue;
 
 public:
 	DatabaseManager();

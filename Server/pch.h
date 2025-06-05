@@ -25,6 +25,7 @@
 #include "BaseSession.h"
 #include "Bot.h"
 #include "Session.h"
+#include "DatabaseEvent.h"
 #include "DatabaseManager.h"
 #include "ServerCore.h"
 #include "Sector.h"
