@@ -1,4 +1,4 @@
-﻿#define _WINSOCK_DEPRECATED_NO_WARNINGS
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 
 #ifdef DEBUG
 #pragma comment(lib, "Debug\\Core.lib")
@@ -126,16 +126,16 @@ void ProcessPacket(int ci, unsigned char packet[])
 {
 	switch (packet[1]) {
 	case S2C_MOVE: {
-		sc_packet_move* move_packet = reinterpret_cast<sc_packet_move*>(packet);
-		if (move_packet->id >= MAX_NPC) {
-			int my_id = client_map[move_packet->id - MAX_NPC];
+		SC_MOVE_PACKET* move_packet = reinterpret_cast<SC_MOVE_PACKET*>(packet);
+		if (move_packet->_id >= NUM_MONSTER) {
+			int my_id = client_map[move_packet->_id - NUM_MONSTER];
 			if (-1 != my_id) {
-				g_clients[my_id].x = move_packet->x;
-				g_clients[my_id].y = move_packet->y;
+				g_clients[my_id].x = move_packet->_x;
+				g_clients[my_id].y = move_packet->_y;
 			}
 			if (ci == my_id) {
-				if (0 != move_packet->move_time) {
-					auto d_ms = duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count() - move_packet->move_time;
+				if (0 != move_packet->_move_time) {
+					auto d_ms = duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count() - move_packet->_move_time;
 
 					if (global_delay < d_ms) global_delay++;
 					else if (global_delay > d_ms) global_delay--;
@@ -147,16 +147,16 @@ void ProcessPacket(int ci, unsigned char packet[])
 	case S2C_ENTER: break;
 	case S2C_LEAVE: break;
 	case S2C_CHAT: break;
-	case S2C_AVATAR_INFO:
+	case S2C_LOGIN_ALLOW:
 	{
 		g_clients[ci].connected = true;
 		active_clients++;
-		sc_packet_avatar_info* login_packet = reinterpret_cast<sc_packet_avatar_info*>(packet);
+		SC_LOGIN_ALLOW_PACKET* login_packet = reinterpret_cast<SC_LOGIN_ALLOW_PACKET*>(packet);
 		int my_id = ci;
-		client_map[login_packet->id - MAX_NPC] = my_id;
-		g_clients[my_id].id = login_packet->id;
-		g_clients[my_id].x = login_packet->x;
-		g_clients[my_id].y = login_packet->y;
+		client_map[login_packet->_id - NUM_MONSTER] = my_id;
+		g_clients[my_id].id = login_packet->_id;
+		g_clients[my_id].x = login_packet->_x;
+		g_clients[my_id].y = login_packet->_y;
 
 		//cs_packet_teleport t_packet;
 		//t_packet.size = sizeof(t_packet);
@@ -311,12 +311,11 @@ void Adjust_Number_Of_Client()
 	DWORD recv_flag = 0;
 	CreateIoCompletionPort(reinterpret_cast<HANDLE>(g_clients[num_connections].client_socket), g_hiocp, num_connections, 0);
 
-	cs_packet_login l_packet;
-
+	char name[MAX_NAME_LEN];
 	int temp = num_connections;
-	sprintf_s(l_packet.name, "%d", temp);
-	l_packet.size = sizeof(l_packet);
-	l_packet.type = C2S_LOGIN;
+	sprintf_s(name, "%d", temp);
+	CS_LOGIN_PACKET l_packet{ name };
+
 	SendPacket(num_connections, &l_packet);
 
 
@@ -345,16 +344,10 @@ void Test_Thread()
 			if (false == g_clients[i].connected) continue;
 			if (g_clients[i].last_move_time + 1s > high_resolution_clock::now()) continue;
 			g_clients[i].last_move_time = high_resolution_clock::now();
-			cs_packet_move my_packet;
-			my_packet.size = sizeof(my_packet);
-			my_packet.type = C2S_MOVE;
-			switch (rand() % 4) {
-			case MOVE_UP: my_packet.direction = MOVE_UP; break;
-			case MOVE_DOWN: my_packet.direction = MOVE_DOWN; break;
-			case MOVE_LEFT: my_packet.direction = MOVE_LEFT; break;
-			case MOVE_RIGHT: my_packet.direction = MOVE_RIGHT; break;
-			}
-			my_packet.move_time = static_cast<unsigned>(duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count());
+			uint8 move_dir = rand() % 4 + 1;
+			uint32 move_time = static_cast<unsigned>(duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count());
+
+			CS_MOVE_PACKET my_packet{ move_dir, move_time };
 			SendPacket(i, &my_packet);
 		}
 	}

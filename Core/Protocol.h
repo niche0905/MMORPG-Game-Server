@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Types.h"
 #include "Defines.h"
 
@@ -10,12 +10,11 @@ struct BASE_PACKET
 	uint8	_size;
 	uint8	_packet_id;
 
+	BASE_PACKET()
+		: BASE_PACKET{ sizeof(BASE_PACKET), 0 } { }
 	BASE_PACKET(uint8 packet_size, uint8 packet_id)
 		: _size{ packet_size }
 		, _packet_id{ packet_id } { }
-	BASE_PACKET()
-		: _size{ sizeof(BASE_PACKET) }
-		, _packet_id{ 0 } { }
 };
 
 struct SC_LOGIN_ALLOW_PACKET	: public BASE_PACKET
@@ -35,6 +34,25 @@ struct SC_LOGIN_ALLOW_PACKET	: public BASE_PACKET
 		, _hp{ hp }
 		, _level{ level }
 		, _exp{ exp } { }
+};
+
+struct SC_LOGIN_FAIL_PACKET		: public BASE_PACKET
+{
+	enum LoginFailReason : int8
+	{
+		NO_IDEA,	// 알 수 없는 이유
+		USED_ID,	// 해당 아이디 현재 접속중
+		INVALID_ID,	// 부적절한 ID (특수문자, 20자 이상의 이유)
+		TO_MANY		// 서버 부하로 인해 (너무 많은 접속자)
+	};
+
+	int64	_id;	// ID가 굳이 필요할까..?
+	int8	_reason;
+
+	SC_LOGIN_FAIL_PACKET(int64 id, int8 reason)
+		: BASE_PACKET{ sizeof(SC_LOGIN_FAIL_PACKET), S2C_LOGIN_FAIL }
+		, _id{ id }
+		, _reason{ reason } { }
 };
 
 struct SC_MOVE_PACKET			: public BASE_PACKET
@@ -78,11 +96,27 @@ struct SC_LEAVE_PACKET			: public BASE_PACKET
 struct SC_CHAT_PACKET			: public BASE_PACKET
 {
 	int64	_id;
-	char	_message[CHAT_SIZE];
+	char	_message[MAX_CHAT_LENGTH];
 
 	SC_CHAT_PACKET(int64 id, char* message)
 		: BASE_PACKET{ sizeof(SC_CHAT_PACKET), S2C_CHAT }
 		, _id{ id } { strcpy_s(_message, message); }
+};
+
+struct SC_STAT_CHANGE_PACKET	: public BASE_PACKET
+{
+	int64	_id;
+	int16	_hp;
+	uint8	_level;
+	uint32	_exp;
+
+	SC_STAT_CHANGE_PACKET(int64 id, int16 hp, uint8 level, uint32 exp)
+		: BASE_PACKET{ sizeof(SC_STAT_CHANGE_PACKET), S2C_STAT_CHANGE }
+		, _id{ id }
+		, _hp{ hp }
+		, _level{ level }
+		, _exp{ exp } { }
+
 };
 
 struct CS_LOGIN_PACKET			: public BASE_PACKET
@@ -107,11 +141,31 @@ struct CS_MOVE_PACKET			: public BASE_PACKET
 
 struct CS_CHAT_PACKET			: public BASE_PACKET
 {
-	char	_message[CHAT_SIZE];
+	char	_message[MAX_CHAT_LENGTH];
 
 	CS_CHAT_PACKET(char* message)
 		: BASE_PACKET{ sizeof(CS_CHAT_PACKET), C2S_CHAT }
 		{ strcpy_s(_message, message); }
+};
+
+// 해당 공격을 다른 클라이언트에도 알려야 하지 않을까? (비주얼을 동기화 하기 위해)
+struct CS_ATTACK_PACKET			: public BASE_PACKET
+{
+	int8	_atk_type;
+
+	CS_ATTACK_PACKET(int8 atk_type)
+		: BASE_PACKET{ sizeof(CS_ATTACK_PACKET), C2S_ATTACK }
+		, _atk_type{ atk_type } { }
+};
+
+struct CS_TELEPORT_PACKET		: public BASE_PACKET
+{
+	int16	_x, _y;
+
+	CS_TELEPORT_PACKET(int16 x, int16 y)
+		: BASE_PACKET(sizeof(CS_TELEPORT_PACKET), C2S_TELEPORT)
+		, _x{ x }
+		, _y{ y } { }
 };
 
 #pragma pack(pop)

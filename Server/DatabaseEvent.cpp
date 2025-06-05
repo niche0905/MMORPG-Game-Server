@@ -3,7 +3,7 @@
 
 
 DatabaseEvent::DatabaseEvent()
-	: DatabaseEvent{ -1, -1 }
+	: DatabaseEvent{ -1, 0 }
 {
 
 }

@@ -56,5 +56,8 @@
     <ClInclude Include="Protocol.h">
       <Filter>Protocol</Filter>
     </ClInclude>
+    <ClInclude Include="game_header.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
