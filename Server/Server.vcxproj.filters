@@ -44,6 +44,9 @@
     <ClCompile Include="DatabaseManager.cpp">
       <Filter>DB</Filter>
     </ClCompile>
+    <ClCompile Include="DatabaseEvent.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -136,6 +139,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="DatabaseManager.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseEvent.h">
       <Filter>DB</Filter>
     </ClInclude>
   </ItemGroup>

@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="BaseSession.cpp" />
     <ClCompile Include="Bot.cpp" />
+    <ClCompile Include="DatabaseEvent.cpp" />
     <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="ExpansionOverlapped.cpp" />
     <ClCompile Include="GlobalVariable.cpp" />
@@ -187,6 +188,7 @@
   <ItemGroup>
     <ClInclude Include="BaseSession.h" />
     <ClInclude Include="Bot.h" />
+    <ClInclude Include="DatabaseEvent.h" />
     <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="Position.h" />
