@@ -15,10 +15,15 @@ private:
 	std::string _nick_name;				// 몬스터도 있어야 할 지도
 
 public:
+	uint64		_ebr_number{ EBR<Session>::MAX_ULLONG };
+
+public:
 	Session();
 	Session(SOCKET socket, int64 id);
 
 	~Session();
+
+	void Reset(SOCKET socket, int64 id);
 
 	bool IsPlayer() const override;
 	bool IsNPC() const override;

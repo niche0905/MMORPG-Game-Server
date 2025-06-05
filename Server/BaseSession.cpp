@@ -47,11 +47,6 @@ Creature::Creature(int64 id, Position pos, bool is_pc)
 
 }
 
-Creature::~Creature()
-{
-
-}
-
 int64 Creature::GetID() const
 {
 	return _id;

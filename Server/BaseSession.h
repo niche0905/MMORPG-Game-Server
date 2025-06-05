@@ -24,7 +24,7 @@ public:
 	Creature(int64 id, int16 x, int16 y, bool is_pc);
 	Creature(int64 id, Position pos);
 	Creature(int64 id, Position pos, bool is_pc);
-	~Creature();
+	virtual ~Creature() = default;
 
 	// 필요한 메서드
 	int64 GetID() const;

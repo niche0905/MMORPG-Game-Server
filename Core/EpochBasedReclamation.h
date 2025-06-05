@@ -3,12 +3,23 @@
 struct alignas(CACHE_LINE_SIZE) EpochSlot
 {
 	std::atomic_ullong slot;
+
+	EpochSlot() noexcept : slot(0) { }
+	EpochSlot(const EpochSlot&) = delete;
+	EpochSlot(EpochSlot&& other) noexcept
+	{
+		slot.store(other.slot.load());
+	}
 };
 
 template<class T>
 struct alignas(CACHE_LINE_SIZE) FreeList
 {
 	std::queue<T*> free_queue;
+
+	FreeList() = default;
+	FreeList(const FreeList&) = default;
+	FreeList(FreeList&&) noexcept = default;
 };
 
 
@@ -22,6 +33,7 @@ struct alignas(CACHE_LINE_SIZE) FreeList
 template<class T>
 class EpochBasedReclamation
 {
+public:
 	static constexpr uint64 MAX_ULLONG = (std::numeric_limits<uint64>::max)();
 
 private:
@@ -78,8 +90,8 @@ template<class T>
 inline void EpochBasedReclamation<T>::Clear()
 {
 	for (auto& free_list : _free_list_array) {
-		while (not free_list.empty()) {
-			auto ptr = free_list.front(); free_list.pop();
+		while (not free_list.free_queue.empty()) {
+			auto ptr = free_list.free_queue.front(); free_list.free_queue.pop();
 			delete ptr;
 		}
 	}
@@ -104,7 +116,7 @@ inline T* EpochBasedReclamation<T>::Get(Args&&... args)
 
 	T* ptr = _free_list_array[thread_id].free_queue.front();
 	for (int i = 0; i < _thread_num; ++i) {
-		if (_epoch_array[i] < ptr->_ebr_number) {
+		if (_epoch_array[i].slot < ptr->_ebr_number) {
 			return new T{ std::forward<Args>(args)... };
 		}
 	}
@@ -118,11 +130,11 @@ template<class T>
 inline void EpochBasedReclamation<T>::StartEpoch()
 {
 	uint64 epoch = ++_epoch_counter;
-	_epoch_array[thread_id] = epoch;
+	_epoch_array[thread_id].slot = epoch;
 }
 
 template<class T>
 inline void EpochBasedReclamation<T>::EndEpoch()
 {
-	_epoch_array[thread_id] = MAX_ULLONG;
+	_epoch_array[thread_id].slot = MAX_ULLONG;
 }

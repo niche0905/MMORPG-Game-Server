@@ -7,14 +7,12 @@ private:
 	template<typename K, typename V>
 	using container = concurrency::concurrent_unordered_map<K, V>;
 
-	using Client = std::atomic<std::shared_ptr<Creature>>;
-	using LocalCreature = std::shared_ptr<Creature>;
-	using LocalClient = std::shared_ptr<Session>;
-	using LocalBot = std::shared_ptr<Bot>;
+	using Client = Creature*;
 
 private:
 	IocpCore					_iocp_core;			// IOCP 핸들 관리 하는 클래스
 	container<int64, Client>	_clients;			// 클라이언트 세션 관리하는 컨테이너
+	EBR<Session>				_ebr_sessions;		// ebr로 session 재사용
 
 	DatabaseManager				_db_manager;
 

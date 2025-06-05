@@ -128,7 +128,7 @@ void ServerCore::ThreadPoolInit()
 
 	_is_running = true;
 	for (int i = 0; i < thread_count; ++i) {
-		_threads.emplace_back([this]() { Worker(); });
+		_threads.emplace_back([this, i]() { SetThreadId(i); Worker(); });
 	}
 
 	std::cout << "Thread Pool Init Success\n";
@@ -173,8 +173,14 @@ void ServerCore::Worker()
 		IoOperation operation = exp_overlapped->GetOperation();
 		if ((success == false) or ((operation == IoOperation::IO_RECV) or (operation == IoOperation::IO_SEND)) and (bytes_transferred == 0)) {
 			if (_clients.count(key) != 0) {
+				Creature* client = _clients.at(key);
 
-				_clients.at(key).store(nullptr);	// <- _clients.at(key) = nullptr;
+				if (client) {
+					Session* session = static_cast<Session*>(client);
+
+					_ebr_sessions.Reuse(session);
+					_clients.at(key) = nullptr;
+				}
 			}
 			
 			continue;
@@ -186,7 +192,7 @@ void ServerCore::Worker()
 		{
 			int now_id = _id_counter++;
 			_iocp_core.AddSocket(_accept_socket, now_id);
-			LocalClient new_session = std::make_shared<Session>(_accept_socket, now_id);
+			Session* new_session = _ebr_sessions.Get(_accept_socket, now_id);
 			_clients.insert(std::make_pair(now_id, new_session));
 			new_session->Recv();
 
@@ -195,21 +201,15 @@ void ServerCore::Worker()
 		break;
 		case IoOperation::IO_RECV:
 		{
-			LocalCreature client = _clients.at(key).load();
+			Creature* client = _clients.at(key);
 			if (client == nullptr) {
 				std::cout << "Client is nullptr\n";
 				break;
 			}
 
-			if (auto session = std::dynamic_pointer_cast<Session>(client)) {
-				session->ReassemblePacket(bytes_transferred);
-
-				session->Recv();
-			}
-			else {
-				std::cout << "Session is Not Session\n";
-				exit(-1);
-			}
+			auto session = static_cast<Session*>(client);
+			session->ReassemblePacket(bytes_transferred);
+			session->Recv();
 		}
 		break;
 		case IoOperation::IO_SEND:

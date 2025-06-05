@@ -12,8 +12,8 @@ Session::Session()
 Session::Session(SOCKET socket, int64 id) 
 	: Creature{ id, true }
 	, _socket(socket)
-	, _recv_overlapped(IoOperation::IO_RECV)
 	, _remain_size(0)
+	, _recv_overlapped(IoOperation::IO_RECV)
 {
 	
 }
@@ -24,6 +24,14 @@ Session::~Session()
 
 	// TODO : 소켓을 닫아도 된다면 판단 후에 닫기 or IOCP 소켓 작업 다 캔슬하고 바로 닫기
 	closesocket(_socket);
+}
+
+void Session::Reset(SOCKET socket, int64 id)
+{
+	_id = id;
+	_socket = socket;
+	_remain_size = 0;
+	_recv_overlapped.Reset(0);
 }
 
 bool Session::IsPlayer() const
