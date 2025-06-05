@@ -35,6 +35,8 @@ public:
 	void Accept();
 
 private:
+	void LocaleInit();
+
 	void NetworkInit();
 	void BindAndListen();
 

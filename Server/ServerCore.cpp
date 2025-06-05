@@ -7,7 +7,7 @@ ServerCore::ServerCore()
 	: _iocp_core()
 	, _db_manager()
 	, _is_running(false)
-	, _id_counter(1)
+	, _id_counter(NUM_MONSTER)
 	, _listen_socket(INVALID_SOCKET)
 	, _accept_socket(INVALID_SOCKET)
 	, _accept_overlapped(IoOperation::IO_ACCEPT)	
@@ -22,6 +22,8 @@ ServerCore::~ServerCore()
 
 void ServerCore::Init()
 {
+	LocaleInit();
+
 	NetworkInit();
 
 	DatabaseInit();
@@ -70,6 +72,12 @@ void ServerCore::Accept()
 			PrintErrorMessage(L"AcceptEx", error);
 		}
 	}
+}
+
+void ServerCore::LocaleInit()
+{
+	setlocale(LC_ALL, "korean");
+	std::wcout.imbue(std::locale("korean"));
 }
 
 void ServerCore::NetworkInit()
