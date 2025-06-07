@@ -19,8 +19,13 @@ void World::Draw(sf::RenderWindow& window, sf::Vector2i client_pos)
 	int width = 10;
 	int height = 10;
 
-	for (int y = client_pos.y - height; y <= client_pos.y + height; ++y) {
-		for (int x = client_pos.x - width; x <= client_pos.x + width; ++x) {
+	int start_y = std::max(0, client_pos.y - height);
+	int end_y = std::min(area.y - 1, client_pos.y + height);
+	int start_x = std::max(0, client_pos.x - width);
+	int end_x = std::min(area.x - 1, client_pos.x + width);
+
+	for (int y = start_y; y <= end_y; ++y) {
+		for (int x = start_x; x <= end_x; ++x) {
 			TileManager::Instance().GetTile(maps[y * area.y + x]).Draw(window, x, y);
 		}
 	}
