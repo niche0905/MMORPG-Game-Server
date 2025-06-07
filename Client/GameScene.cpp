@@ -41,7 +41,8 @@ void GameScene::Update(const int64 delta_time)
 // Scene에 존재하는 Object 그리기
 void GameScene::Draw(sf::RenderWindow& window)
 {
-	world->Draw(window);
+	auto client_position = client_player->GetPosition();
+	world->Draw(window, client_position);
 
 	client_player->Draw(window);
 

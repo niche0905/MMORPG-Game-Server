@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "World.h"
 #include "TileManager.h"
 
@@ -14,10 +14,13 @@ World::World(int size_x, int size_y)
 }
 
 // 월드 그리기 함수
-void World::Draw(sf::RenderWindow& window)
+void World::Draw(sf::RenderWindow& window, sf::Vector2i client_pos)
 {
-	for (int y = 0; y < area.y; ++y) {
-		for (int x = 0; x < area.x; ++x) {
+	int width = 10;
+	int height = 10;
+
+	for (int y = client_pos.y - height; y <= client_pos.y + height; ++y) {
+		for (int x = client_pos.x - width; x <= client_pos.x + width; ++x) {
 			TileManager::Instance().GetTile(maps[y * area.y + x]).Draw(window, x, y);
 		}
 	}
