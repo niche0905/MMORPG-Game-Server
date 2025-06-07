@@ -159,7 +159,7 @@ void Session::MoveProcess(BYTE* packet)
 		if (new_position.x > 0) --new_position.x;
 		break;
 	case MOVE_RIGHT:
-		if (new_position.x < MAX_WIDTH) ++new_position.x;
+		if (new_position.x < MAX_WIDTH - 1) ++new_position.x;
 		break;
 	}
 
