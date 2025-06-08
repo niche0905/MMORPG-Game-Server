@@ -27,7 +27,9 @@
 #include "Session.h"
 #include "DatabaseEvent.h"
 #include "DatabaseManager.h"
-#include "ServerCore.h"
 #include "Sector.h"
+#include "SectorManager.h"
+
+#include "ServerCore.h"
 
 #include "GlobalVariable.h"

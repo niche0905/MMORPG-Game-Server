@@ -59,9 +59,9 @@ struct SC_MOVE_PACKET			: public BASE_PACKET
 {
 	int64	_id;
 	int16	_x, _y;
-	uint32	_move_time;
+	uint64	_move_time;
 
-	SC_MOVE_PACKET(int64 id, int16 x, int16 y, uint32 move_time)
+	SC_MOVE_PACKET(int64 id, int16 x, int16 y, uint64 move_time)
 		: BASE_PACKET{ sizeof(SC_MOVE_PACKET), S2C_MOVE }
 		, _id{ id }
 		, _x{ x }, _y{ y }
@@ -131,9 +131,9 @@ struct CS_LOGIN_PACKET			: public BASE_PACKET
 struct CS_MOVE_PACKET			: public BASE_PACKET
 {
 	uint8	_direction;
-	uint32	_move_time;
+	uint64	_move_time;
 
-	CS_MOVE_PACKET(uint8 direction, uint32 move_time)
+	CS_MOVE_PACKET(uint8 direction, uint64 move_time)
 		: BASE_PACKET{ sizeof(CS_MOVE_PACKET), C2S_MOVE }
 		, _direction{ direction }
 		, _move_time{ move_time } { }
