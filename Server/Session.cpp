@@ -143,8 +143,8 @@ void Session::LoginProcess(BYTE* packet)
 
 void Session::MoveProcess(BYTE* packet)
 {
-	// TODO: move_time 적용
 	CS_MOVE_PACKET* move_packet = reinterpret_cast<CS_MOVE_PACKET*>(packet);
+	_last_move_time = move_packet->_move_time;
 
 	Position new_position = _position;
 	switch (move_packet->_direction)
@@ -183,7 +183,7 @@ void Session::ChatProcess(BYTE* packet)
 
 void Session::SelfUpdate()
 {
-	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y, 0 };
+	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y, _last_move_time };
 
 	Send(&update_packet);
 }

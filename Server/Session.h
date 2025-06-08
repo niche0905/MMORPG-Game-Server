@@ -14,6 +14,8 @@ private:
 
 	std::string _nick_name;				// 몬스터도 있어야 할 지도
 
+	uint64		_last_move_time;
+
 public:
 	uint64		_ebr_number{ EBR<Session>::MAX_ULLONG };
 
