@@ -51,3 +51,40 @@ int64 Creature::GetID() const
 {
 	return _id;
 }
+
+void Creature::SetName(std::string_view name)
+{
+	_name = name;
+}
+
+std::string& Creature::GetName()
+{
+	return _name;
+}
+
+const std::string& Creature::GetName() const
+{
+	return _name;
+}
+
+Position Creature::GetPosition() const
+{
+	return _position;
+}
+
+bool Creature::CanSee(int16 x, int16 y, int16 gap) const
+{
+	if (std::abs(_position.x - x) > gap) return false;
+	return (std::abs(_position.y - y) <= gap);
+}
+
+bool Creature::CanSee(Position pos, int16 gap) const
+{
+	if (std::abs(_position.x - pos.x) > gap) return false;
+	return (std::abs(_position.y - pos.y) <= gap);
+}
+
+uint8 Creature::GetState() const
+{
+	return _state.load();
+}

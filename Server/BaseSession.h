@@ -5,6 +5,7 @@ class Creature
 {
 protected:
 	int64						_id;
+	std::string					_name;
 
 	// User와 NPC 모두 가지는 공통 Game Contents를 담는 변수
 	//std::weak_ptr<ServerCore>	_server; // <- 전역 변수로 접근해도 될라나?
@@ -30,6 +31,16 @@ public:
 	int64 GetID() const;
 	virtual bool IsPlayer() const = 0;
 	virtual bool IsNPC() const = 0;
+
+	void SetName(std::string_view name);
+	std::string& GetName();
+	const std::string& GetName() const;
+
+	Position GetPosition() const;
+	bool CanSee(int16 x, int16 y, int16 gap) const;
+	bool CanSee(Position pos, int16 gap) const;
+
+	uint8 GetState() const;
 
 };
 
