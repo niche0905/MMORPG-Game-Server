@@ -14,7 +14,8 @@ private:
 	container<int64, Client>	_clients;			// 클라이언트 세션 관리하는 컨테이너
 	EBR<Session>				_ebr_sessions;		// ebr로 session 재사용
 
-	DatabaseManager				_db_manager;
+	DatabaseManager				_db_manager;		// DB 관리자
+	SectorManager				_sector_manager;	// Sector 관리자
 
 	volatile bool				_is_running;		// 서버가 실행중인지 체크하는 변수
 	std::vector<std::thread>	_threads;			// 스레드 풀 관리하는 벡터
@@ -49,7 +50,19 @@ private:
 
 	void Worker();
 
-	// TODO: _clients Getter 작성하기
+public:
+	const container<int64, Client>& GetClients() const;
+	container<int64, Client>& GetClients();
+
+	void RegisterSector(int64 id, int16 x, int16 y);
+	void RegisterSector(int64 id, Position pos);
+	void MoveSector(int64 id, int16 old_x, int16 old_y, int16 new_x, int16 new_y);
+	void MoveSector(int64 id, Position old_pos, Position new_pos);
+	void RemoveSector(int64 id, int16 x, int16 y);
+	void RemoveSector(int64 id, Position pos);
+
+	std::unordered_set<int64> GetClientList(short x, short y);
+
 
 };
 
