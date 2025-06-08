@@ -12,9 +12,10 @@ private:
 	// 게임에 필요한 정보 (컨텐츠 관련)
 	Stats		_equip_stats = {};		// 장비 스텟(장착한 장비에 따라 증가한 스텟)
 
-	std::string _nick_name;				// 몬스터도 있어야 할 지도
-
 	uint64		_last_move_time;
+
+	std::unordered_set<int64>	_view_list;		// 나중에 lock 없는 자료구조 찾아보자
+	std::mutex					_view_lock;
 
 public:
 	uint64		_ebr_number{ EBR<Session>::MAX_ULLONG };
@@ -24,6 +25,8 @@ public:
 	Session(SOCKET socket, int64 id);
 
 	~Session();
+
+	void Disconnect();
 
 	void Reset(SOCKET socket, int64 id);
 
@@ -39,6 +42,9 @@ public:
 	void LoginProcess(BYTE* packet);
 	void MoveProcess(BYTE* packet);
 	void ChatProcess(BYTE* packet);
+
+	void ProcessCloseCreature(int64 id, void* enter_packet, void* move_packet);
+	void SendLeaveCreature(int64 id);
 
 	void SelfUpdate();
 

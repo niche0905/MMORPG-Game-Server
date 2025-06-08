@@ -20,10 +20,37 @@ Session::Session(SOCKET socket, int64 id)
 
 Session::~Session()
 {
-
+	Disconnect();
 
 	// TODO : 소켓을 닫아도 된다면 판단 후에 닫기 or IOCP 소켓 작업 다 캔슬하고 바로 닫기
 	closesocket(_socket);
+}
+
+void Session::Disconnect()
+{
+	if (_state != ST_CLOSE) {
+
+		_view_lock.lock();
+		std::unordered_set<int64_t> view_list = _view_list;
+		_view_lock.unlock();
+
+		for (int64 client_id : view_list) {
+
+			if (client_id == _id or ::IsNPC(client_id)) continue;
+
+			Creature* client = server.GetClients()[client_id];
+			if (client == nullptr) continue;
+
+			uint8 state = client->GetState();
+			if (state == State::ST_ALLOC or state == State::ST_CLOSE) continue;
+
+			Session* session = static_cast<Session*>(client);
+			session->SendLeaveCreature(_id);
+		}
+		server.RemoveSector(_id, _position);
+	}
+
+	_state = ST_CLOSE;
 }
 
 void Session::Reset(SOCKET socket, int64 id)
@@ -129,10 +156,12 @@ void Session::ReassemblePacket(DWORD recv_size)
 void Session::LoginProcess(BYTE* packet)
 {
 	CS_LOGIN_PACKET* login_packet = reinterpret_cast<CS_LOGIN_PACKET*>(packet);
-	_nick_name = login_packet->_name;
+	SetName(login_packet->_name);
 
 	_position.x = rand() % MAX_WIDTH;
 	_position.y = rand() % MAX_WIDTH;
+
+	server.RegisterSector(_id, _position);
 
 	_state = State::ST_INGAME;
 
@@ -168,9 +197,76 @@ void Session::MoveProcess(BYTE* packet)
 		SelfUpdate();
 		return;
 	}
+	server.MoveSector(_id, _position, new_position);
 
 	_position = new_position;
 	SelfUpdate();
+
+	std::unordered_set<int64> near_list;
+	_view_lock.lock();
+	std::unordered_set<int64> old_list = _view_list;
+	_view_lock.unlock();
+
+	std::unordered_set<int64> closed_clients = server.GetClientList(_position.x, _position.y);
+	for (int64 client_id : closed_clients) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		uint8 state = client->GetState();
+		if (state == State::ST_ALLOC or state == State::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
+
+		// view list 판단
+		if (client->CanSee(_position, VIEW_RANGE)) {	// 보이는 경우
+			near_list.insert(client_id);
+		}
+	}
+
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 0 };		// TODO: 값 제대로
+	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y, _last_move_time };
+
+	for (int64 client_id : near_list) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시 위에서 거르지만 혹시 모르니깐
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		if (client->IsPlayer()) {
+			auto session = static_cast<Session*>(client);
+			session->ProcessCloseCreature(_id, &enter_packet, &update_packet);
+		}
+		else {
+			// TODO: NPC라면 처리해주어야 할 것 하기
+		}
+
+		if (old_list.count(client_id) == 0) {
+			Position pos = client->GetPosition();
+			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), 0, 0 };		// TODO: 값 제대로
+
+			_view_lock.lock();
+			_view_list.insert(client_id);
+			_view_lock.unlock();
+
+			Send(&object_enter_packet);
+		}
+	}
+
+	// view_list 벗어났다면 leave_packet 전송
+	for (int64 client_id : old_list) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시 위에서 거르지만 혹시 모르니깐
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		if (near_list.count(client_id) == 0) {
+			auto session = static_cast<Session*>(client);
+			session->SendLeaveCreature(_id);
+		}
+	}
 
 	// TODO: Creature가 ServerCore를 weak_ptr로 가지고 접근 할 수 있어야 함
 	//		 그것을 가지고 Sector에 접근해 id와 clients로 broadcast 또는 호출
@@ -179,6 +275,35 @@ void Session::MoveProcess(BYTE* packet)
 void Session::ChatProcess(BYTE* packet)
 {
 	// TODO: 내용 채우기 (일정 범위 내 전송)
+}
+
+void Session::ProcessCloseCreature(int64 id, void* enter_packet, void* move_packet)
+{
+	_view_lock.lock();
+	if (_view_list.count(id) == 0) {	// 기존에 없던 생명체
+		_view_list.insert(id);
+		_view_lock.unlock();
+
+		Send(enter_packet);
+	}
+	else {								// 기존에 있던 생명체
+		_view_lock.unlock();
+
+		Send(move_packet);
+	}
+}
+
+void Session::SendLeaveCreature(int64 id)
+{
+	_view_lock.lock();
+	if (_view_list.count(id) == 0) {
+		return;
+	}
+	_view_list.erase(id);
+	_view_lock.unlock();
+
+	SC_LEAVE_PACKET leave_packet{ id };
+	Send(&leave_packet);
 }
 
 void Session::SelfUpdate()
