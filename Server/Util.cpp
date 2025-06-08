@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Util.h"
 
 
@@ -32,4 +32,15 @@ void PrintErrorMessage(const std::wstring pos, DWORD err_code)
 		(LPTSTR)&lpMsgBuf, 0, NULL);
 	std::wcout << pos << L" 에러 : " << lpMsgBuf << std::endl;
 	LocalFree(lpMsgBuf);
+}
+
+// TODO: bit 연산으로 바꾸면 더 빠를 수도?
+bool IsNPC(int64 id)
+{
+	return id < NUM_MONSTER;
+}
+
+bool IsPlayer(int64 id)
+{
+	return id >= NUM_MONSTER;
 }
