@@ -196,7 +196,7 @@ void ServerCore::Worker()
 		{
 		case IoOperation::IO_ACCEPT:
 		{
-			int now_id = _id_counter++;
+			uint64 now_id = _id_counter++;
 			_iocp_core.AddSocket(_accept_socket, now_id);
 			Session* new_session = _ebr_sessions.Get(_accept_socket, now_id);
 			_clients.insert(std::make_pair(now_id, new_session));
@@ -236,49 +236,49 @@ void ServerCore::Worker()
 
 }
 
-const ServerCore::container<int64, ServerCore::Client>& ServerCore::GetClients() const
+const ServerCore::container<uint64, ServerCore::Client>& ServerCore::GetClients() const
 {
 	return _clients;
 }
 
-ServerCore::container<int64, ServerCore::Client>& ServerCore::GetClients()
+ServerCore::container<uint64, ServerCore::Client>& ServerCore::GetClients()
 {
 	return _clients;
 }
 
-void ServerCore::RegisterSector(int64 id, int16 x, int16 y)
+void ServerCore::RegisterSector(uint64 id, int16 x, int16 y)
 {
 	_sector_manager.AddClient(id, x, y);
 }
 
-void ServerCore::RegisterSector(int64 id, Position pos)
+void ServerCore::RegisterSector(uint64 id, Position pos)
 {
 	_sector_manager.AddClient(id, pos.x, pos.y);
 }
 
-void ServerCore::MoveSector(int64 id, int16 old_x, int16 old_y, int16 new_x, int16 new_y)
+void ServerCore::MoveSector(uint64 id, int16 old_x, int16 old_y, int16 new_x, int16 new_y)
 {
 	_sector_manager.MoveClient(id, old_x, old_y, new_x, new_y);
 }
 
-void ServerCore::MoveSector(int64 id, Position old_pos, Position new_pos)
+void ServerCore::MoveSector(uint64 id, Position old_pos, Position new_pos)
 {
 	_sector_manager.MoveClient(id, old_pos.x, old_pos.y, new_pos.x, new_pos.y);
 }
 
-void ServerCore::RemoveSector(int64 id, int16 x, int16 y)
+void ServerCore::RemoveSector(uint64 id, int16 x, int16 y)
 {
 	_sector_manager.RemoveClient(id, x, y);
 }
 
-void ServerCore::RemoveSector(int64 id, Position pos)
+void ServerCore::RemoveSector(uint64 id, Position pos)
 {
 	_sector_manager.RemoveClient(id, pos.x, pos.y);
 }
 
-std::unordered_set<int64> ServerCore::GetClientList(short x, short y)
+std::unordered_set<uint64> ServerCore::GetClientList(short x, short y)
 {
-	std::unordered_set<int64> closed_clients;
+	std::unordered_set<uint64> closed_clients;
 	_sector_manager.GetClientList(x, y, closed_clients);
 	return closed_clients;
 }

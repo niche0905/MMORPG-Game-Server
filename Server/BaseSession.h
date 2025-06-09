@@ -4,7 +4,7 @@
 class Creature
 {
 protected:
-	int64						_id;
+	uint64						_id;
 	std::string					_name;
 
 	// User와 NPC 모두 가지는 공통 Game Contents를 담는 변수
@@ -19,16 +19,16 @@ protected:
 
 public:
 	Creature();
-	Creature(int64 id);
-	Creature(int64 id, bool is_pc);
-	Creature(int64 id, int16 x, int16 y);
-	Creature(int64 id, int16 x, int16 y, bool is_pc);
-	Creature(int64 id, Position pos);
-	Creature(int64 id, Position pos, bool is_pc);
+	Creature(uint64 id);
+	Creature(uint64 id, bool is_pc);
+	Creature(uint64 id, int16 x, int16 y);
+	Creature(uint64 id, int16 x, int16 y, bool is_pc);
+	Creature(uint64 id, Position pos);
+	Creature(uint64 id, Position pos, bool is_pc);
 	virtual ~Creature() = default;
 
 	// 필요한 메서드
-	int64 GetID() const;
+	uint64 GetID() const;
 	virtual bool IsPlayer() const = 0;
 	virtual bool IsNPC() const = 0;
 

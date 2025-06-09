@@ -4,7 +4,7 @@
 class Sector
 {
 private:
-	std::unordered_set<int64>		_clients;		// 해당 구역에 있는 클라이언트들
+	std::unordered_set<uint64>		_clients;		// 해당 구역에 있는 클라이언트들
 	std::unique_ptr<std::mutex>		_sector_mutex;	// 해당 구역에 대한 뮤텍스
 
 public:
@@ -28,10 +28,10 @@ public:
 	Sector(Sector&& other) noexcept = default;
 	Sector& operator=(Sector&& other) noexcept = default;
 
-	void AddClient(int64 id);
-	void RemoveClient(int64 id);
+	void AddClient(uint64 id);
+	void RemoveClient(uint64 id);
 
-	std::unordered_set<int64>& GetClientList();
+	std::unordered_set<uint64>& GetClientList();
 
 	void Lock();
 	void Unlock();

@@ -13,14 +13,14 @@ Sector::~Sector()
 	_clients.clear();
 }
 
-void Sector::AddClient(int64 id)
+void Sector::AddClient(uint64 id)
 {
 	Lock();
 	_clients.insert(id);
 	Unlock();
 }
 
-void Sector::RemoveClient(int64 id)
+void Sector::RemoveClient(uint64 id)
 {
 	Lock();
 	auto it = _clients.find(id);
@@ -30,7 +30,7 @@ void Sector::RemoveClient(int64 id)
 	Unlock();
 }
 
-std::unordered_set<int64>& Sector::GetClientList()
+std::unordered_set<uint64>& Sector::GetClientList()
 {
 	return _clients;
 }

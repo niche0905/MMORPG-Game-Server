@@ -8,7 +8,7 @@ private:
 
 public:
 	Bot();
-	Bot(int64 id);
+	Bot(uint64 id);
 	~Bot();
 
 	bool IsPlayer() const override;

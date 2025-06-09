@@ -9,7 +9,7 @@ Session::Session()
 	exit(-1);
 }
 
-Session::Session(SOCKET socket, int64 id) 
+Session::Session(SOCKET socket, uint64 id) 
 	: Creature{ id, true }
 	, _socket(socket)
 	, _remain_size(0)
@@ -31,10 +31,10 @@ void Session::Disconnect()
 	if (_state != ST_CLOSE) {
 
 		_view_lock.lock();
-		std::unordered_set<int64_t> view_list = _view_list;
+		std::unordered_set<uint64> view_list = _view_list;
 		_view_lock.unlock();
 
-		for (int64 client_id : view_list) {
+		for (uint64 client_id : view_list) {
 
 			if (client_id == _id or ::IsNPC(client_id)) continue;
 
@@ -53,7 +53,7 @@ void Session::Disconnect()
 	_state = ST_CLOSE;
 }
 
-void Session::Reset(SOCKET socket, int64 id)
+void Session::Reset(SOCKET socket, uint64 id)
 {
 	_id = id;
 	_socket = socket;
@@ -202,13 +202,13 @@ void Session::MoveProcess(BYTE* packet)
 	_position = new_position;
 	SelfUpdate();
 
-	std::unordered_set<int64> near_list;
+	std::unordered_set<uint64> near_list;
 	_view_lock.lock();
-	std::unordered_set<int64> old_list = _view_list;
+	std::unordered_set<uint64> old_list = _view_list;
 	_view_lock.unlock();
 
-	std::unordered_set<int64> closed_clients = server.GetClientList(_position.x, _position.y);
-	for (int64 client_id : closed_clients) {
+	std::unordered_set<uint64> closed_clients = server.GetClientList(_position.x, _position.y);
+	for (uint64 client_id : closed_clients) {
 
 		if (client_id == _id) continue;	// 내 ID라면 무시
 
@@ -227,7 +227,7 @@ void Session::MoveProcess(BYTE* packet)
 	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 0 };		// TODO: 값 제대로
 	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y, _last_move_time };
 
-	for (int64 client_id : near_list) {
+	for (uint64 client_id : near_list) {
 
 		if (client_id == _id) continue;	// 내 ID라면 무시 위에서 거르지만 혹시 모르니깐
 
@@ -255,7 +255,7 @@ void Session::MoveProcess(BYTE* packet)
 	}
 
 	// view_list 벗어났다면 leave_packet 전송
-	for (int64 client_id : old_list) {
+	for (uint64 client_id : old_list) {
 
 		if (client_id == _id) continue;	// 내 ID라면 무시 위에서 거르지만 혹시 모르니깐
 
@@ -275,7 +275,7 @@ void Session::ChatProcess(BYTE* packet)
 	// TODO: 내용 채우기 (일정 범위 내 전송)
 }
 
-void Session::ProcessCloseCreature(int64 id, void* enter_packet, void* move_packet)
+void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet)
 {
 	_view_lock.lock();
 	if (_view_list.count(id) == 0) {	// 기존에 없던 생명체
@@ -291,7 +291,7 @@ void Session::ProcessCloseCreature(int64 id, void* enter_packet, void* move_pack
 	}
 }
 
-void Session::SendLeaveCreature(int64 id)
+void Session::SendLeaveCreature(uint64 id)
 {
 	_view_lock.lock();
 	if (_view_list.count(id) == 0) {

@@ -19,14 +19,14 @@ struct BASE_PACKET
 
 struct SC_LOGIN_ALLOW_PACKET	: public BASE_PACKET
 {
-	int64	_id;
+	uint64	_id;
 	int16	_x, _y;
 	uint16	_max_hp;
 	uint16	_hp;
 	uint8	_level;
 	uint32	_exp;
 
-	SC_LOGIN_ALLOW_PACKET(int64 id, int16 x, int16 y, uint16 max_hp, uint16 hp, uint8 level, uint32 exp)
+	SC_LOGIN_ALLOW_PACKET(uint64 id, int16 x, int16 y, uint16 max_hp, uint16 hp, uint8 level, uint32 exp)
 		: BASE_PACKET{ sizeof(SC_LOGIN_ALLOW_PACKET), S2C_LOGIN_ALLOW }
 		, _id{ id }
 		, _x{ x }, _y{ y }
@@ -46,10 +46,10 @@ struct SC_LOGIN_FAIL_PACKET		: public BASE_PACKET
 		TO_MANY		// 서버 부하로 인해 (너무 많은 접속자)
 	};
 
-	int64	_id;	// ID가 굳이 필요할까..?
+	uint64	_id;	// ID가 굳이 필요할까..?
 	int8	_reason;
 
-	SC_LOGIN_FAIL_PACKET(int64 id, int8 reason)
+	SC_LOGIN_FAIL_PACKET(uint64 id, int8 reason)
 		: BASE_PACKET{ sizeof(SC_LOGIN_FAIL_PACKET), S2C_LOGIN_FAIL }
 		, _id{ id }
 		, _reason{ reason } { }
@@ -57,11 +57,11 @@ struct SC_LOGIN_FAIL_PACKET		: public BASE_PACKET
 
 struct SC_MOVE_PACKET			: public BASE_PACKET
 {
-	int64	_id;
+	uint64	_id;
 	int16	_x, _y;
 	uint64	_move_time;
 
-	SC_MOVE_PACKET(int64 id, int16 x, int16 y, uint64 move_time)
+	SC_MOVE_PACKET(uint64 id, int16 x, int16 y, uint64 move_time)
 		: BASE_PACKET{ sizeof(SC_MOVE_PACKET), S2C_MOVE }
 		, _id{ id }
 		, _x{ x }, _y{ y }
@@ -70,13 +70,13 @@ struct SC_MOVE_PACKET			: public BASE_PACKET
 
 struct SC_ENTER_PACKET			: public BASE_PACKET
 {
-	int64	_id;
+	uint64	_id;
 	int16	_x, _y;
 	char	_name[MAX_NAME_LEN];
 	uint8	_visual_info;
 	uint8	_level;
 
-	SC_ENTER_PACKET(int64 id, int16 x, int16 y, char* name, uint8 visual_info, uint8 level)
+	SC_ENTER_PACKET(uint64 id, int16 x, int16 y, char* name, uint8 visual_info, uint8 level)
 		: BASE_PACKET{ sizeof(SC_ENTER_PACKET), S2C_ENTER }
 		, _id{ id }
 		, _x{ x }, _y{ y }
@@ -86,31 +86,31 @@ struct SC_ENTER_PACKET			: public BASE_PACKET
 
 struct SC_LEAVE_PACKET			: public BASE_PACKET
 {
-	int64	_id;
+	uint64	_id;
 
-	SC_LEAVE_PACKET(int64 id)
+	SC_LEAVE_PACKET(uint64 id)
 		: BASE_PACKET{ sizeof(SC_LEAVE_PACKET), S2C_LEAVE }
 		, _id{ id } { }
 };
 
 struct SC_CHAT_PACKET			: public BASE_PACKET
 {
-	int64	_id;
+	uint64	_id;
 	char	_message[MAX_CHAT_LENGTH];
 
-	SC_CHAT_PACKET(int64 id, char* message)
+	SC_CHAT_PACKET(uint64 id, char* message)
 		: BASE_PACKET{ sizeof(SC_CHAT_PACKET), S2C_CHAT }
 		, _id{ id } { strcpy_s(_message, message); }
 };
 
 struct SC_STAT_CHANGE_PACKET	: public BASE_PACKET
 {
-	int64	_id;
+	uint64	_id;
 	int16	_hp;
 	uint8	_level;
 	uint32	_exp;
 
-	SC_STAT_CHANGE_PACKET(int64 id, int16 hp, uint8 level, uint32 exp)
+	SC_STAT_CHANGE_PACKET(uint64 id, int16 hp, uint8 level, uint32 exp)
 		: BASE_PACKET{ sizeof(SC_STAT_CHANGE_PACKET), S2C_STAT_CHANGE }
 		, _id{ id }
 		, _hp{ hp }

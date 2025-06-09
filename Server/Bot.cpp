@@ -8,7 +8,7 @@ Bot::Bot()
 	exit(-1);
 }
 
-Bot::Bot(int64 id)
+Bot::Bot(uint64 id)
 	: Creature{ id, false }
 {
 

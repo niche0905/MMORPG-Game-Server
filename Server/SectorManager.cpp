@@ -15,7 +15,7 @@ SectorManager::~SectorManager()
 	_sectors.clear();
 }
 
-void SectorManager::MoveClient(int64 id, short old_x, short old_y, short new_x, short new_y)
+void SectorManager::MoveClient(uint64 id, short old_x, short old_y, short new_x, short new_y)
 {
 	int old_index = GetSectorIndex(old_x, old_y);
 	int new_index = GetSectorIndex(new_x, new_y);
@@ -26,19 +26,19 @@ void SectorManager::MoveClient(int64 id, short old_x, short old_y, short new_x, 
 	_sectors[new_index].AddClient(id);
 }
 
-void SectorManager::AddClient(int64 id, short x, short y)
+void SectorManager::AddClient(uint64 id, short x, short y)
 {
 	int index = GetSectorIndex(x, y);
 	_sectors[index].AddClient(id);
 }
 
-void SectorManager::RemoveClient(int64 id, short x, short y)
+void SectorManager::RemoveClient(uint64 id, short x, short y)
 {
 	int index = GetSectorIndex(x, y);
 	_sectors[index].RemoveClient(id);
 }
 
-void SectorManager::GetClientList(short x, short y, std::unordered_set<int64>& client_list)
+void SectorManager::GetClientList(short x, short y, std::unordered_set<uint64>& client_list)
 {
 	std::set<int> lock_sectors;
 

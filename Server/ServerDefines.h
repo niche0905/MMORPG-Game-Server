@@ -1,7 +1,7 @@
 #pragma once
 
 
-constexpr int16 VIEW_RANGE = 3;
+constexpr int16 VIEW_RANGE = 5;
 constexpr int32 SECTOR_SIZE = 20;	// 섹터의 기본 크기
 
 constexpr std::array<int16, 4> vx = { -1, 1, -1, 1 };	// 꼭지점 x

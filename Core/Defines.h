@@ -17,6 +17,8 @@ constexpr int16 MAX_CHAT_LENGTH = 245;
 constexpr uint16 MAX_WIDTH = 2000;
 constexpr uint16 MAX_HEIGHT = 2000;
 
+constexpr uint64 INVALID_ID = UINT64_MAX;
+
 
 enum PacketID : uint8
 {

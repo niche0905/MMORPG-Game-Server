@@ -3,12 +3,12 @@
 
 
 DatabaseEvent::DatabaseEvent()
-	: DatabaseEvent{ -1, 0 }
+	: DatabaseEvent{ INVALID_ID, 0 }
 {
 
 }
 
-DatabaseEvent::DatabaseEvent(int64 id, uint8 sp_id)
+DatabaseEvent::DatabaseEvent(uint64 id, uint8 sp_id)
 	: _id{ id }
 	, _sp_id{ sp_id }
 {

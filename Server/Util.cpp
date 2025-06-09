@@ -35,12 +35,12 @@ void PrintErrorMessage(const std::wstring pos, DWORD err_code)
 }
 
 // TODO: bit 연산으로 바꾸면 더 빠를 수도?
-bool IsNPC(int64 id)
+bool IsNPC(uint64 id)
 {
 	return id < NUM_MONSTER;
 }
 
-bool IsPlayer(int64 id)
+bool IsPlayer(uint64 id)
 {
 	return id >= NUM_MONSTER;
 }
