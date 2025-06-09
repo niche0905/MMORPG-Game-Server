@@ -18,7 +18,6 @@ extern HWND		hWnd;
 
 const static int MAX_TEST = 10000;
 const static int MAX_CLIENTS = MAX_USER * 2;
-const static int INVALID_ID = -1;
 const static int MAX_PACKET_SIZE = 255;
 const static int MAX_BUFF_SIZE = 255;
 
@@ -41,7 +40,7 @@ struct OverlappedEx {
 };
 
 struct CLIENT {
-	int id;
+	uint64 id;
 	int x;
 	int y;
 	atomic_bool connected;
@@ -54,7 +53,7 @@ struct CLIENT {
 	high_resolution_clock::time_point last_move_time;
 };
 
-array<int, MAX_CLIENTS> client_map;
+array<uint64, MAX_CLIENTS> client_map;
 array<CLIENT, MAX_CLIENTS> g_clients;
 atomic_int num_connections;
 atomic_int client_to_close;
@@ -92,7 +91,7 @@ void error_display(const char* msg, int err_no)
 	// while (true);
 }
 
-void DisconnectClient(int ci)
+void DisconnectClient(uint64 ci)
 {
 	bool status = true;
 	if (true == atomic_compare_exchange_strong(&g_clients[ci].connected, &status, false)) {
@@ -102,7 +101,7 @@ void DisconnectClient(int ci)
 	// cout << "Client [" << ci << "] Disconnected!\n";
 }
 
-void SendPacket(int cl, void* packet)
+void SendPacket(uint64 cl, void* packet)
 {
 	int psize = reinterpret_cast<unsigned char*>(packet)[0];
 	int ptype = reinterpret_cast<unsigned char*>(packet)[1];
@@ -122,14 +121,14 @@ void SendPacket(int cl, void* packet)
 	// std::cout << "Send Packet [" << ptype << "] To Client : " << cl << std::endl;
 }
 
-void ProcessPacket(int ci, unsigned char packet[])
+void ProcessPacket(uint64 ci, unsigned char packet[])
 {
 	switch (packet[1]) {
 	case S2C_MOVE: {
 		SC_MOVE_PACKET* move_packet = reinterpret_cast<SC_MOVE_PACKET*>(packet);
 		if (move_packet->_id >= NUM_MONSTER) {
-			int my_id = client_map[move_packet->_id - NUM_MONSTER];
-			if (-1 != my_id) {
+			uint64 my_id = client_map[move_packet->_id - NUM_MONSTER];
+			if (INVALID_ID != my_id) {
 				g_clients[my_id].x = move_packet->_x;
 				g_clients[my_id].y = move_packet->_y;
 			}
@@ -178,7 +177,7 @@ void Worker_Thread()
 		BOOL ret = GetQueuedCompletionStatus(g_hiocp, &io_size, &ci,
 			reinterpret_cast<LPWSAOVERLAPPED*>(&over), INFINITE);
 		// std::cout << "GQCS :";
-		int client_id = static_cast<int>(ci);
+		uint64 client_id = static_cast<uint64>(ci);
 		if (FALSE == ret) {
 			int err_no = WSAGetLastError();
 			if (64 == err_no) DisconnectClient(client_id);
@@ -367,7 +366,7 @@ void InitializeNetwork()
 		cl.id = INVALID_ID;
 	}
 
-	for (auto& cl : client_map) cl = -1;
+	for (auto& cl : client_map) cl = INVALID_ID;
 	num_connections = 0;
 	last_connect_time = high_resolution_clock::now();
 
