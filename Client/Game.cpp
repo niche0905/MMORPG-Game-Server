@@ -114,6 +114,9 @@ void Game::ProcessPacket(std::vector<BYTE> packet)
 void Game::ConnectServer()
 {
 #ifdef LOOPBACK
+	std::string temp;
+	std::wcout << L"루프팩 접속 대기 : ";
+	std::cin >> temp;
 	std::wcout << L"루프백 접속 중...\n";
 	std::string ip_address = LOOPBACK_ADDRESS;
 #else

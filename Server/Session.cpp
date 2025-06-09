@@ -297,6 +297,7 @@ void Session::SendLeaveCreature(int64 id)
 {
 	_view_lock.lock();
 	if (_view_list.count(id) == 0) {
+		_view_lock.unlock();
 		return;
 	}
 	_view_list.erase(id);
