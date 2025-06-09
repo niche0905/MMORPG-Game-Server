@@ -6,6 +6,8 @@ class ServerCore
 private:
 	template<typename K, typename V>
 	using container = concurrency::concurrent_unordered_map<K, V>;
+	template<typename T>
+	using parallel_p_queue = concurrency::concurrent_priority_queue<T>;
 
 	using Client = Creature*;
 
@@ -19,6 +21,8 @@ private:
 
 	volatile bool				_is_running;		// 서버가 실행중인지 체크하는 변수
 	std::vector<std::thread>	_threads;			// 스레드 풀 관리하는 벡터
+
+	parallel_p_queue<Event>		_timer_queue;		// Event 큐
 
 	std::atomic<uint64>			_id_counter;		// 클라이언트 아이디 카운터
 	SOCKET 						_listen_socket;		// 리슨 소켓 (서버 listen 용)
@@ -49,6 +53,7 @@ private:
 	void CreateAcceptSocket();
 
 	void Worker();
+	void TimerWorker();
 
 public:
 	const container<uint64, Client>& GetClients() const;
@@ -62,7 +67,9 @@ public:
 	void RemoveSector(uint64 id, Position pos);
 
 	std::unordered_set<uint64> GetClientList(short x, short y);
+	std::unordered_set<uint64> GetClientList(Position pos);
 
+	void AddTimerEvent(const Event& timer_event);
 
 };
 

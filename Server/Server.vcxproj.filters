@@ -47,6 +47,7 @@
     <ClCompile Include="DatabaseEvent.cpp">
       <Filter>DB</Filter>
     </ClCompile>
+    <ClCompile Include="Event.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
@@ -93,6 +94,9 @@
     </Filter>
     <Filter Include="DB">
       <UniqueIdentifier>{b567da72-393e-4884-97d3-8bb9e398211a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event">
+      <UniqueIdentifier>{bdfc9a96-b92e-4291-af55-68562e40c8d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,5 +148,6 @@
     <ClInclude Include="DatabaseEvent.h">
       <Filter>DB</Filter>
     </ClInclude>
+    <ClInclude Include="Event.h" />
   </ItemGroup>
 </Project>

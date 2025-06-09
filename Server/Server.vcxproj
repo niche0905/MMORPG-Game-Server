@@ -167,6 +167,7 @@
     <ClCompile Include="Bot.cpp" />
     <ClCompile Include="DatabaseEvent.cpp" />
     <ClCompile Include="DatabaseManager.cpp" />
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="ExpansionOverlapped.cpp" />
     <ClCompile Include="GlobalVariable.cpp" />
     <ClCompile Include="IocpCore.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Bot.h" />
     <ClInclude Include="DatabaseEvent.h" />
     <ClInclude Include="DatabaseManager.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Sector.h" />

@@ -11,7 +11,7 @@ ServerCore::ServerCore()
 	, _id_counter(NUM_MONSTER)
 	, _listen_socket(INVALID_SOCKET)
 	, _accept_socket(INVALID_SOCKET)
-	, _accept_overlapped(IoOperation::IO_ACCEPT)	
+	, _accept_overlapped(OverOperation::IO_ACCEPT)	
 {
 	Init();
 }
@@ -175,8 +175,8 @@ void ServerCore::Worker()
 		}
 
 		ExOver* exp_overlapped = reinterpret_cast<ExOver*>(overlapped);
-		IoOperation operation = exp_overlapped->GetOperation();
-		if ((success == false) or ((operation == IoOperation::IO_RECV) or (operation == IoOperation::IO_SEND)) and (bytes_transferred == 0)) {
+		OverOperation operation = exp_overlapped->GetOperation();
+		if ((success == false) or ((operation == OverOperation::IO_RECV) or (operation == OverOperation::IO_SEND)) and (bytes_transferred == 0)) {
 			if (_clients.count(key) != 0) {
 				Creature* client = _clients.at(key);
 
@@ -194,7 +194,7 @@ void ServerCore::Worker()
 
 		switch (exp_overlapped->GetOperation())
 		{
-		case IoOperation::IO_ACCEPT:
+		case OverOperation::IO_ACCEPT:
 		{
 			uint64 now_id = _id_counter++;
 			_iocp_core.AddSocket(_accept_socket, now_id);
@@ -205,7 +205,7 @@ void ServerCore::Worker()
 			Accept();
 		}
 		break;
-		case IoOperation::IO_RECV:
+		case OverOperation::IO_RECV:
 		{
 			Creature* client = _clients.at(key);
 			if (client == nullptr) {
@@ -218,8 +218,22 @@ void ServerCore::Worker()
 			session->Recv();
 		}
 		break;
-		case IoOperation::IO_SEND:
+		case OverOperation::IO_SEND:
 		{
+			delete exp_overlapped;
+		}
+		break;
+		case OverOperation::DO_RANDOM_MOVE:
+		{
+			Creature* client = _clients.at(key);
+
+			if (client == nullptr) break;
+
+			if (client->IsPlayer()) break;
+
+			auto npc = static_cast<Bot*>(client);
+			npc->DoRandomMove();
+
 			delete exp_overlapped;
 		}
 		break;
@@ -234,6 +248,42 @@ void ServerCore::Worker()
 
 	_ebr_sessions.EndEpoch();
 
+}
+
+void ServerCore::TimerWorker()
+{
+	using namespace std::chrono;
+
+	while (true) {
+		
+		Event evt;
+		auto current_time = system_clock::now();
+
+		if (_timer_queue.try_pop(evt)) {
+			if (evt._reserved_time > current_time) {
+				_timer_queue.push(evt);
+				std::this_thread::sleep_for(1ms);
+				continue;
+			}
+
+			switch (evt._event_type)
+			{
+			case Event::EventType::EV_RANDOM_MOVE:
+			{
+				ExOver* new_task = new ExOver(DO_RANDOM_MOVE);
+				_iocp_core.AddTask(evt._id, new_task);
+			}
+			break;
+
+			default:
+				break;
+			}
+
+		}
+		else {
+			std::this_thread::sleep_for(1ms);
+		}
+	}
 }
 
 const ServerCore::container<uint64, ServerCore::Client>& ServerCore::GetClients() const
@@ -281,4 +331,16 @@ std::unordered_set<uint64> ServerCore::GetClientList(short x, short y)
 	std::unordered_set<uint64> closed_clients;
 	_sector_manager.GetClientList(x, y, closed_clients);
 	return closed_clients;
+}
+
+std::unordered_set<uint64> ServerCore::GetClientList(Position pos)
+{
+	std::unordered_set<uint64> closed_clients;
+	_sector_manager.GetClientList(pos.x, pos.y, closed_clients);
+	return closed_clients;
+}
+
+void ServerCore::AddTimerEvent(const Event& timer_event)
+{
+	_timer_queue.push(timer_event);
 }
