@@ -101,18 +101,20 @@ std::vector<BYTE> Communication::Recv()
 		getchar();
 		exit(-1);
 	}
+
+	size_t buffer_data_size = remain_buffer.size();
+	size_t proccess_size = 0;
+	while (buffer_data_size >= HEADER_SIZE) {
+
+		BASE_PACKET* header = reinterpret_cast<BASE_PACKET*>(remain_buffer.data() + proccess_size);
+		if (buffer_data_size < header->_size) break;
+
+		buffer_data_size -= header->_size;
+		proccess_size += header->_size;
+	}
 	
-	if (remain_buffer.size() < HEADER_SIZE) {
-		return std::vector<BYTE>();
-	}
-
-	BASE_PACKET* packet = reinterpret_cast<BASE_PACKET*>(remain_buffer.data());
-	if (remain_buffer.size() < packet->_size) {
-		return std::vector<BYTE>();
-	}
-
-	std::vector<BYTE> data(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
-	remain_buffer.erase(remain_buffer.begin(), remain_buffer.begin() + packet->_size);
+	std::vector<BYTE> data(remain_buffer.begin(), remain_buffer.begin() + proccess_size);
+	remain_buffer.erase(remain_buffer.begin(), remain_buffer.begin() + proccess_size);
 
 	return data;
 }

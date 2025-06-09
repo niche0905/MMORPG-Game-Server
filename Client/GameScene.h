@@ -14,7 +14,7 @@ private:
 	
 	std::shared_ptr<Player> client_player;
 
-	std::unordered_map<uint64_t, Player> other_players;
+	std::unordered_map<uint64, Player> other_players;
 
 	sf::Text player_coordinate;
 

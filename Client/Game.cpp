@@ -158,12 +158,12 @@ void Game::SceneLoad(SceneType scene_type)
 	}
 }
 
-void Game::SetID(uint64_t id)
+void Game::SetID(uint64 id)
 {
 	my_id = id;
 }
 
-uint64_t Game::GetID() const
+uint64 Game::GetID() const
 {
 	return my_id;
 }

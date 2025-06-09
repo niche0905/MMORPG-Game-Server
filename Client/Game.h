@@ -28,7 +28,7 @@ private:
 
 	Communication communication;
 
-	uint64_t my_id;
+	uint64 my_id;
 
 public:
 	Game();
@@ -50,8 +50,8 @@ public:
 
 	void SceneLoad(SceneType scene_type);
 
-	void SetID(uint64_t id);
-	uint64_t GetID() const;
+	void SetID(uint64 id);
+	uint64 GetID() const;
 
 };
 

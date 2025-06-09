@@ -18,7 +18,7 @@ Player::Player(std::shared_ptr<World> world)
 	Init();
 }
 
-Player::Player(std::shared_ptr<World> world, uint64_t id)
+Player::Player(std::shared_ptr<World> world, uint64 id)
 	: Object{ world }
 	, id{ id }
 {
@@ -32,7 +32,7 @@ void Player::Init()
 	SetSprite("player");
 }
 
-uint64_t Player::GetID() const
+uint64 Player::GetID() const
 {
 	return id;
 }

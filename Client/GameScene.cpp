@@ -79,81 +79,90 @@ void GameScene::HandleInput(const sf::Event& input_event)
 	}
 }
 
-void GameScene::ProcessPacket(std::vector<BYTE> packet)
+void GameScene::ProcessPacket(std::vector<BYTE> packets)
 {
-	BASE_PACKET* base_packet = reinterpret_cast<BASE_PACKET*>(packet.data());
+	size_t processed_data_size = 0;
 
-	switch (base_packet->_packet_id)
+	while (processed_data_size < packets.size())
 	{
-	case PacketID::S2C_LOGIN_ALLOW:
-	{
-		SC_LOGIN_ALLOW_PACKET* login_packet = reinterpret_cast<SC_LOGIN_ALLOW_PACKET*>(packet.data());
+		BYTE* packet = packets.data() + processed_data_size;
 
-		if (game.GetID() == 0) {
-			game.SetID(static_cast<uint64_t>(login_packet->_id));
+		BASE_PACKET* base_packet = reinterpret_cast<BASE_PACKET*>(packet);
 
-			client_player = std::make_shared<Player>(world, game.GetID());
-			client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
+		switch (base_packet->_packet_id)
+		{
+		case PacketID::S2C_LOGIN_ALLOW:
+		{
+			SC_LOGIN_ALLOW_PACKET* login_packet = reinterpret_cast<SC_LOGIN_ALLOW_PACKET*>(packet);
+
+			if (game.GetID() == 0) {
+				game.SetID(static_cast<uint64>(login_packet->_id));
+
+				client_player = std::make_shared<Player>(world, game.GetID());
+				client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
+			}
+			else {
+				std::cout << "re Login Allow Error\n";
+				exit(-1);
+
+			}
 		}
-		else {
-			std::cout << "re Login Allow Error\n";
-			exit(-1);
-
-		}
-	}
 		break;
 
-	case PacketID::S2C_ENTER:
-	{
-		SC_ENTER_PACKET* enter_packet = reinterpret_cast<SC_ENTER_PACKET*>(packet.data());
+		case PacketID::S2C_ENTER:
+		{
+			SC_ENTER_PACKET* enter_packet = reinterpret_cast<SC_ENTER_PACKET*>(packet);
 
-		uint64_t now_id = static_cast<uint64_t>(enter_packet->_id);
+			uint64 now_id = static_cast<uint64>(enter_packet->_id);
 
-		other_players.try_emplace(now_id, world, now_id);
-		other_players[now_id].Move(static_cast<int>(enter_packet->_x), static_cast<int>(enter_packet->_y));
-		other_players[now_id].SetDummy();
-	}
-	break;
-
-	case PacketID::S2C_LEAVE:
-	{
-		SC_LEAVE_PACKET* logout_packet = reinterpret_cast<SC_LEAVE_PACKET*>(packet.data());
-
-		other_players.erase(static_cast<uint64_t>(logout_packet->_id));
-		// TODO: 또는 비활성화 처리
-	}
+			other_players.try_emplace(now_id, world, now_id);
+			other_players[now_id].Move(static_cast<int>(enter_packet->_x), static_cast<int>(enter_packet->_y));
+			other_players[now_id].SetDummy();
+		}
 		break;
 
-	case PacketID::S2C_MOVE:
-	{
-		SC_MOVE_PACKET* move_packet = reinterpret_cast<SC_MOVE_PACKET*>(packet.data());
+		case PacketID::S2C_LEAVE:
+		{
+			SC_LEAVE_PACKET* logout_packet = reinterpret_cast<SC_LEAVE_PACKET*>(packet);
 
-		uint64_t now_id = static_cast<uint64_t>(move_packet->_id);
-		if (game.GetID() == now_id) {
-			client_player->Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
+			other_players.erase(static_cast<uint64>(logout_packet->_id));
+			// TODO: 또는 비활성화 처리
 		}
-		else {
-			other_players[now_id].Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
-		}
-	}
 		break;
 
-	case PacketID::S2C_CHAT:
-	{
-		SC_CHAT_PACKET* move_packet = reinterpret_cast<SC_CHAT_PACKET*>(packet.data());
+		case PacketID::S2C_MOVE:
+		{
+			SC_MOVE_PACKET* move_packet = reinterpret_cast<SC_MOVE_PACKET*>(packet);
 
-		uint64_t now_id = static_cast<uint64_t>(move_packet->_id);
-		// TODO: 채팅 기능 채우기
-		if (game.GetID() == now_id) {
+			uint64 now_id = static_cast<uint64>(move_packet->_id);
+			if (game.GetID() == now_id) {
+				client_player->Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
+			}
+			else {
+				other_players[now_id].Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
+			}
 		}
-		else {
-		}
-	}
-	break;
-
-	default:
-		std::cout << "패킷 id 없는 패킷 오류\n";
 		break;
+
+		case PacketID::S2C_CHAT:
+		{
+			SC_CHAT_PACKET* move_packet = reinterpret_cast<SC_CHAT_PACKET*>(packet);
+
+			uint64 now_id = static_cast<uint64>(move_packet->_id);
+			// TODO: 채팅 기능 채우기
+			if (game.GetID() == now_id) {
+			}
+			else {
+			}
+		}
+		break;
+
+		default:
+			std::cout << "패킷 id 없는 패킷 오류\n";
+			break;
+		}
+
+		processed_data_size += base_packet->_size;
 	}
 }
 
