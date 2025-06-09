@@ -264,12 +264,10 @@ void Session::MoveProcess(BYTE* packet)
 
 		if (near_list.count(client_id) == 0) {
 			auto session = static_cast<Session*>(client);
+			SendLeaveCreature(client_id);
 			session->SendLeaveCreature(_id);
 		}
 	}
-
-	// TODO: Creature가 ServerCore를 weak_ptr로 가지고 접근 할 수 있어야 함
-	//		 그것을 가지고 Sector에 접근해 id와 clients로 broadcast 또는 호출
 }
 
 void Session::ChatProcess(BYTE* packet)
