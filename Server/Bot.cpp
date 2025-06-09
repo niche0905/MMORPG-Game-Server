@@ -28,3 +28,100 @@ bool Bot::IsNPC() const
 {
 	return true;
 }
+
+void Bot::WakeUp()
+{
+	if (_is_active) return;
+	bool old_state = false;
+	if (_is_active.compare_exchange_strong(old_state, true) == false) return;
+
+	Event evt{ _id, std::chrono::system_clock::now(), Event::EventType::EV_RANDOM_MOVE };
+	server.AddTimerEvent(evt);
+}
+
+void Bot::DoRandomMove()
+{
+	Position new_position = _position;
+	switch (rand() % 4 + 1)
+	{
+	case MOVE_UP: 
+		if (new_position.y > 0) 
+			--new_position.y; 
+		break;
+	case MOVE_DOWN: 
+		if (new_position.y < (MAX_HEIGHT - 1)) 
+			++new_position.y; 
+		break;
+	case MOVE_LEFT: 
+		if (new_position.x > 0) 
+			--new_position.x; 
+		break;
+	case MOVE_RIGHT: 
+		if (new_position.x < (MAX_WIDTH - 1)) 
+			++new_position.x; 
+		break;
+	}
+
+	if (_position == new_position) {
+		return;
+	}
+	
+	std::unordered_set<uint64> old_view;
+	for (uint64 client_id : server.GetClientList(_position)) {
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+		if (client->IsNPC()) continue;
+
+		auto state = client->GetState();
+		if (state == ST_ALLOC or state == ST_CLOSE) continue;
+
+		if (client->CanSee(_position, VIEW_RANGE)) {
+			old_view.insert(client_id);
+		}
+	}
+
+	_position = new_position;
+
+	std::unordered_set<uint64> new_view;
+	for (uint64 client_id : server.GetClientList(_position)) {
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+		if (client->IsNPC()) continue;
+
+		auto state = client->GetState();
+		if (state == ST_ALLOC or state == ST_CLOSE) continue;
+
+		if (client->CanSee(_position, VIEW_RANGE)) {
+			new_view.insert(client_id);
+		}
+	}
+
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 0 };		// TODO: 값 제대로
+	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y, 0 };
+
+	for (uint64 client_id : new_view) {
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+		Session* session = static_cast<Session*>(client);
+		session->ProcessCloseCreature(_id, &enter_packet, &update_packet);
+	}
+
+	for (uint64 client_id : old_view) {
+		if (new_view.count(client_id) != 0) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+		Session* session = static_cast<Session*>(client);
+		session->SendLeaveCreature(_id);
+	}
+
+	if (new_view.size() == 0) {
+		_is_active = false;
+		return;
+	}
+
+	using namespace std::chrono;
+
+	Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_RANDOM_MOVE };
+	server.AddTimerEvent(evt);
+}

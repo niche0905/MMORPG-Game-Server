@@ -44,6 +44,7 @@ public:
 	void ChatProcess(BYTE* packet);
 
 	void ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet);
+	void SendNewCreature(uint64 id, void* enter_packet);
 	void SendLeaveCreature(uint64 id);
 
 	void SelfUpdate();

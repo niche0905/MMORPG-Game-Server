@@ -1,10 +1,10 @@
-﻿#pragma once
+#pragma once
 
 
 class Bot : public Creature
 {
 private:
-
+	std::atomic_bool		_is_active = false;		// 주위에 플레이어가 있어서 활동 중인가?
 
 public:
 	Bot();
@@ -13,6 +13,10 @@ public:
 
 	bool IsPlayer() const override;
 	bool IsNPC() const override;
+
+	void WakeUp();
+
+	void DoRandomMove();
 
 };
 

@@ -13,7 +13,7 @@ Session::Session(SOCKET socket, uint64 id)
 	: Creature{ id, true }
 	, _socket(socket)
 	, _remain_size(0)
-	, _recv_overlapped(IoOperation::IO_RECV)
+	, _recv_overlapped(OverOperation::IO_RECV)
 {
 	
 }
@@ -73,7 +73,7 @@ bool Session::IsNPC() const
 
 void Session::Send(void* packet)
 {
-	ExOver* send_overlapped = new ExOver(IoOperation::IO_SEND);
+	ExOver* send_overlapped = new ExOver(OverOperation::IO_SEND);
 	send_overlapped->SetBuffer(packet, static_cast<int>(reinterpret_cast<BYTE*>(packet)[0/*패킷 사이즈가 저장된 위치*/]));
 
 	DWORD sent_bytes = 0;
@@ -168,6 +168,34 @@ void Session::LoginProcess(BYTE* packet)
 	// TODO: 값 제대로 사용하기
 	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, 100, 100, 1, 0 };
 	Send(&login_allow_packet);
+
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 0 };
+
+	std::unordered_set<uint64> user_list = server.GetClientList(_position);
+	for (uint64 client_id : user_list) {
+		if (client_id == _id) continue;
+
+		auto client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		auto state = client->GetState();
+		if (state == State::ST_ALLOC or state == State::ST_CLOSE) continue;
+
+		if (not client->CanSee(_position, VIEW_RANGE)) continue;
+
+		Position client_pos = client->GetPosition();
+		SC_ENTER_PACKET other_enter_packet{ client_id, client_pos.x, client_pos.y, client->GetName().data(), 0, 1 };
+		SendNewCreature(client_id, &other_enter_packet);
+
+		if (client->IsPlayer()) {
+			auto session = static_cast<Session*>(client);
+			session->ProcessCloseCreature(_id, &enter_packet, nullptr);
+		}
+		else if (client->IsNPC()) {
+			auto npc = static_cast<Bot*>(client);
+			npc->WakeUp();
+		}
+	}
 }
 
 void Session::MoveProcess(BYTE* packet)
@@ -239,7 +267,8 @@ void Session::MoveProcess(BYTE* packet)
 			session->ProcessCloseCreature(_id, &enter_packet, &update_packet);
 		}
 		else {
-			// TODO: NPC라면 처리해주어야 할 것 하기
+			auto npc = static_cast<Bot*>(client);
+			npc->WakeUp();
 		}
 
 		if (old_list.count(client_id) == 0) {
@@ -289,6 +318,20 @@ void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_pac
 
 		Send(move_packet);
 	}
+}
+
+void Session::SendNewCreature(uint64 id, void* enter_packet)
+{
+	_view_lock.lock();
+	if (_view_list.count(id) != 0) {
+		_view_lock.unlock();
+
+		return;
+	}
+
+	_view_list.insert(id);
+	_view_lock.unlock();
+	Send(enter_packet);
 }
 
 void Session::SendLeaveCreature(uint64 id)
