@@ -8,17 +8,19 @@ constexpr std::array<int16, 4> vx = { -1, 1, -1, 1 };	// 꼭지점 x
 constexpr std::array<int16, 4> vy = { -1, -1, 1, 1 };	// 꼭지점 y
 
 
-enum IoOperation
+enum OverOperation
 {
-	IO_START = 0,
+	OVER_START = 0,
 
 	IO_RECV,
 	IO_SEND,
 	IO_ACCEPT,
 
-	IO_NONE,
+	DO_RANDOM_MOVE,
 
-	IO_END
+	OVER_NONE,
+
+	OVER_END
 };
 
 enum State : uint8

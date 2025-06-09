@@ -2,7 +2,7 @@
 #include "ExpansionOverlapped.h"
 
 
-ExpansionOverlapped::ExpansionOverlapped(IoOperation io_type)
+ExpansionOverlapped::ExpansionOverlapped(OverOperation io_type)
 	: _wsa_overlapped{}
 	, _wsabuf{}
 	, _buffer{}
@@ -28,7 +28,7 @@ void ExpansionOverlapped::SetBuffer(void* packet, int size)
 	_wsabuf[0].len = static_cast<ULONG>(size);
 }
 
-void ExpansionOverlapped::SetOperation(IoOperation operation)
+void ExpansionOverlapped::SetOperation(OverOperation operation)
 {
 	_operation = operation;
 }
@@ -38,7 +38,7 @@ void ExpansionOverlapped::CopyToBuffer(void* data, int size)
 	memcpy(_buffer.data(), data, size);
 }
 
-IoOperation ExpansionOverlapped::GetOperation() const
+OverOperation ExpansionOverlapped::GetOperation() const
 {
 	return _operation;
 }

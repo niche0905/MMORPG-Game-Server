@@ -13,6 +13,7 @@
 
 #include <concurrent_queue.h>
 #include <concurrent_unordered_map.h>
+#include <concurrent_priority_queue.h>
 #include <sqlext.h>
 
 #include "Util.h"
@@ -20,8 +21,8 @@
 #include "Packet.h"
 #include "ServerDefines.h"
 #include "Stat.h"
-#include "IocpCore.h"
 #include "ExpansionOverlapped.h"
+#include "IocpCore.h"
 #include "BaseSession.h"
 #include "Bot.h"
 #include "Session.h"
@@ -29,6 +30,7 @@
 #include "DatabaseManager.h"
 #include "Sector.h"
 #include "SectorManager.h"
+#include "Event.h"
 
 #include "ServerCore.h"
 
