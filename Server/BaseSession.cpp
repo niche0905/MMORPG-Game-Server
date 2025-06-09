@@ -52,6 +52,16 @@ uint64 Creature::GetID() const
 	return _id;
 }
 
+void Creature::SetPosition(int16 x, int16 y)
+{
+	_position = { x, y };
+}
+
+void Creature::SetPosition(Position pos)
+{
+	_position = pos;
+}
+
 void Creature::SetName(std::string_view name)
 {
 	_name = name;
@@ -82,6 +92,11 @@ bool Creature::CanSee(Position pos, int16 gap) const
 {
 	if (std::abs(_position.x - pos.x) > gap) return false;
 	return (std::abs(_position.y - pos.y) <= gap);
+}
+
+void Creature::SetState(uint8 state)
+{
+	_state.store(state);
 }
 
 uint8 Creature::GetState() const

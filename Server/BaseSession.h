@@ -32,6 +32,9 @@ public:
 	virtual bool IsPlayer() const = 0;
 	virtual bool IsNPC() const = 0;
 
+	void SetPosition(int16 x, int16 y);
+	void SetPosition(Position pos);
+
 	void SetName(std::string_view name);
 	std::string& GetName();
 	const std::string& GetName() const;
@@ -40,6 +43,7 @@ public:
 	bool CanSee(int16 x, int16 y, int16 gap) const;
 	bool CanSee(Position pos, int16 gap) const;
 
+	void SetState(uint8 state);
 	uint8 GetState() const;
 
 };

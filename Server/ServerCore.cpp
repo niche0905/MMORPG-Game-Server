@@ -27,6 +27,8 @@ void ServerCore::Init()
 
 	NetworkInit();
 
+	NPCInit();
+
 	DatabaseInit();
 
 	ThreadPoolInit();
@@ -134,6 +136,22 @@ void ServerCore::ThreadPoolInit()
 
 	std::cout << "Thread Pool Init Success\n";
 	std::cout << "Thread Count : " << thread_count << "\n";
+}
+
+void ServerCore::NPCInit()
+{
+	for (uint64 i = 0; i < NUM_MONSTER; ++i) {
+		Creature* npc = new Bot{ i };
+		std::string name = ("NPC" + std::to_string(i));
+		npc->SetName(name);
+		npc->SetPosition(rand() % MAX_WIDTH, rand() % MAX_HEIGHT);
+		npc->SetState(ST_INGAME);
+
+		_sector_manager.AddClient(i, npc->GetPosition());
+		_clients.insert(std::make_pair(i, npc));
+	}
+
+	std::cout << "NPC " << NUM_MONSTER << " Init Success\n";
 }
 
 void ServerCore::CreateListenSocket()

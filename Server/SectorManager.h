@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 class SectorManager
@@ -14,6 +14,7 @@ public:
 
 	void MoveClient(uint64 id, short old_x, short old_y, short new_x, short new_y);
 	void AddClient(uint64 id, short x, short y);
+	void AddClient(uint64 id, Position pos);
 	void RemoveClient(uint64 id, short x, short y);
 
 	void GetClientList(short x, short y, std::unordered_set<uint64>& client_list);

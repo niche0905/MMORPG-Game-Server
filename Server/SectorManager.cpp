@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "SectorManager.h"
 
 
@@ -29,6 +29,12 @@ void SectorManager::MoveClient(uint64 id, short old_x, short old_y, short new_x,
 void SectorManager::AddClient(uint64 id, short x, short y)
 {
 	int index = GetSectorIndex(x, y);
+	_sectors[index].AddClient(id);
+}
+
+void SectorManager::AddClient(uint64 id, Position pos)
+{
+	int index = GetSectorIndex(pos.x, pos.y);
 	_sectors[index].AddClient(id);
 }
 

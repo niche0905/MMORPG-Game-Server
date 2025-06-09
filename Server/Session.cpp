@@ -275,11 +275,7 @@ void Session::MoveProcess(BYTE* packet)
 			Position pos = client->GetPosition();
 			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), 0, 0 };		// TODO: 값 제대로
 
-			_view_lock.lock();
-			_view_list.insert(client_id);
-			_view_lock.unlock();
-
-			Send(&object_enter_packet);
+			SendNewCreature(client_id, &object_enter_packet);
 		}
 	}
 
@@ -290,6 +286,8 @@ void Session::MoveProcess(BYTE* packet)
 
 		Creature* client = server.GetClients()[client_id];
 		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		if (client->IsNPC()) continue;
 
 		if (near_list.count(client_id) == 0) {
 			auto session = static_cast<Session*>(client);

@@ -49,6 +49,8 @@ private:
 
 	void ThreadPoolInit();
 
+	void NPCInit();
+
 	void CreateListenSocket();
 	void CreateAcceptSocket();
 
