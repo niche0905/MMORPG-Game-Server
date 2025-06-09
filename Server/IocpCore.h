@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 class IocpCore
@@ -17,6 +17,8 @@ public:
 	void AddSocket(SOCKET socket, ULONG_PTR id);
 
 	bool Dispatch(DWORD& bytes_transferred, ULONG_PTR& key, LPOVERLAPPED& overlapped);
+
+	void AddTask(uint64 id, ExOver* ex_over);
 
 };
 

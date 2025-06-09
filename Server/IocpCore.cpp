@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "IocpCore.h"
 
 
@@ -48,4 +48,9 @@ bool IocpCore::Dispatch(DWORD& bytes_transferred, ULONG_PTR& key, LPOVERLAPPED& 
 	}
 
 	return true;
+}
+
+void IocpCore::AddTask(uint64 id, ExOver* ex_over)
+{
+	PostQueuedCompletionStatus(_iocp_handle, 1, id, ex_over->GetOverlapped());
 }
