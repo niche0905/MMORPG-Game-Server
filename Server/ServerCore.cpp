@@ -133,9 +133,10 @@ void ServerCore::ThreadPoolInit()
 	for (int i = 0; i < thread_count; ++i) {
 		_threads.emplace_back([this, i]() { SetThreadId(i); Worker(); });
 	}
+	_threads.emplace_back([this]() {TimerWorker(); });
 
 	std::cout << "Thread Pool Init Success\n";
-	std::cout << "Thread Count : " << thread_count << "\n";
+	std::cout << "Thread Count : " << _threads.size() << "\n";
 }
 
 void ServerCore::NPCInit()
