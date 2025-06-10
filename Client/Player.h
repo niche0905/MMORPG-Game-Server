@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Object.h"
 
 constexpr double player_size{ 48.0 };
@@ -22,6 +22,7 @@ public:
 	uint64 GetID() const;
 
 	void SetDummy();
+	void SetMonster();
 
 };
 

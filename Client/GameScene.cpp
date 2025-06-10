@@ -117,7 +117,14 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 
 			other_players.try_emplace(now_id, world, now_id);
 			other_players[now_id].Move(static_cast<int>(enter_packet->_x), static_cast<int>(enter_packet->_y));
-			other_players[now_id].SetDummy();
+			
+			// TODO: 외형 정보를 이용하도록
+			if (enter_packet->_id < NUM_MONSTER) {
+				other_players[now_id].SetMonster();
+			}
+			else {
+				other_players[now_id].SetDummy();
+			}
 		}
 		break;
 

@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Player.h"
 #include "TextureManager.h"
 #include "World.h"
@@ -41,4 +41,10 @@ void Player::SetDummy()
 {
 	TextureManager::Instance().LoadTexture("dummy", "./Resource/Texture/dummy.png");
 	SetSprite("dummy");
+}
+
+void Player::SetMonster()
+{
+	TextureManager::Instance().LoadTexture("monster", "./Resource/Texture/monster.png");
+	SetSprite("monster");
 }
