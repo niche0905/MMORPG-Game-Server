@@ -21,9 +21,6 @@ Session::Session(SOCKET socket, uint64 id)
 Session::~Session()
 {
 	Disconnect();
-
-	// TODO : 소켓을 닫아도 된다면 판단 후에 닫기 or IOCP 소켓 작업 다 캔슬하고 바로 닫기
-	closesocket(_socket);
 }
 
 void Session::Disconnect()
@@ -51,6 +48,8 @@ void Session::Disconnect()
 	}
 
 	_state = ST_CLOSE;
+
+	closesocket(_socket);
 }
 
 void Session::Reset(SOCKET socket, uint64 id)

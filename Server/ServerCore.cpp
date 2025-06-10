@@ -177,14 +177,13 @@ void ServerCore::Worker()
 {
 	while (_is_running) {
 
-		_ebr_sessions.StartEpoch();
-
 		DWORD bytes_transferred = 0;
 		ULONG_PTR key = 0;
 		LPOVERLAPPED overlapped = nullptr;
 
 		bool success = _iocp_core.Dispatch(bytes_transferred, key, overlapped);
 
+		_ebr_sessions.StartEpoch();
 
 		if (overlapped == nullptr) {
 			std::cout << "overlapped is nullptr\n";
@@ -202,6 +201,7 @@ void ServerCore::Worker()
 				if (client) {
 					Session* session = static_cast<Session*>(client);
 
+					session->Disconnect();
 					_ebr_sessions.Reuse(session);
 					_clients.at(key) = nullptr;
 				}
@@ -263,10 +263,10 @@ void ServerCore::Worker()
 		}
 		break;
 		} 
+
+		_ebr_sessions.EndEpoch();
+
 	}
-
-	_ebr_sessions.EndEpoch();
-
 }
 
 void ServerCore::TimerWorker()
