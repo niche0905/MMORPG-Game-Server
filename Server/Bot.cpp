@@ -14,13 +14,14 @@ Bot::Bot(uint64 id)
 
 }
 
-Bot::Bot(uint64 id, bool invin, bool neut, bool peace, bool fix)
+Bot::Bot(uint64 id, bool invin, bool neut, bool peace, bool firend, bool fix)
 	: Creature{ id, false }
 	, _fsm{}
 	, _target{ nullptr }
 	, _is_invincibility{ invin }
 	, _is_neutrality{ neut }
 	, _is_peace{ peace }
+	, _is_friendly{ firend }
 	, _is_fix{ fix }
 {
 

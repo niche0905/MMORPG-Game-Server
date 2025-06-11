@@ -9,7 +9,7 @@ QuestNPC::QuestNPC()
 }
 
 QuestNPC::QuestNPC(uint64 id)
-	: Bot{ id, true, true, true, true }
+	: Bot{ id, true, true, true, true, true }
 {
 
 }

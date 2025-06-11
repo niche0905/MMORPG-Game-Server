@@ -33,7 +33,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Bot.cpp">
-      <Filter>Core\BaseSession\Bot</Filter>
+      <Filter>Contents\NPC\Bot</Filter>
     </ClCompile>
     <ClCompile Include="BaseSession.cpp">
       <Filter>Core\BaseSession</Filter>
@@ -63,13 +63,16 @@
       <Filter>Contents\NPC\State\SharedState</Filter>
     </ClCompile>
     <ClCompile Include="MerchantNPC.cpp">
-      <Filter>Core\BaseSession\Bot\NPC</Filter>
+      <Filter>Contents\NPC\Bot\NPC</Filter>
     </ClCompile>
     <ClCompile Include="QuestNPC.cpp">
-      <Filter>Core\BaseSession\Bot\NPC</Filter>
+      <Filter>Contents\NPC\Bot\NPC</Filter>
     </ClCompile>
     <ClCompile Include="TalkNPC.cpp">
-      <Filter>Core\BaseSession\Bot\NPC</Filter>
+      <Filter>Contents\NPC\Bot\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="KnightNPC.cpp">
+      <Filter>Contents\NPC\Bot\NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,9 +112,6 @@
     <Filter Include="Core\BaseSession\Session">
       <UniqueIdentifier>{fcb08fa4-490b-4c9f-bca4-fb77198b2228}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\BaseSession\Bot">
-      <UniqueIdentifier>{42f72b96-5858-4123-8fa1-069b1500092c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\DB">
       <UniqueIdentifier>{b567da72-393e-4884-97d3-8bb9e398211a}</UniqueIdentifier>
     </Filter>
@@ -130,8 +130,26 @@
     <Filter Include="Contents\NPC\State\SharedState">
       <UniqueIdentifier>{6d5d246e-b8dc-4bec-912d-4e1e9ce1a96c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\BaseSession\Bot\NPC">
+    <Filter Include="Contents\NPC\Bot">
+      <UniqueIdentifier>{42f72b96-5858-4123-8fa1-069b1500092c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\NPC\Bot\NPC">
       <UniqueIdentifier>{120b2ad7-fe43-482e-8515-c57b48d67bb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\NPC\Bot\Monster">
+      <UniqueIdentifier>{052f4909-b0da-4e4c-97e8-e14814ff022e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\NPC\State\TalkNPCStates">
+      <UniqueIdentifier>{e2c7cb72-57ca-447c-84b5-b24dfce99999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\NPC\State\QuestNPCStates">
+      <UniqueIdentifier>{6f5b5b8f-147f-4e0b-8a4f-6dc3e169f27f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\NPC\State\MerchantNPCStates">
+      <UniqueIdentifier>{4e801282-7d5d-43a6-b628-5643a24bd950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\NPC\State\AMerchantNPCStates">
+      <UniqueIdentifier>{ee66de56-4515-4678-950b-a96fb40059d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +184,7 @@
       <Filter>Utils\GrobalVariable</Filter>
     </ClInclude>
     <ClInclude Include="Bot.h">
-      <Filter>Core\BaseSession\Bot</Filter>
+      <Filter>Contents\NPC\Bot</Filter>
     </ClInclude>
     <ClInclude Include="BaseSession.h">
       <Filter>Core\BaseSession</Filter>
@@ -199,13 +217,16 @@
       <Filter>Contents\NPC\State\SharedState</Filter>
     </ClInclude>
     <ClInclude Include="TalkNPC.h">
-      <Filter>Core\BaseSession\Bot\NPC</Filter>
+      <Filter>Contents\NPC\Bot\NPC</Filter>
     </ClInclude>
     <ClInclude Include="MerchantNPC.h">
-      <Filter>Core\BaseSession\Bot\NPC</Filter>
+      <Filter>Contents\NPC\Bot\NPC</Filter>
     </ClInclude>
     <ClInclude Include="QuestNPC.h">
-      <Filter>Core\BaseSession\Bot\NPC</Filter>
+      <Filter>Contents\NPC\Bot\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="KnightNPC.h">
+      <Filter>Contents\NPC\Bot\NPC</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

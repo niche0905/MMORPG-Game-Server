@@ -9,7 +9,7 @@ MerchantNPC::MerchantNPC()
 }
 
 MerchantNPC::MerchantNPC(uint64 id, bool attack)
-	: Bot{ id, false, true, attack, attack }
+	: Bot{ id, false, true, attack, not attack, attack }
 {
 
 }
