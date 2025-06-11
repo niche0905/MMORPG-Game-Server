@@ -287,12 +287,12 @@ void Session::MoveProcess(BYTE* packet)
 		Creature* client = server.GetClients()[client_id];
 		if (client == nullptr) continue;	// nullptr 이라면 무시
 
-		if (client->IsNPC()) continue;
-
 		if (near_list.count(client_id) == 0) {
-			auto session = static_cast<Session*>(client);
+			if (client->IsPlayer()) {
+				auto session = static_cast<Session*>(client);
+				session->SendLeaveCreature(_id);
+			}
 			SendLeaveCreature(client_id);
-			session->SendLeaveCreature(_id);
 		}
 	}
 }
