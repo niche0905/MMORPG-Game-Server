@@ -177,6 +177,7 @@
     <ClCompile Include="KnightNPC.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MerchantNPC.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -206,6 +207,7 @@
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="KnightNPC.h" />
     <ClInclude Include="MerchantNPC.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="QuestNPC.h" />
     <ClInclude Include="Sector.h" />

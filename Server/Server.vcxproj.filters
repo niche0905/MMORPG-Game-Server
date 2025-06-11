@@ -74,6 +74,9 @@
     <ClCompile Include="KnightNPC.cpp">
       <Filter>Contents\NPC\Bot\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Contents\NPC\Bot\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -230,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="KnightNPC.h">
       <Filter>Contents\NPC\Bot\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Contents\NPC\Bot\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
