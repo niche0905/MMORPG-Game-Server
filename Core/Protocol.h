@@ -43,6 +43,19 @@ enum PacketID : uint8
 
 #pragma pack(push, 1)
 
+struct DamageInfo
+{
+	uint64 _id;
+	uint16 _damage;
+};
+
+//---------------------------------------------------------------------------//
+//---------------------------------------------------------------------------//
+//---------------------------------------------------------------------------//
+
+// TODO: 가변길이 데이터 마지막 압축하기
+
+
 struct BASE_PACKET
 {
 	uint8	_size;
@@ -117,7 +130,10 @@ struct SC_STAT_CHANGE_PACKET : public BASE_PACKET
 
 struct SC_DAMAGE_PACKET : public BASE_PACKET
 {
-	// TODO
+	static constexpr int32 MAX_DAMAGE_INFO_NUM = 20;
+
+	uint32		_num;
+	DamageInfo	_damage_infos[MAX_DAMAGE_INFO_NUM];
 
 	SC_DAMAGE_PACKET()
 		: BASE_PACKET{ sizeof(SC_DAMAGE_PACKET), S2C_DAMAGE }
