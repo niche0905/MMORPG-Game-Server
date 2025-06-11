@@ -14,6 +14,8 @@ public:
 	bool IsPlayer() const override;
 	bool IsNPC() const override;
 
+	uint16 GetMaxHP() const override;
+
 	void WakeUp();
 
 	void DoRandomMove();

@@ -70,6 +70,11 @@ bool Session::IsNPC() const
 	return false;
 }
 
+uint16 Session::GetMaxHP() const
+{
+	return _basic_stats.HP + _temp_stats.HP + _equip_stats.HP;
+}
+
 void Session::Send(void* packet)
 {
 	ExOver* send_overlapped = new ExOver(OverOperation::IO_SEND);
@@ -165,7 +170,7 @@ void Session::LoginProcess(BYTE* packet)
 	_state = State::ST_INGAME;
 
 	// TODO: 값 제대로 사용하기
-	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, 100, _hp, 0, _level, _exp};
+	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, 0, _level, _exp};
 	Send(&login_allow_packet);
 
 	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, _level };

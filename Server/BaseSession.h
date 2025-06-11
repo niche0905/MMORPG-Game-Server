@@ -48,5 +48,7 @@ public:
 	void SetState(uint8 state);
 	uint8 GetState() const;
 
+	virtual uint16 GetMaxHP() const = 0;
+
 };
 

@@ -35,6 +35,8 @@ public:
 	bool IsPlayer() const override;
 	bool IsNPC() const override;
 
+	uint16 GetMaxHP() const override;
+
 	void Send(void* packet);
 	void Recv();
 

@@ -29,6 +29,11 @@ bool Bot::IsNPC() const
 	return true;
 }
 
+uint16 Bot::GetMaxHP() const
+{
+	return _basic_stats.HP + _temp_stats.HP;
+}
+
 void Bot::WakeUp()
 {
 	if (_is_active) return;
