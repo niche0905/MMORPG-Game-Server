@@ -46,12 +46,10 @@ struct SC_LOGIN_FAIL_PACKET		: public BASE_PACKET
 		TO_MANY		// 서버 부하로 인해 (너무 많은 접속자)
 	};
 
-	uint64	_id;	// ID가 굳이 필요할까..?
 	int8	_reason;
 
-	SC_LOGIN_FAIL_PACKET(uint64 id, int8 reason)
+	SC_LOGIN_FAIL_PACKET(int8 reason)
 		: BASE_PACKET{ sizeof(SC_LOGIN_FAIL_PACKET), S2C_LOGIN_FAIL }
-		, _id{ id }
 		, _reason{ reason } { }
 };
 
