@@ -2,9 +2,6 @@
 #include "Communication.h"
 #include "BaseScene.h"
 
-// window에 관한 상수
-constexpr int WINDOW_WIDTH{ 600 };
-constexpr int WINDOW_HEIGHT{ 600 };
 
 class BaseScene;
 class Communication;

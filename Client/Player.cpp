@@ -27,7 +27,7 @@ Player::Player(std::shared_ptr<World> world, uint64 id)
 
 void Player::Init()
 {
-	SetSize(player_size);
+	SetSize(PLAYER_SIZE);
 	TextureManager::Instance().LoadTexture("player", "./Resource/Texture/player.png");
 	SetSprite("player");
 }

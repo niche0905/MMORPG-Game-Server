@@ -147,5 +147,8 @@
     <ClInclude Include="PresentAnimation.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="ClientDefines.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -169,3 +169,6 @@ struct CS_TELEPORT_PACKET		: public BASE_PACKET
 };
 
 #pragma pack(pop)
+
+
+constexpr int32 HEADER_SIZE = sizeof(BASE_PACKET);

@@ -1,8 +1,5 @@
 #pragma once
 
-// 네트워크 관련 상수
-inline constexpr const char* LOOPBACK_ADDRESS = "127.0.0.1";
-constexpr int HEADER_SIZE{ 2 };
 
 class MyTcpSocket : public sf::TcpSocket
 {

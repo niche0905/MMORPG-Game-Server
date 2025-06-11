@@ -16,13 +16,10 @@ World::World(int size_x, int size_y)
 // 월드 그리기 함수
 void World::Draw(sf::RenderWindow& window, sf::Vector2i client_pos)
 {
-	int width = 10;
-	int height = 10;
-
-	int start_y = std::max(0, client_pos.y - height);
-	int end_y = std::min(area.y - 1, client_pos.y + height);
-	int start_x = std::max(0, client_pos.x - width);
-	int end_x = std::min(area.x - 1, client_pos.x + width);
+	int start_y = std::max(0, client_pos.y - TILE_LEN);
+	int end_y = std::min(area.y - 1, client_pos.y + TILE_LEN);
+	int start_x = std::max(0, client_pos.x - TILE_LEN);
+	int end_x = std::min(area.x - 1, client_pos.x + TILE_LEN);
 
 	for (int y = start_y; y <= end_y; ++y) {
 		for (int x = start_x; x <= end_x; ++x) {

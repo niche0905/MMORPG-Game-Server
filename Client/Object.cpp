@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Object.h"
 #include "TextureManager.h"
 
@@ -7,7 +7,7 @@
 Object::Object()
 	: showing{ true }
 	, active{ true }
-	, size{ default_object_size }
+	, size{ OBJECT_SIZE }
 	, position{ 0, 0 }
 {
 
@@ -106,7 +106,7 @@ void Object::Draw(sf::RenderWindow& window)
 {
 	if (not showing) return;
 
-	sf::Vector2f draw_position(position.x * tile_size, position.y * tile_size);
+	sf::Vector2f draw_position(position.x * TILE_SIZE, position.y * TILE_SIZE);
 	float offset = GetOffset();
 	draw_position += sf::Vector2f{ offset, offset };
 	sprite.setPosition(draw_position);
@@ -130,6 +130,6 @@ sf::Vector2i Object::GetPosition() const
 
 float Object::GetOffset() const
 {
-	float offset = tile_size / 2 - size / 2;
+	float offset = TILE_SIZE / 2 - size / 2;
 	return offset;
 }

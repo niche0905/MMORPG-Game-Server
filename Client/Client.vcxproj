@@ -23,6 +23,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="ClientDefines.h" />
     <ClInclude Include="Communication.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />

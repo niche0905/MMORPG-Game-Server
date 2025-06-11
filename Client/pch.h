@@ -18,6 +18,7 @@
 #include <SFML/Network.hpp>
 
 #include "CorePch.h"
+#include "ClientDefines.h"
 
 //#include "Packet.h"
 #include "GlobalVariable.h"

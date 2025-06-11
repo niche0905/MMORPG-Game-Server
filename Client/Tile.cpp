@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Tile.h"
 #include "TextureManager.h"
 
@@ -27,8 +27,8 @@ void Tile::Draw(sf::RenderWindow& window, int x, int y)
 {
 	sf::Vector2u texture_size = sprite.getTexture()->getSize();
 	
-	sprite.setScale(tile_size / texture_size.x, tile_size / texture_size.y);
-	sprite.setPosition(x * tile_size, y * tile_size);
+	sprite.setScale(TILE_SIZE / texture_size.x, TILE_SIZE / texture_size.y);
+	sprite.setPosition(x * TILE_SIZE, y * TILE_SIZE);
 
 	window.draw(sprite);
 
