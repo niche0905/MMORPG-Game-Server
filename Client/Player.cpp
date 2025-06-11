@@ -55,7 +55,7 @@ void Creature::Draw(sf::RenderWindow& window)
 	int32 chat_num = _chattings.size();
 	float chat_size = 10.f;
 	float chat_offset = 5.f;
-	sf::Vector2f name_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + TILE_SIZE / 2), static_cast<float>(position.y * TILE_SIZE + (-TILE_SIZE / 2) + chat_offset) };
+	sf::Vector2f name_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + TILE_SIZE / 2), static_cast<float>(position.y * TILE_SIZE + (-TILE_SIZE / 2) - chat_offset) };
 	name_pos.y -= chat_num * chat_size;
 	for (auto& chat : _chattings) {
 		chat.SetPosition(name_pos);
