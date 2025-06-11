@@ -14,7 +14,7 @@ protected:
 
 	std::atomic<uint8>			_state = State::ST_ALLOC;
 
-	uint32						_level = 1;
+	uint8						_level = 1;
 	uint16						_hp = 100;
 	Stats						_basic_stats = {};		// 기본 스텟(레벨에 따른 스텟)
 	Stats						_temp_stats = {};		// 임시 스텟(버프, 디버프)
