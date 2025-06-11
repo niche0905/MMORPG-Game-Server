@@ -105,7 +105,7 @@ void Bot::DoRandomMove()
 		}
 	}
 
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 1 };		// TODO: 값 제대로
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, _level };
 	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
 
 	for (uint64 client_id : new_view) {
