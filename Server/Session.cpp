@@ -240,7 +240,7 @@ void Session::MoveProcess(BYTE* packet)
 	std::unordered_set<uint64> old_list = _view_list;
 	_view_lock.unlock();
 
-	std::unordered_set<uint64> closed_clients = server.GetClientList(_position.x, _position.y);
+	std::unordered_set<uint64> closed_clients = server.GetClientList(_position);
 	for (uint64 client_id : closed_clients) {
 
 		if (client_id == _id) continue;	// 내 ID라면 무시

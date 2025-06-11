@@ -23,16 +23,16 @@ void SectorManager::MoveClient(uint64 id, short old_x, short old_y, short new_x,
 	if (old_index == new_index) return;
 
 	int32 first = std::min<int32>(old_index, new_index);
-	int32 secone = std::max<int32>(old_index, new_index);
+	int32 second = std::max<int32>(old_index, new_index);
 
 	_sectors[first].Lock();
-	_sectors[secone].Lock();
+	_sectors[second].Lock();
 
 	_sectors[first].RemoveClientOnly(id);
-	_sectors[first].AddClientOnly(id);
+	_sectors[second].AddClientOnly(id);
 
 	_sectors[first].Unlock();
-	_sectors[secone].Unlock();
+	_sectors[second].Unlock();
 }
 
 void SectorManager::AddClient(uint64 id, short x, short y)
@@ -58,9 +58,9 @@ void SectorManager::GetClientList(short x, short y, std::unordered_set<uint64>& 
 	std::set<int> lock_sectors;
 
 	for (int i = 0; i < 4; ++i) {
-		int32 sector_x = std::clamp((x + vx[i]), 0, static_cast<int>(MAX_WIDTH) - 1) / SECTOR_SIZE;
-		int32 sector_y = std::clamp((y + vy[i]), 0, static_cast<int>(MAX_HEIGHT) - 1) / SECTOR_SIZE;
-		int32 sector_id = sector_x + (sector_y * (MAX_WIDTH / SECTOR_SIZE));
+		int32 sector_x = std::clamp((x + vx[i]), 0, static_cast<int32>(MAX_WIDTH) - 1);
+		int32 sector_y = std::clamp((y + vy[i]), 0, static_cast<int32>(MAX_HEIGHT) - 1);
+		int32 sector_id = GetSectorIndex(sector_x, sector_y);
 		lock_sectors.insert(sector_id);
 	}
 

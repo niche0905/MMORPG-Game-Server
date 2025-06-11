@@ -78,7 +78,9 @@ void Bot::DoRandomMove()
 	}
 	
 	std::unordered_set<uint64> old_view;
-	for (uint64 client_id : server.GetClientList(_position)) {
+	std::unordered_set<uint64> old_close_id = server.GetClientList(_position);
+	for (uint64 client_id : old_close_id) {
+
 		if (::IsNPC(client_id)) continue;
 
 		Creature* client = server.GetClients()[client_id];
@@ -96,7 +98,8 @@ void Bot::DoRandomMove()
 	_position = new_position;
 
 	std::unordered_set<uint64> new_view;
-	for (uint64 client_id : server.GetClientList(_position)) {
+	std::unordered_set<uint64> new_close_id = server.GetClientList(_position);
+	for (uint64 client_id : new_close_id) {
 		if (::IsNPC(client_id)) continue;
 
 		Creature* client = server.GetClients()[client_id];
