@@ -3,7 +3,7 @@
 #include "Player.h"
 
 class World;
-class Player;
+class Creature;
 
 
 class GameScene : public BaseScene
@@ -12,9 +12,9 @@ private:
 	// TODO : 사용 변수들 (Pawn, Item 등등) 필요
 	std::shared_ptr<World> world;
 	
-	std::shared_ptr<Player> client_player;
+	std::shared_ptr<Creature> client_player;
 
-	std::unordered_map<uint64, Player> other_players;
+	std::unordered_map<uint64, Creature> other_players;
 
 	sf::Text player_coordinate;
 

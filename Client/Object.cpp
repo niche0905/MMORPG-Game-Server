@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Object.h"
 #include "TextureManager.h"
+#include "FontManager.h"
 
 
 // 오브젝트 기본 생성자
@@ -10,7 +11,12 @@ Object::Object()
 	, size{ OBJECT_SIZE }
 	, position{ 0, 0 }
 {
-
+	name_text.setFont(FontManager::Instance().GetFont("neodot"));
+	name_text.setCharacterSize(18);
+	name_text.setFillColor(sf::Color::White);
+	name_text.setStyle(sf::Text::Regular);
+	name_text.setOutlineColor(sf::Color::Black);
+	name_text.setOutlineThickness(0.5f);
 }
 
 // 오브젝트 world 생성자
@@ -106,21 +112,25 @@ void Object::Draw(sf::RenderWindow& window)
 {
 	if (not showing) return;
 
-	sf::Vector2f draw_position(position.x * TILE_SIZE, position.y * TILE_SIZE);
+	sf::Vector2f now_position(position.x * TILE_SIZE, position.y * TILE_SIZE);
 	float offset = GetOffset();
-	draw_position += sf::Vector2f{ offset, offset };
-	sprite.setPosition(draw_position);
+	sf::Vector2f sprite_pos = now_position + sf::Vector2f{ offset, offset };
+	sprite.setPosition(sprite_pos);
 
 	window.draw(sprite);
 
-	// TODO : name이 있다면 출력
-
+	sf::Vector2f name_pos = now_position + sf::Vector2f{ TILE_SIZE / 2, (-TILE_SIZE / 2) + 5.0f };
+	name_text.setPosition(name_pos);
+	window.draw(name_text);
 }
 
 // 오브젝트 이름 설정
 void Object::SetName(const std::string& input_name)
 {
-	// TODO : name 설정
+	name = input_name;
+	name_text.setString(name);
+	sf::FloatRect bounds = name_text.getLocalBounds();
+	name_text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
 
 sf::Vector2i Object::GetPosition() const

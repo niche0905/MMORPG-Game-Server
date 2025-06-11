@@ -98,8 +98,9 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			if (game.GetID() == 0) {
 				game.SetID(static_cast<uint64>(login_packet->_id));
 
-				client_player = std::make_shared<Player>(world, game.GetID());
+				client_player = std::make_shared<Creature>(world, game.GetID());
 				client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
+				client_player->SetName(game.GetName());
 			}
 			else {
 				std::cout << "re Login Allow Error\n";
@@ -125,6 +126,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			else {
 				other_players[now_id].SetDummy();
 			}
+			other_players[now_id].SetName(enter_packet->_name);
 		}
 		break;
 

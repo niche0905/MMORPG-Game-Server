@@ -131,10 +131,9 @@ void Game::ConnectServer()
 void Game::AttemptLogin()
 {
 	std::wcout << L"사용할 닉네임을 입력해 주세요 : ";
-	std::string nickname;
-	std::cin >> nickname;
+	std::cin >> name;
 
-	CS_LOGIN_PACKET login_packet(nickname.data());
+	CS_LOGIN_PACKET login_packet(name.data());
 	communication.Send(reinterpret_cast<BYTE*>(&login_packet), sizeof(login_packet));
 }
 
@@ -166,4 +165,9 @@ void Game::SetID(uint64 id)
 uint64 Game::GetID() const
 {
 	return my_id;
+}
+
+const std::string& Game::GetName() const
+{
+	return name;
 }

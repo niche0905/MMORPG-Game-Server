@@ -26,6 +26,7 @@ private:
 	Communication communication;
 
 	uint64 my_id;
+	std::string name;
 
 public:
 	Game();
@@ -49,6 +50,8 @@ public:
 
 	void SetID(uint64 id);
 	uint64 GetID() const;
+
+	const std::string& GetName() const;
 
 };
 
