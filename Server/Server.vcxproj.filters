@@ -62,6 +62,15 @@
     <ClCompile Include="DeadState.cpp">
       <Filter>Contents\NPC\State\SharedState</Filter>
     </ClCompile>
+    <ClCompile Include="MerchantNPC.cpp">
+      <Filter>Core\BaseSession\Bot\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestNPC.cpp">
+      <Filter>Core\BaseSession\Bot\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkNPC.cpp">
+      <Filter>Core\BaseSession\Bot\NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -120,6 +129,9 @@
     </Filter>
     <Filter Include="Contents\NPC\State\SharedState">
       <UniqueIdentifier>{6d5d246e-b8dc-4bec-912d-4e1e9ce1a96c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\BaseSession\Bot\NPC">
+      <UniqueIdentifier>{120b2ad7-fe43-482e-8515-c57b48d67bb2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +197,15 @@
     </ClInclude>
     <ClInclude Include="DeadState.h">
       <Filter>Contents\NPC\State\SharedState</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkNPC.h">
+      <Filter>Core\BaseSession\Bot\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="MerchantNPC.h">
+      <Filter>Core\BaseSession\Bot\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestNPC.h">
+      <Filter>Core\BaseSession\Bot\NPC</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

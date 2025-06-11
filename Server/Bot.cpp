@@ -9,8 +9,18 @@ Bot::Bot()
 }
 
 Bot::Bot(uint64 id)
+	: Bot{ id, false, true, false, false }
+{
+
+}
+
+Bot::Bot(uint64 id, bool invin, bool neut, bool peace, bool fix)
 	: Creature{ id, false }
 	, _fsm{}
+	, _is_invincibility{ invin }
+	, _is_neutrality{ neut }
+	, _is_peace{ peace }
+	, _is_fix{ fix }
 {
 
 }
@@ -33,6 +43,26 @@ bool Bot::IsNPC() const
 uint16 Bot::GetMaxHP() const
 {
 	return _basic_stats.HP + _temp_stats.HP;
+}
+
+bool Bot::GetInvincibility()
+{
+	return _is_invincibility;
+}
+
+bool Bot::GetNeutrality()
+{
+	return _is_neutrality;
+}
+
+bool Bot::GetPeace()
+{
+	return _is_peace;
+}
+
+bool Bot::GetFix()
+{
+	return _is_fix;
 }
 
 void Bot::WakeUp()

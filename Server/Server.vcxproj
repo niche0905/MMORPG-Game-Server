@@ -175,6 +175,7 @@
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="IocpCore.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MerchantNPC.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -182,12 +183,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="QuestNPC.cpp" />
     <ClCompile Include="Sector.cpp" />
     <ClCompile Include="SectorManager.cpp" />
     <ClCompile Include="ServerCore.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Stat.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="TalkNPC.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +203,9 @@
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="IdleState.h" />
+    <ClInclude Include="MerchantNPC.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="QuestNPC.h" />
     <ClInclude Include="Sector.h" />
     <ClInclude Include="SectorManager.h" />
     <ClInclude Include="ServerDefines.h" />
@@ -211,6 +216,7 @@
     <ClInclude Include="Session.h" />
     <ClInclude Include="Stat.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="TalkNPC.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
