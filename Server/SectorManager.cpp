@@ -28,8 +28,8 @@ void SectorManager::MoveClient(uint64 id, short old_x, short old_y, short new_x,
 	_sectors[first].Lock();
 	_sectors[second].Lock();
 
-	_sectors[first].RemoveClientOnly(id);
-	_sectors[second].AddClientOnly(id);
+	_sectors[old_index].RemoveClientOnly(id);
+	_sectors[new_index].AddClientOnly(id);
 
 	_sectors[first].Unlock();
 	_sectors[second].Unlock();
