@@ -9,7 +9,7 @@ Bot::Bot()
 }
 
 Bot::Bot(uint64 id)
-	: Bot{ id, false, true, false, false }
+	: Bot{ id, false, true, false, false, false }
 {
 
 }
@@ -74,7 +74,7 @@ void Bot::Update()
 	_fsm.Update(this);
 }
 
-void Bot::WakeUp()
+void Bot::WakeUp(uint64 id)
 {
 	if (_is_active) return;
 	bool old_state = false;

@@ -198,7 +198,7 @@ void Session::LoginProcess(BYTE* packet)
 		}
 		else if (client->IsNPC()) {
 			auto npc = static_cast<Bot*>(client);
-			npc->WakeUp();
+			npc->WakeUp(_id);
 		}
 	}
 }
@@ -271,12 +271,13 @@ void Session::MoveProcess(BYTE* packet)
 			auto session = static_cast<Session*>(client);
 			session->ProcessCloseCreature(_id, &enter_packet, &update_packet);
 		}
-		else {
-			auto npc = static_cast<Bot*>(client);
-			npc->WakeUp();
-		}
 
 		if (old_list.count(client_id) == 0) {
+			if (client->IsNPC()) {
+				auto npc = static_cast<Bot*>(client);
+				npc->WakeUp(_id);
+			}
+
 			Position pos = client->GetPosition();
 			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), 0, _level };		// TODO: 값 제대로
 
