@@ -304,7 +304,28 @@ void Session::MoveProcess(BYTE* packet)
 
 void Session::ChatProcess(BYTE* packet)
 {
-	// TODO: 내용 채우기 (일정 범위 내 전송)
+	CS_CHAT_PACKET* chat_packet = reinterpret_cast<CS_CHAT_PACKET*>(packet);
+
+	SC_CHAT_PACKET chat_broadcast_packet{ _id, chat_packet->_message };
+
+	_view_lock.lock();
+	std::unordered_set<uint64> now_list = _view_list;
+	_view_lock.unlock();
+
+	for (uint64 client_id : now_list) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시
+		if (::IsNPC(client_id)) continue;	// NPC 라면 무시
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		uint8 state = client->GetState();
+		if (state == State::ST_ALLOC or state == State::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
+
+		Session* session = static_cast<Session*>(client);
+		session->Send(&chat_broadcast_packet);
+	}
 }
 
 void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet)
