@@ -273,7 +273,7 @@ void Session::MoveProcess(BYTE* packet)
 
 		if (old_list.count(client_id) == 0) {
 			Position pos = client->GetPosition();
-			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), 0, 0 };		// TODO: 값 제대로
+			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), 0, 1 };		// TODO: 값 제대로
 
 			SendNewCreature(client_id, &object_enter_packet);
 		}

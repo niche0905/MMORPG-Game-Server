@@ -74,9 +74,10 @@ void Bot::DoRandomMove()
 	
 	std::unordered_set<uint64> old_view;
 	for (uint64 client_id : server.GetClientList(_position)) {
+		if (::IsNPC(client_id)) continue;
+
 		Creature* client = server.GetClients()[client_id];
 		if (client == nullptr) continue;
-		if (client->IsNPC()) continue;
 
 		auto state = client->GetState();
 		if (state == ST_ALLOC or state == ST_CLOSE) continue;
@@ -91,9 +92,10 @@ void Bot::DoRandomMove()
 
 	std::unordered_set<uint64> new_view;
 	for (uint64 client_id : server.GetClientList(_position)) {
+		if (::IsNPC(client_id)) continue;
+
 		Creature* client = server.GetClients()[client_id];
 		if (client == nullptr) continue;
-		if (client->IsNPC()) continue;
 
 		auto state = client->GetState();
 		if (state == ST_ALLOC or state == ST_CLOSE) continue;
@@ -103,7 +105,7 @@ void Bot::DoRandomMove()
 		}
 	}
 
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 0 };		// TODO: 값 제대로
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 1 };		// TODO: 값 제대로
 	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
 
 	for (uint64 client_id : new_view) {
