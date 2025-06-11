@@ -309,7 +309,7 @@ void Adjust_Number_Of_Client()
 
 	char name[MAX_NAME_LEN];
 	int temp = num_connections;
-	sprintf_s(name, "%d", temp);
+	sprintf_s(name, "P%d", temp);
 	CS_LOGIN_PACKET l_packet{ name };
 
 	SendPacket(num_connections, &l_packet);
