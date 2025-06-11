@@ -37,13 +37,3 @@ enum State : uint8
 
 	STATE_END
 };
-
-enum DbOperation : uint8
-{
-	DB_START = 0,
-
-	// TODO: 필요한 DB OP 추가하기
-	//		 EX) DB LOGIN 등
-
-	DB_END
-};

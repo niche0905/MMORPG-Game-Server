@@ -1,8 +1,12 @@
 #pragma once
+#include "DatabaseEvent.h"
 
 
 class DatabaseManager
 {
+public:
+	using DbOp = DatabaseEvent::DbOperation;
+
 private:
 	SQLHENV _henv{};
 	SQLHDBC _hdbc{};
