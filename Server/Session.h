@@ -4,11 +4,6 @@
 class Session : public Creature
 {
 private:
-	SOCKET		_socket;
-
-	ExOver		_recv_overlapped;
-	int32		_remain_size;
-
 	// 게임에 필요한 정보 (컨텐츠 관련)
 	
 	uint64		_exp = 0;
@@ -18,6 +13,13 @@ private:
 
 	std::unordered_set<uint64>	_view_list;		// 나중에 lock 없는 자료구조 찾아보자
 	std::mutex					_view_lock;
+
+	// 네트워크 관련
+
+	SOCKET		_socket;
+
+	ExOver		_recv_overlapped;
+	int32		_remain_size;
 
 public:
 	uint64		_ebr_number{ EBR<Session>::MAX_ULLONG };

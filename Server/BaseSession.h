@@ -9,15 +9,17 @@ protected:
 
 	// User와 NPC 모두 가지는 공통 Game Contents를 담는 변수
 	//std::weak_ptr<ServerCore>	_server; // <- 전역 변수로 접근해도 될라나?
-	bool						_is_pc;
-	Position					_position;
 
-	std::atomic<uint8>			_state = GameState::ST_ALLOC;
-
-	uint8						_level = 1;
-	uint16						_hp = 100;
 	Stats						_basic_stats = {};		// 기본 스텟(레벨에 따른 스텟)
 	Stats						_temp_stats = {};		// 임시 스텟(버프, 디버프)
+
+	Position					_position;
+	uint16						_hp = 100;
+
+	std::atomic<uint8>			_state = GameState::ST_ALLOC;
+	uint8						_level = 1;
+
+	bool						_is_pc;
 
 public:
 	Creature();
