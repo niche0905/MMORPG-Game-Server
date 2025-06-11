@@ -7,7 +7,7 @@ class World;
 
 class Object
 {
-private:
+protected:
 	bool showing{ true };
 	bool active{ true };
 
@@ -42,6 +42,8 @@ public:
 
 	void Active();
 	void Disactive();
+
+	void Update(const int64 delta_time);
 
 	void Move(int x, int y);
 	void Shift(int dx, int dy);

@@ -40,6 +40,9 @@
     <Filter Include="Animation">
       <UniqueIdentifier>{d3b3c8fc-833e-4163-8806-87f5e80bac58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Chat">
+      <UniqueIdentifier>{f1f3e6c7-66d2-43a2-b5c2-ce49529241e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -93,6 +96,9 @@
     </ClCompile>
     <ClCompile Include="PresentAnimation.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Chat.cpp">
+      <Filter>Object\Chat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +155,9 @@
     </ClInclude>
     <ClInclude Include="ClientDefines.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Chat.h">
+      <Filter>Object\Chat</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

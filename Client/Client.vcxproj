@@ -23,6 +23,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="Chat.h" />
     <ClInclude Include="ClientDefines.h" />
     <ClInclude Include="Communication.h" />
     <ClInclude Include="FontManager.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="BaseScene.cpp" />
+    <ClCompile Include="Chat.cpp" />
     <ClCompile Include="Communication.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />

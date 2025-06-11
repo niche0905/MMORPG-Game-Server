@@ -36,6 +36,11 @@ void GameScene::Update(const int64 delta_time)
 
 	std::string position_str = "(" + std::to_string(player_position.x) + ", " + std::to_string(player_position.y) + ")";
 	player_coordinate.setString(position_str);
+
+	client_player->Update(delta_time);
+	for (auto& [c_id, creature] : other_players) {
+		creature.Update(delta_time);
+	}
 }
 
 // Scene에 존재하는 Object 그리기
@@ -158,14 +163,10 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 
 		case PacketID::S2C_CHAT:
 		{
-			SC_CHAT_PACKET* move_packet = reinterpret_cast<SC_CHAT_PACKET*>(packet);
+			SC_CHAT_PACKET* chat_packet = reinterpret_cast<SC_CHAT_PACKET*>(packet);
 
-			uint64 now_id = static_cast<uint64>(move_packet->_id);
-			// TODO: 채팅 기능 채우기
-			if (game.GetID() == now_id) {
-			}
-			else {
-			}
+			uint64 now_id = static_cast<uint64>(chat_packet->_id);
+			other_players[now_id].AddChat(chat_packet->_message);
 		}
 		break;
 

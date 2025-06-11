@@ -74,6 +74,11 @@ void Object::Disactive()
 	active = false;
 }
 
+void Object::Update(const int64 delta_time)
+{
+
+}
+
 // 오브젝트 위치 이동
 void Object::Move(int x, int y)
 {
