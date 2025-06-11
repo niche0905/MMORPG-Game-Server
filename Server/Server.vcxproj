@@ -167,10 +167,12 @@
     <ClCompile Include="Bot.cpp" />
     <ClCompile Include="DatabaseEvent.cpp" />
     <ClCompile Include="DatabaseManager.cpp" />
+    <ClCompile Include="DeadState.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="ExpansionOverlapped.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="GlobalVariable.cpp" />
+    <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="IocpCore.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
@@ -193,9 +195,11 @@
     <ClInclude Include="Bot.h" />
     <ClInclude Include="DatabaseEvent.h" />
     <ClInclude Include="DatabaseManager.h" />
+    <ClInclude Include="DeadState.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="GlobalVariable.h" />
+    <ClInclude Include="IdleState.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Sector.h" />
     <ClInclude Include="SectorManager.h" />
