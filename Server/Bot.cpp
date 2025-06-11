@@ -17,6 +17,7 @@ Bot::Bot(uint64 id)
 Bot::Bot(uint64 id, bool invin, bool neut, bool peace, bool fix)
 	: Creature{ id, false }
 	, _fsm{}
+	, _target{ nullptr }
 	, _is_invincibility{ invin }
 	, _is_neutrality{ neut }
 	, _is_peace{ peace }
@@ -63,6 +64,13 @@ bool Bot::GetPeace()
 bool Bot::GetFix()
 {
 	return _is_fix;
+}
+
+void Bot::Update()
+{
+	// TODO: 조건에 따라서 change state
+
+	_fsm.Update(this);
 }
 
 void Bot::WakeUp()
