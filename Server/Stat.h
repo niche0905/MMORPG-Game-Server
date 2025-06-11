@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 struct BaseStats			// 모든 캐릭터/장비가 가지는 스텟
@@ -21,12 +21,16 @@ struct BaseStats			// 모든 캐릭터/장비가 가지는 스텟
 
 struct CharacterStats	
 {
-	uint8	level = 1;	// 캐릭터가 가지는 레벨 (적 도 있어야 함)
+	static constexpr uint32 max_level = 50;
+
+	uint32	level = 1;	// 캐릭터가 가지는 레벨 (적 도 있어야 함)
 };
 
 struct UserStats : CharacterStats
 {
-	uint32	exp = 0;	// 플레이어만 가지는 경험치
+	static constexpr uint64 max_exp = (100 * (1ULL << 50));
+
+	uint64	exp = 0;	// 플레이어만 가지는 경험치
 };
 
 using Stats = BaseStats;
