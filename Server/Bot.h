@@ -37,6 +37,7 @@ public:
 
 	void Update();
 
+	// TODO: 깨운놈 ID를 받아야 할듯
 	void WakeUp();
 
 	void DoRandomMove();

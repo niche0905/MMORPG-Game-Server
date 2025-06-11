@@ -8,5 +8,7 @@ public:
 	KnightNPC(uint64 id);
 	~KnightNPC();
 
+	// TODO: FSM 구성하기
+
 };
 

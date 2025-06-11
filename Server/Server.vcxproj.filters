@@ -142,15 +142,6 @@
     <Filter Include="Contents\NPC\Bot\Monster">
       <UniqueIdentifier>{052f4909-b0da-4e4c-97e8-e14814ff022e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\NPC\State\TalkNPCStates">
-      <UniqueIdentifier>{e2c7cb72-57ca-447c-84b5-b24dfce99999}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\State\QuestNPCStates">
-      <UniqueIdentifier>{6f5b5b8f-147f-4e0b-8a4f-6dc3e169f27f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\State\MerchantNPCStates">
-      <UniqueIdentifier>{4e801282-7d5d-43a6-b628-5643a24bd950}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\NPC\State\AMerchantNPCStates">
       <UniqueIdentifier>{ee66de56-4515-4678-950b-a96fb40059d7}</UniqueIdentifier>
     </Filter>
