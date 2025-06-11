@@ -169,6 +169,7 @@ void Session::LoginProcess(BYTE* packet)
 	Send(&login_allow_packet);
 
 	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 0 };
+	SC_MOVE_PACKET move_packet{ _id, _position.x, _position.y, 0 };
 
 	std::unordered_set<uint64> user_list = server.GetClientList(_position);
 	for (uint64 client_id : user_list) {
@@ -188,7 +189,7 @@ void Session::LoginProcess(BYTE* packet)
 
 		if (client->IsPlayer()) {
 			auto session = static_cast<Session*>(client);
-			session->ProcessCloseCreature(_id, &enter_packet, nullptr);
+			session->ProcessCloseCreature(_id, &enter_packet, &move_packet);
 		}
 		else if (client->IsNPC()) {
 			auto npc = static_cast<Bot*>(client);
