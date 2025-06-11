@@ -80,6 +80,7 @@ void Bot::DoRandomMove()
 		}
 	}
 
+	server.MoveSector(_id, _position, new_position);
 	_position = new_position;
 
 	std::unordered_set<uint64> new_view;

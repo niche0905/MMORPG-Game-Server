@@ -148,7 +148,7 @@ void ServerCore::NPCInit()
 		npc->SetPosition(rand() % MAX_WIDTH, rand() % MAX_HEIGHT);
 		npc->SetState(ST_INGAME);
 
-		_sector_manager.AddClient(i, npc->GetPosition());
+		RegisterSector(i, npc->GetPosition());
 		_clients.insert(std::make_pair(i, npc));
 	}
 
