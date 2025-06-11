@@ -169,6 +169,7 @@
     <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="ExpansionOverlapped.cpp" />
+    <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="GlobalVariable.cpp" />
     <ClCompile Include="IocpCore.cpp" />
     <ClCompile Include="main.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="ServerCore.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Stat.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +194,7 @@
     <ClInclude Include="DatabaseEvent.h" />
     <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Sector.h" />
@@ -203,6 +206,7 @@
     <ClInclude Include="ServerCore.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="Stat.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

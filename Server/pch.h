@@ -24,6 +24,7 @@
 #include "ExpansionOverlapped.h"
 #include "IocpCore.h"
 #include "BaseSession.h"
+#include "State.h"
 #include "Bot.h"
 #include "Session.h"
 #include "DatabaseEvent.h"

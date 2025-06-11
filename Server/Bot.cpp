@@ -10,6 +10,7 @@ Bot::Bot()
 
 Bot::Bot(uint64 id)
 	: Creature{ id, false }
+	, _fsm{}
 {
 
 }

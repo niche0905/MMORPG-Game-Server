@@ -42,19 +42,22 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="DatabaseManager.cpp">
-      <Filter>DB</Filter>
+      <Filter>Core\DB</Filter>
     </ClCompile>
     <ClCompile Include="DatabaseEvent.cpp">
-      <Filter>DB</Filter>
+      <Filter>Core\DB</Filter>
     </ClCompile>
     <ClCompile Include="Event.cpp">
-      <Filter>Event</Filter>
+      <Filter>Core\ServerCore\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="FiniteStateMachine.cpp">
+      <Filter>Contents\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Contents\NPC\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Network">
-      <UniqueIdentifier>{a875dcf8-73da-4ea9-9ff7-3b3de82a55a0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{a075421c-01fb-4ad4-8e8e-fb8fa39d2d09}</UniqueIdentifier>
     </Filter>
@@ -94,11 +97,17 @@
     <Filter Include="Core\BaseSession\Bot">
       <UniqueIdentifier>{42f72b96-5858-4123-8fa1-069b1500092c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DB">
+    <Filter Include="Core\DB">
       <UniqueIdentifier>{b567da72-393e-4884-97d3-8bb9e398211a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Event">
+    <Filter Include="Core\ServerCore\Event">
       <UniqueIdentifier>{bdfc9a96-b92e-4291-af55-68562e40c8d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\NPC">
+      <UniqueIdentifier>{2c770213-05eb-4c2b-9c3c-c87f1275c910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\NPC\State">
+      <UniqueIdentifier>{9caedb1b-2170-4a8c-bee2-40197f47ed6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -113,9 +122,6 @@
     </ClInclude>
     <ClInclude Include="ExpansionOverlapped.h">
       <Filter>Core\Overlapped</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerDefines.h">
-      <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="ServerCore.h">
       <Filter>Core\ServerCore</Filter>
@@ -145,13 +151,22 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="DatabaseManager.h">
-      <Filter>DB</Filter>
+      <Filter>Core\DB</Filter>
     </ClInclude>
     <ClInclude Include="DatabaseEvent.h">
-      <Filter>DB</Filter>
+      <Filter>Core\DB</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
-      <Filter>Event</Filter>
+      <Filter>Core\ServerCore\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerDefines.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="FiniteStateMachine.h">
+      <Filter>Contents\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Contents\NPC\State</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,10 +1,13 @@
 #pragma once
+#include "FiniteStateMachine.h"
 
 
 class Bot : public Creature
 {
 private:
 	std::atomic_bool		_is_active = false;		// 주위에 플레이어가 있어서 활동 중인가?
+
+	FSM						_fsm;
 
 public:
 	Bot();

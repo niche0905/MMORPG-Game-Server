@@ -24,7 +24,7 @@ enum OverOperation
 	OVER_END
 };
 
-enum State : uint8
+enum GameState : uint8
 {
 	STATE_START = 0,
 

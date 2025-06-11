@@ -39,7 +39,7 @@ void Session::Disconnect()
 			if (client == nullptr) continue;
 
 			uint8 state = client->GetState();
-			if (state == State::ST_ALLOC or state == State::ST_CLOSE) continue;
+			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
 
 			Session* session = static_cast<Session*>(client);
 			session->SendLeaveCreature(_id);
@@ -167,7 +167,7 @@ void Session::LoginProcess(BYTE* packet)
 
 	server.RegisterSector(_id, _position);
 
-	_state = State::ST_INGAME;
+	_state = GameState::ST_INGAME;
 
 	// TODO: 값 제대로 사용하기
 	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, 0, _level, _exp};
@@ -184,7 +184,7 @@ void Session::LoginProcess(BYTE* packet)
 		if (client == nullptr) continue;
 
 		auto state = client->GetState();
-		if (state == State::ST_ALLOC or state == State::ST_CLOSE) continue;
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
 
 		if (not client->CanSee(_position, VIEW_RANGE)) continue;
 
@@ -249,7 +249,7 @@ void Session::MoveProcess(BYTE* packet)
 		if (client == nullptr) continue;	// nullptr 이라면 무시
 
 		uint8 state = client->GetState();
-		if (state == State::ST_ALLOC or state == State::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
 
 		// view list 판단
 		if (client->CanSee(_position, VIEW_RANGE)) {	// 보이는 경우
@@ -321,7 +321,7 @@ void Session::ChatProcess(BYTE* packet)
 		if (client == nullptr) continue;	// nullptr 이라면 무시
 
 		uint8 state = client->GetState();
-		if (state == State::ST_ALLOC or state == State::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
 
 		Session* session = static_cast<Session*>(client);
 		session->Send(&chat_broadcast_packet);

@@ -12,7 +12,7 @@ protected:
 	bool						_is_pc;
 	Position					_position;
 
-	std::atomic<uint8>			_state = State::ST_ALLOC;
+	std::atomic<uint8>			_state = GameState::ST_ALLOC;
 
 	uint8						_level = 1;
 	uint16						_hp = 100;
