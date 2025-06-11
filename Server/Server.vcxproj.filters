@@ -151,6 +151,9 @@
     <Filter Include="Contents\NPC\State\AMerchantNPCStates">
       <UniqueIdentifier>{ee66de56-4515-4678-950b-a96fb40059d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\NPC\State\KnightNPCStates">
+      <UniqueIdentifier>{7ef80366-c52b-4e57-83f6-1de9aa0172cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IocpCore.h">
