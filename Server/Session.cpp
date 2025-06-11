@@ -165,11 +165,11 @@ void Session::LoginProcess(BYTE* packet)
 	_state = State::ST_INGAME;
 
 	// TODO: 값 제대로 사용하기
-	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, 100, 100, 1, 0 };
+	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, 100, 100, 0, 1, 0};
 	Send(&login_allow_packet);
 
 	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 0 };
-	SC_MOVE_PACKET move_packet{ _id, _position.x, _position.y, 0 };
+	SC_MOVE_PACKET move_packet{ _id, _position.x, _position.y };
 
 	std::unordered_set<uint64> user_list = server.GetClientList(_position);
 	for (uint64 client_id : user_list) {
@@ -252,8 +252,8 @@ void Session::MoveProcess(BYTE* packet)
 		}
 	}
 
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 0 };		// TODO: 값 제대로
-	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y, _last_move_time };
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 1 };		// TODO: 값 제대로
+	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
 
 	for (uint64 client_id : near_list) {
 
@@ -348,7 +348,7 @@ void Session::SendLeaveCreature(uint64 id)
 
 void Session::SelfUpdate()
 {
-	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y, _last_move_time };
+	SC_MOVE_SELF_PACKET update_packet{ _position.x, _position.y, _last_move_time };
 
 	Send(&update_packet);
 }

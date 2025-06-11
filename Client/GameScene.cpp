@@ -137,17 +137,20 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		}
 		break;
 
+		case PacketID::S2C_MOVE_SELF:
+		{
+			SC_MOVE_SELF_PACKET* move_update_packet = reinterpret_cast<SC_MOVE_SELF_PACKET*>(packet);
+
+			client_player->Move(static_cast<int>(move_update_packet->_x), static_cast<int>(move_update_packet->_y));
+		}
+		break;
+
 		case PacketID::S2C_MOVE:
 		{
 			SC_MOVE_PACKET* move_packet = reinterpret_cast<SC_MOVE_PACKET*>(packet);
 
 			uint64 now_id = static_cast<uint64>(move_packet->_id);
-			if (game.GetID() == now_id) {
-				client_player->Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
-			}
-			else {
-				other_players[now_id].Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
-			}
+			other_players[now_id].Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
 		}
 		break;
 

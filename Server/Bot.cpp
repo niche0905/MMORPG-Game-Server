@@ -104,7 +104,7 @@ void Bot::DoRandomMove()
 	}
 
 	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, 0 };		// TODO: 값 제대로
-	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y, 0 };
+	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
 
 	for (uint64 client_id : new_view) {
 		Creature* client = server.GetClients()[client_id];

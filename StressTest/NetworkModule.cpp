@@ -124,25 +124,22 @@ void SendPacket(uint64 cl, void* packet)
 void ProcessPacket(uint64 ci, unsigned char packet[])
 {
 	switch (packet[1]) {
-	case S2C_MOVE: {
-		SC_MOVE_PACKET* move_packet = reinterpret_cast<SC_MOVE_PACKET*>(packet);
-		if (move_packet->_id >= NUM_MONSTER) {
-			uint64 my_id = client_map[move_packet->_id - NUM_MONSTER];
-			if (INVALID_ID != my_id) {
-				g_clients[my_id].x = move_packet->_x;
-				g_clients[my_id].y = move_packet->_y;
-			}
-			if (ci == my_id) {
-				if (0 != move_packet->_move_time) {
-					auto d_ms = duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count() - move_packet->_move_time;
+	case S2C_MOVE_SELF:
+	{
+		SC_MOVE_SELF_PACKET* move_packet = reinterpret_cast<SC_MOVE_SELF_PACKET*>(packet);
+		if (ci >= NUM_MONSTER) {
+			g_clients[ci].x = move_packet->_x;
+			g_clients[ci].y = move_packet->_y;
+			if (0 != move_packet->_move_time) {
+				auto d_ms = duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count() - move_packet->_move_time;
 
-					if (global_delay < d_ms) global_delay++;
-					else if (global_delay > d_ms) global_delay--;
-				}
+				if (global_delay < d_ms) global_delay++;
+				else if (global_delay > d_ms) global_delay--;
 			}
 		}
 	}
-					   break;
+	break;
+	case S2C_MOVE: break;
 	case S2C_ENTER: break;
 	case S2C_LEAVE: break;
 	case S2C_CHAT: break;
