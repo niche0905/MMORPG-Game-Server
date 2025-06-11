@@ -41,6 +41,8 @@ void Bot::WakeUp()
 
 void Bot::DoRandomMove()
 {
+	using namespace std::chrono;
+
 	Position new_position = _position;
 	switch (rand() % 4 + 1)
 	{
@@ -63,6 +65,10 @@ void Bot::DoRandomMove()
 	}
 
 	if (_position == new_position) {
+
+		Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_RANDOM_MOVE };
+		server.AddTimerEvent(evt);
+
 		return;
 	}
 	
@@ -120,8 +126,6 @@ void Bot::DoRandomMove()
 		_is_active = false;
 		return;
 	}
-
-	using namespace std::chrono;
 
 	Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_RANDOM_MOVE };
 	server.AddTimerEvent(evt);
