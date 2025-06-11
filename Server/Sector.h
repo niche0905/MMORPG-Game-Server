@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 
 class Sector
@@ -29,7 +29,9 @@ public:
 	Sector& operator=(Sector&& other) noexcept = default;
 
 	void AddClient(uint64 id);
+	void AddClientOnly(uint64 id);
 	void RemoveClient(uint64 id);
+	void RemoveClientOnly(uint64 id);
 
 	std::unordered_set<uint64>& GetClientList();
 

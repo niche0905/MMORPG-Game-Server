@@ -78,7 +78,7 @@ void Session::Send(void* packet)
 	DWORD sent_bytes = 0;
 	auto ret = WSASend(_socket, send_overlapped->GetWSABuf(), 1, &sent_bytes, 0, send_overlapped->GetOverlapped(), nullptr);
 	if (ret == SOCKET_ERROR) {
-		int error = WSAGetLastError();
+		int32 error = WSAGetLastError();
 		if (error != ERROR_IO_PENDING) {
 			PrintErrorMessage(L"WSASend", error);
 		}
@@ -92,7 +92,7 @@ void Session::Recv()
 	DWORD flags = 0;
 	auto ret = WSARecv(_socket, _recv_overlapped.GetWSABuf(), 1, nullptr, &flags, _recv_overlapped.GetOverlapped(), nullptr);
 	if (ret == SOCKET_ERROR) {
-		int error = WSAGetLastError();
+		int32 error = WSAGetLastError();
 		if (error != ERROR_IO_PENDING) {
 			PrintErrorMessage(L"WSARecv", error);
 		}
@@ -131,8 +131,8 @@ void Session::ReassemblePacket(DWORD recv_size)
 {
 	BYTE* packet = _recv_overlapped.GetBuffer();
 
-	int data_size = _remain_size + recv_size;
-	int proccess_size = 0;
+	int32 data_size = _remain_size + recv_size;
+	int32 proccess_size = 0;
 	while (packet < _recv_overlapped.GetBuffer() + data_size) {
 		BYTE packet_size = packet[0];
 

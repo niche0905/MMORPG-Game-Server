@@ -70,7 +70,7 @@ void ServerCore::Accept()
 	BOOL ret = AcceptEx(_listen_socket, _accept_socket, _accept_overlapped.GetBuffer(), 0, 
 		sizeof(SOCKADDR_IN) + 16, sizeof(SOCKADDR_IN) + 16, nullptr, _accept_overlapped.GetOverlapped());
 	if (ret == FALSE) {
-		int error = WSAGetLastError();
+		int32 error = WSAGetLastError();
 		if (error != ERROR_IO_PENDING) {
 			PrintErrorMessage(L"AcceptEx", error);
 		}

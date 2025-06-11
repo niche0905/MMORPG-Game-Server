@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Sector.h"
 
 Sector::Sector()
@@ -20,6 +20,11 @@ void Sector::AddClient(uint64 id)
 	Unlock();
 }
 
+void Sector::AddClientOnly(uint64 id)
+{
+	_clients.insert(id);
+}
+
 void Sector::RemoveClient(uint64 id)
 {
 	Lock();
@@ -28,6 +33,14 @@ void Sector::RemoveClient(uint64 id)
 		_clients.erase(it);
 	}
 	Unlock();
+}
+
+void Sector::RemoveClientOnly(uint64 id)
+{
+	auto it = _clients.find(id);
+	if (it != _clients.end()) {
+		_clients.erase(it);
+	}
 }
 
 std::unordered_set<uint64>& Sector::GetClientList()

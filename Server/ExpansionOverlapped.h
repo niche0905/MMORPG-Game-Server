@@ -13,13 +13,13 @@ public:
 
 	~ExpansionOverlapped() = default;
 
-	void Reset(int index);
+	void Reset(int32 index);
 
-	void SetBuffer(void* packet, int size);
+	void SetBuffer(void* packet, int32 size);
 
 	void SetOperation(OverOperation operation);
 	
-	void CopyToBuffer(void* data, int size);
+	void CopyToBuffer(void* data, int32 size);
 
 	OverOperation GetOperation() const;
 
