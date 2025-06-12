@@ -118,6 +118,8 @@ void Object::SetSprite(const sf::Texture& texture)
 
 void Object::SetScale()
 {
+	if (sprite.getTexture() == nullptr) return;
+
 	sf::Vector2u texture_size = sprite.getTexture()->getSize();
 
 	sprite.setScale(size / texture_size.x, size / texture_size.y);

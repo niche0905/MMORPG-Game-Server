@@ -138,8 +138,6 @@ void Creature::AddDamage(uint16 damage)
 
 void Creature::ShowAttack(uint8 atk_type)
 {
-	std::cout << "Call\n";
-
 	switch (atk_type)
 	{
 	case AttackType::STANDARD_ATK:

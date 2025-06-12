@@ -100,7 +100,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			SC_LOGIN_ALLOW_PACKET* login_packet = reinterpret_cast<SC_LOGIN_ALLOW_PACKET*>(packet);
 
 			if (game.GetID() == 0) {
-				game.SetID(static_cast<uint64>(login_packet->_id));
+				game.SetID(login_packet->_id);
 
 				client_player = std::make_shared<Creature>(world, game.GetID());
 				client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
