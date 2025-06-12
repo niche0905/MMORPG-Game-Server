@@ -118,7 +118,6 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		{
 			SC_DAMAGE_PACKET* damage_packet = reinterpret_cast<SC_DAMAGE_PACKET*>(packet);
 
-			std::cout << damage_packet->_num << '\n';
 			for (int index = 0; index < damage_packet->_num; ++index) {
 
 				DamageInfo& damage_info = damage_packet->_damage_infos[index];
