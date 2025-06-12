@@ -208,6 +208,7 @@ struct SC_CHAT_PACKET			: public BASE_PACKET
 
 struct SC_ATTACK_PACKET : public BASE_PACKET
 {
+	// TODO: atk_type을 key 타입으로 바꾸어도 됨 class_type 정보에 따라 클라이언트에서 attack을 설정해 두었을 것이기에
 	uint64	_id;
 	uint8	_atk_type;
 
