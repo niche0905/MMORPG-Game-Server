@@ -198,7 +198,8 @@ void Session::LoginProcess(BYTE* packet)
 		}
 		else if (client->IsNPC()) {
 			auto npc = static_cast<Bot*>(client);
-			npc->WakeUp(_id);
+			npc->FirstSeen(_id);
+			npc->WakeUp();
 		}
 	}
 }
@@ -271,11 +272,15 @@ void Session::MoveProcess(BYTE* packet)
 			auto session = static_cast<Session*>(client);
 			session->ProcessCloseCreature(_id, &enter_packet, &update_packet);
 		}
+		else {
+			auto npc = static_cast<Bot*>(client);
+			npc->WakeUp();
+		}
 
 		if (old_list.count(client_id) == 0) {
 			if (client->IsNPC()) {
 				auto npc = static_cast<Bot*>(client);
-				npc->WakeUp(_id);
+				npc->FirstSeen(_id);
 			}
 
 			Position pos = client->GetPosition();

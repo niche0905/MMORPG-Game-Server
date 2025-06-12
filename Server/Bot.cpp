@@ -74,7 +74,12 @@ void Bot::Update()
 	_fsm.Update(this);
 }
 
-void Bot::WakeUp(uint64 id)
+void Bot::FirstSeen(uint64 id)
+{
+
+}
+
+void Bot::WakeUp()
 {
 	if (_is_active) return;
 	bool old_state = false;
