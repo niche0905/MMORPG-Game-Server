@@ -9,15 +9,16 @@ Bot::Bot()
 }
 
 Bot::Bot(uint64 id)
-	: Bot{ id, false, true, false, false, false }
+	: Bot{ id, BOT_START, false, true, false, false, false }
 {
 
 }
 
-Bot::Bot(uint64 id, bool invin, bool neut, bool peace, bool firend, bool fix)
+Bot::Bot(uint64 id, uint8 b_type, bool invin, bool neut, bool peace, bool firend, bool fix)
 	: Creature{ id, false }
 	, _fsm{}
 	, _target{ nullptr }
+	, _bot_type{ b_type }
 	, _is_invincibility{ invin }
 	, _is_neutrality{ neut }
 	, _is_peace{ peace }

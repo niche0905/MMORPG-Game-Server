@@ -8,8 +8,8 @@ MerchantNPC::MerchantNPC()
 
 }
 
-MerchantNPC::MerchantNPC(uint64 id, bool attack)
-	: Bot{ id, false, true, attack, not attack, attack }
+MerchantNPC::MerchantNPC(uint64 id, bool attack, uint8 b_type)
+	: Bot{ id, b_type, false, true, attack, not attack, attack }
 {
 
 }
@@ -28,7 +28,7 @@ AggressiveMerchantNPC::AggressiveMerchantNPC()
 }
 
 AggressiveMerchantNPC::AggressiveMerchantNPC(uint64 id)
-	: MerchantNPC{ id, true }
+	: MerchantNPC{ id, true, Bot::BotType::AGRS_MERCHANT_NPC }
 {
 
 }

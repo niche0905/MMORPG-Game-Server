@@ -9,7 +9,7 @@ TalkNPC::TalkNPC()
 }
 
 TalkNPC::TalkNPC(uint64 id)
-	: Bot{id, true, true, true, true, true}
+	: Bot{id, Bot::BotType::TALK_NPC, true, true, true, true, true}
 {
 
 }
