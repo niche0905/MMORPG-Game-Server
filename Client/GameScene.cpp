@@ -78,20 +78,7 @@ void GameScene::HandleInput(const sf::Event& input_event)
 			game.SendArrowKey(MOVE_DOWN);
 		}
 		if (input_event.key.code == sf::Keyboard::A) {
-			game.SendAttack(AttackType::STANDARD_ATK);
-
-			// TODO: 아래의 입력을 통해서 attack_type 정해서 보내기 위 코드는 임시
-			//		 S, D 키만 아래 해당 A는 공통으로 기본 공격
-			uint8 class_type = game.GetClassType();
-			switch (class_type)
-			{
-			case ClassType::WARRIOR:
-				break;
-			case ClassType::ROGUE:
-				break;
-			case ClassType::SORCERER:
-				break;
-			}
+			game.SendAttack(KeyType::KEY_A);
 		}
 	}
 }

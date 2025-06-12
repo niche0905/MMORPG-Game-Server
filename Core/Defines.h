@@ -45,6 +45,18 @@ enum ClassType : uint8
 	CLASS_END
 };
 
+enum KeyType : uint8
+{
+	KEY_START = 0,
+
+	KEY_A,
+	KEY_S,
+	KEY_D,
+	KEY_SB,		// Space bar
+
+	KEY_END
+};
+
 enum AttackType : uint8
 {
 	STANDARD_ATK = 1,	// 기본 +자 공격

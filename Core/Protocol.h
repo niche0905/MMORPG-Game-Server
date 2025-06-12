@@ -263,11 +263,11 @@ struct CS_CHAT_PACKET			: public BASE_PACKET
 
 struct CS_ATTACK_PACKET			: public BASE_PACKET
 {
-	uint8	_atk_type;
+	uint8	_atk_key;
 
-	CS_ATTACK_PACKET(uint8 atk_type)
+	CS_ATTACK_PACKET(uint8 atk_key)
 		: BASE_PACKET{ sizeof(CS_ATTACK_PACKET), C2S_ATTACK }
-		, _atk_type{ atk_type } { }
+		, _atk_key{ atk_key } { }
 };
 
 struct CS_TELEPORT_PACKET		: public BASE_PACKET
