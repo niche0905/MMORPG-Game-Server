@@ -66,20 +66,32 @@ void GameScene::HandleInput(const sf::Event& input_event)
 {
 	if (input_event.type == sf::Event::KeyPressed) {
 		if (input_event.key.code == sf::Keyboard::Left) {
-			//client_player->Shift(-1, 0);
 			game.SendArrowKey(MOVE_LEFT);
 		}
 		if (input_event.key.code == sf::Keyboard::Right) {
-			//client_player->Shift(+1, 0);
 			game.SendArrowKey(MOVE_RIGHT);
 		}
 		if (input_event.key.code == sf::Keyboard::Up) {
-			//client_player->Shift(0, -1);
 			game.SendArrowKey(MOVE_UP);
 		}
 		if (input_event.key.code == sf::Keyboard::Down) {
-			//client_player->Shift(0, +1);
 			game.SendArrowKey(MOVE_DOWN);
+		}
+		if (input_event.key.code == sf::Keyboard::A) {
+			game.SendAttack(AttackType::STANDARD_ATK);
+
+			// TODO: 아래의 입력을 통해서 attack_type 정해서 보내기 위 코드는 임시
+			//		 S, D 키만 아래 해당 A는 공통으로 기본 공격
+			uint8 class_type = game.GetClassType();
+			switch (class_type)
+			{
+			case ClassType::WARRIOR:
+				break;
+			case ClassType::ROGUE:
+				break;
+			case ClassType::SORCERER:
+				break;
+			}
 		}
 	}
 }

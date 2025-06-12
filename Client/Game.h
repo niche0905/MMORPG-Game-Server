@@ -26,6 +26,7 @@ private:
 	Communication communication;
 
 	uint64 my_id;
+	uint8 class_type;
 	std::string name;
 
 public:
@@ -38,6 +39,7 @@ public:
 	void Draw();
 	void HandleInput();
 
+	void SendAttack(uint8 atk_type);
 	void SendArrowKey(uint8 dir);
 	void ProcessPacket(std::vector<BYTE> packet);
 
@@ -50,6 +52,9 @@ public:
 
 	void SetID(uint64 id);
 	uint64 GetID() const;
+
+	void SetClassType(uint8 class_type);
+	uint8 GetClassType() const;
 
 	const std::string& GetName() const;
 

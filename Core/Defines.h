@@ -16,10 +16,38 @@ constexpr uint16 MAX_HEIGHT = 2000;
 constexpr uint64 INVALID_ID = UINT64_MAX;
 
 
+enum LoginFailReason : int8
+{
+	NO_IDEA,		// 알 수 없는 이유
+	USED_ID,		// 해당 아이디 현재 접속중
+	INAPPOSITE_ID,	// 부적절한 ID (특수문자, 20자 이상의 이유)
+	TO_MANY			// 서버 부하로 인해 (너무 많은 접속자)
+};
+
 enum MOVE : uint8
 {
 	MOVE_UP = 1,
 	MOVE_DOWN,
 	MOVE_LEFT,
 	MOVE_RIGHT
+};
+
+enum ClassType : uint8
+{
+	CLASS_START = 0,
+
+	WARRIOR,		// 전사
+	ROGUE,			// 도적
+	SORCERER,		// 마법사
+	
+	CLASS_NONE,
+
+	CLASS_END
+};
+
+enum AttackType : uint8
+{
+	STANDARD_ATK = 1,	// 기본 +자 공격
+
+	// TODO: 추가할 필요가 있는 공격 타입 추가하기
 };

@@ -96,6 +96,12 @@ void Game::HandleInput()
 	}
 }
 
+void Game::SendAttack(uint8 atk_type)
+{
+	CS_ATTACK_PACKET attack_packet{ atk_type };
+	communication.Send(reinterpret_cast<BYTE*>(&attack_packet), sizeof(attack_packet));
+}
+
 void Game::SendArrowKey(uint8 dir)
 {
 	// TODO: move_time 적용하기
@@ -165,6 +171,16 @@ void Game::SetID(uint64 id)
 uint64 Game::GetID() const
 {
 	return my_id;
+}
+
+void Game::SetClassType(uint8 c_type)
+{
+	class_type = c_type;
+}
+
+uint8 Game::GetClassType() const
+{
+	return class_type;
 }
 
 const std::string& Game::GetName() const
