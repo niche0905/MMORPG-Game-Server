@@ -43,6 +43,9 @@
     <Filter Include="Object\Chat">
       <UniqueIdentifier>{f1f3e6c7-66d2-43a2-b5c2-ce49529241e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>{cbe1377b-95b2-4fdf-b342-efadf9adb424}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -99,6 +102,9 @@
     </ClCompile>
     <ClCompile Include="Chat.cpp">
       <Filter>Object\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="Attack.cpp">
+      <Filter>Content</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="Chat.h">
       <Filter>Object\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Attack.h">
+      <Filter>Content</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
