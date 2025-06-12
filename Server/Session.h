@@ -50,6 +50,7 @@ public:
 	void LoginProcess(BYTE* packet);
 	void MoveProcess(BYTE* packet);
 	void ChatProcess(BYTE* packet);
+	void AttackProcess(BYTE* packet);
 
 	void ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet);
 	void SendNewCreature(uint64 id, void* enter_packet);

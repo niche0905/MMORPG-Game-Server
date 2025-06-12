@@ -129,6 +129,12 @@ void Session::ProcessPacket(BYTE* packet)
 	}
 	break;
 
+	case PacketID::C2S_ATTACK:
+	{
+		AttackProcess(packet);
+	}
+	break;
+
 	}
 }
 
@@ -331,6 +337,58 @@ void Session::ChatProcess(BYTE* packet)
 
 		Session* session = static_cast<Session*>(client);
 		session->Send(&chat_broadcast_packet);
+	}
+}
+
+void Session::AttackProcess(BYTE* packet)
+{
+	CS_ATTACK_PACKET* attack_packet = reinterpret_cast<CS_ATTACK_PACKET*>(packet);
+
+	SC_ATTACK_PACKET attack_broadcast_packet{ _id, attack_packet->_atk_type };
+
+	// TODO: 시야 내 플레이어에게 브로트캐스트 -> COMPLETE
+	_view_lock.lock();
+	std::unordered_set<uint64> now_list = _view_list;
+	_view_lock.unlock();
+
+	for (uint64 client_id : now_list) {
+
+		if (client_id == _id) continue;		// 내 ID라면 무시
+		if (::IsNPC(client_id)) continue;	// NPC 라면 무시
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
+
+		Session* session = static_cast<Session*>(client);
+		session->Send(&attack_broadcast_packet);
+	}
+
+	// TODO: 공격 타입에 따라 공격 완성하기
+	uint8 attack_type = attack_packet->_atk_type;
+	Position pos = _position;
+	std::unordered_set<uint64> closed_clients = server.GetClientList(pos);
+	switch (attack_type)
+	{
+	case AttackType::STANDARD_ATK:
+	{
+		for (uint64 client_id : closed_clients) {
+
+			if (client_id == _id) continue;		// 내 ID라면 무시
+
+			Creature* client = server.GetClients()[client_id];
+			if (client == nullptr) continue;	// nullptr 이라면 무시
+
+			uint8 state = client->GetState();
+			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
+
+			;
+			// TODO: 충돌 판정 및 데미지 처리
+		}
+	}
+	break;
 	}
 }
 

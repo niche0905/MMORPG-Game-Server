@@ -202,9 +202,9 @@ struct SC_CHAT_PACKET			: public BASE_PACKET
 struct SC_ATTACK_PACKET : public BASE_PACKET
 {
 	uint64	_id;
-	int8	_atk_type;
+	uint8	_atk_type;
 
-	SC_ATTACK_PACKET(uint64 id, int8 atk_type)
+	SC_ATTACK_PACKET(uint64 id, uint8 atk_type)
 		: BASE_PACKET{ sizeof(SC_ATTACK_PACKET), S2C_ATTACK }
 		, _id{ id }
 		, _atk_type{ atk_type } { }
