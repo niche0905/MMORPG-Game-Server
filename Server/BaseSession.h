@@ -14,7 +14,7 @@ protected:
 	Stats						_temp_stats = {};		// 임시 스텟(버프, 디버프)
 
 	Position					_position;
-	uint16						_hp = 100;
+	std::atomic<uint16>			_hp = 100;
 
 	std::atomic<uint8>			_state = GameState::ST_ALLOC;
 	uint8						_level = 1;
@@ -39,6 +39,7 @@ public:
 
 	void SetPosition(int16 x, int16 y);
 	void SetPosition(Position pos);
+	void SetPosition(const Position& pos);
 
 	void SetName(std::string_view name);
 	std::string& GetName();
@@ -52,6 +53,8 @@ public:
 	uint8 GetState() const;
 
 	virtual uint16 GetMaxHP() const = 0;
+	void TakeDamage(uint16 damage);
+	void SetDead();
 
 };
 

@@ -62,6 +62,11 @@ void Creature::SetPosition(Position pos)
 	_position = pos;
 }
 
+void Creature::SetPosition(const Position& pos)
+{
+	_position = pos;
+}
+
 void Creature::SetName(std::string_view name)
 {
 	_name = name;
@@ -102,4 +107,33 @@ void Creature::SetState(uint8 state)
 uint8 Creature::GetState() const
 {
 	return _state.load();
+}
+
+void Creature::TakeDamage(uint16 damage)	// 만약 실제 들어간 데미지가 필요하면 이를 수정하거나 메서드를 추가하여야 함
+{
+	uint16 expected = _hp.load();
+	uint16 desired;
+	do {
+		if (_state != GameState::ST_DEAD and expected == 0) {
+			SetDead();
+			return;
+		}
+
+		int32 calc = static_cast<int32>(expected) - static_cast<int32>(damage);
+		desired = static_cast<uint16>(std::max<uint16>(calc, 0));
+	} while (not _hp.compare_exchange_strong(expected, desired));
+
+	// TODO: 자식 클래스에서 Override하여 각자 알맞은 것을 수행해야 함
+	//		 Session은 피격 당함 Send
+	//		 Bot은 딱히...?
+}
+
+void Creature::SetDead()
+{
+	if (_state == GameState::ST_DEAD) return;
+
+	uint8 now_state = _state;
+	_state.compare_exchange_strong(now_state, GameState::ST_DEAD);
+
+	// TODO: 이도 상속 받아 Bot에서는 State Machine에서 Dead 처리를 해야 할 것으로 보임
 }
