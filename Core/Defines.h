@@ -59,7 +59,9 @@ enum KeyType : uint8
 
 enum AttackType : uint8
 {
-	STANDARD_ATK = 1,	// 기본 +자 공격
+	ATTACK_NONE = 0,
+
+	STANDARD_ATK,	// 기본 +자 공격
 
 	// TODO: 추가할 필요가 있는 공격 타입 추가하기
 };
