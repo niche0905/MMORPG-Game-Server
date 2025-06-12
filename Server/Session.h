@@ -9,12 +9,12 @@ private:
 	uint64		_exp = 0;
 	Stats		_equip_stats = {};		// 장비 스텟(장착한 장비에 따라 증가한 스텟)
 
-	uint64		_last_move_time;
+	uint64		_last_move_time = 0;
 
 	std::unordered_set<uint64>	_view_list;		// 나중에 lock 없는 자료구조 찾아보자
 	std::mutex					_view_lock;
 
-	uint8		_class_type;			// 직업 정보
+	uint8		_class_type = 0;			// 직업 정보
 
 	// 네트워크 관련
 
