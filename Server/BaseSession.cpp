@@ -125,7 +125,7 @@ void Creature::TakeDamage(uint16 damage)	// 만약 실제 들어간 데미지가
 
 	// TODO: 자식 클래스에서 Override하여 각자 알맞은 것을 수행해야 함
 	//		 Session은 피격 당함 Send
-	//		 Bot은 딱히...?
+	//		 Bot은 딱히...? <- Broadcast 해주어야 함
 }
 
 void Creature::SetDead()
