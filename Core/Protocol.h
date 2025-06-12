@@ -128,7 +128,7 @@ struct SC_DAMAGE_PACKET : public BASE_PACKET
 	DamageInfo	_damage_infos[MAX_DAMAGE_INFO_NUM];
 
 	SC_DAMAGE_PACKET()
-		: BASE_PACKET{ sizeof(BASE_PACKET), S2C_DAMAGE }
+		: BASE_PACKET{ sizeof(BASE_PACKET) + sizeof(uint32), S2C_DAMAGE}
 		, _num{ 0 }
 		, _damage_infos{} { }
 
