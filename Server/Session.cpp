@@ -75,6 +75,31 @@ uint16 Session::GetMaxHP() const
 	return _basic_stats.HP + _temp_stats.HP + _equip_stats.HP;
 }
 
+void Session::TakeDamage(uint16 damage)
+{
+	Creature::TakeDamage(damage);
+
+	SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
+
+	_view_lock.lock();
+	std::unordered_set<uint64> view_list = _view_list;
+	_view_lock.unlock();
+
+	for (uint64 client_id : view_list) {
+
+		if (client_id == _id or ::IsNPC(client_id)) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+		Session* session = static_cast<Session*>(client);
+		session->Send(&hp_change_packet);
+	}
+}
+
 void Session::Send(void* packet)
 {
 	ExOver* send_overlapped = new ExOver(OverOperation::IO_SEND);
@@ -344,9 +369,36 @@ void Session::AttackProcess(BYTE* packet)
 {
 	CS_ATTACK_PACKET* attack_packet = reinterpret_cast<CS_ATTACK_PACKET*>(packet);
 
-	SC_ATTACK_PACKET attack_broadcast_packet{ _id, attack_packet->_atk_type };
+	uint8 attack_type = AttackType::ATTACK_NONE;
 
-	// TODO: 시야 내 플레이어에게 브로트캐스트 -> COMPLETE
+	switch (attack_packet->_atk_key)
+	{
+	case KeyType::KEY_A:
+		attack_type = AttackType::ATTACK_NONE;
+		break;
+	case KeyType::KEY_S:
+	{
+
+	}
+	break;
+
+	case KeyType::KEY_D:
+	{
+
+	}
+	break;
+
+	default:
+	{
+		std::cout << "Attack Process Key Type Error\n";
+		exit(-1);
+	}
+	break;
+	}
+
+
+	SC_ATTACK_PACKET attack_broadcast_packet{ _id, attack_type };
+
 	_view_lock.lock();
 	std::unordered_set<uint64> now_list = _view_list;
 	_view_lock.unlock();
@@ -366,14 +418,15 @@ void Session::AttackProcess(BYTE* packet)
 		session->Send(&attack_broadcast_packet);
 	}
 
-	// TODO: 공격 타입에 따라 공격 완성하기
-	uint8 attack_type = attack_packet->_atk_type;
 	Position pos = _position;
+	SC_DAMAGE_PACKET damage_packet{};
 	std::unordered_set<uint64> closed_clients = server.GetClientList(pos);
 	switch (attack_type)
 	{
 	case AttackType::STANDARD_ATK:
 	{
+		uint16 damage = 20;
+
 		for (uint64 client_id : closed_clients) {
 
 			if (client_id == _id) continue;		// 내 ID라면 무시
@@ -382,14 +435,26 @@ void Session::AttackProcess(BYTE* packet)
 			if (client == nullptr) continue;	// nullptr 이라면 무시
 
 			uint8 state = client->GetState();
-			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
+			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;	// 게임 참여 중 아니라면 무시
 
-			;
-			// TODO: 충돌 판정 및 데미지 처리
+			Position client_pos = client->GetPosition();
+			int16 dx = std::abs(client_pos.x - pos.x);
+			int16 dy = std::abs(client_pos.y - pos.y);
+			if ((dx + dy) <= 1) {
+				// 맞은 것임
+
+				client->TakeDamage(damage);
+				damage_packet.AddDamageInfo(client_id, damage);
+			}
 		}
 	}
 	break;
+
+	// TODO: 공격 타입에 따라 공격 완성하기
+
 	}
+
+	Send(&damage_packet);
 }
 
 void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet)

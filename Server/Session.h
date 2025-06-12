@@ -40,6 +40,7 @@ public:
 	bool IsNPC() const override;
 
 	uint16 GetMaxHP() const override;
+	void TakeDamage(uint16 damage);
 
 	void Send(void* packet);
 	void Recv();
