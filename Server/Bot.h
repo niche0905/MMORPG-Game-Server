@@ -50,10 +50,13 @@ public:
 
 	uint16 GetMaxHP() const override;
 
-	bool GetInvincibility();
-	bool GetNeutrality();
-	bool GetPeace();
-	bool GetFix();
+	uint8 GetBotType() const;
+
+	bool GetInvincibility() const;
+	bool GetNeutrality() const;
+	bool GetPeace() const;
+	bool GetFriendly() const;
+	bool GetFix() const;
 
 	void Update();
 

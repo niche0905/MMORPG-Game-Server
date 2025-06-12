@@ -48,22 +48,32 @@ uint16 Bot::GetMaxHP() const
 	return _basic_stats.HP + _temp_stats.HP;
 }
 
-bool Bot::GetInvincibility()
+uint8 Bot::GetBotType() const
+{
+	return _bot_type;
+}
+
+bool Bot::GetInvincibility() const
 {
 	return _is_invincibility;
 }
 
-bool Bot::GetNeutrality()
+bool Bot::GetNeutrality() const
 {
 	return _is_neutrality;
 }
 
-bool Bot::GetPeace()
+bool Bot::GetPeace() const
 {
 	return _is_peace;
 }
 
-bool Bot::GetFix()
+bool Bot::GetFriendly() const
+{
+	return false;
+}
+
+bool Bot::GetFix() const
 {
 	return _is_fix;
 }
