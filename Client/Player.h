@@ -16,6 +16,7 @@ private:
 	uint16 hp = 100;
 
 	std::list<Chat> _chattings;
+	std::list<Chat> _damages;
 
 public:
 	Creature();
@@ -27,6 +28,8 @@ public:
 	void Update(const int64 delta_time);
 
 	void Draw(sf::RenderWindow& window);
+	void DrawChatting(sf::RenderWindow& window);
+	void DrawDamages(sf::RenderWindow& window);
 
 	uint64 GetID() const;
 

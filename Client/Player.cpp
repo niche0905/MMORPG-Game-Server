@@ -44,12 +44,28 @@ void Creature::Update(const int64 delta_time)
 			++it;
 		}
 	}
+
+	for (auto it = _damages.begin(); it != _damages.end(); ) {
+		it->Update(delta_time);
+		if (not it->Validate()) {
+			it = _damages.erase(it);
+		}
+		else {
+			++it;
+		}
+	}
 }
 
 void Creature::Draw(sf::RenderWindow& window)
 {
 	Object::Draw(window);
 
+	DrawChatting(window);
+	DrawDamages(window);
+}
+
+void Creature::DrawChatting(sf::RenderWindow& window)
+{
 	if (_chattings.size() == 0) return;
 
 	int32 chat_num = _chattings.size();
@@ -62,6 +78,24 @@ void Creature::Draw(sf::RenderWindow& window)
 		name_pos.y += chat_size;
 
 		chat.Draw(window);
+	}
+}
+
+void Creature::DrawDamages(sf::RenderWindow& window)
+{
+	if (_damages.size() == 0) return;
+
+	int32 damage_num = _damages.size();
+	float damage_size = 8.f;
+	float damage_offset_x = 10.f;
+	float damage_offset_y = 5.f;
+	sf::Vector2f name_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + TILE_SIZE / 2) - damage_offset_x, static_cast<float>(position.y * TILE_SIZE + (-TILE_SIZE / 2) - damage_offset_y) };
+	name_pos.y -= damage_num * damage_size;
+	for (auto& damage : _damages) {
+		damage.SetPosition(name_pos);
+		name_pos.y += damage_size;
+
+		damage.Draw(window);
 	}
 }
 
@@ -84,14 +118,14 @@ void Creature::SetMonster()
 
 void Creature::AddChat(std::string_view chat)
 {
-	using namespace std::chrono;
-
 	_chattings.emplace_back(chat, 2000000);
 }
 
 void Creature::AddDamage(uint16 damage)
 {
-	// TODO: Damage Text 추가하기
+	_damages.emplace_back(std::to_string(damage), 500000);
+	_damages.back().SetSize(20, 0.3);
+	_damages.back().SetColor(sf::Color::Red);
 }
 
 void Creature::ShowAttack(uint8 atk_type)

@@ -374,7 +374,7 @@ void Session::AttackProcess(BYTE* packet)
 	switch (attack_packet->_atk_key)
 	{
 	case KeyType::KEY_A:
-		attack_type = AttackType::ATTACK_NONE;
+		attack_type = AttackType::STANDARD_ATK;
 		break;
 	case KeyType::KEY_S:
 	{
@@ -445,7 +445,8 @@ void Session::AttackProcess(BYTE* packet)
 				// 맞은 것임
 
 				client->TakeDamage(damage);
-				damage_packet.AddDamageInfo(client_id, damage);
+				if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
+					damage_packet.AddDamageInfo(client_id, damage);
 			}
 		}
 	}
@@ -455,7 +456,9 @@ void Session::AttackProcess(BYTE* packet)
 
 	}
 
-	Send(&damage_packet);
+	std::cout << "HIT NUM " << damage_packet._num << '\n';
+	if (damage_packet._num != 0)	// 맞은 사람이 없으면 보낼 이유가 없음
+		Send(&damage_packet);
 }
 
 void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet)

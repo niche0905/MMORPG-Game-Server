@@ -14,6 +14,9 @@ public:
 
 	bool operator<(const Chat& other) const;
 
+	void SetSize(uint32 size, float thick);
+	void SetColor(const sf::Color& color);
+
 	void SetPosition(sf::Vector2f pos);
 	void Draw(sf::RenderWindow& window);
 

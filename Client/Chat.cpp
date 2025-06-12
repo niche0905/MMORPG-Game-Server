@@ -34,6 +34,19 @@ bool Chat::operator<(const Chat& other) const
 	return _remove_time > other._remove_time;
 }
 
+void Chat::SetSize(uint32 size, float thick)
+{
+	_text.setCharacterSize(size);
+	_text.setOutlineThickness(thick);
+	sf::FloatRect bounds = _text.getLocalBounds();
+	_text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+}
+
+void Chat::SetColor(const sf::Color& color)
+{
+	_text.setFillColor(color);
+}
+
 void Chat::SetPosition(sf::Vector2f pos)
 {
 	_text.setPosition(pos);

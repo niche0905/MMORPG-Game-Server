@@ -96,9 +96,9 @@ void Game::HandleInput()
 	}
 }
 
-void Game::SendAttack(uint8 atk_type)
+void Game::SendAttack(uint8 atk_key)
 {
-	CS_ATTACK_PACKET attack_packet{ atk_type };
+	CS_ATTACK_PACKET attack_packet{ atk_key };
 	communication.Send(reinterpret_cast<BYTE*>(&attack_packet), sizeof(attack_packet));
 }
 
