@@ -19,6 +19,7 @@
 
 #include "CorePch.h"
 #include "ClientDefines.h"
+#include "Object.h"
 
 //#include "Packet.h"
 #include "GlobalVariable.h"

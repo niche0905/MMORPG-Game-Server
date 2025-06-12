@@ -86,6 +86,16 @@ void Object::Move(int x, int y)
 		position = sf::Vector2i(x, y);
 }
 
+void Object::ForceMove(int x, int y)
+{
+	position = sf::Vector2i(x, y);
+}
+
+void Object::ForceMove(sf::Vector2i pos)
+{
+	position = pos;
+}
+
 // 오브젝트 위치 옮김
 void Object::Shift(int dx, int dy)
 {

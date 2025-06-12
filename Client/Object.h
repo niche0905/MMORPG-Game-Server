@@ -28,7 +28,7 @@ public:
 private:
 	bool Validate(int x, int y) const;
 
-protected:
+public:
 	void SetSize(double size);
 
 	void SetSprite(const std::string& key);
@@ -46,6 +46,8 @@ public:
 	void Update(const int64 delta_time);
 
 	void Move(int x, int y);
+	void ForceMove(int x, int y);
+	void ForceMove(sf::Vector2i pos);
 	void Shift(int dx, int dy);
 
 	void Draw(sf::RenderWindow& window);
