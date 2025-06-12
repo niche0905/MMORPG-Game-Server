@@ -456,7 +456,6 @@ void Session::AttackProcess(BYTE* packet)
 
 	}
 
-	std::cout << "HIT NUM " << damage_packet._num << '\n';
 	if (damage_packet._num != 0)	// 맞은 사람이 없으면 보낼 이유가 없음
 		Send(&damage_packet);
 }

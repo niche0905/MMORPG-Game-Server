@@ -114,7 +114,7 @@ void Creature::TakeDamage(uint16 damage)	// 만약 실제 들어간 데미지가
 	uint16 expected = _hp.load();
 	uint16 desired;
 	do {
-		if (_state != GameState::ST_DEAD and expected == 0) {
+		if (_state != GameState::ST_DEAD and expected <= 0) {
 			SetDead();
 			return;
 		}
@@ -122,6 +122,11 @@ void Creature::TakeDamage(uint16 damage)	// 만약 실제 들어간 데미지가
 		int32 calc = static_cast<int32>(expected) - static_cast<int32>(damage);
 		desired = static_cast<uint16>(std::max<uint16>(calc, 0));
 	} while (not _hp.compare_exchange_strong(expected, desired));
+
+	if (_state != GameState::ST_DEAD and _hp <= 0) {
+		SetDead();
+		return;
+	}
 
 	// TODO: 자식 클래스에서 Override하여 각자 알맞은 것을 수행해야 함
 	//		 Session은 피격 당함 Send
