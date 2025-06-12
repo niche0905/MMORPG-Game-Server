@@ -186,7 +186,13 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			SC_ATTACK_PACKET* atk_packet = reinterpret_cast<SC_ATTACK_PACKET*>(packet);
 
 			uint64 now_id = static_cast<uint64>(atk_packet->_id);
-			other_players[now_id].ShowAttack(atk_packet->_atk_type);
+
+			if (now_id == game.GetID()) {
+				client_player->ShowAttack(atk_packet->_atk_type);
+			}
+			else {
+				other_players[now_id].ShowAttack(atk_packet->_atk_type);
+			}
 		}
 		break;
 

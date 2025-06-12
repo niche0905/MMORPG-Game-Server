@@ -35,6 +35,8 @@ void Creature::Init()
 
 void Creature::Update(const int64 delta_time)
 {
+	_a_atk.Update(delta_time);
+
 	for (auto it = _chattings.begin(); it != _chattings.end(); ) {
 		it->Update(delta_time);
 		if (not it->Validate()) {
@@ -60,8 +62,14 @@ void Creature::Draw(sf::RenderWindow& window)
 {
 	Object::Draw(window);
 
+	DrawAttacks(window);
 	DrawChatting(window);
 	DrawDamages(window);
+}
+
+void Creature::DrawAttacks(sf::RenderWindow& window)
+{
+	_a_atk.Draw(window);
 }
 
 void Creature::DrawChatting(sf::RenderWindow& window)
@@ -130,11 +138,13 @@ void Creature::AddDamage(uint16 damage)
 
 void Creature::ShowAttack(uint8 atk_type)
 {
+	std::cout << "Call\n";
+
 	switch (atk_type)
 	{
 	case AttackType::STANDARD_ATK:
 	{
-		// TODO: Attack Sprite 추가하고 띄우기
+		_a_atk.SetActive(position, 500000);
 	}
 	break;
 

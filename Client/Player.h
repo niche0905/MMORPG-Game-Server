@@ -1,10 +1,12 @@
 #pragma once
 #include "Object.h"
 #include "Chat.h"
+#include "Attack.h"
 
 
 class World;
 class Chat;
+class Attack;
 
 
 class Creature : public Object
@@ -14,6 +16,8 @@ private:
 	uint64 id;
 
 	uint16 hp = 100;
+
+	Attack			_a_atk;
 
 	std::list<Chat> _chattings;
 	std::list<Chat> _damages;
@@ -28,11 +32,13 @@ public:
 	void Update(const int64 delta_time);
 
 	void Draw(sf::RenderWindow& window);
+	void DrawAttacks(sf::RenderWindow& window);
 	void DrawChatting(sf::RenderWindow& window);
 	void DrawDamages(sf::RenderWindow& window);
 
 	uint64 GetID() const;
 
+	// TODO: 바꾸어야 함
 	void SetDummy();
 	void SetMonster();
 

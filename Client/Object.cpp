@@ -48,6 +48,7 @@ bool Object::Validate(int x, int y) const
 void Object::SetSize(double size)
 {
 	this->size = size;
+	SetScale();
 }
 
 // 오브젝트 보이게
