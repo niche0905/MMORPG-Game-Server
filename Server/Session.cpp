@@ -403,6 +403,7 @@ void Session::AttackProcess(BYTE* packet)
 	std::unordered_set<uint64> now_list = _view_list;
 	_view_lock.unlock();
 
+	Send(&attack_broadcast_packet);
 	for (uint64 client_id : now_list) {
 
 		if (client_id == _id) continue;		// 내 ID라면 무시

@@ -114,6 +114,18 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		}
 		break;
 
+		case PacketID::S2C_DAMAGE:
+		{
+			SC_DAMAGE_PACKET* damage_packet = reinterpret_cast<SC_DAMAGE_PACKET*>(packet);
+
+			for (int index = 0; index < damage_packet->_num; ++index) {
+
+				DamageInfo& damage_info = damage_packet->_damage_infos[index];
+				other_players[damage_info._id].AddDamage(damage_info._damage);
+			}
+		}
+		break;
+
 		case PacketID::S2C_ENTER:
 		{
 			SC_ENTER_PACKET* enter_packet = reinterpret_cast<SC_ENTER_PACKET*>(packet);
@@ -166,6 +178,15 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 
 			uint64 now_id = static_cast<uint64>(chat_packet->_id);
 			other_players[now_id].AddChat(chat_packet->_message);
+		}
+		break;
+
+		case PacketID::S2C_ATTACK:
+		{
+			SC_ATTACK_PACKET* atk_packet = reinterpret_cast<SC_ATTACK_PACKET*>(packet);
+
+			uint64 now_id = static_cast<uint64>(atk_packet->_id);
+			other_players[now_id].ShowAttack(atk_packet->_atk_type);
 		}
 		break;
 

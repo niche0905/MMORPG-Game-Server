@@ -13,6 +13,8 @@ private:
 	// TODO : 멤버 변수 추가
 	uint64 id;
 
+	uint16 hp = 100;
+
 	std::list<Chat> _chattings;
 
 public:
@@ -32,6 +34,9 @@ public:
 	void SetMonster();
 
 	void AddChat(std::string_view chat);
+	void AddDamage(uint16 damage);
+	void ShowAttack(uint8 atk_type);
+	void ChangeHP(uint16 hp);
 
 };
 

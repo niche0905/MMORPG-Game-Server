@@ -88,3 +88,28 @@ void Creature::AddChat(std::string_view chat)
 
 	_chattings.emplace_back(chat, 2000000);
 }
+
+void Creature::AddDamage(uint16 damage)
+{
+	// TODO: Damage Text 추가하기
+}
+
+void Creature::ShowAttack(uint8 atk_type)
+{
+	switch (atk_type)
+	{
+	case AttackType::STANDARD_ATK:
+	{
+		// TODO: Attack Sprite 추가하고 띄우기
+	}
+	break;
+
+	default:
+		break;
+	}
+}
+
+void Creature::ChangeHP(uint16 hp_)
+{
+	hp = hp_;
+}
