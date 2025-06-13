@@ -54,6 +54,8 @@ void Bot::TakeDamage(uint16 damage)
 {
 	Creature::TakeDamage(damage);
 
+	// TODO: 위아래 순서를 바꾸어도 괜찮을 듯
+
 	SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
 
 	std::unordered_set<uint64> view_list = server.GetClientList(_position);
