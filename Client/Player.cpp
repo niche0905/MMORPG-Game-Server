@@ -160,9 +160,11 @@ void Creature::AddDamage(uint16 damage)
 	_damages.back().SetColor(sf::Color::Red);
 }
 
-void Creature::ShowAttack(uint8 atk_type)
+void Creature::ShowAttack(uint8 atk_key)
 {
-	switch (atk_type)
+	// TODO: class 와 NPC tpye으로 atk_type을 추출해야 함
+
+	switch (atk_key)
 	{
 	case AttackType::STANDARD_ATK:
 	{

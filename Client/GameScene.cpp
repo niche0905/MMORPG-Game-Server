@@ -188,10 +188,10 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			uint64 now_id = static_cast<uint64>(atk_packet->_id);
 
 			if (now_id == game.GetID()) {
-				client_player->ShowAttack(atk_packet->_atk_type);
+				client_player->ShowAttack(atk_packet->_atk_key);
 			}
 			else {
-				other_players[now_id].ShowAttack(atk_packet->_atk_type);
+				other_players[now_id].ShowAttack(atk_packet->_atk_key);
 			}
 		}
 		break;
