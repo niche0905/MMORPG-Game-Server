@@ -54,7 +54,7 @@ public:
 
 	virtual uint16 GetMaxHP() const = 0;
 	void TakeDamage(uint16 damage);
-	void SetDead();
+	bool SetDead();
 
 };
 

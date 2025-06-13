@@ -133,12 +133,12 @@ void Creature::TakeDamage(uint16 damage)	// 만약 실제 들어간 데미지가
 	//		 Bot은 딱히...? <- Broadcast 해주어야 함
 }
 
-void Creature::SetDead()
+bool Creature::SetDead()
 {
-	if (_state == GameState::ST_DEAD) return;
+	if (_state == GameState::ST_DEAD) return false;
 
 	uint8 now_state = _state;
-	_state.compare_exchange_strong(now_state, GameState::ST_DEAD);
+	return _state.compare_exchange_strong(now_state, GameState::ST_DEAD);
 
 	// TODO: 이도 상속 받아 Bot에서는 State Machine에서 Dead 처리를 해야 할 것으로 보임
 }
