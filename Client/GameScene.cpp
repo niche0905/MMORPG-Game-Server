@@ -130,7 +130,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		{
 			SC_ENTER_PACKET* enter_packet = reinterpret_cast<SC_ENTER_PACKET*>(packet);
 
-			uint64 now_id = static_cast<uint64>(enter_packet->_id);
+			uint64 now_id = enter_packet->_id;
 
 			other_players.try_emplace(now_id, world, now_id);
 			other_players[now_id].Move(static_cast<int>(enter_packet->_x), static_cast<int>(enter_packet->_y));
