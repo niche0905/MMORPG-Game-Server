@@ -66,7 +66,22 @@ void DatabaseManager::DatabaseWorker()
 	while (true) {
 		DatabaseEvent db_event;
 		if (_queue.try_pop(db_event)) {
-			// TODO: DB OP에 따라 처리하기
+			uint64 now_id = db_event._id;
+
+			switch (db_event._sp_id)
+			{
+			case DatabaseEvent::DB_LOGIN_REQUEST:
+			{
+				Creature* creature = server.GetClients()[now_id];
+				if (creature == nullptr) break;
+				Session* session = static_cast<Session*>(creature);
+
+				session->GetName();
+
+				// TODO: DB 접근해서 요청하기
+			}
+			break;
+			}
 		}
 		else {
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));

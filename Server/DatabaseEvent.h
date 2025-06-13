@@ -9,6 +9,7 @@ struct DatabaseEvent
 
 		// TODO: 필요한 DB OP 추가하기
 		//		 EX) DB LOGIN 등
+		DB_LOGIN_REQUEST,
 
 		DB_END
 	};
