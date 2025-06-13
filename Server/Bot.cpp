@@ -48,6 +48,31 @@ uint16 Bot::GetMaxHP() const
 	return _basic_stats.HP + _temp_stats.HP;
 }
 
+void Bot::TakeDamage(uint16 damage)
+{
+	Creature::TakeDamage(damage);
+
+	SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
+
+	std::unordered_set<uint64> view_list = server.GetClientList(_position);
+
+	for (uint64 client_id : view_list) {
+
+		if (client_id == _id or ::IsNPC(client_id)) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+		if (not client->CanSee(_position, VIEW_RANGE)) continue;
+
+		Session* session = static_cast<Session*>(client);
+		session->Send(&hp_change_packet);
+	}
+}
+
 uint8 Bot::GetBotType() const
 {
 	return _bot_type;

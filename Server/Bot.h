@@ -49,6 +49,7 @@ public:
 	bool IsNPC() const override;
 
 	uint16 GetMaxHP() const override;
+	void TakeDamage(uint16 damage);
 
 	uint8 GetBotType() const;
 
