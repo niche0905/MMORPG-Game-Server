@@ -16,6 +16,9 @@ private:
 	uint64 id;
 
 	uint16 hp = 100;
+	uint16 max_hp = 100;
+	sf::RectangleShape _hp_bg;		// HP 배경
+	sf::RectangleShape _hp_fg;		// HP 전면
 
 	Attack			_a_atk;
 
@@ -32,6 +35,7 @@ public:
 	void Update(const int64 delta_time);
 
 	void Draw(sf::RenderWindow& window);
+	void DrawHP(sf::RenderWindow& window);
 	void DrawAttacks(sf::RenderWindow& window);
 	void DrawChatting(sf::RenderWindow& window);
 	void DrawDamages(sf::RenderWindow& window);

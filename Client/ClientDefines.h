@@ -12,4 +12,7 @@ constexpr double TILE_SIZE{ 40.0 };
 constexpr double PLAYER_SIZE{ 35.0 };
 constexpr double OBJECT_SIZE{ 40.0 };
 
+constexpr float HP_WIDTH{ 40.0f };
+constexpr float HP_HEIGHT{ 5.0f };
+
 inline constexpr const char* LOOPBACK_ADDRESS = "127.0.0.1";

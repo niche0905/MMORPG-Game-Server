@@ -31,6 +31,13 @@ void Creature::Init()
 	SetSize(PLAYER_SIZE);
 	TextureManager::Instance().LoadTexture("player", "./Resource/Texture/player.png");
 	SetSprite("player");
+
+	_hp_bg.setSize(sf::Vector2f(HP_WIDTH, HP_HEIGHT));
+	_hp_bg.setFillColor(sf::Color::Black);
+	_hp_bg.setOrigin(0.f, 0.f);
+	_hp_fg.setSize(sf::Vector2f(HP_WIDTH, HP_HEIGHT));
+	_hp_fg.setFillColor(sf::Color::Red);
+	_hp_fg.setOrigin(0.f, 0.f);
 }
 
 void Creature::Update(const int64 delta_time)
@@ -62,9 +69,21 @@ void Creature::Draw(sf::RenderWindow& window)
 {
 	Object::Draw(window);
 
+	DrawHP(window);
 	DrawAttacks(window);
 	DrawChatting(window);
 	DrawDamages(window);
+}
+
+void Creature::DrawHP(sf::RenderWindow& window)
+{
+	sf::Vector2f hp_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + (TILE_SIZE / 2)), static_cast<float>(position.y * TILE_SIZE + (TILE_SIZE / 2)) };
+	sf::Vector2f hp_offset = sf::Vector2f{ -(HP_WIDTH / 2), (TILE_SIZE - (TILE_SIZE - PLAYER_SIZE)) / 2};
+	hp_pos += hp_offset;
+	_hp_bg.setPosition(hp_pos);
+	window.draw(_hp_bg);
+	_hp_fg.setPosition(hp_pos);
+	window.draw(_hp_fg);
 }
 
 void Creature::DrawAttacks(sf::RenderWindow& window)
@@ -79,7 +98,7 @@ void Creature::DrawChatting(sf::RenderWindow& window)
 	int32 chat_num = _chattings.size();
 	float chat_size = 10.f;
 	float chat_offset = 5.f;
-	sf::Vector2f name_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + TILE_SIZE / 2), static_cast<float>(position.y * TILE_SIZE + (-TILE_SIZE / 2) - chat_offset) };
+	sf::Vector2f name_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + (TILE_SIZE / 2)), static_cast<float>(position.y * TILE_SIZE + (-TILE_SIZE / 2) - chat_offset) };
 	name_pos.y -= chat_num * chat_size;
 	for (auto& chat : _chattings) {
 		chat.SetPosition(name_pos);
@@ -97,7 +116,7 @@ void Creature::DrawDamages(sf::RenderWindow& window)
 	float damage_size = 8.f;
 	float damage_offset_x = 10.f;
 	float damage_offset_y = 5.f;
-	sf::Vector2f name_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + TILE_SIZE / 2) - damage_offset_x, static_cast<float>(position.y * TILE_SIZE + (-TILE_SIZE / 2) - damage_offset_y) };
+	sf::Vector2f name_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + (TILE_SIZE / 2)) - damage_offset_x, static_cast<float>(position.y * TILE_SIZE + (-TILE_SIZE / 2) - damage_offset_y) };
 	name_pos.y -= damage_num * damage_size;
 	for (auto& damage : _damages) {
 		damage.SetPosition(name_pos);
@@ -154,4 +173,7 @@ void Creature::ShowAttack(uint8 atk_type)
 void Creature::ChangeHP(uint16 hp_)
 {
 	hp = hp_;
+	float hp_size = (static_cast<float>(hp) / max_hp);
+
+	_hp_fg.setSize(sf::Vector2f(HP_WIDTH * hp_size, HP_HEIGHT));
 }
