@@ -196,6 +196,21 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		}
 		break;
 
+		case PacketID::S2C_HP_CHANGE:
+		{
+			SC_HP_CHANGE_PACKET* hp_update_packet = reinterpret_cast<SC_HP_CHANGE_PACKET*>(packet);
+
+			uint64 now_id = static_cast<uint64>(hp_update_packet->_id);
+
+			if (now_id == game.GetID()) {
+				client_player->ChangeHP(hp_update_packet->_hp);
+			}
+			else {
+				other_players[now_id].ChangeHP(hp_update_packet->_hp);
+			}
+		}
+		break;
+
 		default:
 			std::cout << "Packet id Done Exist\n";
 			break;
