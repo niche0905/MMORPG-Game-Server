@@ -12,6 +12,7 @@ void DeadState::Enter(Bot* bot)
 {
 	using namespace std::chrono;
 
+	bot->DeadSequence();
 	// 30초 후에 부활하도록
 	server.AddTimerEvent(Event{ bot->GetID(), system_clock::now() + 5s, Event::EventType::EV_REVIVE });
 }
