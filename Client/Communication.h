@@ -26,8 +26,5 @@ public:
 	void Send(BYTE* buffer, uint16 len);
 	std::vector<BYTE> Recv();
 
-	// TODO : Send / Recv + Process 추가하기
-	//		  그리고 패킷 설계 하기
-
 };
 

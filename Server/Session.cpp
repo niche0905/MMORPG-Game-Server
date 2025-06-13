@@ -205,8 +205,7 @@ void Session::LoginProcess(BYTE* packet)
 
 	_state = GameState::ST_INGAME;
 
-	// TODO: 값 제대로 사용하기
-	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, 0, _level, _exp};
+	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, _visual_type, _level, _exp};
 	Send(&login_allow_packet);
 
 	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, _level };
@@ -296,7 +295,7 @@ void Session::MoveProcess(BYTE* packet)
 		}
 	}
 
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, _level };		// TODO: 값 제대로
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _level };
 	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
 
 	for (uint64 client_id : near_list) {
@@ -322,7 +321,7 @@ void Session::MoveProcess(BYTE* packet)
 			}
 
 			Position pos = client->GetPosition();
-			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), 0, _level };		// TODO: 값 제대로
+			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), _visual_type, _level };
 
 			SendNewCreature(client_id, &object_enter_packet);
 		}
@@ -403,7 +402,7 @@ void Session::AttackProcess(BYTE* packet)
 	break;
 	}
 
-
+	// TODO: 이를 수정해야 함 type이 아닌 key로
 	SC_ATTACK_PACKET attack_broadcast_packet{ _id, attack_type };
 
 	_view_lock.lock();
