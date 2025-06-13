@@ -60,7 +60,7 @@ public:
 	bool GetFriendly() const;
 	bool GetFix() const;
 
-	void Update();
+	virtual void Update();
 
 	void FirstSeen(uint64 id);
 	void WakeUp();
