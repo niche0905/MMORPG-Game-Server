@@ -172,7 +172,7 @@ void Creature::AddDamage(uint16 damage)
 
 void Creature::ShowAttack(uint8 atk_key)
 {
-	// TODO: class 와 NPC tpye으로 atk_type을 추출해야 함
+	// TODO: class 나머지 공격 만들어야 함
 	uint8 atk_type = AttackType::ATTACK_NONE;
 
 	switch (_class_type)
