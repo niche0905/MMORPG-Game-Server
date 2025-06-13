@@ -75,6 +75,27 @@ void Bot::TakeDamage(uint16 damage)
 	}
 }
 
+void Bot::DeadSequence()
+{
+	std::unordered_set<uint64> view_list = server.GetClientList(_position);
+
+	for (uint64 client_id : view_list) {
+
+		if (::IsNPC(client_id)) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+		if (not client->CanSee(_position, VIEW_RANGE)) continue;
+
+		Session* session = static_cast<Session*>(client);
+		session->SendLeaveCreature(_id);
+	}
+}
+
 uint8 Bot::GetBotType() const
 {
 	return _bot_type;

@@ -138,7 +138,14 @@ bool Creature::SetDead()
 	if (_state == GameState::ST_DEAD) return false;
 
 	uint8 now_state = _state;
-	return _state.compare_exchange_strong(now_state, GameState::ST_DEAD);
+	bool dead_verdict = _state.compare_exchange_strong(now_state, GameState::ST_DEAD);
+	if (dead_verdict)
+		DeadSequence();
 
-	// TODO: 이도 상속 받아 Bot에서는 State Machine에서 Dead 처리를 해야 할 것으로 보임
+	return dead_verdict;
+}
+
+void Creature::DeadSequence()
+{
+	// TODO: 죽으면 한번 Broadcast 하기
 }

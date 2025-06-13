@@ -41,6 +41,7 @@ public:
 
 	uint16 GetMaxHP() const override;
 	void TakeDamage(uint16 damage);
+	void DeadSequence();
 
 	void Send(void* packet);
 	void Recv();

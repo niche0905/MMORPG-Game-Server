@@ -100,6 +100,11 @@ void Session::TakeDamage(uint16 damage)
 	}
 }
 
+void Session::DeadSequence()
+{
+	// TODO: Broadcast 및 비석 표시
+}
+
 void Session::Send(void* packet)
 {
 	ExOver* send_overlapped = new ExOver(OverOperation::IO_SEND);
