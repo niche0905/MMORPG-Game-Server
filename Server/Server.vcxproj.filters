@@ -50,9 +50,6 @@
     <ClCompile Include="Event.cpp">
       <Filter>Core\ServerCore\Event</Filter>
     </ClCompile>
-    <ClCompile Include="FiniteStateMachine.cpp">
-      <Filter>Contents\NPC</Filter>
-    </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>Contents\NPC\State\BaseState</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>Contents\NPC\Bot\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="FiniteStateMachine.cpp">
+      <Filter>Contents\NPC\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +148,9 @@
     <Filter Include="Contents\NPC\State\KnightNPCStates">
       <UniqueIdentifier>{7ef80366-c52b-4e57-83f6-1de9aa0172cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\NPC\StateMachine">
+      <UniqueIdentifier>{e5c0824b-e3cd-43bc-9282-7c4384d9140d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IocpCore.h">
@@ -201,9 +204,6 @@
     <ClInclude Include="ServerDefines.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="FiniteStateMachine.h">
-      <Filter>Contents\NPC</Filter>
-    </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Contents\NPC\State\BaseState</Filter>
     </ClInclude>
@@ -227,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Contents\NPC\Bot\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="FiniteStateMachine.h">
+      <Filter>Contents\NPC\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

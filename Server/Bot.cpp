@@ -77,6 +77,8 @@ void Bot::TakeDamage(uint16 damage)
 
 void Bot::DeadSequence()
 {
+	std::cout << "DeadSequence\n";
+
 	std::unordered_set<uint64> view_list = server.GetClientList(_position);
 
 	for (uint64 client_id : view_list) {

@@ -140,7 +140,7 @@ bool Creature::SetDead()
 	uint8 now_state = _state;
 	bool dead_verdict = _state.compare_exchange_strong(now_state, GameState::ST_DEAD);
 	if (dead_verdict)
-		DeadSequence();
+		this->DeadSequence();
 
 	return dead_verdict;
 }

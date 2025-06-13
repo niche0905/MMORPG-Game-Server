@@ -53,9 +53,9 @@ public:
 	uint8 GetState() const;
 
 	virtual uint16 GetMaxHP() const = 0;
-	void TakeDamage(uint16 damage);
+	void TakeDamage(uint16 damage);		// TODO: 얘도 virtual로 바꾸어야 함
 	bool SetDead();
-	void DeadSequence();
+	virtual void DeadSequence();
 
 };
 

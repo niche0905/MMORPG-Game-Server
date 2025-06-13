@@ -50,7 +50,7 @@ public:
 
 	uint16 GetMaxHP() const override;
 	void TakeDamage(uint16 damage);
-	void DeadSequence();
+	void DeadSequence() override;
 
 	uint8 GetBotType() const;
 
