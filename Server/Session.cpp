@@ -202,6 +202,8 @@ void Session::LoginProcess(BYTE* packet)
 	_position.y = rand() % MAX_WIDTH;
 
 	server.RegisterSector(_id, _position);
+	// TODO: 아래 바꾸어야 한다
+	SetClassType(ClassType::WARRIOR);
 
 	_state = GameState::ST_INGAME;
 
@@ -402,8 +404,7 @@ void Session::AttackProcess(BYTE* packet)
 	break;
 	}
 
-	// TODO: 이를 수정해야 함 type이 아닌 key로
-	SC_ATTACK_PACKET attack_broadcast_packet{ _id, attack_type };
+	SC_ATTACK_PACKET attack_broadcast_packet{ _id, attack_packet->_atk_key };
 
 	_view_lock.lock();
 	std::unordered_set<uint64> now_list = _view_list;

@@ -14,8 +14,6 @@ private:
 	std::unordered_set<uint64>	_view_list;		// 나중에 lock 없는 자료구조 찾아보자
 	std::mutex					_view_lock;
 
-	uint8		_class_type = 0;			// 직업 정보
-
 	// 네트워크 관련
 
 	SOCKET		_socket;
