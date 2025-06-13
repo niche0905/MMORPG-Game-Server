@@ -41,6 +41,7 @@ public:
 	void DrawDamages(sf::RenderWindow& window);
 
 	uint64 GetID() const;
+	uint16 GetHP() const;
 
 	// TODO: 바꾸어야 함
 	void SetDummy();

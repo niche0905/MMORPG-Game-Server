@@ -131,6 +131,11 @@ uint64 Creature::GetID() const
 	return id;
 }
 
+uint16 Creature::GetHP() const
+{
+	return hp;
+}
+
 void Creature::SetDummy()
 {
 	TextureManager::Instance().LoadTexture("dummy", "./Resource/Texture/dummy.png");
