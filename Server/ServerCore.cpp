@@ -251,7 +251,23 @@ void ServerCore::Worker()
 			if (client->IsPlayer()) break;
 
 			auto npc = static_cast<Bot*>(client);
-			npc->DoRandomMove();
+			npc->Update();
+
+			delete exp_overlapped;
+		}
+		break;
+		case OverOperation::DO_REVIVE:
+		{
+			std::cout << "DO_REVIVE\n";
+
+			Creature* client = _clients.at(key);
+
+			if (client == nullptr) break;
+
+			if (client->IsPlayer()) break;
+
+			auto npc = static_cast<Bot*>(client);
+			npc->DoRevive();
 
 			delete exp_overlapped;
 		}
@@ -290,6 +306,13 @@ void ServerCore::TimerWorker()
 			case Event::EventType::EV_RANDOM_MOVE:
 			{
 				ExOver* new_task = new ExOver(DO_RANDOM_MOVE);
+				_iocp_core.AddTask(evt._id, new_task);
+			}
+			break;
+			
+			case Event::EventType::EV_REVIVE:
+			{
+				ExOver* new_task = new ExOver(DO_REVIVE);
 				_iocp_core.AddTask(evt._id, new_task);
 			}
 			break;
