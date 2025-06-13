@@ -253,8 +253,6 @@ void Bot::DoRandomMove()
 
 void Bot::DoRevive()
 {
-	std::cout << "DoRevive\n";
-
 	_state = GameState::ST_ALIVE;
 	_fsm.ChangeState(this, &IdleState::Instance());
 

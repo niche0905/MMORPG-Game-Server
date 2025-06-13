@@ -271,8 +271,6 @@ void ServerCore::Worker()
 		break;
 		case OverOperation::DO_REVIVE:
 		{
-			std::cout << "DO_REVIVE\n";
-
 			Creature* client = _clients.at(key);
 
 			if (client == nullptr) break;
