@@ -49,6 +49,7 @@ private:
 
 	void ThreadPoolInit();
 
+	void StateInit();
 	void NPCInit();
 
 	void CreateListenSocket();

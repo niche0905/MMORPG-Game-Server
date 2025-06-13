@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "ServerCore.h"
+#include "IdleState.h"
+#include "DeadState.h"
 
 
 
@@ -139,8 +141,19 @@ void ServerCore::ThreadPoolInit()
 	std::cout << "Thread Count : " << _threads.size() << "\n";
 }
 
+void ServerCore::StateInit()
+{
+	// TODO: 사용할 모든 State를 한번 Instance() 호출해 주어야 한다
+	IdleState::Instance();
+	DeadState::Instance();
+
+	std::cout << "NPC States Init Success\n";
+}
+
 void ServerCore::NPCInit()
 {
+	StateInit();
+
 	for (uint64 i = 0; i < NUM_MONSTER; ++i) {
 		Creature* npc = new Bot{ i };
 		std::string name = ("NPC" + std::to_string(i));
