@@ -288,6 +288,8 @@ void Session::MoveProcess(BYTE* packet)
 		uint8 state = client->GetState();
 		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
 
+		if (client->IsNPC() and state == GameState::ST_DEAD) continue;
+
 		// view list 판단
 		if (client->CanSee(_position, VIEW_RANGE)) {	// 보이는 경우
 			near_list.insert(client_id);
