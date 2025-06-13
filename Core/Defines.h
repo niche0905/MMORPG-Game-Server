@@ -39,8 +39,16 @@ enum ClassType : uint8
 	WARRIOR,		// 전사
 	ROGUE,			// 도적
 	SORCERER,		// 마법사
-	
+
+	// NPC들
+	TALK_NPC,
+	QUEST_NPC,
+	MERCHANT_NPC,
+	AGRS_MERCHANT_NPC,
+	KNIGHT_NPC,
+
 	CLASS_NONE,
+	BOT_NONE,
 
 	CLASS_END
 };

@@ -28,7 +28,7 @@ AggressiveMerchantNPC::AggressiveMerchantNPC()
 }
 
 AggressiveMerchantNPC::AggressiveMerchantNPC(uint64 id)
-	: MerchantNPC{ id, true, Bot::BotType::AGRS_MERCHANT_NPC }
+	: MerchantNPC{ id, true, ClassType::AGRS_MERCHANT_NPC }
 {
 
 }

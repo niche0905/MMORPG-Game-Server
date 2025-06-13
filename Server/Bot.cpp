@@ -11,7 +11,7 @@ Bot::Bot()
 }
 
 Bot::Bot(uint64 id)
-	: Bot{ id, BOT_START, false, true, false, false, false }
+	: Bot{ id, BOT_NONE, false, true, false, false, false }
 {
 
 }

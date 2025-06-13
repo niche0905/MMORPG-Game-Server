@@ -8,7 +8,7 @@
       <Filter>PCH</Filter>
     </ClCompile>
     <ClCompile Include="Session.cpp">
-      <Filter>Core\BaseSession\Session</Filter>
+      <Filter>Contents\Creature\Session</Filter>
     </ClCompile>
     <ClCompile Include="ExpansionOverlapped.cpp">
       <Filter>Core\Overlapped</Filter>
@@ -36,7 +36,7 @@
       <Filter>Contents\NPC\Bot</Filter>
     </ClCompile>
     <ClCompile Include="BaseSession.cpp">
-      <Filter>Core\BaseSession</Filter>
+      <Filter>Contents\Creature</Filter>
     </ClCompile>
     <ClCompile Include="Position.cpp">
       <Filter>Utils</Filter>
@@ -109,12 +109,6 @@
     <Filter Include="Utils\GrobalVariable">
       <UniqueIdentifier>{3e0d0a8d-e697-4b60-8b33-35f4157ed3d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\BaseSession">
-      <UniqueIdentifier>{db0e1dfe-f632-42fc-8868-8e960cb551db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\BaseSession\Session">
-      <UniqueIdentifier>{fcb08fa4-490b-4c9f-bca4-fb77198b2228}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\DB">
       <UniqueIdentifier>{b567da72-393e-4884-97d3-8bb9e398211a}</UniqueIdentifier>
     </Filter>
@@ -151,6 +145,12 @@
     <Filter Include="Contents\NPC\StateMachine">
       <UniqueIdentifier>{e5c0824b-e3cd-43bc-9282-7c4384d9140d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Creature">
+      <UniqueIdentifier>{db0e1dfe-f632-42fc-8868-8e960cb551db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\Session">
+      <UniqueIdentifier>{fcb08fa4-490b-4c9f-bca4-fb77198b2228}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IocpCore.h">
@@ -160,7 +160,7 @@
       <Filter>PCH</Filter>
     </ClInclude>
     <ClInclude Include="Session.h">
-      <Filter>Core\BaseSession\Session</Filter>
+      <Filter>Contents\Creature\Session</Filter>
     </ClInclude>
     <ClInclude Include="ExpansionOverlapped.h">
       <Filter>Core\Overlapped</Filter>
@@ -187,7 +187,7 @@
       <Filter>Contents\NPC\Bot</Filter>
     </ClInclude>
     <ClInclude Include="BaseSession.h">
-      <Filter>Core\BaseSession</Filter>
+      <Filter>Contents\Creature</Filter>
     </ClInclude>
     <ClInclude Include="Position.h">
       <Filter>Utils</Filter>

@@ -15,7 +15,7 @@ Monster::Monster(uint64 id)
 }
 
 Monster::Monster(uint64 id, bool neut, bool peac, bool fix)
-	: Bot{ id, Bot::BotType::BOT_NONE, false, neut, peac, false, fix }
+	: Bot{ id, ClassType::BOT_NONE, false, neut, peac, false, fix }
 {
 
 }

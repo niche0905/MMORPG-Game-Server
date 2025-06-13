@@ -4,22 +4,6 @@
 
 class Bot : public Creature
 {
-public:
-	enum BotType : uint8
-	{
-		BOT_START = 0,
-
-		TALK_NPC,
-		QUEST_NPC,
-		MERCHANT_NPC,
-		AGRS_MERCHANT_NPC,
-		KNIGHT_NPC,
-
-		BOT_NONE,
-
-		BOT_END
-	};
-
 protected:
 	FSM						_fsm;
 

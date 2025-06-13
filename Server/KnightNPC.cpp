@@ -9,7 +9,7 @@ KnightNPC::KnightNPC()
 }
 
 KnightNPC::KnightNPC(uint64 id)
-	: Bot{ id, Bot::BotType::KNIGHT_NPC, false, true, false, true, false }
+	: Bot{ id, ClassType::KNIGHT_NPC, false, true, false, true, false }
 {
 
 }
