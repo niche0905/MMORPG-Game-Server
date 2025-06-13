@@ -1,3 +1,4 @@
+#include "Player.h"
 #include "pch.h"
 #include "BaseSession.h"
 
@@ -139,6 +140,11 @@ bool Creature::SetDead()
 void Creature::DeadSequence()
 {
 	// TODO: 죽으면 한번 Broadcast 하기
+}
+
+void Creature::SetClassType(uint8 class_type)
+{
+	_class_type = class_type;
 }
 
 uint8 Creature::GetClassType() const

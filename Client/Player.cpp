@@ -148,6 +148,16 @@ void Creature::SetMonster()
 	SetSprite("monster");
 }
 
+void Creature::SetClassType(uint8 class_type)
+{
+	_class_type = class_type;
+}
+
+uint8 Creature::GetClassType() const
+{
+	return _class_type;
+}
+
 void Creature::AddChat(std::string_view chat)
 {
 	_chattings.emplace_back(chat, 2000000);

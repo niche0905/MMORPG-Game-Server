@@ -20,6 +20,7 @@ private:
 	sf::RectangleShape _hp_bg;		// HP 배경
 	sf::RectangleShape _hp_fg;		// HP 전면
 
+	uint8			_class_type;	// class type
 	Attack			_a_atk;
 
 	std::list<Chat> _chattings;
@@ -46,6 +47,9 @@ public:
 	// TODO: 바꾸어야 함
 	void SetDummy();
 	void SetMonster();
+
+	void SetClassType(uint8 class_type);
+	uint8 GetClassType() const;
 
 	void AddChat(std::string_view chat);
 	void AddDamage(uint16 damage);
