@@ -197,7 +197,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		break;
 
 		default:
-			std::cout << "패킷 id 없는 패킷 오류\n";
+			std::cout << "Packet id Done Exist\n";
 			break;
 		}
 
