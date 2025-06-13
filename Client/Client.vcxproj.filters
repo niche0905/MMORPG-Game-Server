@@ -7,29 +7,11 @@
     <Filter Include="Game">
       <UniqueIdentifier>{0f549efc-5aba-4fb3-8c88-b72eb02e8ef9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{aaf47826-5e0d-46ab-a36e-3bdbc047cf88}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Network">
       <UniqueIdentifier>{a9e9616d-4dc8-4734-a36d-e3e850da0470}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{41aef49b-5c2b-4e3f-afd5-3427e8c438f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="World">
-      <UniqueIdentifier>{a59b257c-d549-408b-bc3b-1f1c8f5027e4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{59a630d5-755d-4fb9-a664-e39485c86db7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="World\TileManager">
-      <UniqueIdentifier>{30bd6ede-8a7d-4880-8a6d-c5b5197a1626}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\BaseScene">
-      <UniqueIdentifier>{1b645bfc-ca9e-45a5-84f1-d64be924fb77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Player">
-      <UniqueIdentifier>{4e7593cc-7e12-484e-be4e-950e30ec777f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utils\TextureManager">
       <UniqueIdentifier>{2653c44e-d6a2-4f17-889d-17254f4d4be8}</UniqueIdentifier>
@@ -37,14 +19,35 @@
     <Filter Include="Utils\FontManager">
       <UniqueIdentifier>{1f202c5f-5c77-4826-95c8-6554b575f252}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Animation">
-      <UniqueIdentifier>{d3b3c8fc-833e-4163-8806-87f5e80bac58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Chat">
-      <UniqueIdentifier>{f1f3e6c7-66d2-43a2-b5c2-ce49529241e9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Content">
       <UniqueIdentifier>{cbe1377b-95b2-4fdf-b342-efadf9adb424}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Object">
+      <UniqueIdentifier>{41aef49b-5c2b-4e3f-afd5-3427e8c438f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Object\Player">
+      <UniqueIdentifier>{4e7593cc-7e12-484e-be4e-950e30ec777f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Object\Chat">
+      <UniqueIdentifier>{f1f3e6c7-66d2-43a2-b5c2-ce49529241e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Animation">
+      <UniqueIdentifier>{d3b3c8fc-833e-4163-8806-87f5e80bac58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Object\Attack">
+      <UniqueIdentifier>{fa5bd1fd-d459-4022-a916-368ac539cd6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Scene">
+      <UniqueIdentifier>{aaf47826-5e0d-46ab-a36e-3bdbc047cf88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Scene\BaseScene">
+      <UniqueIdentifier>{1b645bfc-ca9e-45a5-84f1-d64be924fb77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\World">
+      <UniqueIdentifier>{a59b257c-d549-408b-bc3b-1f1c8f5027e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\World\TileManager">
+      <UniqueIdentifier>{30bd6ede-8a7d-4880-8a6d-c5b5197a1626}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -56,55 +59,55 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
-      <Filter>Scene</Filter>
+      <Filter>Content\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Communication.cpp">
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>Object</Filter>
+      <Filter>Content\Object</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
-      <Filter>World</Filter>
+      <Filter>Content\World</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>World</Filter>
+      <Filter>Content\World</Filter>
     </ClCompile>
     <ClCompile Include="GlobalVariable.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="TileManager.cpp">
-      <Filter>World\TileManager</Filter>
+      <Filter>Content\World\TileManager</Filter>
     </ClCompile>
     <ClCompile Include="BaseScene.cpp">
-      <Filter>Scene\BaseScene</Filter>
+      <Filter>Content\Scene\BaseScene</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
       <Filter>Utils\TextureManager</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Object\Player</Filter>
+      <Filter>Content\Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="FontManager.cpp">
       <Filter>Utils\FontManager</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
-      <Filter>Animation</Filter>
+      <Filter>Content\Animation</Filter>
     </ClCompile>
     <ClCompile Include="AnimationManager.cpp">
-      <Filter>Animation</Filter>
+      <Filter>Content\Animation</Filter>
     </ClCompile>
     <ClCompile Include="AnimationSet.cpp">
-      <Filter>Animation</Filter>
+      <Filter>Content\Animation</Filter>
     </ClCompile>
     <ClCompile Include="PresentAnimation.cpp">
-      <Filter>Animation</Filter>
+      <Filter>Content\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Chat.cpp">
-      <Filter>Object\Chat</Filter>
+      <Filter>Content\Object\Chat</Filter>
     </ClCompile>
     <ClCompile Include="Attack.cpp">
-      <Filter>Content</Filter>
+      <Filter>Content\Object\Attack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,58 +118,58 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h">
-      <Filter>Scene</Filter>
+      <Filter>Content\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Communication.h">
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Object</Filter>
+      <Filter>Content\Object</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
-      <Filter>World</Filter>
+      <Filter>Content\World</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>World</Filter>
+      <Filter>Content\World</Filter>
     </ClInclude>
     <ClInclude Include="GlobalVariable.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="TileManager.h">
-      <Filter>World\TileManager</Filter>
+      <Filter>Content\World\TileManager</Filter>
     </ClInclude>
     <ClInclude Include="BaseScene.h">
-      <Filter>Scene\BaseScene</Filter>
+      <Filter>Content\Scene\BaseScene</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>Utils\TextureManager</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Object\Player</Filter>
+      <Filter>Content\Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="FontManager.h">
       <Filter>Utils\FontManager</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>Animation</Filter>
+      <Filter>Content\Animation</Filter>
     </ClInclude>
     <ClInclude Include="AnimationManager.h">
-      <Filter>Animation</Filter>
+      <Filter>Content\Animation</Filter>
     </ClInclude>
     <ClInclude Include="AnimationSet.h">
-      <Filter>Animation</Filter>
+      <Filter>Content\Animation</Filter>
     </ClInclude>
     <ClInclude Include="PresentAnimation.h">
-      <Filter>Animation</Filter>
+      <Filter>Content\Animation</Filter>
     </ClInclude>
     <ClInclude Include="ClientDefines.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Chat.h">
-      <Filter>Object\Chat</Filter>
+      <Filter>Content\Object\Chat</Filter>
     </ClInclude>
     <ClInclude Include="Attack.h">
-      <Filter>Content</Filter>
+      <Filter>Content\Object\Attack</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
