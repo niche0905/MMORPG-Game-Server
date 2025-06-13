@@ -49,7 +49,7 @@ public:
 	bool IsNPC() const override;
 
 	uint16 GetMaxHP() const override;
-	void TakeDamage(uint16 damage);
+	void TakeDamage(uint16 damage) override;
 	void DeadSequence() override;
 
 	uint8 GetBotType() const;
@@ -66,6 +66,7 @@ public:
 	void WakeUp();
 
 	void DoRandomMove();
+	void DoRevive();
 
 };
 

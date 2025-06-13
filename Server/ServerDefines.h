@@ -18,6 +18,7 @@ enum OverOperation
 	IO_ACCEPT,
 
 	DO_RANDOM_MOVE,
+	DO_REVIVE,
 
 	OVER_NONE,
 

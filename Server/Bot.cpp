@@ -250,3 +250,30 @@ void Bot::DoRandomMove()
 	Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_RANDOM_MOVE };
 	server.AddTimerEvent(evt);
 }
+
+void Bot::DoRevive()
+{
+	std::cout << "DoRevive\n";
+
+	_state = GameState::ST_ALIVE;
+	_fsm.ChangeState(this, &IdleState::Instance());
+
+	std::unordered_set<uint64> view_list = server.GetClientList(_position);
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _level };
+
+	for (uint64 client_id : view_list) {
+
+		if (::IsNPC(client_id)) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+		if (not client->CanSee(_position, VIEW_RANGE)) continue;
+
+		Session* session = static_cast<Session*>(client);
+		session->Send(&enter_packet);
+	}
+}
