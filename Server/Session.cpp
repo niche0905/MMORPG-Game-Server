@@ -432,12 +432,15 @@ void Session::AttackProcess(BYTE* packet)
 
 			if (client_id == _id) continue;		// 내 ID라면 무시
 
+			if (::IsPlayer(client_id)) continue;	// 플레이어라면 무시 (플레이어 끼린 평화?? 이지 않나?)
+
 			Creature* client = server.GetClients()[client_id];
 			if (client == nullptr) continue;	// nullptr 이라면 무시
 
 			uint8 state = client->GetState();
 			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;	// 게임 참여 중 아니라면 무시
 
+			// 공격 범위 판정!
 			Position client_pos = client->GetPosition();
 			int16 dx = std::abs(client_pos.x - pos.x);
 			int16 dy = std::abs(client_pos.y - pos.y);
