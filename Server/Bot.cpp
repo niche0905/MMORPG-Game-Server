@@ -258,7 +258,6 @@ void Bot::DoRevive()
 	_state = GameState::ST_ALIVE;
 
 	std::unordered_set<uint64> view_list = server.GetClientList(_position);
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _level };
 
 	std::unordered_set<uint64> near_list;
 	for (uint64 client_id : view_list) {
@@ -273,15 +272,11 @@ void Bot::DoRevive()
 
 		if (not client->CanSee(_position, VIEW_RANGE)) continue;
 
-		Session* session = static_cast<Session*>(client);
-		session->Send(&enter_packet);
-
 		near_list.insert(client_id);
 	}
 
 	if (near_list.size() == 0) return;
 
 	using namespace std::chrono;
-
 	server.AddTimerEvent(Event{ _id, system_clock::now() + 1s, Event::EventType::EV_RANDOM_MOVE });
 }
