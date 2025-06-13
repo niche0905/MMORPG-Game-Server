@@ -173,8 +173,58 @@ void Creature::AddDamage(uint16 damage)
 void Creature::ShowAttack(uint8 atk_key)
 {
 	// TODO: class 와 NPC tpye으로 atk_type을 추출해야 함
+	uint8 atk_type = AttackType::ATTACK_NONE;
 
-	switch (atk_key)
+	switch (_class_type)
+	{
+	case ClassType::WARRIOR:
+	{
+		switch (atk_key)
+		{
+		case KeyType::KEY_A:
+			atk_type = AttackType::STANDARD_ATK;
+			break;
+		case KeyType::KEY_S:
+			break;
+		case KeyType::KEY_D:
+			break;
+		}
+	}
+	break;
+
+	case ClassType::ROGUE:
+	{
+		switch (atk_key)
+		{
+		case KeyType::KEY_A:
+			atk_type = AttackType::STANDARD_ATK;
+			break;
+		case KeyType::KEY_S:
+			break;
+		case KeyType::KEY_D:
+			break;
+		}
+	}
+	break;
+
+	case ClassType::SORCERER:
+	{
+		switch (atk_key)
+		{
+		case KeyType::KEY_A:
+			atk_type = AttackType::STANDARD_ATK;
+			break;
+		case KeyType::KEY_S:
+			break;
+		case KeyType::KEY_D:
+			break;
+		}
+	}
+	break;
+
+	}
+
+	switch (atk_type)
 	{
 	case AttackType::STANDARD_ATK:
 	{
