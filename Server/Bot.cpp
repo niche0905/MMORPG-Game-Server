@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Bot.h"
+#include "IdleState.h"
+#include "DeadState.h"
 
 
 Bot::Bot()
@@ -25,7 +27,7 @@ Bot::Bot(uint64 id, uint8 b_type, bool invin, bool neut, bool peace, bool firend
 	, _is_friendly{ firend }
 	, _is_fix{ fix }
 {
-
+	_fsm.ChangeState(this, &IdleState::Instance());
 }
 
 Bot::~Bot()
@@ -106,6 +108,10 @@ bool Bot::GetFix() const
 void Bot::Update()
 {
 	// TODO: 조건에 따라서 change state
+	if (_state == GameState::ST_DEAD) {
+		_fsm.ChangeState(this, &DeadState::Instance());
+		return;
+	}
 
 	_fsm.Update(this);
 }

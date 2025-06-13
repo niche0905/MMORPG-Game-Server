@@ -12,6 +12,7 @@ public:
 		EVENT_START = 0,
 
 		EV_RANDOM_MOVE,
+		EV_REVIVE,
 
 		EVENT_END
 	};
