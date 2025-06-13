@@ -140,3 +140,8 @@ void Creature::DeadSequence()
 {
 	// TODO: 죽으면 한번 Broadcast 하기
 }
+
+uint8 Creature::GetClassType() const
+{
+	return _class_type;
+}

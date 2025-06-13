@@ -11,8 +11,6 @@ protected:
 
 	Position				_base_pos = { 0, 0 };			// 기본 위치
 
-	uint8					_bot_type = 0;					// 어떤 유형의 Bot인지
-
 	bool					_is_invincibility = false;		// 무적인지 (상호 공격 불가 몬스터)
 	bool					_is_neutrality = false;			// 중립 몹인지 (선공을 하지 않고 피격 시)
 	bool					_is_peace = false;				// 공격을 하지 않는 몹인지

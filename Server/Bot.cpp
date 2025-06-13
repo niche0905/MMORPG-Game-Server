@@ -20,13 +20,13 @@ Bot::Bot(uint64 id, uint8 b_type, bool invin, bool neut, bool peace, bool firend
 	: Creature{ id, false }
 	, _fsm{}
 	, _target{ nullptr }
-	, _bot_type{ b_type }
 	, _is_invincibility{ invin }
 	, _is_neutrality{ neut }
 	, _is_peace{ peace }
 	, _is_friendly{ firend }
 	, _is_fix{ fix }
 {
+	_class_type = b_type;
 	_fsm.ChangeState(this, &IdleState::Instance());
 }
 
@@ -98,7 +98,7 @@ void Bot::DeadSequence()
 
 uint8 Bot::GetBotType() const
 {
-	return _bot_type;
+	return _class_type;
 }
 
 bool Bot::GetInvincibility() const
@@ -221,7 +221,7 @@ void Bot::DoRandomMove()
 		}
 	}
 
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), 0, _level };
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _class_type, _level };
 	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
 
 	for (uint64 client_id : new_view) {

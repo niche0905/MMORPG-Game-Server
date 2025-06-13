@@ -33,7 +33,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Bot.cpp">
-      <Filter>Contents\NPC\Bot</Filter>
+      <Filter>Contents\Creature\NPC\Bot</Filter>
     </ClCompile>
     <ClCompile Include="BaseSession.cpp">
       <Filter>Contents\Creature</Filter>
@@ -51,31 +51,31 @@
       <Filter>Core\ServerCore\Event</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
-      <Filter>Contents\NPC\State\BaseState</Filter>
+      <Filter>Contents\Creature\NPC\State\BaseState</Filter>
     </ClCompile>
     <ClCompile Include="IdleState.cpp">
-      <Filter>Contents\NPC\State\SharedState</Filter>
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClCompile>
     <ClCompile Include="DeadState.cpp">
-      <Filter>Contents\NPC\State\SharedState</Filter>
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClCompile>
     <ClCompile Include="MerchantNPC.cpp">
-      <Filter>Contents\NPC\Bot\NPC</Filter>
+      <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClCompile>
     <ClCompile Include="QuestNPC.cpp">
-      <Filter>Contents\NPC\Bot\NPC</Filter>
+      <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClCompile>
     <ClCompile Include="TalkNPC.cpp">
-      <Filter>Contents\NPC\Bot\NPC</Filter>
+      <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClCompile>
     <ClCompile Include="KnightNPC.cpp">
-      <Filter>Contents\NPC\Bot\NPC</Filter>
+      <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Contents\NPC\Bot\Monster</Filter>
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
     </ClCompile>
     <ClCompile Include="FiniteStateMachine.cpp">
-      <Filter>Contents\NPC\StateMachine</Filter>
+      <Filter>Contents\Creature\NPC\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,41 +115,41 @@
     <Filter Include="Core\ServerCore\Event">
       <UniqueIdentifier>{bdfc9a96-b92e-4291-af55-68562e40c8d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\NPC">
-      <UniqueIdentifier>{2c770213-05eb-4c2b-9c3c-c87f1275c910}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\State">
-      <UniqueIdentifier>{9caedb1b-2170-4a8c-bee2-40197f47ed6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\State\BaseState">
-      <UniqueIdentifier>{b4c15482-a63a-48a9-a0dc-43f17f9cb1cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\State\SharedState">
-      <UniqueIdentifier>{6d5d246e-b8dc-4bec-912d-4e1e9ce1a96c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\Bot">
-      <UniqueIdentifier>{42f72b96-5858-4123-8fa1-069b1500092c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\Bot\NPC">
-      <UniqueIdentifier>{120b2ad7-fe43-482e-8515-c57b48d67bb2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\Bot\Monster">
-      <UniqueIdentifier>{052f4909-b0da-4e4c-97e8-e14814ff022e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\State\AMerchantNPCStates">
-      <UniqueIdentifier>{ee66de56-4515-4678-950b-a96fb40059d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\State\KnightNPCStates">
-      <UniqueIdentifier>{7ef80366-c52b-4e57-83f6-1de9aa0172cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\NPC\StateMachine">
-      <UniqueIdentifier>{e5c0824b-e3cd-43bc-9282-7c4384d9140d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Creature">
       <UniqueIdentifier>{db0e1dfe-f632-42fc-8868-8e960cb551db}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\Creature\Session">
       <UniqueIdentifier>{fcb08fa4-490b-4c9f-bca4-fb77198b2228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC">
+      <UniqueIdentifier>{2c770213-05eb-4c2b-9c3c-c87f1275c910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\State">
+      <UniqueIdentifier>{9caedb1b-2170-4a8c-bee2-40197f47ed6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\State\BaseState">
+      <UniqueIdentifier>{b4c15482-a63a-48a9-a0dc-43f17f9cb1cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\State\SharedState">
+      <UniqueIdentifier>{6d5d246e-b8dc-4bec-912d-4e1e9ce1a96c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\State\AMerchantNPCStates">
+      <UniqueIdentifier>{ee66de56-4515-4678-950b-a96fb40059d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\State\KnightNPCStates">
+      <UniqueIdentifier>{7ef80366-c52b-4e57-83f6-1de9aa0172cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\Bot">
+      <UniqueIdentifier>{42f72b96-5858-4123-8fa1-069b1500092c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\Bot\NPC">
+      <UniqueIdentifier>{120b2ad7-fe43-482e-8515-c57b48d67bb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\Bot\Monster">
+      <UniqueIdentifier>{052f4909-b0da-4e4c-97e8-e14814ff022e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\StateMachine">
+      <UniqueIdentifier>{e5c0824b-e3cd-43bc-9282-7c4384d9140d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +184,7 @@
       <Filter>Utils\GrobalVariable</Filter>
     </ClInclude>
     <ClInclude Include="Bot.h">
-      <Filter>Contents\NPC\Bot</Filter>
+      <Filter>Contents\Creature\NPC\Bot</Filter>
     </ClInclude>
     <ClInclude Include="BaseSession.h">
       <Filter>Contents\Creature</Filter>
@@ -205,31 +205,31 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>Contents\NPC\State\BaseState</Filter>
+      <Filter>Contents\Creature\NPC\State\BaseState</Filter>
     </ClInclude>
     <ClInclude Include="IdleState.h">
-      <Filter>Contents\NPC\State\SharedState</Filter>
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClInclude>
     <ClInclude Include="DeadState.h">
-      <Filter>Contents\NPC\State\SharedState</Filter>
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClInclude>
     <ClInclude Include="TalkNPC.h">
-      <Filter>Contents\NPC\Bot\NPC</Filter>
+      <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClInclude>
     <ClInclude Include="MerchantNPC.h">
-      <Filter>Contents\NPC\Bot\NPC</Filter>
+      <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClInclude>
     <ClInclude Include="QuestNPC.h">
-      <Filter>Contents\NPC\Bot\NPC</Filter>
+      <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClInclude>
     <ClInclude Include="KnightNPC.h">
-      <Filter>Contents\NPC\Bot\NPC</Filter>
+      <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Contents\NPC\Bot\Monster</Filter>
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
     </ClInclude>
     <ClInclude Include="FiniteStateMachine.h">
-      <Filter>Contents\NPC\StateMachine</Filter>
+      <Filter>Contents\Creature\NPC\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

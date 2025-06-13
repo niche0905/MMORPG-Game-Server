@@ -19,6 +19,7 @@ protected:
 	std::atomic<uint8>			_state = GameState::ST_ALLOC;
 	uint8						_level = 1;
 	uint8						_visual_type = 0;		// 비쥬얼 정보 (기본 Sprite)
+	uint8						_class_type = 0;
 
 	bool						_is_pc;
 
@@ -56,6 +57,8 @@ public:
 	virtual void TakeDamage(uint16 damage);	
 	bool SetDead();
 	virtual void DeadSequence();
+
+	uint8 GetClassType() const;
 
 };
 
