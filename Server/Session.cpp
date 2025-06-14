@@ -45,6 +45,9 @@ void Session::Disconnect()
 			session->SendLeaveCreature(_id);
 		}
 		server.RemoveSector(_id, _position);
+
+		// TODO: 그 뭐냐 DB에 저장해 주어야 한다
+
 	}
 
 	_state = ST_CLOSE;
