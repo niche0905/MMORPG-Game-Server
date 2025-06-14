@@ -20,5 +20,7 @@ public:
 	void SetOrigin();
 	void SetPosition(sf::Vector2f pos);
 
+	uint32 GetBID() const;
+
 };
 

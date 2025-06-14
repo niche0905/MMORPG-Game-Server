@@ -81,7 +81,16 @@ void TitleScene::HandleInput(const sf::Event& input_event)
 			MoveSelector();
 		}
 		if (input_event.key.code == sf::Keyboard::Enter) {
-			// TODO: 선택된 버튼에 맞게 처리
+			if (_start_button.GetBID() == _button_index) {
+				// TODO: 다음 씬으로 넘어가기
+			}
+			else if (_exit_button.GetBID() == _button_index) {
+				// TODO: 게임종료
+			}
+			else {
+				// 있을 수 없는 일
+				std::cout << "Title Scene Selector Button ERROR\n";
+			}
 		}
 	}
 }

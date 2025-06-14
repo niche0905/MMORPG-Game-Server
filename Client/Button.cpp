@@ -63,3 +63,8 @@ void Button::SetPosition(sf::Vector2f pos)
 	button_sprite.setPosition(pos);
 	button_text.setPosition(pos);
 }
+
+uint32 Button::GetBID() const
+{
+	return button_id;
+}
