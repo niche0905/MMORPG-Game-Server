@@ -3,6 +3,15 @@
 
 class CreateScene : public BaseScene
 {
+private:
+	sf::Sprite				_warrior_sprite;
+	sf::Sprite				_rogue_sprite;
+	sf::Sprite				_sorcerer_sprite;
+
+	uint32					_button_index;
+	uint32					_max_index;
+	sf::RectangleShape		_select_background;
+
 public:
 	CreateScene();
 
@@ -13,6 +22,10 @@ public:
 	void HUD(sf::RenderWindow& window) override;
 	void HandleInput(const sf::Event& input_event) override;
 	void ProcessPacket(std::vector<BYTE> packet) override;
+
+private:
+
+	void UpdateSelector();
 
 };
 

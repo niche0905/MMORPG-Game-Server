@@ -34,6 +34,24 @@ void Game::Init()
 		exit(-1);
 	}
 
+	if (not TextureManager::Instance().LoadTexture("warrior_big", "Resource/Texture/warrior_big.png")) {
+		std::wcout << L"warrior_big Texture 로드 실패\n";
+
+		exit(-1);
+	}
+
+	if (not TextureManager::Instance().LoadTexture("rogue_big", "Resource/Texture/rogue_big.png")) {
+		std::wcout << L"rogue_big Texture 로드 실패\n";
+
+		exit(-1);
+	}
+
+	if (not TextureManager::Instance().LoadTexture("sorcerer_big", "Resource/Texture/sorcerer_big.png")) {
+		std::wcout << L"sorcerer_big Texture 로드 실패\n";
+
+		exit(-1);
+	}
+
 	scene = std::make_shared<TitleScene>();
 
 	// TODO : Loading이 끝나고 나서 last_time을 초기화 해야 함
