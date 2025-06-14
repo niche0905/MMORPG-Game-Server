@@ -136,6 +136,11 @@ void Game::SendID(const std::string& id)
 	communication.Send(reinterpret_cast<BYTE*>(&login_packet), sizeof(login_packet));
 }
 
+void Game::SendRegister(uint8 class_type)
+{
+	// TODO: 패킷 만들어야 함
+}
+
 void Game::SendAttack(uint8 atk_key)
 {
 	CS_ATTACK_PACKET attack_packet{ atk_key };

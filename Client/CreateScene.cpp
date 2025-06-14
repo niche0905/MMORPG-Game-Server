@@ -81,7 +81,22 @@ void CreateScene::HandleInput(const sf::Event& input_event)
 			UpdateSelector();
 		}
 		if (input_event.key.code == sf::Keyboard::Enter) {
-			// TODO: class type으로 변환하고 넘겨야 함
+			uint8 class_type = ClassType::CLASS_NONE;
+
+			switch (_button_index)
+			{
+			case 0:
+				class_type = ClassType::WARRIOR;
+				break;
+			case 1:
+				class_type = ClassType::ROGUE;
+				break;
+			case 2:
+				class_type = ClassType::SORCERER;
+				break;
+			}
+
+			game.SendRegister(class_type);
 		}
 	}
 }
