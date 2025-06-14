@@ -27,5 +27,8 @@ public:
 	void ProcessPacket(std::vector<BYTE> packet) override;
 	sf::Vector2f GetCameraCenter() const override;
 
+public:
+	void MoveSelector();
+
 };
 

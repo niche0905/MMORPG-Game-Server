@@ -69,7 +69,21 @@ void TitleScene::HUD(sf::RenderWindow& window)
 
 void TitleScene::HandleInput(const sf::Event& input_event)
 {
-	// TODO: 키 입력에 따라 뭐냐 선택 Rect 옮기기
+	if (input_event.type == sf::Event::KeyPressed) {
+		if (input_event.key.code == sf::Keyboard::Up) {
+			_button_index -= 1;
+			_button_index = ((_button_index + _max_index) % _max_index);
+			MoveSelector();
+		}
+		if (input_event.key.code == sf::Keyboard::Down) {
+			_button_index += 1;
+			_button_index = (_button_index % _max_index);
+			MoveSelector();
+		}
+		if (input_event.key.code == sf::Keyboard::Enter) {
+			// TODO: 선택된 버튼에 맞게 처리
+		}
+	}
 }
 
 void TitleScene::ProcessPacket(std::vector<BYTE> packets)
@@ -98,4 +112,11 @@ void TitleScene::ProcessPacket(std::vector<BYTE> packets)
 sf::Vector2f TitleScene::GetCameraCenter() const
 {
 	return { WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f };
+}
+
+void TitleScene::MoveSelector()
+{
+	const float mid_window = WINDOW_WIDTH / 2.f;
+
+	_select_background.setPosition({ mid_window , static_cast<float>(400 + (200 * _button_index)) });
 }
