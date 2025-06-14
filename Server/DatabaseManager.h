@@ -27,7 +27,7 @@ public:
 	void AddEventDB(const DatabaseEvent& db_event);
 
 private:
-	void DatabaseWorker();
+	void DatabaseWorker(int32 index_);
 
 	void HandleDiagnosticRecord(SQLHANDLE hHandle, SQLSMALLINT hType, RETCODE RetCode);
 

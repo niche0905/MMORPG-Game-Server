@@ -54,7 +54,7 @@ void DatabaseManager::DatabaseThread()
 	_threads.reserve(_hstmts.size());
 
 	for (int i = 0; i < _hstmts.size(); ++i) {
-		_threads.emplace_back([this]() { DatabaseWorker(); });
+		_threads.emplace_back([this, i]() { DatabaseWorker(i); });
 	}
 
 	std::cout << "DB Thread Init Success\n";
@@ -66,9 +66,9 @@ void DatabaseManager::AddEventDB(const DatabaseEvent& db_event)
 	_queue.push(db_event);
 }
 
-void DatabaseManager::DatabaseWorker()
+void DatabaseManager::DatabaseWorker(int32 index_)
 {
-	int index = 0;
+	int index = index_;
 	SQLRETURN retcode;
 
 
