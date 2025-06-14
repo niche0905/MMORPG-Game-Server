@@ -47,6 +47,8 @@ void Attack::SetSprite(const std::string& key)
 
 void Attack::SetSize(float size)
 {
+	if (_attack_obj.getTexture() == nullptr) return;
+
 	sf::Vector2u texture_size = _attack_obj.getTexture()->getSize();
 
 	_attack_obj.setScale(size / texture_size.x, size / texture_size.y);
