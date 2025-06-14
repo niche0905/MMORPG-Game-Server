@@ -7,6 +7,8 @@ class Button;
 class TitleScene : public BaseScene
 {
 private:
+	sf::Text				_title;
+
 	Button					_start_button;
 	Button					_exit_button;
 	uint32					_button_index;

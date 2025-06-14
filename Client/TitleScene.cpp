@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "TitleScene.h"
 #include "TextureManager.h"
+#include "FontManager.h"
 #include "Button.h"
 
 
@@ -16,6 +17,20 @@ TitleScene::TitleScene()
 void TitleScene::Init()
 {
 	float mid_window = WINDOW_WIDTH / 2.f;
+
+	_title.setFont(FontManager::Instance().GetFont("neodot"));
+	_title.setString("MMORPG");
+	_title.setCharacterSize(50);
+	_title.setFillColor(sf::Color::Red);
+	_title.setOutlineColor(sf::Color::White);
+	_title.setStyle(sf::Text::Regular);
+	_title.setOutlineThickness(3.f);
+
+	sf::FloatRect bounds = _title.getLocalBounds();
+	_title.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+
+	_title.setPosition({ mid_window, 200 });
+
 	float selecter_height = BIG_BUTTON_SIZE / 2.f;
 	_select_background.setFillColor(sf::Color::Yellow);
 	_select_background.setSize({ WINDOW_WIDTH , selecter_height });
@@ -41,6 +56,7 @@ void TitleScene::Update(const int64 delta_time)
 
 void TitleScene::Draw(sf::RenderWindow& window)
 {
+	window.draw(_title);
 	window.draw(_select_background);
 	_start_button.Draw(window);
 	_exit_button.Draw(window);
