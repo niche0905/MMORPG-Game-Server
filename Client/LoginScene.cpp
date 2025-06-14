@@ -89,6 +89,7 @@ void LoginScene::ProcessPacket(std::vector<BYTE> packets)
 
 		case PacketID::S2C_LOGIN_ALLOW:
 		{
+			game.SetName(_input_buffer);
 			game.SceneLoad(SceneType::GameScene);
 			game.ProcessPacket(packets);
 		}
