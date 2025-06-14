@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Game.h"
 #include "GameScene.h"
+#include "TitleScene.h"
 #include "FontManager.h"
 
 
@@ -155,8 +156,10 @@ void Game::SceneLoad(SceneType scene_type)
 	switch (scene_type)
 	{
 	case SceneType::TitleScene:
+		scene = std::make_shared<TitleScene>();
 		break;
 	case SceneType::GameScene:
+		scene = std::make_shared<GameScene>();
 		break;
 	default:
 		break;

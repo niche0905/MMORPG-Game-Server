@@ -109,6 +109,9 @@
     <ClCompile Include="Attack.cpp">
       <Filter>Content\Object\Attack</Filter>
     </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Content\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="Attack.h">
       <Filter>Content\Object\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Content\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
