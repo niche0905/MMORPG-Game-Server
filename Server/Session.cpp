@@ -151,6 +151,12 @@ void Session::ProcessPacket(BYTE* packet)
 	}
 	break;
 
+	case PacketID::C2S_REGISTER:
+	{
+		RegisterProcess(packet);
+	}
+	break;
+
 	case PacketID::C2S_MOVE:
 	{
 		MoveProcess(packet);
@@ -203,6 +209,19 @@ void Session::LoginProcess(BYTE* packet)
 	SetName(login_packet->_name);
 
 	DatabaseEvent db_event{ _id, DatabaseEvent::DbOperation::DB_LOGIN_REQUEST };
+	server.AddRequestDB(db_event);
+}
+
+void Session::RegisterProcess(BYTE* packet)
+{
+	CS_REGISTER_PACKET* register_packet = reinterpret_cast<CS_REGISTER_PACKET*>(packet);
+	SetName(register_packet->_name);
+
+	_class_type = register_packet->_class_type;
+	// TODO: 적절한 위치에 생성해야 함
+	_position = { 1000, 1000 };
+
+	DatabaseEvent db_event{ _id, DatabaseEvent::DbOperation::DB_REGISTER_REQUEST };
 	server.AddRequestDB(db_event);
 }
 

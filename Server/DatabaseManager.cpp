@@ -14,6 +14,31 @@ DatabaseManager::DatabaseManager(uint64 handle_size)
 
 }
 
+DatabaseManager::~DatabaseManager()
+{
+	for (auto& hstmt : _hstmts)
+	{
+		if (hstmt)
+		{
+			SQLFreeHandle(SQL_HANDLE_STMT, hstmt);
+			hstmt = nullptr;
+		}
+	}
+
+	if (_hdbc)
+	{
+		SQLDisconnect(_hdbc); // 연결 끊기
+		SQLFreeHandle(SQL_HANDLE_DBC, _hdbc); // Connection handle 해제
+		_hdbc = nullptr;
+	}
+
+	if (_henv)
+	{
+		SQLFreeHandle(SQL_HANDLE_ENV, _henv);
+		_henv = nullptr;
+	}
+}
+
 void DatabaseManager::Init()
 {
 	SQLRETURN retcode;
@@ -85,8 +110,6 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				if (creature == nullptr) break;
 				Session* session = static_cast<Session*>(creature);
 
-				session->GetName();
-
 				const std::wstring match_id_query = L"EXEC match_id ?";
 				wchar_t wname[100];
 				size_t convertedChars = 0;
@@ -98,7 +121,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 					exit(-1);
 				}
 
-				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WCHAR, wcslen(wname), 0, (SQLPOINTER)wname, 0, NULL);
+				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WCHAR, 20, 0, (SQLPOINTER)wname, 0, NULL);
 				int64 userID;
 				int16 x, y, maxHP, HP;
 				uint8 class_type;
@@ -116,6 +139,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				retcode = SQLExecute(_hstmts[index]);
 				if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
 					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
+					SQLFreeStmt(_hstmts[index], SQL_CLOSE);
 					exit(-1);
 				}
 
@@ -134,6 +158,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				}
 				else {
 					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
+					SQLFreeStmt(_hstmts[index], SQL_CLOSE);
 					exit(-1);
 				}
 
@@ -141,6 +166,60 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 
 			}
 			break;
+
+			case DatabaseEvent::DB_REGISTER_REQUEST:
+			{
+				Creature* creature = server.GetClients()[now_id];
+				if (creature == nullptr) break;
+				Session* session = static_cast<Session*>(creature);
+
+				const std::wstring match_id_query = L"EXEC register_request ? ? ? ? ? ? ? ? ?";
+				wchar_t wname[100];
+				size_t convertedChars = 0;
+				mbstowcs_s(&convertedChars, wname, session->GetName().c_str(), strlen(session->GetName().c_str()) + 1);
+
+				retcode = SQLPrepare(_hstmts[index], (SQLWCHAR*)match_id_query.c_str(), SQL_NTS);
+				if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
+					SQLFreeStmt(_hstmts[index], SQL_CLOSE);
+					exit(-1);
+				}
+
+				Position pos = session->GetPosition();
+				int16 maxHP = 100, HP = 100;
+				uint8 class_type = session->GetClassType();
+				int32 level = 1;
+				int64 exp = 0;
+				int32 result_code = -1;
+
+				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WCHAR, 20, 0, (SQLPOINTER)wname, 0, NULL);
+				SQLBindParameter(_hstmts[index], 2, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &pos.x, 0, NULL);
+				SQLBindParameter(_hstmts[index], 3, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &pos.y, 0, NULL);
+				SQLBindParameter(_hstmts[index], 4, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &maxHP, 0, NULL);
+				SQLBindParameter(_hstmts[index], 5, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &HP, 0, NULL);
+				SQLBindParameter(_hstmts[index], 6, SQL_PARAM_INPUT, SQL_C_UTINYINT, SQL_TINYINT, 0, 0, &class_type, 0, NULL);
+				SQLBindParameter(_hstmts[index], 7, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, 0, 0, &level, 0, NULL);
+				SQLBindParameter(_hstmts[index], 8, SQL_PARAM_INPUT, SQL_C_SBIGINT, SQL_BIGINT, 0, 0, &exp, 0, NULL);
+				SQLBindParameter(_hstmts[index], 9, SQL_PARAM_OUTPUT, SQL_C_LONG, SQL_INTEGER, 0, 0, &result_code, 0, NULL);
+
+				retcode = SQLExecute(_hstmts[index]);
+				if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
+					SQLFreeStmt(_hstmts[index], SQL_CLOSE);
+					exit(-1);
+				}
+
+				if (result_code == 0) {
+					// TODO: 등록 성공 반환 (login success 처리)
+				}
+				else {
+					// TODO: 로그인 실패 처리
+				}
+
+				SQLCloseCursor(_hstmts[index]);
+			}
+			break;
+
 			}
 		}
 		else {

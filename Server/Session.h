@@ -50,6 +50,7 @@ public:
 	void ReassemblePacket(DWORD recv_size);
 
 	void LoginProcess(BYTE* packet);
+	void RegisterProcess(BYTE* packet);
 	void MoveProcess(BYTE* packet);
 	void ChatProcess(BYTE* packet);
 	void AttackProcess(BYTE* packet);

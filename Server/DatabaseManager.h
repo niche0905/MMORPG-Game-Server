@@ -19,6 +19,7 @@ private:
 public:
 	DatabaseManager();
 	DatabaseManager(uint64 handle_size);
+	~DatabaseManager();
 
 	void Init();
 
