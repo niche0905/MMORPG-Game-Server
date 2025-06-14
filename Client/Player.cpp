@@ -29,7 +29,6 @@ Creature::Creature(std::shared_ptr<World> world, uint64 id)
 void Creature::Init()
 {
 	SetSize(PLAYER_SIZE);
-	TextureManager::Instance().LoadTexture("player", "./Resource/Texture/player.png");
 	SetSprite("player");
 
 	_hp_bg.setSize(sf::Vector2f(HP_WIDTH, HP_HEIGHT));
@@ -138,13 +137,11 @@ uint16 Creature::GetHP() const
 
 void Creature::SetDummy()
 {
-	TextureManager::Instance().LoadTexture("dummy", "./Resource/Texture/dummy.png");
 	SetSprite("dummy");
 }
 
 void Creature::SetMonster()
 {
-	TextureManager::Instance().LoadTexture("monster", "./Resource/Texture/monster.png");
 	SetSprite("monster");
 }
 

@@ -11,8 +11,6 @@ Attack::Attack()
 Attack::Attack(std::string text)
 {
 	_attack_obj.Hide();
-
-	TextureManager::Instance().LoadTexture("standard_atk", "./Resource/Texture/standard_atk.png");
 	_attack_obj.SetSprite(text);
 	_attack_obj.SetSize(OBJECT_SIZE * 3);	// TODO: 이겄도 빼내어야 함
 }

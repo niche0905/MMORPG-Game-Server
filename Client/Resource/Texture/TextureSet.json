@@ -1,0 +1,40 @@
+{
+  "textures": [
+    {
+      "key": "button_big",
+      "path": "Resource/Texture/button_big.png"
+    },
+    {
+      "key": "player",
+      "path": "Resource/Texture/player.png"
+    },
+    {
+      "key": "dummy",
+      "path": "Resource/Texture/dummy.png"
+    },
+    {
+      "key": "monster",
+      "path": "Resource/Texture/monster.png"
+    },
+    {
+      "key": "grass",
+      "path": "Resource/Texture/grass.png"
+    },
+    {
+      "key": "standard_atk",
+      "path": "Resource/Texture/standard_atk.png"
+    },
+    {
+      "key": "warrior_big",
+      "path": "Resource/Texture/warrior_big.png"
+    },
+    {
+      "key": "rogue_big",
+      "path": "Resource/Texture/rogue_big.png"
+    },
+    {
+      "key": "sorcerer_big",
+      "path": "Resource/Texture/sorcerer_big.png"
+    }
+  ]
+}

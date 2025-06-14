@@ -17,7 +17,6 @@ void GameScene::Init()
 {
 	world = std::make_shared<World>(MAX_WIDTH, MAX_HEIGHT);
 
-	TextureManager::Instance().LoadTexture("grass", "./Resource/Texture/grass.png");
 	TileManager::Instance().AddTile(TileType::grass, "grass");
 
 	player_coordinate.setFont(FontManager::Instance().GetFont("neodot"));
