@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "TitleScene.h"
 #include "LoginScene.h"
+#include "CreateScene.h"
 #include "FontManager.h"
 #include "TextureManager.h"
 
@@ -175,6 +176,9 @@ void Game::SceneLoad(SceneType scene_type)
 	case SceneType::LoginScene:
 		scene = std::make_shared<LoginScene>();
 		break;
+	case SceneType::CreateScene:
+		scene = std::make_shared<CreateScene>();
+		break;
 	default:
 		break;
 	}
@@ -198,6 +202,11 @@ void Game::SetClassType(uint8 c_type)
 uint8 Game::GetClassType() const
 {
 	return class_type;
+}
+
+void Game::SetName(const std::string& name_)
+{
+	name = name_;
 }
 
 const std::string& Game::GetName() const

@@ -126,7 +126,8 @@ void LoginScene::ProcessPacket(std::vector<BYTE> packets)
 
 			case LoginFailReason::GO_REGISTER:
 			{
-				// TODO: 생성 Scene으로 넘어가라
+				game.SetName(_input_buffer);
+				game.SceneLoad(SceneType::CreateScene);
 			}
 			break;
 			}
