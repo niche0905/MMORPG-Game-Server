@@ -191,6 +191,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				int32 level = 1;
 				int64 exp = 0;
 				int32 result_code = -1;
+				int64 userID = -1;
 
 				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WCHAR, 20, 0, (SQLPOINTER)wname, 0, NULL);
 				SQLBindParameter(_hstmts[index], 2, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &pos.x, 0, NULL);
@@ -201,6 +202,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				SQLBindParameter(_hstmts[index], 7, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, 0, 0, &level, 0, NULL);
 				SQLBindParameter(_hstmts[index], 8, SQL_PARAM_INPUT, SQL_C_SBIGINT, SQL_BIGINT, 0, 0, &exp, 0, NULL);
 				SQLBindParameter(_hstmts[index], 9, SQL_PARAM_OUTPUT, SQL_C_LONG, SQL_INTEGER, 0, 0, &result_code, 0, NULL);
+				SQLBindParameter(_hstmts[index], 10, SQL_PARAM_OUTPUT, SQL_C_SBIGINT, SQL_BIGINT, 0, 0, &userID, 0, NULL);
 
 				retcode = SQLExecute(_hstmts[index]);
 				if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
@@ -210,10 +212,18 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				}
 
 				if (result_code == 0) {
-					// TODO: 등록 성공 반환 (login success 처리)
+					uint64 user_id = static_cast<uint64>(userID);
+
+					bool succ = session->RegisterInfo(user_id);
+
+					if (succ) {
+						ExOver* new_task = new ExOver{ OverOperation::DB_LOGIN };
+						server.AddTask(now_id, new_task);
+					}
 				}
 				else {
-					// TODO: 로그인 실패 처리
+					ExOver* new_task = new ExOver{ OverOperation::DB_REGISTER_FAIL };
+					server.AddTask(now_id, new_task);
 				}
 
 				SQLCloseCursor(_hstmts[index]);

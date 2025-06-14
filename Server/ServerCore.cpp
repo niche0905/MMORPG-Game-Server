@@ -311,6 +311,20 @@ void ServerCore::Worker()
 			delete exp_overlapped;
 		}
 		break;
+		case OverOperation::DB_REGISTER_FAIL:
+		{
+			Creature* client = _clients.at(key);
+
+			if (client == nullptr) break;
+
+			if (client->IsNPC()) break;
+
+			auto session = static_cast<Session*>(client);
+			session->RegisterFalse();
+
+			delete exp_overlapped;
+		}
+		break;
 		default:
 		{
 			std::cout << "Unknown IO Operation\n";

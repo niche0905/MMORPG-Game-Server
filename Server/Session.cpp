@@ -461,7 +461,6 @@ uint64 Session::GetUserID() const
 
 bool Session::LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 HP, uint8 class_type, uint32 level, uint64 exp)
 {
-	// TODO: cum으로 맵 하나 더 만들어야 함 (userID -> SessionID)
 	_user_id = user_id;
 
 	if (server.GetMappingTable().count(user_id) != 0) {
@@ -527,6 +526,32 @@ void Session::LoginDone()
 void Session::LoginFalse()
 {
 	SC_LOGIN_FAIL_PACKET login_fail_packet{ LoginFailReason::GO_REGISTER };
+	Send(&login_fail_packet);
+}
+
+bool Session::RegisterInfo(uint64 user_id)
+{
+	_user_id = user_id;
+
+	if (server.GetMappingTable().count(user_id) != 0) {
+		if (server.GetMappingTable()[user_id] != INVALID_ID) {
+			SC_LOGIN_FAIL_PACKET login_fail_packet{ LoginFailReason::USED_ID };
+			Send(&login_fail_packet);
+
+			return false;
+		}
+	}
+
+	server.GetMappingTable()[_user_id] = _id;
+
+	server.RegisterSector(_id, _position);
+
+	return true;
+}
+
+void Session::RegisterFalse()
+{
+	SC_LOGIN_FAIL_PACKET login_fail_packet{ LoginFailReason::USED_ID };
 	Send(&login_fail_packet);
 }
 
