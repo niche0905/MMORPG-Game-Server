@@ -15,15 +15,61 @@ Attack::Attack(std::string text)
 	_attack_obj.SetSize(OBJECT_SIZE * 3);	// TODO: 이겄도 빼내어야 함
 }
 
+Attack::Attack(uint8 atk_type)
+{
+	_attack_obj.Hide();
+	SetAtkType(atk_type);
+}
+
 bool Attack::operator<(const Attack& other) const
 {
 	return _remove_time;
 }
 
-void Attack::SetActive(sf::Vector2i pos, int64 t_point)
+void Attack::SetAtkType(uint8 atk_type)
 {
+	switch (atk_type)
+	{
+	case AttackType::STANDARD_ATK:
+		_attack_obj.SetSprite("standard_atk");
+		_attack_obj.SetSize(OBJECT_SIZE * 3);
+		break;
+
+	case AttackType::WARRIOR_S:
+		_attack_obj.SetSprite("warrior_s");
+		_attack_obj.SetSize(OBJECT_SIZE * 5);
+		break;
+
+	case AttackType::ROGUE_S:
+		_attack_obj.SetSprite("rogue_s");
+		_attack_obj.SetSize(OBJECT_SIZE * 1);
+		break;
+
+	case AttackType::SORCERER_S:
+		_attack_obj.SetSprite("sorcerer_s");
+		_attack_obj.SetSize(OBJECT_SIZE * 5);
+		break;
+
+	}
+	_duration = 500000;
+}
+
+void Attack::SetTexture(const std::string& key)
+{
+	_attack_obj.SetSprite(key);
+}
+
+void Attack::SetSize(float size)
+{
+	_attack_obj.SetSize(size);	// TODO: 이겄도 빼내어야 함
+}
+
+void Attack::SetActive(sf::Vector2i pos, uint8 dir)
+{
+	// TODO: dir에 맞게 위치 수정 및 방향 flip 해주어야 함
 	_attack_obj.ForceMove(pos);
-	_remove_time = t_point;
+
+	_remove_time = _duration;
 
 	_attack_obj.Show();
 }

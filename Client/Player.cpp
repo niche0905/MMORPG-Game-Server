@@ -148,6 +148,21 @@ void Creature::SetMonster()
 void Creature::SetClassType(uint8 class_type)
 {
 	_class_type = class_type;
+	_a_atk.SetAtkType(AttackType::STANDARD_ATK);
+	switch (class_type)
+	{
+	case ClassType::WARRIOR:
+		_s_atk.SetAtkType(AttackType::WARRIOR_S);
+		break;
+	case ClassType:: ROGUE:
+		_s_atk.SetAtkType(AttackType::ROGUE_S);
+		break;
+	case ClassType::SORCERER:
+		_s_atk.SetAtkType(AttackType::SORCERER_S);
+		break;
+	default:
+		break;
+	}
 }
 
 uint8 Creature::GetClassType() const
@@ -170,66 +185,16 @@ void Creature::AddDamage(uint16 damage)
 void Creature::ShowAttack(uint8 atk_key)
 {
 	// TODO: class 나머지 공격 만들어야 함
-	uint8 atk_type = AttackType::ATTACK_NONE;
-
-	switch (_class_type)
+	switch (atk_key)
 	{
-	case ClassType::WARRIOR:
-	{
-		switch (atk_key)
-		{
-		case KeyType::KEY_A:
-			atk_type = AttackType::STANDARD_ATK;
-			break;
-		case KeyType::KEY_S:
-			break;
-		case KeyType::KEY_D:
-			break;
-		}
-	}
-	break;
-
-	case ClassType::ROGUE:
-	{
-		switch (atk_key)
-		{
-		case KeyType::KEY_A:
-			atk_type = AttackType::STANDARD_ATK;
-			break;
-		case KeyType::KEY_S:
-			break;
-		case KeyType::KEY_D:
-			break;
-		}
-	}
-	break;
-
-	case ClassType::SORCERER:
-	{
-		switch (atk_key)
-		{
-		case KeyType::KEY_A:
-			atk_type = AttackType::STANDARD_ATK;
-			break;
-		case KeyType::KEY_S:
-			break;
-		case KeyType::KEY_D:
-			break;
-		}
-	}
-	break;
-
-	}
-
-	switch (atk_type)
-	{
-	case AttackType::STANDARD_ATK:
-	{
-		_a_atk.SetActive(position, 500000);
-	}
-	break;
-
-	default:
+	case KeyType::KEY_A:
+		_a_atk.SetActive(position);
+		break;
+	case KeyType::KEY_S:
+		_s_atk.SetActive(position);
+		break;
+	case KeyType::KEY_D:
+		_d_atk.SetActive(position);
 		break;
 	}
 }

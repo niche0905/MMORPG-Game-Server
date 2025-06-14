@@ -22,6 +22,8 @@ private:
 
 	uint8			_class_type;	// class type
 	Attack			_a_atk;
+	Attack			_s_atk;
+	Attack			_d_atk;
 
 	std::list<Chat> _chattings;
 	std::list<Chat> _damages;

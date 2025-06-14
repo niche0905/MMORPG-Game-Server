@@ -72,6 +72,20 @@ enum AttackType : uint8
 	ATTACK_NONE = 0,
 
 	STANDARD_ATK,	// 기본 +자 공격
+	WARRIOR_S,		// 전사 S
+	ROGUE_S,		// 도적 S
+	SORCERER_S,		// 마법사 S
 
 	// TODO: 추가할 필요가 있는 공격 타입 추가하기
+};
+
+enum AttackDirection : uint8
+{
+	NO_DIRECTION = 0,
+
+	DIR_LEFT,
+	DIR_RIGHT,
+	DIR_UP,
+	DIR_DOWN
+
 };
