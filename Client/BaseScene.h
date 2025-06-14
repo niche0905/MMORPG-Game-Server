@@ -23,7 +23,7 @@ public:
 	virtual void HUD(sf::RenderWindow& window) = 0;
 	virtual void HandleInput(const sf::Event& event) = 0;
 	virtual void ProcessPacket(std::vector<BYTE> packet) = 0;
-	virtual sf::Vector2f GetCameraCenter() const = 0;
+	virtual sf::Vector2f GetCameraCenter() const;
 
 protected:	// 게임에 필요한 함수들
 private:

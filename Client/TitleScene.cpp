@@ -118,11 +118,6 @@ void TitleScene::ProcessPacket(std::vector<BYTE> packets)
 	}
 }
 
-sf::Vector2f TitleScene::GetCameraCenter() const
-{
-	return { WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f };
-}
-
 void TitleScene::MoveSelector()
 {
 	const float mid_window = WINDOW_WIDTH / 2.f;

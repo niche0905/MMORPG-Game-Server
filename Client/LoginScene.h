@@ -1,22 +1,17 @@
 #pragma once
-#include "Button.h"
-
-class Button;
 
 
-class TitleScene : public BaseScene
+class LoginScene : public BaseScene
 {
 private:
-	sf::Text				_title;
+	sf::RectangleShape input_box;
+	sf::Text nickname_text;
+	sf::Text system_text;
 
-	Button					_start_button;
-	Button					_exit_button;
-	uint32					_button_index;
-	uint32					_max_index;
-	sf::RectangleShape		_select_background;
+	std::string input_buffer;
 
 public:
-	TitleScene();
+	LoginScene();
 
 	void Init();
 
@@ -25,9 +20,6 @@ public:
 	void HUD(sf::RenderWindow& window) override;
 	void HandleInput(const sf::Event& input_event) override;
 	void ProcessPacket(std::vector<BYTE> packet) override;
-
-public:
-	void MoveSelector();
 
 };
 
