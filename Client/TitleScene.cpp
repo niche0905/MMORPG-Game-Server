@@ -82,7 +82,7 @@ void TitleScene::HandleInput(const sf::Event& input_event)
 		}
 		if (input_event.key.code == sf::Keyboard::Enter) {
 			if (_start_button.GetBID() == _button_index) {
-				// TODO: 다음 씬으로 넘어가기
+				game.SceneLoad(SceneType::LoginScene);
 			}
 			else if (_exit_button.GetBID() == _button_index) {
 				game.Exit();

@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "GameScene.h"
 #include "TitleScene.h"
+#include "LoginScene.h"
 #include "FontManager.h"
 #include "TextureManager.h"
 
@@ -173,6 +174,9 @@ void Game::SceneLoad(SceneType scene_type)
 		break;
 	case SceneType::GameScene:
 		scene = std::make_shared<GameScene>();
+		break;
+	case SceneType::LoginScene:
+		scene = std::make_shared<LoginScene>();
 		break;
 	default:
 		break;

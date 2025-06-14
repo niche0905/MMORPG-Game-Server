@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "LoginScene.h"
+#include "FontManager.h"
 
 
 LoginScene::LoginScene()
@@ -9,7 +10,29 @@ LoginScene::LoginScene()
 
 void LoginScene::Init()
 {
+	float mid_window = WINDOW_WIDTH / 2.f;
+	float mid_name = NAME_WIDTH / 2.f;
+	float start_input_box = mid_window - mid_name;
+	float offset_x = 10.f;
+	_input_box.setFillColor(sf::Color::White);
+	_input_box.setSize({ NAME_WIDTH , NAME_HEIGHT });
+	_input_box.setPosition({ start_input_box , 400 });
 
+	_nickname_text.setFont(FontManager::Instance().GetFont("neodot"));
+	_nickname_text.setCharacterSize(24);
+	_nickname_text.setFillColor(sf::Color::Black);
+	_nickname_text.setOutlineColor(sf::Color::White);
+	_nickname_text.setStyle(sf::Text::Regular);
+	_nickname_text.setOutlineThickness(2.f);
+	_nickname_text.setPosition({ start_input_box + offset_x, 400 });
+
+	_system_text.setFont(FontManager::Instance().GetFont("neodot"));
+	_system_text.setCharacterSize(40);
+	_system_text.setFillColor(sf::Color::Red);
+	_system_text.setOutlineColor(sf::Color::Black);
+	_system_text.setStyle(sf::Text::Regular);
+	_system_text.setOutlineThickness(2.f);
+	_system_text.setPosition({ start_input_box, 600 });
 }
 
 void LoginScene::Update(const int64 delta_time)
@@ -19,7 +42,9 @@ void LoginScene::Update(const int64 delta_time)
 
 void LoginScene::Draw(sf::RenderWindow& window)
 {
-
+	window.draw(_input_box);
+	window.draw(_nickname_text);
+	window.draw(_system_text);
 }
 
 void LoginScene::HUD(sf::RenderWindow& window)
@@ -29,10 +54,31 @@ void LoginScene::HUD(sf::RenderWindow& window)
 
 void LoginScene::HandleInput(const sf::Event& input_event)
 {
+	// TODO: 입력에 따라 buffer 처리
+	if (input_event.type == sf::Event::TextEntered) {
+		char entered = static_cast<char>(input_event.text.unicode);
+		if (entered >= 32 && entered <= 126 && _input_buffer.size() < 20) {
+			_input_buffer += entered;
+		}
+		else if (entered == 8 && !_input_buffer.empty()) { // Backspace
+			_input_buffer.pop_back();
+		}
+		UpdateNicknameText();
+	}
 
+	if (input_event.type == sf::Event::KeyPressed && input_event.key.code == sf::Keyboard::Enter) {
+		if (!_input_buffer.empty()) {
+			// TOOD: Send 하기
+		}
+	}
 }
 
 void LoginScene::ProcessPacket(std::vector<BYTE> packet)
 {
+	// TODO: 패킷 종류에 따라 다르게 처리
+}
 
+void LoginScene::UpdateNicknameText()
+{
+	_nickname_text.setString(_input_buffer);
 }
