@@ -49,6 +49,9 @@
     <Filter Include="Content\World\TileManager">
       <UniqueIdentifier>{30bd6ede-8a7d-4880-8a6d-c5b5197a1626}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content\Object\Button">
+      <UniqueIdentifier>{42b97c64-3827-418c-85f4-0d000ebe850e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -111,6 +114,9 @@
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>Content\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Content\Object\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="TitleScene.h">
       <Filter>Content\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Content\Object\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

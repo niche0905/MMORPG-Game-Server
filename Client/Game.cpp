@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "TitleScene.h"
 #include "FontManager.h"
+#include "TextureManager.h"
 
 
 // Game 생성자
@@ -25,7 +26,13 @@ void Game::Init()
 		exit(-1);
 	}
 
-	scene = std::make_shared<GameScene>();
+	if (not TextureManager::Instance().LoadTexture("button_big", "Resource/Texture/button_big.png")) {
+		std::wcout << L"버튼 Texture 로드 실패\n";
+
+		exit(-1);
+	}
+
+	scene = std::make_shared<TitleScene>();
 
 	// TODO : Loading이 끝나고 나서 last_time을 초기화 해야 함
 	last_time = Epoch::now();
@@ -36,13 +43,13 @@ void Game::Run()
 {
 	ConnectServer();
 
-	AttemptLogin();
+	/*AttemptLogin();
 
 	while (my_id == 0) {
 		ProcessPacket(communication.Recv());
 	}
 
-	std::cout << "Login Done\n";
+	std::cout << "Login Done\n";*/
 
 	while (window.isOpen()) {
 

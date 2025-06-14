@@ -9,6 +9,7 @@ constexpr int TILE_NUM{ 20 };
 constexpr int TILE_LEN{ TILE_NUM / 2 };
 constexpr double TILE_SIZE{ 40.0 };
 
+constexpr double BIG_BUTTON_SIZE{ 300.0 };
 constexpr double PLAYER_SIZE{ 35.0 };
 constexpr double OBJECT_SIZE{ 40.0 };
 

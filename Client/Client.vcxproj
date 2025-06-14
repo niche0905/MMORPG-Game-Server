@@ -24,6 +24,7 @@
     <ClInclude Include="AnimationSet.h" />
     <ClInclude Include="Attack.h" />
     <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Chat.h" />
     <ClInclude Include="ClientDefines.h" />
     <ClInclude Include="Communication.h" />
@@ -47,6 +48,7 @@
     <ClCompile Include="AnimationSet.cpp" />
     <ClCompile Include="Attack.cpp" />
     <ClCompile Include="BaseScene.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Chat.cpp" />
     <ClCompile Include="Communication.cpp" />
     <ClCompile Include="FontManager.cpp" />
