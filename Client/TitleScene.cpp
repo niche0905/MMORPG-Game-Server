@@ -16,6 +16,12 @@ TitleScene::TitleScene()
 void TitleScene::Init()
 {
 	float mid_window = WINDOW_WIDTH / 2.f;
+	float selecter_height = BIG_BUTTON_SIZE / 2.f;
+	_select_background.setFillColor(sf::Color::Yellow);
+	_select_background.setSize({ WINDOW_WIDTH , selecter_height });
+	_select_background.setOrigin({ mid_window , selecter_height / 2.f });
+	_select_background.setPosition({ mid_window , 400 });
+
 	_start_button.SetTexture(TextureManager::Instance().GetTexture("button_big"));
 	_start_button.SetText("Start");
 	_start_button.SetSize(BIG_BUTTON_SIZE);
@@ -35,7 +41,7 @@ void TitleScene::Update(const int64 delta_time)
 
 void TitleScene::Draw(sf::RenderWindow& window)
 {
-	// TODO: 버튼들과 선택 Rect 그리기
+	window.draw(_select_background);
 	_start_button.Draw(window);
 	_exit_button.Draw(window);
 }
