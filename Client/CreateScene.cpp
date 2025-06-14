@@ -88,7 +88,7 @@ void CreateScene::HandleInput(const sf::Event& input_event)
 
 void CreateScene::ProcessPacket(std::vector<BYTE> packets)
 {
-
+	// TODO: 이를 채워야 함 (필요에 맞게)
 }
 
 void CreateScene::UpdateSelector()
