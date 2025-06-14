@@ -297,6 +297,20 @@ void ServerCore::Worker()
 			delete exp_overlapped;
 		}
 		break;
+		case OverOperation::DB_LOGIN_FAIL:
+		{
+			Creature* client = _clients.at(key);
+
+			if (client == nullptr) break;
+
+			if (client->IsNPC()) break;
+
+			auto session = static_cast<Session*>(client);
+			session->LoginFalse();
+
+			delete exp_overlapped;
+		}
+		break;
 		default:
 		{
 			std::cout << "Unknown IO Operation\n";

@@ -126,7 +126,8 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 					server.AddTask(now_id, new_task);
 				}
 				else if (retcode == SQL_NO_DATA) {
-					session->LoginFalse();
+					ExOver* new_task = new ExOver{ OverOperation::DB_LOGIN_FAIL };
+					server.AddTask(now_id, new_task);
 				}
 				else {
 					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);

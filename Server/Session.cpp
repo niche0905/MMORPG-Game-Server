@@ -483,7 +483,8 @@ void Session::LoginDone()
 
 void Session::LoginFalse()
 {
-	// TODO: DB에 정보가 없다 새로 만들어야 한다
+	SC_LOGIN_FAIL_PACKET login_fail_packet{ LoginFailReason::GO_REGISTER };
+	Send(&login_fail_packet);
 }
 
 void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet)

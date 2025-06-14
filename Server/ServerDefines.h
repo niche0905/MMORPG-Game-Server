@@ -21,6 +21,7 @@ enum OverOperation
 	DO_REVIVE,
 
 	DB_LOGIN,
+	DB_LOGIN_FAIL,
 
 	OVER_NONE,
 
