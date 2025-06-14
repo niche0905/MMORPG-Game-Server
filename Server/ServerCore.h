@@ -14,6 +14,7 @@ private:
 private:
 	IocpCore					_iocp_core;			// IOCP 핸들 관리 하는 클래스
 	container<uint64, Client>	_clients;			// 클라이언트 세션 관리하는 컨테이너
+	container<uint64, uint64>	_login_user;		// 서버에 로그인 되어 있는 사람들을 Mapping (DB UserID -> Server SessionID)
 	EBR<Session>				_ebr_sessions;		// ebr로 session 재사용
 
 	DatabaseManager				_db_manager;		// DB 관리자
@@ -61,6 +62,10 @@ private:
 public:
 	const container<uint64, Client>& GetClients() const;
 	container<uint64, Client>& GetClients();
+
+	const container<uint64, uint64>& GetMappingTable() const;
+	container<uint64, uint64>& GetMappingTable();
+
 
 	void RegisterSector(uint64 id, int16 x, int16 y);
 	void RegisterSector(uint64 id, Position pos);

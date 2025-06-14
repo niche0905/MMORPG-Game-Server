@@ -377,6 +377,16 @@ ServerCore::container<uint64, ServerCore::Client>& ServerCore::GetClients()
 	return _clients;
 }
 
+const ServerCore::container<uint64, uint64>& ServerCore::GetMappingTable() const
+{
+	return _login_user;
+}
+
+ServerCore::container<uint64, uint64>& ServerCore::GetMappingTable()
+{
+	return _login_user;
+}
+
 void ServerCore::RegisterSector(uint64 id, int16 x, int16 y)
 {
 	_sector_manager.AddClient(id, x, y);
