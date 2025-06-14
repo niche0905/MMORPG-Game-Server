@@ -42,6 +42,8 @@ void Creature::Init()
 void Creature::Update(const int64 delta_time)
 {
 	_a_atk.Update(delta_time);
+	_s_atk.Update(delta_time);
+	_d_atk.Update(delta_time);
 
 	for (auto it = _chattings.begin(); it != _chattings.end(); ) {
 		it->Update(delta_time);
@@ -88,6 +90,8 @@ void Creature::DrawHP(sf::RenderWindow& window)
 void Creature::DrawAttacks(sf::RenderWindow& window)
 {
 	_a_atk.Draw(window);
+	_s_atk.Draw(window);
+	_d_atk.Draw(window);
 }
 
 void Creature::DrawChatting(sf::RenderWindow& window)
