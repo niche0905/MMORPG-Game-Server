@@ -54,7 +54,6 @@ void LoginScene::HUD(sf::RenderWindow& window)
 
 void LoginScene::HandleInput(const sf::Event& input_event)
 {
-	// TODO: 입력에 따라 buffer 처리
 	if (input_event.type == sf::Event::TextEntered) {
 		char entered = static_cast<char>(input_event.text.unicode);
 		if (entered >= 32 && entered <= 126 && _input_buffer.size() < 20) {
@@ -68,7 +67,7 @@ void LoginScene::HandleInput(const sf::Event& input_event)
 
 	if (input_event.type == sf::Event::KeyPressed && input_event.key.code == sf::Keyboard::Enter) {
 		if (!_input_buffer.empty()) {
-			// TOOD: Send 하기
+			game.SendID(_input_buffer);
 		}
 	}
 }

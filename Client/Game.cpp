@@ -111,6 +111,12 @@ void Game::Exit()
 	window.close();
 }
 
+void Game::SendID(const std::string& id)
+{
+	CS_LOGIN_PACKET login_packet{ id.c_str() };
+	communication.Send(reinterpret_cast<BYTE*>(&login_packet), sizeof(login_packet));
+}
+
 void Game::SendAttack(uint8 atk_key)
 {
 	CS_ATTACK_PACKET attack_packet{ atk_key };
@@ -147,15 +153,6 @@ void Game::ConnectServer()
 #endif
 
 	communication.Connect(ip_address.data());
-}
-
-void Game::AttemptLogin()
-{
-	std::wcout << L"사용할 닉네임을 입력해 주세요 : ";
-	std::cin >> name;
-
-	CS_LOGIN_PACKET login_packet(name.data());
-	communication.Send(reinterpret_cast<BYTE*>(&login_packet), sizeof(login_packet));
 }
 
 void Game::SetCameraView()

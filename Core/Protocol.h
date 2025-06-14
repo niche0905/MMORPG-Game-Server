@@ -250,6 +250,10 @@ struct CS_LOGIN_PACKET			: public BASE_PACKET
 	CS_LOGIN_PACKET(char* name)
 		: BASE_PACKET{ sizeof(CS_LOGIN_PACKET), C2S_LOGIN }
 		{ strcpy_s(_name, name); }
+
+	CS_LOGIN_PACKET(const char* name)
+		: BASE_PACKET{ sizeof(CS_LOGIN_PACKET), C2S_LOGIN }
+	{ strcpy_s(_name, name); }
 };
 
 struct CS_MOVE_PACKET			: public BASE_PACKET
