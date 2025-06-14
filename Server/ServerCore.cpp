@@ -332,6 +332,7 @@ void ServerCore::Worker()
 			if (client->IsNPC()) break;
 
 			auto session = static_cast<Session*>(client);
+			_login_user.at(session->GetUserID()) = INVALID_ID;
 			_ebr_sessions.Reuse(session);
 			_clients.at(key) = nullptr;
 

@@ -50,7 +50,6 @@ void Session::Disconnect()
 	}
 
 	_state = ST_CLOSE;
-	server.GetMappingTable()[_user_id] = INVALID_ID;
 
 	closesocket(_socket);
 }
