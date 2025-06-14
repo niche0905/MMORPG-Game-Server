@@ -72,19 +72,9 @@ bool Session::IsNPC() const
 	return false;
 }
 
-uint8 Session::GetLevel() const
-{
-	return _level;
-}
-
 uint64 Session::GetExp() const
 {
 	return _exp;
-}
-
-uint16 Session::GetHP() const
-{
-	return _hp;
 }
 
 uint16 Session::GetMaxHP() const
@@ -320,7 +310,7 @@ void Session::MoveProcess(BYTE* packet)
 			}
 
 			Position pos = client->GetPosition();
-			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), _visual_type, _class_type, _level };
+			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), client->GetVisualType(), client->GetClassType(), client->GetLevel()};
 
 			SendNewCreature(client_id, &object_enter_packet);
 		}
@@ -521,7 +511,7 @@ void Session::LoginDone()
 		if (not client->CanSee(_position, VIEW_RANGE)) continue;
 
 		Position client_pos = client->GetPosition();
-		SC_ENTER_PACKET other_enter_packet{ client_id, client_pos.x, client_pos.y, client->GetName().data(), _visual_type, _class_type, _level };
+		SC_ENTER_PACKET other_enter_packet{ client_id, client_pos.x, client_pos.y, client->GetName().data(), client->GetVisualType(), client->GetClassType(), client->GetLevel()};
 		SendNewCreature(client_id, &other_enter_packet);
 
 		if (client->IsPlayer()) {

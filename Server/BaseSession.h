@@ -53,6 +53,7 @@ public:
 	void SetState(uint8 state);
 	uint8 GetState() const;
 
+	uint16 GetHP() const;
 	virtual uint16 GetMaxHP() const = 0;
 	virtual void TakeDamage(uint16 damage);	
 	bool SetDead();
@@ -60,6 +61,9 @@ public:
 
 	void SetClassType(uint8 class_type);
 	uint8 GetClassType() const;
+
+	uint8 GetVisualType() const;
+	uint8 GetLevel() const;
 
 };
 

@@ -110,6 +110,11 @@ uint8 Creature::GetState() const
 	return _state.load();
 }
 
+uint16 Creature::GetHP() const
+{
+	return _hp;
+}
+
 void Creature::TakeDamage(uint16 damage)	// 만약 실제 들어간 데미지가 필요하면 이를 수정하거나 메서드를 추가하여야 함
 {
 	uint16 expected = _hp.load();
@@ -150,4 +155,14 @@ void Creature::SetClassType(uint8 class_type)
 uint8 Creature::GetClassType() const
 {
 	return _class_type;
+}
+
+uint8 Creature::GetVisualType() const
+{
+	return _visual_type;
+}
+
+uint8 Creature::GetLevel() const
+{
+	return _level;
 }

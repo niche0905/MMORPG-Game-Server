@@ -39,10 +39,8 @@ public:
 	bool IsPlayer() const override;
 	bool IsNPC() const override;
 
-	uint8 GetLevel() const;
 	uint64 GetExp() const;
 
-	uint16 GetHP() const;
 	uint16 GetMaxHP() const override;
 	void TakeDamage(uint16 damage) override;
 	void DeadSequence() override;
