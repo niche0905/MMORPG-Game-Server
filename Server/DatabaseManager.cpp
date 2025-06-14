@@ -121,7 +121,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 					exit(-1);
 				}
 
-				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WCHAR, 20, 0, (SQLPOINTER)wname, 0, NULL);
+				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WCHAR, 20, 0, (SQLPOINTER)wname, 40, NULL);
 				int64 userID;
 				int16 x, y, maxHP, HP;
 				uint8 class_type;
@@ -173,12 +173,12 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				if (creature == nullptr) break;
 				Session* session = static_cast<Session*>(creature);
 
-				const std::wstring match_id_query = L"EXEC register_request ? ? ? ? ? ? ? ? ?";
+				const std::wstring register_query = L"{ CALL register_request(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
 				wchar_t wname[100];
 				size_t convertedChars = 0;
 				mbstowcs_s(&convertedChars, wname, session->GetName().c_str(), strlen(session->GetName().c_str()) + 1);
 
-				retcode = SQLPrepare(_hstmts[index], (SQLWCHAR*)match_id_query.c_str(), SQL_NTS);
+				retcode = SQLPrepare(_hstmts[index], (SQLWCHAR*)register_query.c_str(), SQL_NTS);
 				if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
 					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
 					SQLFreeStmt(_hstmts[index], SQL_CLOSE);
@@ -193,7 +193,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				int32 result_code = -1;
 				int64 userID = -1;
 
-				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WCHAR, 20, 0, (SQLPOINTER)wname, 0, NULL);
+				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WCHAR, 20, 0, (SQLPOINTER)wname, 40, NULL);
 				SQLBindParameter(_hstmts[index], 2, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &pos.x, 0, NULL);
 				SQLBindParameter(_hstmts[index], 3, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &pos.y, 0, NULL);
 				SQLBindParameter(_hstmts[index], 4, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &maxHP, 0, NULL);
