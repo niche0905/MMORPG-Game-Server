@@ -31,6 +31,7 @@ enum PacketID : uint8
 
 
 	C2S_LOGIN,					// 로그인 요청
+	C2S_REGISTER,				// 신규 가입 요청
 	C2S_MOVE,					// 이동 요청
 	C2S_TELEPORT,				// TP 요청
 	C2S_CHAT,					// 채팅 송신
@@ -253,7 +254,23 @@ struct CS_LOGIN_PACKET			: public BASE_PACKET
 
 	CS_LOGIN_PACKET(const char* name)
 		: BASE_PACKET{ sizeof(CS_LOGIN_PACKET), C2S_LOGIN }
-	{ strcpy_s(_name, name); }
+		{ strcpy_s(_name, name); }
+};
+
+struct CS_REGISTER_PACKET : public BASE_PACKET
+{
+	char	_name[MAX_NAME_LEN];
+	uint8	_class_type;
+
+	CS_REGISTER_PACKET(char* name, uint8 class_type)
+		: BASE_PACKET{ sizeof(CS_REGISTER_PACKET), C2S_REGISTER }
+		, _class_type{ class_type }
+		{ strcpy_s(_name, name); }
+
+	CS_REGISTER_PACKET(const char* name, uint8 class_type)
+		: BASE_PACKET{ sizeof(CS_REGISTER_PACKET), C2S_REGISTER }
+		, _class_type{ class_type }
+		{ strcpy_s(_name, name); }
 };
 
 struct CS_MOVE_PACKET			: public BASE_PACKET
