@@ -43,6 +43,7 @@ void Game::Run()
 {
 	ConnectServer();
 
+	// TODO: 개편해야 한다
 	/*AttemptLogin();
 
 	while (my_id == 0) {
@@ -96,12 +97,17 @@ void Game::HandleInput()
 
 		// TODO : 모든 상황에서 필요한 입력 처리
 		if (input_event.type == sf::Event::Closed) {
-			window.close();
+			Exit();
 		}
 
 		if (scene)
 			scene->HandleInput(input_event);
 	}
+}
+
+void Game::Exit()
+{
+	window.close();
 }
 
 void Game::SendAttack(uint8 atk_key)

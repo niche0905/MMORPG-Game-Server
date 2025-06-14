@@ -85,7 +85,7 @@ void TitleScene::HandleInput(const sf::Event& input_event)
 				// TODO: 다음 씬으로 넘어가기
 			}
 			else if (_exit_button.GetBID() == _button_index) {
-				// TODO: 게임종료
+				game.Exit();
 			}
 			else {
 				// 있을 수 없는 일

@@ -39,6 +39,8 @@ public:
 	void Draw();
 	void HandleInput();
 
+	void Exit();
+
 	void SendAttack(uint8 atk_key);
 	void SendArrowKey(uint8 dir);
 	void ProcessPacket(std::vector<BYTE> packet);
