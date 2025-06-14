@@ -117,6 +117,12 @@ void LoginScene::ProcessPacket(std::vector<BYTE> packets)
 				_system_text.setString("to many user in server");
 			}
 			break;
+
+			case LoginFailReason::GO_REGISTER:
+			{
+				// TODO: 생성 Scene으로 넘어가라
+			}
+			break;
 			}
 		}
 		break;

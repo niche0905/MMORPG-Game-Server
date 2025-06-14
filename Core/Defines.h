@@ -21,7 +21,9 @@ enum LoginFailReason : int8
 	NO_IDEA,		// 알 수 없는 이유
 	USED_ID,		// 해당 아이디 현재 접속중
 	INAPPOSITE_ID,	// 부적절한 ID (특수문자, 20자 이상의 이유)
-	TO_MANY			// 서버 부하로 인해 (너무 많은 접속자)
+	TO_MANY,		// 서버 부하로 인해 (너무 많은 접속자)
+
+	GO_REGISTER		// DB에 없어서 새로 생성하거라
 };
 
 enum MOVE : uint8
