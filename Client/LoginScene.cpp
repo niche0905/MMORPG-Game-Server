@@ -32,7 +32,9 @@ void LoginScene::Init()
 	_system_text.setOutlineColor(sf::Color::Black);
 	_system_text.setStyle(sf::Text::Regular);
 	_system_text.setOutlineThickness(2.f);
-	_system_text.setPosition({ start_input_box, 600 });
+	sf::FloatRect bounds = _system_text.getLocalBounds();
+	_system_text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+	_system_text.setPosition({ mid_window, 700 });
 }
 
 void LoginScene::Update(const int64 delta_time)
@@ -100,21 +102,25 @@ void LoginScene::ProcessPacket(std::vector<BYTE> packets)
 			case LoginFailReason::NO_IDEA:
 			{
 				_system_text.setString("No Idea login fail");
+				UpdateSystemText();
 			}
 			break;
 			case LoginFailReason::USED_ID:
 			{
 				_system_text.setString("that name is used");
+				UpdateSystemText();
 			}
 			break;
 			case LoginFailReason::INAPPOSITE_ID:
 			{
 				_system_text.setString("invalid text");
+				UpdateSystemText();
 			}
 			break;
 			case LoginFailReason::TO_MANY:
 			{
 				_system_text.setString("to many user in server");
+				UpdateSystemText();
 			}
 			break;
 
@@ -140,4 +146,10 @@ void LoginScene::ProcessPacket(std::vector<BYTE> packets)
 void LoginScene::UpdateNicknameText()
 {
 	_nickname_text.setString(_input_buffer);
+}
+
+void LoginScene::UpdateSystemText()
+{
+	sf::FloatRect bounds = _system_text.getLocalBounds();
+	_system_text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
