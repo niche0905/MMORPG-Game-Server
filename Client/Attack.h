@@ -11,7 +11,6 @@ private:
 
 public:
 	Attack();
-	Attack(uint8 atk_type);
 
 	bool operator<(const Attack& other) const;
 

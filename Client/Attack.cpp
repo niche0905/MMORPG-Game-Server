@@ -3,14 +3,8 @@
 #include "TextureManager.h"
 
 Attack::Attack()
-	: Attack{ AttackType::STANDARD_ATK }
 {
 
-}
-
-Attack::Attack(uint8 atk_type)
-{
-	SetAtkType(atk_type);
 }
 
 bool Attack::operator<(const Attack& other) const
