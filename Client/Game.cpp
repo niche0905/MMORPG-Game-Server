@@ -63,15 +63,6 @@ void Game::Run()
 {
 	ConnectServer();
 
-	// TODO: 개편해야 한다
-	/*AttemptLogin();
-
-	while (my_id == 0) {
-		ProcessPacket(communication.Recv());
-	}
-
-	std::cout << "Login Done\n";*/
-
 	while (window.isOpen()) {
 
 		TimePoint now_time = Epoch::now();
