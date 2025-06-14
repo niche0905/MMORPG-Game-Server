@@ -72,9 +72,64 @@ void LoginScene::HandleInput(const sf::Event& input_event)
 	}
 }
 
-void LoginScene::ProcessPacket(std::vector<BYTE> packet)
+void LoginScene::ProcessPacket(std::vector<BYTE> packets)
 {
-	// TODO: 패킷 종류에 따라 다르게 처리
+	size_t processed_data_size = 0;
+
+	while (processed_data_size < packets.size())
+	{
+		BYTE* packet = packets.data() + processed_data_size;
+
+		BASE_PACKET* base_packet = reinterpret_cast<BASE_PACKET*>(packet);
+
+		switch (base_packet->_packet_id)
+		{
+
+		case PacketID::S2C_LOGIN_ALLOW:
+		{
+			// TODO: GameScene으로 넘어가기
+		}
+		break;
+
+		case PacketID::S2C_LOGIN_FAIL:
+		{
+			// TODO: system Text 출력하기
+
+			SC_LOGIN_FAIL_PACKET* login_fail_packet = reinterpret_cast<SC_LOGIN_FAIL_PACKET*>(packet);
+			switch (login_fail_packet->_reason)
+			{
+			case LoginFailReason::NO_IDEA:
+			{
+				_system_text.setString("No Idea login fail");
+			}
+			break;
+			case LoginFailReason::USED_ID:
+			{
+				_system_text.setString("that name is used");
+			}
+			break;
+			case LoginFailReason::INAPPOSITE_ID:
+			{
+				_system_text.setString("invalid text");
+			}
+			break;
+			case LoginFailReason::TO_MANY:
+			{
+				_system_text.setString("to many user in server");
+			}
+			break;
+			}
+		}
+		break;
+
+		default:
+			// 이 짝으로 패킷이 오면 안댜
+			std::cout << "Login Scene Recv Invalid Packet ERROR\n";
+			break;
+		}
+
+		processed_data_size += base_packet->_size;
+	}
 }
 
 void LoginScene::UpdateNicknameText()
