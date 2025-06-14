@@ -23,6 +23,7 @@ enum OverOperation
 	DB_LOGIN,
 	DB_LOGIN_FAIL,
 	DB_REGISTER_FAIL,
+	DB_LOGOUT,
 
 	OVER_NONE,
 

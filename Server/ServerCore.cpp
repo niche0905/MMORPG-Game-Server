@@ -215,8 +215,6 @@ void ServerCore::Worker()
 					Session* session = static_cast<Session*>(client);
 
 					session->Disconnect();
-					_ebr_sessions.Reuse(session);	// TODO: 이걸 여기서 부르면 안되나?
-					_clients.at(key) = nullptr;
 				}
 			}
 			
@@ -321,6 +319,21 @@ void ServerCore::Worker()
 
 			auto session = static_cast<Session*>(client);
 			session->RegisterFalse();
+
+			delete exp_overlapped;
+		}
+		break;
+		case OverOperation::DB_LOGOUT:
+		{
+			Creature* client = _clients.at(key);
+
+			if (client == nullptr) break;
+
+			if (client->IsNPC()) break;
+
+			auto session = static_cast<Session*>(client);
+			_ebr_sessions.Reuse(session);
+			_clients.at(key) = nullptr;
 
 			delete exp_overlapped;
 		}

@@ -11,6 +11,7 @@ struct DatabaseEvent
 		//		 EX) DB LOGIN 등
 		DB_LOGIN_REQUEST,
 		DB_REGISTER_REQUEST,
+		DB_LOGOUT_PROCESS,
 
 		DB_END
 	};

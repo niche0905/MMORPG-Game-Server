@@ -230,6 +230,30 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 			}
 			break;
 
+			case DatabaseEvent::DB_LOGOUT_PROCESS:
+			{
+				Creature* creature = server.GetClients()[now_id];
+				if (creature == nullptr) break;
+				Session* session = static_cast<Session*>(creature);
+				uint8 state = session->GetState();
+
+				if (state != ST_CLOSE) {
+					// 문제 상황
+					std::cout << "DB_LOGOUT_PROCESS, but don't close\n";
+					break;
+				}
+
+				// TODO: Logout 저장 프로시저 생성해서 불러주어야 함
+
+
+
+				ExOver* new_task = new ExOver{ OverOperation::DB_LOGOUT };
+				server.AddTask(now_id, new_task);
+
+				SQLCloseCursor(_hstmts[index]);
+			}
+			break;
+
 			}
 		}
 		else {

@@ -46,8 +46,7 @@ void Session::Disconnect()
 		}
 		server.RemoveSector(_id, _position);
 
-		// TODO: 그 뭐냐 DB에 저장해 주어야 한다
-
+		server.AddRequestDB(DatabaseEvent{ _id, DatabaseEvent::DbOperation::DB_LOGOUT_PROCESS });
 	}
 
 	_state = ST_CLOSE;
