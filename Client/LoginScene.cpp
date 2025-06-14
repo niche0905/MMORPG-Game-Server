@@ -87,14 +87,13 @@ void LoginScene::ProcessPacket(std::vector<BYTE> packets)
 
 		case PacketID::S2C_LOGIN_ALLOW:
 		{
-			// TODO: GameScene으로 넘어가기
+			game.SceneLoad(SceneType::GameScene);
+			game.ProcessPacket(packets);
 		}
 		break;
 
 		case PacketID::S2C_LOGIN_FAIL:
 		{
-			// TODO: system Text 출력하기
-
 			SC_LOGIN_FAIL_PACKET* login_fail_packet = reinterpret_cast<SC_LOGIN_FAIL_PACKET*>(packet);
 			switch (login_fail_packet->_reason)
 			{
