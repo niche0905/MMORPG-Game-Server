@@ -24,6 +24,8 @@ public:
 
 	void DatabaseThread();
 
+	void AddEventDB(const DatabaseEvent& db_event);
+
 private:
 	void DatabaseWorker();
 

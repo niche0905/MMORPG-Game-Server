@@ -72,7 +72,9 @@ public:
 	std::unordered_set<uint64> GetClientList(short x, short y);
 	std::unordered_set<uint64> GetClientList(Position pos);
 
+	void AddTask(uint64 id, ExOver* new_task);
 	void AddTimerEvent(const Event& timer_event);
+	void AddRequestDB(const DatabaseEvent& db_event);
 
 };
 

@@ -283,6 +283,20 @@ void ServerCore::Worker()
 			delete exp_overlapped;
 		}
 		break;
+		case OverOperation::DB_LOGIN:
+		{
+			Creature* client = _clients.at(key);
+
+			if (client == nullptr) break;
+
+			if (client->IsNPC()) break;
+
+			auto session = static_cast<Session*>(client);
+			session->LoginDone();
+
+			delete exp_overlapped;
+		}
+		break;
 		default:
 		{
 			std::cout << "Unknown IO Operation\n";
@@ -393,7 +407,17 @@ std::unordered_set<uint64> ServerCore::GetClientList(Position pos)
 	return closed_clients;
 }
 
+void ServerCore::AddTask(uint64 id, ExOver* new_task)
+{
+	_iocp_core.AddTask(id, new_task);
+}
+
 void ServerCore::AddTimerEvent(const Event& timer_event)
 {
 	_timer_queue.push(timer_event);
+}
+
+void ServerCore::AddRequestDB(const DatabaseEvent& db_event)
+{
+	_db_manager.AddEventDB(db_event);
 }

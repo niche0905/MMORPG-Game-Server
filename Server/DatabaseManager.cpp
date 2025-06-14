@@ -61,8 +61,17 @@ void DatabaseManager::DatabaseThread()
 	std::cout << "Thread Count : " << _threads.size() << "\n";
 }
 
+void DatabaseManager::AddEventDB(const DatabaseEvent& db_event)
+{
+	_queue.push(db_event);
+}
+
 void DatabaseManager::DatabaseWorker()
 {
+	int index = 0;
+	SQLRETURN retcode;
+
+
 	while (true) {
 		DatabaseEvent db_event;
 		if (_queue.try_pop(db_event)) {
@@ -78,7 +87,54 @@ void DatabaseManager::DatabaseWorker()
 
 				session->GetName();
 
-				// TODO: DB 접근해서 요청하기
+				const std::wstring match_id_query = L"EXEC match_id ?";
+				wchar_t wname[100];
+				size_t convertedChars = 0;
+				mbstowcs_s(&convertedChars, wname, session->GetName().c_str(), strlen(session->GetName().c_str()) + 1);
+
+				retcode = SQLPrepare(_hstmts[index], (SQLWCHAR*)match_id_query.c_str(), SQL_NTS);
+				if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
+					exit(-1);
+				}
+
+				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WCHAR, wcslen(wname), 0, (SQLPOINTER)wname, 0, NULL);
+				int64 userID;
+				int16 x, y, maxHP, HP;
+				uint8 class_type;
+				int32 level;
+				int64 exp; 
+				SQLBindCol(_hstmts[index], 1, SQL_C_SBIGINT, &userID, 0, nullptr);
+				SQLBindCol(_hstmts[index], 2, SQL_C_SSHORT, &x, 0, nullptr);
+				SQLBindCol(_hstmts[index], 3, SQL_C_SSHORT, &y, 0, nullptr);
+				SQLBindCol(_hstmts[index], 4, SQL_C_SSHORT, &maxHP, 0, nullptr);
+				SQLBindCol(_hstmts[index], 5, SQL_C_SSHORT, &HP, 0, nullptr);
+				SQLBindCol(_hstmts[index], 6, SQL_C_UTINYINT, &class_type, 0, nullptr);
+				SQLBindCol(_hstmts[index], 7, SQL_C_SLONG, &level, 0, nullptr);
+				SQLBindCol(_hstmts[index], 8, SQL_C_SBIGINT, &exp, 0, nullptr);
+
+				retcode = SQLExecute(_hstmts[index]);
+				if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
+					exit(-1);
+				}
+
+				retcode = SQLFetch(_hstmts[index]);
+				if (retcode == SQL_SUCCESS) {
+					session->LoginInfo(static_cast<uint64>(userID), x, y, maxHP, HP, class_type, level, exp);
+					ExOver* new_task = new ExOver{ OverOperation::DB_LOGIN };
+					server.AddTask(now_id, new_task);
+				}
+				else if (retcode == SQL_NO_DATA) {
+					session->LoginFalse();
+				}
+				else {
+					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
+					exit(-1);
+				}
+
+				SQLCloseCursor(_hstmts[index]);
+
 			}
 			break;
 			}

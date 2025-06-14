@@ -20,6 +20,8 @@ enum OverOperation
 	DO_RANDOM_MOVE,
 	DO_REVIVE,
 
+	DB_LOGIN,
+
 	OVER_NONE,
 
 	OVER_END

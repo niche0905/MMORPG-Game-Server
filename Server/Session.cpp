@@ -198,47 +198,8 @@ void Session::LoginProcess(BYTE* packet)
 	CS_LOGIN_PACKET* login_packet = reinterpret_cast<CS_LOGIN_PACKET*>(packet);
 	SetName(login_packet->_name);
 
-	_position.x = rand() % MAX_WIDTH;
-	_position.y = rand() % MAX_WIDTH;
-
-	server.RegisterSector(_id, _position);
-	// TODO: 아래 바꾸어야 한다
-	SetClassType(ClassType::WARRIOR);
-
-	_state = GameState::ST_INGAME;
-
-	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, _visual_type, _class_type, _level, _exp};
-	Send(&login_allow_packet);
-
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _class_type, _level };
-	SC_MOVE_PACKET move_packet{ _id, _position.x, _position.y };
-
-	std::unordered_set<uint64> user_list = server.GetClientList(_position);
-	for (uint64 client_id : user_list) {
-		if (client_id == _id) continue;
-
-		auto client = server.GetClients()[client_id];
-		if (client == nullptr) continue;
-
-		auto state = client->GetState();
-		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
-
-		if (not client->CanSee(_position, VIEW_RANGE)) continue;
-
-		Position client_pos = client->GetPosition();
-		SC_ENTER_PACKET other_enter_packet{ client_id, client_pos.x, client_pos.y, client->GetName().data(), _visual_type, _class_type, _level };
-		SendNewCreature(client_id, &other_enter_packet);
-
-		if (client->IsPlayer()) {
-			auto session = static_cast<Session*>(client);
-			session->ProcessCloseCreature(_id, &enter_packet, &move_packet);
-		}
-		else if (client->IsNPC()) {
-			auto npc = static_cast<Bot*>(client);
-			npc->FirstSeen(_id);
-			npc->WakeUp();
-		}
-	}
+	DatabaseEvent db_event{ _id, DatabaseEvent::DbOperation::DB_LOGIN_REQUEST };
+	server.AddRequestDB(db_event);
 }
 
 void Session::MoveProcess(BYTE* packet)
@@ -468,6 +429,61 @@ void Session::AttackProcess(BYTE* packet)
 
 	if (damage_packet._num != 0)	// 맞은 사람이 없으면 보낼 이유가 없음
 		Send(&damage_packet);
+}
+
+void Session::LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 HP, uint8 class_type, uint32 level, uint64 exp)
+{
+	// TODO: cum으로 맵 하나 더 만들어야 함 (userID -> SessionID)
+
+	SetPosition(x, y);
+	server.RegisterSector(_id, _position);
+	_hp = HP;
+	SetClassType(class_type);
+	_level = level;
+	_exp = exp;
+}
+
+void Session::LoginDone()
+{
+	_state = GameState::ST_INGAME;
+
+	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, _visual_type, _class_type, _level, _exp };
+	Send(&login_allow_packet);
+
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _class_type, _level };
+	SC_MOVE_PACKET move_packet{ _id, _position.x, _position.y };
+
+	std::unordered_set<uint64> user_list = server.GetClientList(_position);
+	for (uint64 client_id : user_list) {
+		if (client_id == _id) continue;
+
+		auto client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		auto state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+		if (not client->CanSee(_position, VIEW_RANGE)) continue;
+
+		Position client_pos = client->GetPosition();
+		SC_ENTER_PACKET other_enter_packet{ client_id, client_pos.x, client_pos.y, client->GetName().data(), _visual_type, _class_type, _level };
+		SendNewCreature(client_id, &other_enter_packet);
+
+		if (client->IsPlayer()) {
+			auto session = static_cast<Session*>(client);
+			session->ProcessCloseCreature(_id, &enter_packet, &move_packet);
+		}
+		else if (client->IsNPC()) {
+			auto npc = static_cast<Bot*>(client);
+			npc->FirstSeen(_id);
+			npc->WakeUp();
+		}
+	}
+}
+
+void Session::LoginFalse()
+{
+	// TODO: DB에 정보가 없다 새로 만들어야 한다
 }
 
 void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet)

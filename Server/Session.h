@@ -52,6 +52,10 @@ public:
 	void ChatProcess(BYTE* packet);
 	void AttackProcess(BYTE* packet);
 
+	void LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 HP, uint8 class_type, uint32 level, uint64 exp);
+	void LoginDone();
+	void LoginFalse();
+
 	void ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet);
 	void SendNewCreature(uint64 id, void* enter_packet);
 	void SendLeaveCreature(uint64 id);
