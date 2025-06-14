@@ -79,6 +79,12 @@ void GameScene::HandleInput(const sf::Event& input_event)
 		if (input_event.key.code == sf::Keyboard::A) {
 			game.SendAttack(KeyType::KEY_A);
 		}
+		if (input_event.key.code == sf::Keyboard::S) {
+			game.SendAttack(KeyType::KEY_S);
+		}
+		if (input_event.key.code == sf::Keyboard::D) {
+			game.SendAttack(KeyType::KEY_D);
+		}
 	}
 }
 
