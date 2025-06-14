@@ -15,8 +15,6 @@ public:
 	bool operator<(const Attack& other) const;
 
 	void SetAtkType(uint8 atk_type);
-	void SetSprite(const std::string& key);
-	void SetSize(float size);
 
 	void SetActive(sf::Vector2i pos, uint8 direction = NO_DIRECTION);
 
@@ -24,6 +22,10 @@ public:
 
 	void Update(const int64 delta_time);
 	bool Validate();
+
+private:
+	void SetSprite(const std::string& key);
+	void SetSize(float size);
 
 };
 

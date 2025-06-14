@@ -40,25 +40,6 @@ void Attack::SetAtkType(uint8 atk_type)
 	_duration = 500000;
 }
 
-void Attack::SetSprite(const std::string& key)
-{
-	_attack_obj.setTexture(TextureManager::Instance().GetTexture(key));
-}
-
-void Attack::SetSize(float size)
-{
-	const sf::Texture* tex = _attack_obj.getTexture();
-	if (!tex) return;
-
-	sf::Vector2u texture_size = tex->getSize();
-	if (texture_size.x == 0 || texture_size.y == 0) return;
-
-	_attack_obj.setScale(size / texture_size.x, size / texture_size.y);
-
-	sf::FloatRect bounds = _attack_obj.getLocalBounds();
-	_attack_obj.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-}
-
 void Attack::SetActive(sf::Vector2i pos, uint8 dir)
 {
 	// TODO: dir에 맞게 위치 수정 및 방향 flip 해주어야 함
@@ -85,4 +66,23 @@ void Attack::Update(const int64 delta_time)
 bool Attack::Validate()
 {
 	return _remove_time > 0;
+}
+
+void Attack::SetSprite(const std::string& key)
+{
+	_attack_obj.setTexture(TextureManager::Instance().GetTexture(key));
+}
+
+void Attack::SetSize(float size)
+{
+	const sf::Texture* tex = _attack_obj.getTexture();
+	if (!tex) return;
+
+	sf::Vector2u texture_size = tex->getSize();
+	if (texture_size.x == 0 || texture_size.y == 0) return;
+
+	_attack_obj.setScale(size / texture_size.x, size / texture_size.y);
+
+	sf::FloatRect bounds = _attack_obj.getLocalBounds();
+	_attack_obj.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
