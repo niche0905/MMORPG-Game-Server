@@ -72,6 +72,21 @@ bool Session::IsNPC() const
 	return false;
 }
 
+uint8 Session::GetLevel() const
+{
+	return _level;
+}
+
+uint64 Session::GetExp() const
+{
+	return _exp;
+}
+
+uint16 Session::GetHP() const
+{
+	return _hp;
+}
+
 uint16 Session::GetMaxHP() const
 {
 	return _basic_stats.HP + _temp_stats.HP + _equip_stats.HP;

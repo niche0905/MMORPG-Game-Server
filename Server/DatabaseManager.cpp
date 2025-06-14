@@ -243,9 +243,42 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 					break;
 				}
 
-				// TODO: Logout 저장 프로시저 생성해서 불러주어야 함
+				const std::wstring logout_query = L"{ CALL logout_process(?, ?, ?, ?, ?, ?, ?, ?) }";
+				retcode = SQLPrepare(_hstmts[index], (SQLWCHAR*)logout_query.c_str(), SQL_NTS);
+				if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
+					SQLFreeStmt(_hstmts[index], SQL_CLOSE);
+					exit(-1);
+				}
 
+				int64 userID = static_cast<int64>(session->GetUserID());
+				Position pos;
+				int16 maxHP = static_cast<int16>(session->GetMaxHP());
+				int16 HP = static_cast<int16>(session->GetHP());
+				int32 level = static_cast<int32>(session->GetLevel());
+				int64 exp = static_cast<int64>(session->GetExp());
+				int32 result_code = -1;
 
+				SQLBindParameter(_hstmts[index], 1, SQL_PARAM_INPUT, SQL_C_SBIGINT, SQL_BIGINT, 0, 0, &userID, 0, NULL);
+				SQLBindParameter(_hstmts[index], 2, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &pos.x, 0, NULL);
+				SQLBindParameter(_hstmts[index], 3, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &pos.y, 0, NULL);
+				SQLBindParameter(_hstmts[index], 4, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &maxHP, 0, NULL);
+				SQLBindParameter(_hstmts[index], 5, SQL_PARAM_INPUT, SQL_C_SSHORT, SQL_SMALLINT, 0, 0, &HP, 0, NULL);
+				SQLBindParameter(_hstmts[index], 6, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, 0, 0, &level, 0, NULL);
+				SQLBindParameter(_hstmts[index], 7, SQL_PARAM_INPUT, SQL_C_SBIGINT, SQL_BIGINT, 0, 0, &exp, 0, NULL);
+				SQLBindParameter(_hstmts[index], 8, SQL_PARAM_OUTPUT, SQL_C_LONG, SQL_INTEGER, 0, 0, &result_code, 0, NULL);
+
+				retcode = SQLExecute(_hstmts[index]);
+				if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
+					HandleDiagnosticRecord(_hstmts[index], SQL_HANDLE_STMT, retcode);
+					SQLFreeStmt(_hstmts[index], SQL_CLOSE);
+					exit(-1);
+				}
+
+				if (result_code != 0) {
+					// 저장 실패!!!!! 큰일이다
+					std::cout << "DB logout_process fail!!!!\n";
+				}
 
 				ExOver* new_task = new ExOver{ OverOperation::DB_LOGOUT };
 				server.AddTask(now_id, new_task);
