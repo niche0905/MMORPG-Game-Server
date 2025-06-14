@@ -121,6 +121,9 @@
     <ClCompile Include="LoginScene.cpp">
       <Filter>Content\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="CreateScene.cpp">
+      <Filter>Content\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -190,6 +193,9 @@
       <Filter>Content\Object\Button</Filter>
     </ClInclude>
     <ClInclude Include="LoginScene.h">
+      <Filter>Content\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateScene.h">
       <Filter>Content\Scene</Filter>
     </ClInclude>
   </ItemGroup>

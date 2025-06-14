@@ -5,6 +5,7 @@ enum class SceneType : uint8
 {
 	TitleScene,
 	LoginScene,
+	CreateScene,
 	GameScene,
 	
 };
