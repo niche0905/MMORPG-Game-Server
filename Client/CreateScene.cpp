@@ -103,7 +103,49 @@ void CreateScene::HandleInput(const sf::Event& input_event)
 
 void CreateScene::ProcessPacket(std::vector<BYTE> packets)
 {
-	// TODO: 이를 채워야 함 (필요에 맞게)
+	size_t processed_data_size = 0;
+
+	while (processed_data_size < packets.size())
+	{
+		BYTE* packet = packets.data() + processed_data_size;
+
+		BASE_PACKET* base_packet = reinterpret_cast<BASE_PACKET*>(packet);
+
+		switch (base_packet->_packet_id)
+		{
+
+		case PacketID::S2C_LOGIN_ALLOW:
+		{
+			game.SceneLoad(SceneType::GameScene);
+			game.ProcessPacket(packets);
+		}
+		break;
+
+		case PacketID::S2C_LOGIN_FAIL:
+		{
+			SC_LOGIN_FAIL_PACKET* login_fail_packet = reinterpret_cast<SC_LOGIN_FAIL_PACKET*>(packet);
+			switch (login_fail_packet->_reason)
+			{
+			case LoginFailReason::USED_ID:
+			{
+				game.SceneLoad(SceneType::LoginScene);
+			}
+			break;
+			default:
+				std::cout << "Create Register Fail, But no idea\n";
+				break;
+			}
+		}
+		break;
+
+		default:
+			// 이 짝으로 패킷이 오면 안댜
+			std::cout << "Create Scene Recv Invalid Packet ERROR\n";
+			break;
+		}
+
+		processed_data_size += base_packet->_size;
+	}
 }
 
 void CreateScene::UpdateSelector()
