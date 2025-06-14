@@ -215,7 +215,7 @@ void ServerCore::Worker()
 					Session* session = static_cast<Session*>(client);
 
 					session->Disconnect();
-					_ebr_sessions.Reuse(session);
+					_ebr_sessions.Reuse(session);	// TODO: 이걸 여기서 부르면 안되나?
 					_clients.at(key) = nullptr;
 				}
 			}
