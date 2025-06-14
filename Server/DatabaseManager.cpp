@@ -232,6 +232,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 
 			case DatabaseEvent::DB_LOGOUT_PROCESS:
 			{
+				if (::IsNPC(now_id)) break;
 				Creature* creature = server.GetClients()[now_id];
 				if (creature == nullptr) break;
 				Session* session = static_cast<Session*>(creature);
@@ -252,7 +253,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				}
 
 				int64 userID = static_cast<int64>(session->GetUserID());
-				Position pos;
+				Position pos = session->GetPosition();
 				int16 maxHP = static_cast<int16>(session->GetMaxHP());
 				int16 HP = static_cast<int16>(session->GetHP());
 				int32 level = static_cast<int32>(session->GetLevel());
