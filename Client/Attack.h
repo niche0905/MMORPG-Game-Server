@@ -4,20 +4,19 @@
 class Attack
 {
 private:
-	Object			_attack_obj;
+	sf::Sprite		_attack_obj;
 	int64			_remove_time = 0;
 	
 	int64			_duration = 500000;		// 0.5s
 
 public:
 	Attack();
-	Attack(std::string text);
 	Attack(uint8 atk_type);
 
 	bool operator<(const Attack& other) const;
 
 	void SetAtkType(uint8 atk_type);
-	void SetTexture(const std::string& key);
+	void SetSprite(const std::string& key);
 	void SetSize(float size);
 
 	void SetActive(sf::Vector2i pos, uint8 direction = NO_DIRECTION);
