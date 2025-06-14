@@ -35,6 +35,18 @@
     {
       "key": "sorcerer_big",
       "path": "Resource/Texture/sorcerer_big.png"
+    },
+    {
+      "key": "warrior_s",
+      "path": "Resource/Texture/warrior_s.png"
+    },
+    {
+      "key": "rogue_s",
+      "path": "Resource/Texture/rogue_s.png"
+    },
+    {
+      "key": "sorcerer_s",
+      "path": "Resource/Texture/sorcerer_s.png"
     }
   ]
 }
