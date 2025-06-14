@@ -12,7 +12,7 @@ Attack::Attack(std::string text)
 {
 	_attack_obj.Hide();
 	_attack_obj.SetSprite(text);
-	_attack_obj.SetSize(OBJECT_SIZE * 3);	// TODO: 이겄도 빼내어야 함
+	_attack_obj.SetSize(OBJECT_SIZE * 3);
 }
 
 Attack::Attack(uint8 atk_type)
@@ -61,7 +61,7 @@ void Attack::SetTexture(const std::string& key)
 
 void Attack::SetSize(float size)
 {
-	_attack_obj.SetSize(size);	// TODO: 이겄도 빼내어야 함
+	_attack_obj.SetSize(size);
 }
 
 void Attack::SetActive(sf::Vector2i pos, uint8 dir)
