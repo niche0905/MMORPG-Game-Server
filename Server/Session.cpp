@@ -48,6 +48,7 @@ void Session::Disconnect()
 	}
 
 	_state = ST_CLOSE;
+	server.GetMappingTable()[_user_id] = INVALID_ID;
 
 	closesocket(_socket);
 }
@@ -431,9 +432,26 @@ void Session::AttackProcess(BYTE* packet)
 		Send(&damage_packet);
 }
 
-void Session::LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 HP, uint8 class_type, uint32 level, uint64 exp)
+uint64 Session::GetUserID() const
+{
+	return _user_id;
+}
+
+bool Session::LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 HP, uint8 class_type, uint32 level, uint64 exp)
 {
 	// TODO: cum으로 맵 하나 더 만들어야 함 (userID -> SessionID)
+	_user_id = user_id;
+
+	if (server.GetMappingTable().count(user_id) != 0) {
+		if (server.GetMappingTable()[user_id] != INVALID_ID) {
+			SC_LOGIN_FAIL_PACKET login_fail_packet{ LoginFailReason::USED_ID };
+			Send(&login_fail_packet);
+
+			return false;
+		}
+	}
+
+	server.GetMappingTable()[_user_id] = _id;
 
 	SetPosition(x, y);
 	server.RegisterSector(_id, _position);
@@ -441,10 +459,13 @@ void Session::LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 H
 	SetClassType(class_type);
 	_level = level;
 	_exp = exp;
+
+	return true;
 }
 
 void Session::LoginDone()
 {
+	server.GetMappingTable()[_user_id] = _id;
 	_state = GameState::ST_INGAME;
 
 	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, _visual_type, _class_type, _level, _exp };

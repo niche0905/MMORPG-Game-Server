@@ -121,9 +121,12 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 
 				retcode = SQLFetch(_hstmts[index]);
 				if (retcode == SQL_SUCCESS) {
-					session->LoginInfo(static_cast<uint64>(userID), x, y, maxHP, HP, class_type, level, exp);
-					ExOver* new_task = new ExOver{ OverOperation::DB_LOGIN };
-					server.AddTask(now_id, new_task);
+					bool succ = session->LoginInfo(static_cast<uint64>(userID), x, y, maxHP, HP, class_type, level, exp);
+
+					if (succ) {
+						ExOver* new_task = new ExOver{ OverOperation::DB_LOGIN };
+						server.AddTask(now_id, new_task);
+					}
 				}
 				else if (retcode == SQL_NO_DATA) {
 					ExOver* new_task = new ExOver{ OverOperation::DB_LOGIN_FAIL };

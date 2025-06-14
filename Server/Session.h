@@ -14,6 +14,8 @@ private:
 	std::unordered_set<uint64>	_view_list;		// 나중에 lock 없는 자료구조 찾아보자
 	std::mutex					_view_lock;
 
+	uint64		_user_id = INVALID_ID;
+
 	// 네트워크 관련
 
 	SOCKET		_socket;
@@ -52,7 +54,8 @@ public:
 	void ChatProcess(BYTE* packet);
 	void AttackProcess(BYTE* packet);
 
-	void LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 HP, uint8 class_type, uint32 level, uint64 exp);
+	uint64 GetUserID() const;
+	bool LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 HP, uint8 class_type, uint32 level, uint64 exp);
 	void LoginDone();
 	void LoginFalse();
 
