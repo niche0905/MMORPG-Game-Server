@@ -64,7 +64,21 @@ enum ClassType : uint8
 	CLASS_END
 };
 
-// TODO: VisualInfo 만들어야 함
+enum VisualInfo : uint8
+{
+	VISUAL_START = 0,
+
+	VI_WARRIOR,			// 전사
+	VI_ROGUE,			// 도적
+	VI_SORCERER,		// 마법사
+	VI_GRAVE,			// 묘비(플레이어 사망)
+
+	VI_MONSTER,			// 빨간색 테스트용 몬스터
+
+	// TODO: 몬스터, 상인 등등 더 추가해야 한다
+
+	VISUAL_END
+};
 
 enum KeyType : uint8
 {
