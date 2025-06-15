@@ -708,6 +708,8 @@ void Session::LoginDone()
 		auto state = client->GetState();
 		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
 
+		if (client->IsNPC() and state == GameState::ST_DEAD) continue;
+
 		if (not client->CanSee(_position, VIEW_RANGE)) continue;
 
 		Position client_pos = client->GetPosition();
