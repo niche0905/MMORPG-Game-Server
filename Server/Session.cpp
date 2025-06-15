@@ -3,6 +3,7 @@
 
 
 Session::Session()
+	: Session{ 0, INVALID_ID }
 {
 	// unordered_map을 사용할 것이기에 기본 생성자가 호출되면 안되는 것임
 	std::cout << "Session 기본 생성자 호출 에러\n";
@@ -15,7 +16,13 @@ Session::Session(SOCKET socket, uint64 id)
 	, _remain_size(0)
 	, _recv_overlapped(OverOperation::IO_RECV)
 {
+	using namespace std::chrono;
+
 	_class_type = ClassType::CLASS_NONE;
+	_move_cooltime = system_clock::now();
+	_aatk_cooltime = system_clock::now();
+	_satk_cooltime = system_clock::now();
+	_datk_cooltime = system_clock::now();
 }
 
 Session::~Session()
@@ -230,6 +237,8 @@ void Session::RegisterProcess(BYTE* packet)
 
 void Session::MoveProcess(BYTE* packet)
 {
+	// TODO: 쿨타임을 가지고 걸러야 함
+
 	CS_MOVE_PACKET* move_packet = reinterpret_cast<CS_MOVE_PACKET*>(packet);
 	_last_move_time = move_packet->_move_time;
 
@@ -362,6 +371,8 @@ void Session::ChatProcess(BYTE* packet)
 
 void Session::AttackProcess(BYTE* packet)
 {
+	// TODO: 쿨타임을 가지고 걸러야 함
+
 	CS_ATTACK_PACKET* attack_packet = reinterpret_cast<CS_ATTACK_PACKET*>(packet);
 
 	uint8 attack_type = AttackType::ATTACK_NONE;

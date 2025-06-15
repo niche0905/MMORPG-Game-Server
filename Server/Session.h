@@ -4,6 +4,9 @@
 class Session : public Creature
 {
 private:
+	using time_point = std::chrono::system_clock::time_point;
+
+private:
 	// 게임에 필요한 정보 (컨텐츠 관련)
 	
 	uint64		_exp = 0;
@@ -15,6 +18,11 @@ private:
 	std::mutex					_view_lock;
 
 	uint64		_user_id = INVALID_ID;
+
+	time_point	_move_cooltime;
+	time_point	_aatk_cooltime;
+	time_point	_satk_cooltime;
+	time_point	_datk_cooltime;
 
 	// 네트워크 관련
 
