@@ -33,6 +33,7 @@ std::vector<Position> Astar::FindPath(Position start, Position goal, std::functi
                 path.push_back(current->pos);
                 current = current->parent;
             }
+            if (not path.empty()) path.pop_back();
             std::reverse(path.begin(), path.end());
             for (auto& [_, node] : allNodes) delete node;
             return path;
