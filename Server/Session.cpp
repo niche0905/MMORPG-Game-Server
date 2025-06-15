@@ -140,6 +140,28 @@ void Session::DeadSequence()
 	// TODO: Broadcast 및 비석 표시
 }
 
+void Session::UpdateVisualInfo()
+{
+	switch (_class_type)
+	{
+	case ClassType::WARRIOR:
+		_visual_type = VisualInfo::VI_WARRIOR;
+		break;
+	case ClassType::ROGUE:
+		_visual_type = VisualInfo::VI_ROGUE;
+		break;
+	case ClassType::SORCERER:
+		_visual_type = VisualInfo::VI_SORCERER;
+		break;
+	}
+}
+
+void Session::SetClassType(uint8 class_type)
+{
+	Creature::SetClassType(class_type);
+	UpdateVisualInfo();
+}
+
 void Session::Send(void* packet)
 {
 	ExOver* send_overlapped = new ExOver(OverOperation::IO_SEND);

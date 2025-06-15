@@ -53,6 +53,9 @@ public:
 	bool TakeDamage(uint64 id, uint16 damage) override;
 	void DeadSequence() override;
 
+	void UpdateVisualInfo();
+	void SetClassType(uint8 class_type) override;
+
 	void Send(void* packet);
 	void Recv();
 

@@ -27,6 +27,7 @@ Bot::Bot(uint64 id, uint8 b_type, bool invin, bool neut, bool peace, bool firend
 	, _is_fix{ fix }
 {
 	_class_type = b_type;
+	_visual_type = VisualInfo::VI_MONSTER;	// TODO: 자식에서 덮어쓰세요
 	_fsm.ChangeState(this, &IdleState::Instance());
 }
 

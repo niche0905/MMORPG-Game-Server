@@ -58,7 +58,7 @@ public:
 	bool SetDead();
 	virtual void DeadSequence();
 
-	void SetClassType(uint8 class_type);
+	virtual void SetClassType(uint8 class_type);
 	uint8 GetClassType() const;
 
 	uint8 GetVisualType() const;
