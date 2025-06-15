@@ -89,6 +89,15 @@
     <ClCompile Include="FixedMonster.cpp">
       <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="PM_IdleState.cpp">
+      <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
+    </ClCompile>
+    <ClCompile Include="PM_ReturnState.cpp">
+      <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
+    </ClCompile>
+    <ClCompile Include="PM_RunState.cpp">
+      <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -165,6 +174,9 @@
     </Filter>
     <Filter Include="Contents\Creature\NPC\Bot\Monster\BaseMonster">
       <UniqueIdentifier>{7a121c57-6088-4443-a9cb-28bcfda2f645}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\State\PeaceMonsterStates">
+      <UniqueIdentifier>{53c9118c-3d2d-4df3-a650-d05ec40e3e8c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +269,15 @@
     </ClInclude>
     <ClInclude Include="FixedMonster.h">
       <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="PM_RunState.h">
+      <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
+    </ClInclude>
+    <ClInclude Include="PM_IdleState.h">
+      <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
+    </ClInclude>
+    <ClInclude Include="PM_ReturnState.h">
+      <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
