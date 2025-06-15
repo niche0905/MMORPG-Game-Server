@@ -29,6 +29,8 @@ private:
 	uint8 class_type;
 	std::string name;
 
+	bool is_developer = false;
+
 public:
 	Game();
 
@@ -61,6 +63,8 @@ public:
 
 	void SetName(const std::string& name);
 	const std::string& GetName() const;
+
+	bool IsDev() const;
 
 };
 

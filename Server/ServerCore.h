@@ -30,6 +30,8 @@ private:
 	SOCKET						_accept_socket;		// 클라이언트 소켓 (accept 전용)
 	ExOver						_accept_overlapped;	// accept용 overlapped 구조체
 
+	bool						_is_developer = false;
+
 public:
 	ServerCore();
 	~ServerCore();
@@ -80,6 +82,8 @@ public:
 	void AddTask(uint64 id, ExOver* new_task);
 	void AddTimerEvent(const Event& timer_event);
 	void AddRequestDB(const DatabaseEvent& db_event);
+
+	bool IsDev() const;
 
 };
 

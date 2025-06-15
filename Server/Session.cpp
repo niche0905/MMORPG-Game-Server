@@ -242,9 +242,12 @@ void Session::MoveProcess(BYTE* packet)
 	using namespace std::chrono;
 
 	auto now_point = steady_clock::now();
-	//if ((now_point - _move_cooltime) < (MOVE_COOLTIME - GRACE_TIME)) {
-	//	return;		// 이동 실패
-	//}
+	if (server.IsDev());
+	else {
+		if ((now_point - _move_cooltime) < (MOVE_COOLTIME - GRACE_TIME)) {
+			return;		// 이동 실패
+		}
+	}
 	_move_cooltime = now_point;
 
 	CS_MOVE_PACKET* move_packet = reinterpret_cast<CS_MOVE_PACKET*>(packet);
@@ -392,8 +395,11 @@ void Session::AttackProcess(BYTE* packet)
 	case KeyType::KEY_A:
 		attack_type = AttackType::STANDARD_ATK;
 
-		if ((now_point - _aatk_cooltime) < (AATK_COOLTIME - GRACE_TIME)) {
-			return;		// A공격 실패
+		if (server.IsDev());
+		else {
+			if ((now_point - _aatk_cooltime) < (AATK_COOLTIME - GRACE_TIME)) {
+				return;		// A공격 실패
+			}
 		}
 		_aatk_cooltime = now_point;
 		break;
@@ -412,8 +418,11 @@ void Session::AttackProcess(BYTE* packet)
 			break;
 		}
 
-		if ((now_point - _satk_cooltime) < (SATK_COOLTIME - GRACE_TIME)) {
-			return;		// S공격 실패
+		if (server.IsDev());
+		else {
+			if ((now_point - _satk_cooltime) < (SATK_COOLTIME - GRACE_TIME)) {
+				return;		// S공격 실패
+			}
 		}
 		_satk_cooltime = now_point;
 	}
@@ -422,9 +431,11 @@ void Session::AttackProcess(BYTE* packet)
 	case KeyType::KEY_D:
 	{
 
-
-		if ((now_point - _datk_cooltime) < (DATK_COOLTIME - GRACE_TIME)) {
-			return;		// D공격 실패
+		if (server.IsDev());
+		else {
+			if ((now_point - _datk_cooltime) < (DATK_COOLTIME - GRACE_TIME)) {
+				return;		// D공격 실패
+			}
 		}
 		_datk_cooltime = now_point;
 	}

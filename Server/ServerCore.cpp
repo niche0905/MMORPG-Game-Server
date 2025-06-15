@@ -25,6 +25,12 @@ ServerCore::~ServerCore()
 
 void ServerCore::Init()
 {
+	std::cout << "Is Developer?: ";
+	int temp;
+	std::cin >> temp;
+	if (temp == 1)
+		_is_developer = true;
+
 	LocaleInit();
 
 	NetworkInit();
@@ -472,4 +478,9 @@ void ServerCore::AddTimerEvent(const Event& timer_event)
 void ServerCore::AddRequestDB(const DatabaseEvent& db_event)
 {
 	_db_manager.AddEventDB(db_event);
+}
+
+bool ServerCore::IsDev() const
+{
+	return _is_developer;
 }

@@ -32,6 +32,12 @@ void Game::Init()
 
 	scene = std::make_shared<TitleScene>();
 
+	std::cout << "Developer Mode (1: true): ";
+	int input_value;
+	std::cin >> input_value;
+	if (input_value == 1)
+		is_developer = true;
+
 	// TODO : Loading이 끝나고 나서 last_time을 초기화 해야 함
 	last_time = Epoch::now();
 }
@@ -204,4 +210,9 @@ void Game::SetName(const std::string& name_)
 const std::string& Game::GetName() const
 {
 	return name;
+}
+
+bool Game::IsDev() const
+{
+	return is_developer;
 }
