@@ -480,6 +480,9 @@ void Session::AttackProcess(BYTE* packet)
 			uint8 state = client->GetState();
 			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;	// 게임 참여 중 아니라면 무시
 
+			Bot* npc = static_cast<Bot*>(client);
+			if (npc->IsFriendly() or npc->IsInvincibility()) continue;		// 우호관계, 무적이라면 스킵
+
 			// 공격 범위 판정!
 			Position client_pos = client->GetPosition();
 			int16 dx = std::abs(client_pos.x - pos.x);
@@ -510,6 +513,9 @@ void Session::AttackProcess(BYTE* packet)
 
 			uint8 state = client->GetState();
 			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;
+
+			Bot* npc = static_cast<Bot*>(client);
+			if (npc->IsFriendly() or npc->IsInvincibility()) continue;
 
 			// 공격 범위 판정!
 			Position client_pos = client->GetPosition();
@@ -560,6 +566,9 @@ void Session::AttackProcess(BYTE* packet)
 
 			uint8 state = client->GetState();
 			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;
+
+			Bot* npc = static_cast<Bot*>(client);
+			if (npc->IsFriendly() or npc->IsInvincibility()) continue;
 
 			// 공격 범위 판정!
 			Position client_pos = client->GetPosition();
@@ -619,6 +628,9 @@ void Session::AttackProcess(BYTE* packet)
 
 			uint8 state = client->GetState();
 			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;
+
+			Bot* npc = static_cast<Bot*>(client);
+			if (npc->IsFriendly() or npc->IsInvincibility()) continue;
 
 			// 공격 범위 판정!
 			Position client_pos = client->GetPosition();

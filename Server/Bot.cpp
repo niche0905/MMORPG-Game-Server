@@ -101,27 +101,27 @@ uint8 Bot::GetBotType() const
 	return _class_type;
 }
 
-bool Bot::GetInvincibility() const
+bool Bot::IsInvincibility() const
 {
 	return _is_invincibility;
 }
 
-bool Bot::GetNeutrality() const
+bool Bot::IsNeutrality() const
 {
 	return _is_neutrality;
 }
 
-bool Bot::GetPeace() const
+bool Bot::IsPeace() const
 {
 	return _is_peace;
 }
 
-bool Bot::GetFriendly() const
+bool Bot::IsFriendly() const
 {
 	return false;
 }
 
-bool Bot::GetFix() const
+bool Bot::IsFix() const
 {
 	return _is_fix;
 }

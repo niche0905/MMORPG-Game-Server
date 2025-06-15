@@ -36,11 +36,11 @@ public:
 
 	uint8 GetBotType() const;
 
-	bool GetInvincibility() const;
-	bool GetNeutrality() const;
-	bool GetPeace() const;
-	bool GetFriendly() const;
-	bool GetFix() const;
+	bool IsInvincibility() const;
+	bool IsNeutrality() const;
+	bool IsPeace() const;
+	bool IsFriendly() const;
+	bool IsFix() const;
 
 	virtual void Update();
 
