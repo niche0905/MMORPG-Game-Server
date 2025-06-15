@@ -89,6 +89,12 @@ void Attack::Draw(sf::RenderWindow& window)
 		window.draw(_attack_obj);
 }
 
+void Attack::FixOrigin()
+{
+	if (not _attack_obj.getTexture()) return;
+	SetOrigin(not _diretional_atk);
+}
+
 void Attack::Update(const int64 delta_time)
 {
 	_remove_time -= delta_time;

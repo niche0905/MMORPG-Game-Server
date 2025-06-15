@@ -149,6 +149,13 @@ void Creature::SetMonster()
 	SetSprite("monster");
 }
 
+void Creature::FixAttack()
+{
+	_a_atk.FixOrigin();
+	_s_atk.FixOrigin();
+	_d_atk.FixOrigin();
+}
+
 void Creature::SetClassType(uint8 class_type)
 {
 	_class_type = class_type;

@@ -21,6 +21,8 @@ public:
 
 	void Draw(sf::RenderWindow& window);
 
+	void FixOrigin();
+
 	void Update(const int64 delta_time);
 	bool Validate();
 

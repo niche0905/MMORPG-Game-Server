@@ -50,6 +50,7 @@ public:
 	void SetDummy();
 	void SetMonster();
 
+	void FixAttack();
 	void SetClassType(uint8 class_type);
 	uint8 GetClassType() const;
 
