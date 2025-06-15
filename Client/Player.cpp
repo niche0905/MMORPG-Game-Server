@@ -159,16 +159,18 @@ void Creature::FixAttack()
 void Creature::SetClassType(uint8 class_type)
 {
 	_class_type = class_type;
-	_a_atk.SetAtkType(AttackType::STANDARD_ATK);
 	switch (class_type)
 	{
 	case ClassType::WARRIOR:
+		_a_atk.SetAtkType(AttackType::STANDARD_ATK);
 		_s_atk.SetAtkType(AttackType::WARRIOR_S);
 		break;
 	case ClassType:: ROGUE:
+		_a_atk.SetAtkType(AttackType::STANDARD_ATK);
 		_s_atk.SetAtkType(AttackType::ROGUE_S);
 		break;
 	case ClassType::SORCERER:
+		_a_atk.SetAtkType(AttackType::STANDARD_ATK);
 		_s_atk.SetAtkType(AttackType::SORCERER_S);
 		break;
 	case ClassType::FIXED_MONSTER:
