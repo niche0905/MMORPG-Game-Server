@@ -19,8 +19,8 @@ constexpr uint64 INVALID_ID = UINT64_MAX;
 constexpr std::chrono::milliseconds GRACE_TIME{ 100 };
 constexpr std::chrono::milliseconds MOVE_COOLTIME{ 500 };
 constexpr std::chrono::milliseconds AATK_COOLTIME{ 1000 };
-constexpr std::chrono::milliseconds MOVE_COOLTIME{ 5000 };
-constexpr std::chrono::milliseconds MOVE_COOLTIME{ 20000 };
+constexpr std::chrono::milliseconds SATK_COOLTIME{ 5000 };
+constexpr std::chrono::milliseconds DATK_COOLTIME{ 20000 };
 
 enum LoginFailReason : int8
 {

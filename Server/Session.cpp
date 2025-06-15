@@ -19,10 +19,10 @@ Session::Session(SOCKET socket, uint64 id)
 	using namespace std::chrono;
 
 	_class_type = ClassType::CLASS_NONE;
-	_move_cooltime = system_clock::now();
-	_aatk_cooltime = system_clock::now();
-	_satk_cooltime = system_clock::now();
-	_datk_cooltime = system_clock::now();
+	_move_cooltime = steady_clock::now();
+	_aatk_cooltime = steady_clock::now();
+	_satk_cooltime = steady_clock::now();
+	_datk_cooltime = steady_clock::now();
 }
 
 Session::~Session()
@@ -237,7 +237,13 @@ void Session::RegisterProcess(BYTE* packet)
 
 void Session::MoveProcess(BYTE* packet)
 {
-	// TODO: 쿨타임을 가지고 걸러야 함
+	using namespace std::chrono;
+
+	auto now_point = steady_clock::now();
+	if ((now_point - _move_cooltime) < (MOVE_COOLTIME - GRACE_TIME)) {
+		return;		// 이동 실패
+	}
+	_move_cooltime = now_point;
 
 	CS_MOVE_PACKET* move_packet = reinterpret_cast<CS_MOVE_PACKET*>(packet);
 	_last_move_time = move_packet->_move_time;
@@ -371,7 +377,9 @@ void Session::ChatProcess(BYTE* packet)
 
 void Session::AttackProcess(BYTE* packet)
 {
-	// TODO: 쿨타임을 가지고 걸러야 함
+	using namespace std::chrono;
+
+	auto now_point = steady_clock::now();
 
 	CS_ATTACK_PACKET* attack_packet = reinterpret_cast<CS_ATTACK_PACKET*>(packet);
 
@@ -381,16 +389,31 @@ void Session::AttackProcess(BYTE* packet)
 	{
 	case KeyType::KEY_A:
 		attack_type = AttackType::STANDARD_ATK;
+
+		if ((now_point - _aatk_cooltime) < (AATK_COOLTIME - GRACE_TIME)) {
+			return;		// A공격 실패
+		}
+		_aatk_cooltime = now_point;
 		break;
 	case KeyType::KEY_S:
 	{
 
+
+		if ((now_point - _satk_cooltime) < (SATK_COOLTIME - GRACE_TIME)) {
+			return;		// S공격 실패
+		}
+		_satk_cooltime = now_point;
 	}
 	break;
 
 	case KeyType::KEY_D:
 	{
 
+
+		if ((now_point - _datk_cooltime) < (DATK_COOLTIME - GRACE_TIME)) {
+			return;		// D공격 실패
+		}
+		_datk_cooltime = now_point;
 	}
 	break;
 
@@ -401,6 +424,7 @@ void Session::AttackProcess(BYTE* packet)
 	}
 	break;
 	}
+
 
 	SC_ATTACK_PACKET attack_broadcast_packet{ _id, attack_packet->_atk_key, attack_packet->_atk_dir };
 

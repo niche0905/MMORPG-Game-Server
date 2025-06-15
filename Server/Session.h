@@ -4,7 +4,7 @@
 class Session : public Creature
 {
 private:
-	using time_point = std::chrono::system_clock::time_point;
+	using time_point = std::chrono::steady_clock::time_point;
 
 private:
 	// 게임에 필요한 정보 (컨텐츠 관련)
