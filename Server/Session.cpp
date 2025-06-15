@@ -242,9 +242,9 @@ void Session::MoveProcess(BYTE* packet)
 	using namespace std::chrono;
 
 	auto now_point = steady_clock::now();
-	if ((now_point - _move_cooltime) < (MOVE_COOLTIME - GRACE_TIME)) {
-		return;		// 이동 실패
-	}
+	//if ((now_point - _move_cooltime) < (MOVE_COOLTIME - GRACE_TIME)) {
+	//	return;		// 이동 실패
+	//}
 	_move_cooltime = now_point;
 
 	CS_MOVE_PACKET* move_packet = reinterpret_cast<CS_MOVE_PACKET*>(packet);

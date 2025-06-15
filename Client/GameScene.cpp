@@ -80,33 +80,33 @@ void GameScene::HandleInput(const sf::Event& input_event)
 	if (input_event.type == sf::Event::KeyPressed) {
 		if (input_event.key.code == sf::Keyboard::Left) {
 			dir = DIR_LEFT;
-			if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
-				return;		// 이동 실패
-			}
+			//if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+			//	return;		// 이동 실패
+			//}
 			_move_cooltime = now_time;
 			game.SendArrowKey(MOVE_LEFT);
 		}
 		if (input_event.key.code == sf::Keyboard::Right) {
 			dir = DIR_RIGHT;
-			if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
-				return;		// 이동 실패
-			}
+			//if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+			//	return;		// 이동 실패
+			//}
 			_move_cooltime = now_time;
 			game.SendArrowKey(MOVE_RIGHT);
 		}
 		if (input_event.key.code == sf::Keyboard::Up) {
 			dir = DIR_UP;
-			if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
-				return;		// 이동 실패
-			}
+			//if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+			//	return;		// 이동 실패
+			//}
 			_move_cooltime = now_time;
 			game.SendArrowKey(MOVE_UP);
 		}
 		if (input_event.key.code == sf::Keyboard::Down) {
 			dir = DIR_DOWN;
-			if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
-				return;		// 이동 실패
-			}
+			//if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+			//	return;		// 이동 실패
+			//}
 			_move_cooltime = now_time;
 			game.SendArrowKey(MOVE_DOWN);
 		}
