@@ -9,7 +9,7 @@ NeutralMonster::NeutralMonster()
 }
 
 NeutralMonster::NeutralMonster(uint64 id)
-	: Monster{ _id, true, false, false }
+	: Monster{ id, true, false, false }
 {
 
 }

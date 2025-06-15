@@ -9,7 +9,7 @@ AgroMonster::AgroMonster()
 }
 
 AgroMonster::AgroMonster(uint64 id)
-	: Monster{_id, false, false, false}
+	: Monster{ id, false, false, false}
 {
 
 }

@@ -9,7 +9,7 @@ FixedMonster::FixedMonster()
 }
 
 FixedMonster::FixedMonster(uint64 id)
-	: Monster{ _id, true, false, true }
+	: Monster{ id, true, false, true }
 {
 
 }
