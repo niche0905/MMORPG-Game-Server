@@ -580,7 +580,60 @@ void Session::AttackProcess(BYTE* packet)
 
 	case AttackType::SORCERER_S:
 	{
+		uint16 damage = 60;
 
+		std::vector<Position> hit_pos;
+		hit_pos.reserve(6);
+		switch (attack_packet->_atk_dir)
+		{
+		case DIR_LEFT:
+			for (int i = 0; i < 6; ++i) {
+				hit_pos.emplace_back(pos.x - i, pos.y);
+			}
+			break;
+		case DIR_RIGHT:
+			for (int i = 0; i < 6; ++i) {
+				hit_pos.emplace_back(pos.x + i, pos.y);
+			}
+			break;
+		case DIR_UP:
+			for (int i = 0; i < 6; ++i) {
+				hit_pos.emplace_back(pos.x, pos.y - i);
+			}
+			break;
+		case DIR_DOWN:
+			for (int i = 0; i < 6; ++i) {
+				hit_pos.emplace_back(pos.x, pos.y + i);
+			}
+			break;
+		}
+
+		for (uint64 client_id : closed_clients) {
+
+			if (client_id == _id) continue;
+
+			if (::IsPlayer(client_id)) continue;
+
+			Creature* client = server.GetClients()[client_id];
+			if (client == nullptr) continue;
+
+			uint8 state = client->GetState();
+			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;
+
+			// 공격 범위 판정!
+			Position client_pos = client->GetPosition();
+
+			for (auto& can_pos : hit_pos) {
+				if (can_pos == client_pos) {
+					// 맞은 것임
+
+					client->TakeDamage(damage);
+					if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
+						damage_packet.AddDamageInfo(client_id, damage);
+					break;
+				}
+			}
+		}
 	}
 	break;
 
