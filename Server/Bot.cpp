@@ -257,25 +257,10 @@ void Bot::DoRevive()
 	_fsm.ChangeState(this, &IdleState::Instance());
 	_state = GameState::ST_ALIVE;
 
-	std::unordered_set<uint64> view_list = server.GetClientList(_position);
-
-	std::unordered_set<uint64> near_list;
-	for (uint64 client_id : view_list) {
-
-		if (::IsNPC(client_id)) continue;
-
-		Creature* client = server.GetClients()[client_id];
-		if (client == nullptr) continue;
-
-		uint8 state = client->GetState();
-		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
-
-		if (not client->CanSee(_position, VIEW_RANGE)) continue;
-
-		near_list.insert(client_id);
+	if (not ReviveBroadcast()) {		// 아무도 없다면 그냥 리턴
+		_is_active = false;
+		return;
 	}
-
-	if (near_list.size() == 0) return;
 
 	using namespace std::chrono;
 	server.AddTimerEvent(Event{ _id, system_clock::now() + 1s, Event::EventType::EV_RANDOM_MOVE });

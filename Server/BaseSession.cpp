@@ -165,3 +165,39 @@ uint8 Creature::GetLevel() const
 {
 	return _level;
 }
+
+bool Creature::ReviveBroadcast()
+{
+	std::unordered_set<uint64> view_list = server.GetClientList(_position);
+	Position pos = _position;
+	SC_MOVE_PACKET move_packet{ _id, pos.x, pos.y };
+	SC_ENTER_PACKET enter_packet{ _id, pos.x, pos.y, _name.c_str(), _visual_type, _class_type, _level };
+
+	std::unordered_set<uint64> near_list;
+	for (uint64 client_id : view_list) {
+
+		if (::IsNPC(client_id)) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+		if (not client->CanSee(pos, VIEW_RANGE)) continue;
+		Session* session = static_cast<Session*>(client);
+		
+		session->ProcessCloseCreature(_id, &enter_packet, &move_packet);
+		near_list.insert(client_id);
+	}
+
+	return (near_list.size() != 0);
+}
+
+void Creature::DoRevive()
+{
+	ReviveBroadcast();
+	// TODO: Class에 맞게 override 해서 사용하기
+	//		 Session 그냥 Revive 주위에 알리기
+	//		 Bot 근처에 사람이 있다면 활동하기
+}

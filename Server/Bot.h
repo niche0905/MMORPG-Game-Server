@@ -48,7 +48,7 @@ public:
 	void WakeUp();
 
 	void DoRandomMove();
-	virtual void DoRevive();
+	void DoRevive() override;
 
 };
 
