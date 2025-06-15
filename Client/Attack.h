@@ -7,6 +7,7 @@ private:
 	sf::Sprite		_attack_obj;
 	int64			_remove_time = 0;
 	
+	bool			_diretional_atk = false;
 	int64			_duration = 500000;		// 0.5s
 
 public:
@@ -26,6 +27,7 @@ public:
 private:
 	void SetSprite(const std::string& key);
 	void SetSize(float size);
+	void SetOrigin(bool mid);		// true : middle pivot, false, left-mid
 
 };
 

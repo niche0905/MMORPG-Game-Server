@@ -211,10 +211,10 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			uint64 now_id = static_cast<uint64>(atk_packet->_id);
 
 			if (now_id == game.GetID()) {
-				client_player->ShowAttack(atk_packet->_atk_key);
+				client_player->ShowAttack(atk_packet->_atk_key, atk_packet->_atk_dir);
 			}
 			else {
-				other_players[now_id].ShowAttack(atk_packet->_atk_key);
+				other_players[now_id].ShowAttack(atk_packet->_atk_key, atk_packet->_atk_dir);
 			}
 		}
 		break;

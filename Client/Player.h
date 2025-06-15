@@ -55,7 +55,7 @@ public:
 
 	void AddChat(std::string_view chat);
 	void AddDamage(uint16 damage);
-	void ShowAttack(uint8 atk_type);
+	void ShowAttack(uint8 atk_type, uint8 atk_dir);
 	void ChangeHP(uint16 hp);
 
 };

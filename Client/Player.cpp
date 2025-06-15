@@ -186,19 +186,19 @@ void Creature::AddDamage(uint16 damage)
 	_damages.back().SetColor(sf::Color::Red);
 }
 
-void Creature::ShowAttack(uint8 atk_key)
+void Creature::ShowAttack(uint8 atk_key, uint8 atk_dir)
 {
 	// TODO: class 나머지 공격 만들어야 함
 	switch (atk_key)
 	{
 	case KeyType::KEY_A:
-		_a_atk.SetActive(position);
+		_a_atk.SetActive(position, atk_dir);
 		break;
 	case KeyType::KEY_S:
-		_s_atk.SetActive(position);
+		_s_atk.SetActive(position, atk_dir);
 		break;
 	case KeyType::KEY_D:
-		_d_atk.SetActive(position);
+		_d_atk.SetActive(position, atk_dir);
 		break;
 	}
 }
