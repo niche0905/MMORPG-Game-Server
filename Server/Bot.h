@@ -49,6 +49,8 @@ public:
 
 	void DoRandomMove();
 	void DoRevive() override;
+	virtual void ReviveInit();
+	virtual void ReviveChangeState();
 
 };
 

@@ -253,8 +253,8 @@ void Bot::DoRandomMove()
 
 void Bot::DoRevive()
 {
-	_hp = 100;	// TODO: 제대로 바꾸어야 함
-	_fsm.ChangeState(this, &IdleState::Instance());
+	ReviveChangeState();
+	ReviveInit();
 	_state = GameState::ST_ALIVE;
 
 	if (not ReviveBroadcast()) {		// 아무도 없다면 그냥 리턴
@@ -264,4 +264,16 @@ void Bot::DoRevive()
 
 	using namespace std::chrono;
 	server.AddTimerEvent(Event{ _id, system_clock::now() + 1s, Event::EventType::EV_UPDATE });
+}
+
+void Bot::ReviveInit()
+{
+	_target == nullptr;
+	//_position = _base_pos;	// TODO: 부활시켜야 함 (base_pos를 적용시켜야 함)
+	_hp = 100;	// TODO: 제대로 바꾸어야 함
+}
+
+void Bot::ReviveChangeState()
+{
+	_fsm.ChangeState(this, &IdleState::Instance());
 }
