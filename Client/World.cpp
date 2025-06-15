@@ -28,7 +28,7 @@ void World::Draw(sf::RenderWindow& window, sf::Vector2i client_pos)
 
 	for (int y = start_y; y <= end_y; ++y) {
 		for (int x = start_x; x <= end_x; ++x) {
-			TileManager::Instance().GetTile(maps[y * area.y + x]).Draw(window, x, y);
+			TileManager::Instance().GetTile(maps[y * area.x + x]).Draw(window, x, y);
 		}
 	}
 }

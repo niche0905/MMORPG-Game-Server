@@ -19,6 +19,22 @@ Position WorldData::GetArea() const
 	return area;
 }
 
+bool WorldData::IsBlock(int16 x, int16 y) const
+{
+	int32 index = y * area.x + x;
+	if (index < 0 or index >= maps.size()) return true;
+
+	return maps[index];
+}
+
+bool WorldData::IsBlock(Position pos) const
+{
+	int32 index = pos.y * area.x + pos.x;
+	if (index < 0 or index >= maps.size()) return true;
+
+	return maps[index];
+}
+
 void WorldData::LoadWorld()
 {
 	std::cout << "Map Loading...\n";
