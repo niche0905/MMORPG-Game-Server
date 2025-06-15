@@ -17,6 +17,22 @@
       "path": "Resource/Texture/monster.png"
     },
     {
+      "key": "warrior",
+      "path": "Resource/Texture/warrior.png"
+    },
+    {
+      "key": "rogue",
+      "path": "Resource/Texture/rogue.png"
+    },
+    {
+      "key": "sorcerer",
+      "path": "Resource/Texture/sorcerer.png"
+    },
+    {
+      "key": "grave",
+      "path": "Resource/Texture/grave.png"
+    },
+    {
       "key": "grass",
       "path": "Resource/Texture/grass.png"
     },
