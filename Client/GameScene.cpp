@@ -89,16 +89,16 @@ void GameScene::HandleInput(const sf::Event& input_event)
 		if (input_event.key.code == sf::Keyboard::D) {
 			game.SendAttack(KeyType::KEY_D, dir);
 		}
-		if (input_event.key.code == sf::Keyboard::Num4) {
+		if (input_event.key.code == sf::Keyboard::Numpad4) {
 			dir = DIR_LEFT;
 		}
-		if (input_event.key.code == sf::Keyboard::Num6) {
+		if (input_event.key.code == sf::Keyboard::Numpad6) {
 			dir = DIR_RIGHT;
 		}
-		if (input_event.key.code == sf::Keyboard::Num8) {
+		if (input_event.key.code == sf::Keyboard::Numpad8) {
 			dir = DIR_UP;
 		}
-		if (input_event.key.code == sf::Keyboard::Num2) {
+		if (input_event.key.code == sf::Keyboard::Numpad2) {
 			dir = DIR_DOWN;
 		}
 	}
