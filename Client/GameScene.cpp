@@ -15,7 +15,8 @@ GameScene::GameScene()
 
 void GameScene::Init()
 {
-	world = std::make_shared<World>(MAX_WIDTH, MAX_HEIGHT);
+	world = std::make_shared<World>();
+	world->LoadWorld();
 
 	TileManager::Instance().AddTile(TileType::grass, "grass");
 

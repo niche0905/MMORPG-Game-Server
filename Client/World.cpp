@@ -3,6 +3,11 @@
 #include "TileManager.h"
 
 
+World::World()
+	: World{ 0, 0 }
+{
+}
+
 // 월드 기본 생성자
 World::World(int size_x, int size_y)
 	: area{ size_x, size_y }
@@ -36,7 +41,14 @@ sf::Vector2i World::GetArea() const
 // 월드 파일에서 불러오기
 void World::LoadWorld()
 {
+	std::ifstream input_file{ "../Resource/map.bin", std::ifstream::binary };
+	uint32 width, height;
+	input_file.read(reinterpret_cast<char*>(&width), sizeof(uint32));
+	input_file.read(reinterpret_cast<char*>(&height), sizeof(uint32));
 
+	maps.resize(width * height);
+	input_file.read(reinterpret_cast<char*>(maps.data()), maps.size());
+	input_file.close();
 }
 
 // 월드 파일에 저장하기
