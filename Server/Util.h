@@ -1,10 +1,11 @@
 #pragma once
 
 
-bool CanSee(int16 p1_x, int16 p1_y, int16 p2_x, int16 p2_y);	// 이제 안쓸듯?
-
 void PrintErrorMessage(DWORD err_code);
 void PrintErrorMessage(const std::wstring msg, DWORD err_code);
 
 bool IsNPC(uint64 id);
 bool IsPlayer(uint64 id);
+
+bool IsBlock(int16 x, int16 y);
+bool IsBlock(const Position& pos);

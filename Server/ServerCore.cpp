@@ -33,6 +33,8 @@ void ServerCore::Init()
 
 	LocaleInit();
 
+	WorldInit();
+
 	NetworkInit();
 
 	NPCInit();
@@ -89,6 +91,11 @@ void ServerCore::LocaleInit()
 {
 	setlocale(LC_ALL, "korean");
 	std::wcout.imbue(std::locale("korean"));
+}
+
+void ServerCore::WorldInit()
+{
+	_world_map.LoadWorld();
 }
 
 void ServerCore::NetworkInit()
@@ -478,6 +485,16 @@ void ServerCore::AddTimerEvent(const Event& timer_event)
 void ServerCore::AddRequestDB(const DatabaseEvent& db_event)
 {
 	_db_manager.AddEventDB(db_event);
+}
+
+bool ServerCore::IsBlock(int16 x, int16 y) const
+{
+	return _world_map.IsBlock(x, y);
+}
+
+bool ServerCore::IsBlock(const Position& pos) const
+{
+	return _world_map.IsBlock(pos);
 }
 
 bool ServerCore::IsDev() const

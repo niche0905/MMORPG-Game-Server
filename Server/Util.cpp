@@ -2,12 +2,6 @@
 #include "Util.h"
 
 
-bool CanSee(short p1_x, short p1_y, short p2_x, short p2_y)
-{
-	if (abs(p1_x - p2_x) > VIEW_RANGE) return false;
-	return abs(p1_y - p2_y) <= VIEW_RANGE;
-}
-
 void PrintErrorMessage(DWORD err_code)
 {
 	WCHAR* lpMsgBuf;
@@ -43,4 +37,14 @@ bool IsNPC(uint64 id)
 bool IsPlayer(uint64 id)
 {
 	return id >= NUM_MONSTER;
+}
+
+bool IsBlock(int16 x, int16 y)
+{
+	return server.IsBlock(x, y);
+}
+
+bool IsBlock(const Position& pos)
+{
+	return server.IsBlock(pos);
 }

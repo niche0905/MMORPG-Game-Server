@@ -32,6 +32,8 @@ private:
 
 	bool						_is_developer = false;
 
+	WorldData					_world_map;			// WorldMap 정보
+
 public:
 	ServerCore();
 	~ServerCore();
@@ -44,6 +46,8 @@ public:
 
 private:
 	void LocaleInit();
+
+	void WorldInit();
 
 	void NetworkInit();
 	void BindAndListen();
@@ -82,6 +86,9 @@ public:
 	void AddTask(uint64 id, ExOver* new_task);
 	void AddTimerEvent(const Event& timer_event);
 	void AddRequestDB(const DatabaseEvent& db_event);
+
+	bool IsBlock(int16 x, int16 y) const;
+	bool IsBlock(const Position& pos) const;
 
 	bool IsDev() const;
 

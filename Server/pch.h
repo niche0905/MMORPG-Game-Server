@@ -16,8 +16,8 @@
 #include <concurrent_priority_queue.h>
 #include <sqlext.h>
 
-#include "Util.h"
 #include "Position.h"
+#include "Util.h"
 #include "Packet.h"
 #include "ServerDefines.h"
 #include "Stat.h"
@@ -33,6 +33,7 @@
 #include "Sector.h"
 #include "SectorManager.h"
 #include "Event.h"
+#include "WorldData.h"
 
 #include "ServerCore.h"
 
