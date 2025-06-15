@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "FixedMonster.h"
+#include "DeadState.h"
+#include "AttackState.h"
+#include "FM_IdleState.h"
 
 
 FixedMonster::FixedMonster()
@@ -11,7 +14,7 @@ FixedMonster::FixedMonster()
 FixedMonster::FixedMonster(uint64 id)
 	: Monster{ id, true, false, true }
 {
-
+	_fsm.ChangeState(this, &FM_IdleState::Instance());
 }
 
 FixedMonster::~FixedMonster()
@@ -19,12 +22,64 @@ FixedMonster::~FixedMonster()
 
 }
 
+bool FixedMonster::TakeDamage(uint64 id, uint16 damage)
+{
+	bool my_kill = Bot::TakeDamage(id, damage);
+
+	_target = server.GetClients()[id];
+
+	return my_kill;
+}
+
 void FixedMonster::Update()
 {
+	if (_state == GameState::ST_DEAD) {
+		_fsm.ChangeState(this, &DeadState::Instance());
+		return;
+	}
 
+	if (_target != nullptr and not _target->CanSee(_position, VIEW_RANGE)) {
+		_target == nullptr;
+	}
+
+	if (_target == nullptr) {
+		_fsm.ChangeState(this, &FM_IdleState::Instance());
+	}
+	else {
+		_fsm.ChangeState(this, &AttackState::Instance());
+	}
+
+	_fsm.Update(this);
 }
 
 void FixedMonster::DropItem(uint64 id)
 {
 
+}
+
+void FixedMonster::Attack()
+{
+	const uint16 damage = 10;
+
+	if (_target) {
+
+		if (_target->CanSee(_position, FIX_MONSTER_ATK_RANGE)) {
+			if (_target->IsPlayer()) {
+				Session* session = static_cast<Session*>(_target);
+				SC_ATTACK_PACKET attack_packet{ _id, KeyType::KEY_A, AttackDirection::NO_DIRECTION };
+				AttackBroadcast(&attack_packet);
+
+				session->TakeDamage(_id, damage);
+			}
+		}
+
+		if (not _target->CanSee(_position, VIEW_RANGE)) {	// TODO: 어그로 풀리는 범위를 적용하고 싶다면 상수 정의 ㄱㄱ
+			_target = nullptr;
+		}
+	}
+}
+
+void FixedMonster::ReviveChangeState()
+{
+	_fsm.ChangeState(this, &FM_IdleState::Instance());
 }

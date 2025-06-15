@@ -9,8 +9,14 @@ public:
 	FixedMonster(uint64 id);
 	~FixedMonster();
 
+	bool TakeDamage(uint64 id, uint16 damage) override;
+
 	void Update() override;
 	void DropItem(uint64 id) override;
+
+	void Attack() override;
+
+	void ReviveChangeState() override;
 
 };
 
