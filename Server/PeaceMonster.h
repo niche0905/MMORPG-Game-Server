@@ -13,5 +13,7 @@ class PeaceMonster : public Monster
 	void Update() override;
 	void DropItem(uint64 id) override;
 
+	void ReviveChangeState() override;
+
 };
 

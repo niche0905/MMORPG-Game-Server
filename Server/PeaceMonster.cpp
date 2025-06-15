@@ -39,11 +39,21 @@ void PeaceMonster::Update()
 		return;
 	}
 
-	// TODO: 보다 올바르게
-	// target이 시야에 없으면 target = nullptr
-	// target이 있으면 run
-	// target이 없으면 return
-	// TakeDamage에서 target 설정
+	if (_target != nullptr and not _target->CanSee(_position, VIEW_RANGE)) {
+		_target == nullptr;
+	}
+
+	if (_target == nullptr) {
+		if (true /* TODO: base_pos에서 일정 거리 떨어졌다면 */ ) {
+			_fsm.ChangeState(this, &PM_ReturnState::Instance());
+		}
+		else {
+			_fsm.ChangeState(this, &PM_IdleState::Instance());
+		}
+	}
+	else {
+		_fsm.ChangeState(this, &PM_RunState::Instance());
+	}
 
 	_fsm.Update(this);
 }
@@ -51,4 +61,9 @@ void PeaceMonster::Update()
 void PeaceMonster::DropItem(uint64 id)
 {
 
+}
+
+void PeaceMonster::ReviveChangeState()
+{
+	_fsm.ChangeState(this, &PM_IdleState::Instance());
 }
