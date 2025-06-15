@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AgroMonster.cpp" />
     <ClCompile Include="BaseSession.cpp" />
     <ClCompile Include="Bot.cpp" />
     <ClCompile Include="DatabaseEvent.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="ExpansionOverlapped.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
+    <ClCompile Include="FixedMonster.cpp" />
     <ClCompile Include="GlobalVariable.cpp" />
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="IocpCore.cpp" />
@@ -178,12 +180,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MerchantNPC.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="NeutralMonster.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PeaceMonster.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="QuestNPC.cpp" />
     <ClCompile Include="Sector.cpp" />
@@ -196,6 +200,7 @@
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AgroMonster.h" />
     <ClInclude Include="BaseSession.h" />
     <ClInclude Include="Bot.h" />
     <ClInclude Include="DatabaseEvent.h" />
@@ -203,11 +208,14 @@
     <ClInclude Include="DeadState.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="FiniteStateMachine.h" />
+    <ClInclude Include="FixedMonster.h" />
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="KnightNPC.h" />
     <ClInclude Include="MerchantNPC.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="NeutralMonster.h" />
+    <ClInclude Include="PeaceMonster.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="QuestNPC.h" />
     <ClInclude Include="Sector.h" />

@@ -26,6 +26,7 @@
 #include "BaseSession.h"
 #include "State.h"
 #include "Bot.h"
+#include "Monster.h"
 #include "Session.h"
 #include "DatabaseEvent.h"
 #include "DatabaseManager.h"

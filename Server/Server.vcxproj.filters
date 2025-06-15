@@ -71,11 +71,23 @@
     <ClCompile Include="KnightNPC.cpp">
       <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="FiniteStateMachine.cpp">
       <Filter>Contents\Creature\NPC\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Contents\Creature\NPC\Bot\Monster\BaseMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="PeaceMonster.cpp">
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="NeutralMonster.cpp">
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="AgroMonster.cpp">
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedMonster.cpp">
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +163,9 @@
     <Filter Include="Contents\Creature\NPC\StateMachine">
       <UniqueIdentifier>{e5c0824b-e3cd-43bc-9282-7c4384d9140d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Creature\NPC\Bot\Monster\BaseMonster">
+      <UniqueIdentifier>{7a121c57-6088-4443-a9cb-28bcfda2f645}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IocpCore.h">
@@ -225,11 +240,23 @@
     <ClInclude Include="KnightNPC.h">
       <Filter>Contents\Creature\NPC\Bot\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="FiniteStateMachine.h">
       <Filter>Contents\Creature\NPC\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Contents\Creature\NPC\Bot\Monster\BaseMonster</Filter>
+    </ClInclude>
+    <ClInclude Include="PeaceMonster.h">
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="NeutralMonster.h">
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="AgroMonster.h">
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedMonster.h">
+      <Filter>Contents\Creature\NPC\Bot\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

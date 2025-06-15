@@ -24,3 +24,13 @@ Monster::~Monster()
 {
 
 }
+
+void Monster::Update()
+{
+
+}
+
+void Monster::DropItem(uint64 id)
+{
+	// TODO: 해당 객체에 돈 줘 (나중엔 아이템도 추가 가능하면 하고)
+}
