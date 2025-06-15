@@ -66,24 +66,40 @@ void GameScene::HandleInput(const sf::Event& input_event)
 	if (input_event.type == sf::Event::KeyPressed) {
 		if (input_event.key.code == sf::Keyboard::Left) {
 			game.SendArrowKey(MOVE_LEFT);
+			dir = DIR_LEFT;
 		}
 		if (input_event.key.code == sf::Keyboard::Right) {
 			game.SendArrowKey(MOVE_RIGHT);
+			dir = DIR_RIGHT;
 		}
 		if (input_event.key.code == sf::Keyboard::Up) {
 			game.SendArrowKey(MOVE_UP);
+			dir = DIR_UP;
 		}
 		if (input_event.key.code == sf::Keyboard::Down) {
 			game.SendArrowKey(MOVE_DOWN);
+			dir = DIR_DOWN;
 		}
 		if (input_event.key.code == sf::Keyboard::A) {
-			game.SendAttack(KeyType::KEY_A);
+			game.SendAttack(KeyType::KEY_A, dir);
 		}
 		if (input_event.key.code == sf::Keyboard::S) {
-			game.SendAttack(KeyType::KEY_S);
+			game.SendAttack(KeyType::KEY_S, dir);
 		}
 		if (input_event.key.code == sf::Keyboard::D) {
-			game.SendAttack(KeyType::KEY_D);
+			game.SendAttack(KeyType::KEY_D, dir);
+		}
+		if (input_event.key.code == sf::Keyboard::Num4) {
+			dir = DIR_LEFT;
+		}
+		if (input_event.key.code == sf::Keyboard::Num6) {
+			dir = DIR_RIGHT;
+		}
+		if (input_event.key.code == sf::Keyboard::Num8) {
+			dir = DIR_UP;
+		}
+		if (input_event.key.code == sf::Keyboard::Num2) {
+			dir = DIR_DOWN;
 		}
 	}
 }

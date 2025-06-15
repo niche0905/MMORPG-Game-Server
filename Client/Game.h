@@ -43,7 +43,7 @@ public:
 
 	void SendID(const std::string& id);
 	void SendRegister(uint8 class_type);
-	void SendAttack(uint8 atk_key);
+	void SendAttack(uint8 atk_key, uint8 atk_dir);
 	void SendArrowKey(uint8 dir);
 	void ProcessPacket(std::vector<BYTE> packet);
 

@@ -391,7 +391,7 @@ void Session::AttackProcess(BYTE* packet)
 	break;
 	}
 
-	SC_ATTACK_PACKET attack_broadcast_packet{ _id, attack_packet->_atk_key };
+	SC_ATTACK_PACKET attack_broadcast_packet{ _id, attack_packet->_atk_key, attack_packet->_atk_dir };
 
 	_view_lock.lock();
 	std::unordered_set<uint64> now_list = _view_list;

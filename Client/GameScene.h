@@ -18,6 +18,8 @@ private:
 
 	sf::Text player_coordinate;
 
+	uint8 dir = DIR_LEFT;
+
 public:
 	GameScene();
 

@@ -111,9 +111,9 @@ void Game::SendRegister(uint8 class_type)
 	communication.Send(reinterpret_cast<BYTE*>(&register_packet), sizeof(register_packet));
 }
 
-void Game::SendAttack(uint8 atk_key)
+void Game::SendAttack(uint8 atk_key, uint8 atk_dir)
 {
-	CS_ATTACK_PACKET attack_packet{ atk_key };
+	CS_ATTACK_PACKET attack_packet{ atk_key, atk_dir };
 	communication.Send(reinterpret_cast<BYTE*>(&attack_packet), sizeof(attack_packet));
 }
 

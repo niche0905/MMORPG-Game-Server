@@ -215,11 +215,13 @@ struct SC_ATTACK_PACKET : public BASE_PACKET
 {
 	uint64	_id;
 	uint8	_atk_key;
+	uint8	_atk_dir;
 
-	SC_ATTACK_PACKET(uint64 id, uint8 atk_key)
+	SC_ATTACK_PACKET(uint64 id, uint8 atk_key, uint8 atk_dir)
 		: BASE_PACKET{ sizeof(SC_ATTACK_PACKET), S2C_ATTACK }
 		, _id{ id }
-		, _atk_key{ atk_key } { }
+		, _atk_key{ atk_key } 
+		, _atk_dir{ atk_dir } { }
 };
 
 struct SC_HP_CHANGE_PACKET : public BASE_PACKET
@@ -296,10 +298,12 @@ struct CS_CHAT_PACKET			: public BASE_PACKET
 struct CS_ATTACK_PACKET			: public BASE_PACKET
 {
 	uint8	_atk_key;
+	uint8	_atk_dir;
 
-	CS_ATTACK_PACKET(uint8 atk_key)
+	CS_ATTACK_PACKET(uint8 atk_key, uint8 atk_dir)
 		: BASE_PACKET{ sizeof(CS_ATTACK_PACKET), C2S_ATTACK }
-		, _atk_key{ atk_key } { }
+		, _atk_key{ atk_key }
+		, _atk_dir{ atk_dir } { }
 };
 
 struct CS_TELEPORT_PACKET		: public BASE_PACKET
