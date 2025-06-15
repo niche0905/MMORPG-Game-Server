@@ -2,6 +2,7 @@
 #include "ServerCore.h"
 #include "IdleState.h"
 #include "DeadState.h"
+#include "PeaceMonster.h"
 
 
 
@@ -168,7 +169,7 @@ void ServerCore::NPCInit()
 	StateInit();
 
 	for (uint64 i = 0; i < NUM_MONSTER; ++i) {
-		Creature* creature = new Bot{ i };
+		Creature* creature = new PeaceMonster{ i };
 		std::string name = ("NPC" + std::to_string(i));
 		creature->SetName(name);
 		Position spawn_pos;

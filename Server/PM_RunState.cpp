@@ -16,13 +16,13 @@ void PM_RunState::Enter(Bot* bot)
     if (!PM_bot->GetTarget()) return;
 
     Position dir = PM_bot->GetPosition() - PM_bot->GetTarget()->GetPosition();
-    int dx = (dir.x != 0) ? (dir.x / std::abs(dir.x)) : 0;
-    int dy = (dir.y != 0) ? (dir.y / std::abs(dir.y)) : 0;
+    int16 dx = (dir.x != 0) ? (dir.x / std::abs(dir.x)) : 0;
+    int16 dy = (dir.y != 0) ? (dir.y / std::abs(dir.y)) : 0;
 
-    const int DIST = 6;
+    const int16 DIST = 6;
     std::vector<Position> candidates;
-    for (int dist = DIST; dist >= 1; -dist) {
-        Position candidate = bot->GetPosition() + Position{ dx * dist, dy * dist };
+    for (int16 dist = DIST; dist >= 1; -dist) {
+        Position candidate = bot->GetPosition() + Position{ static_cast<int16>(dx * dist), static_cast<int16>(dy * dist) };
         if (!server.IsBlock(candidate))
             candidates.push_back(candidate);
     }
