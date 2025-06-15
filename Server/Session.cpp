@@ -135,9 +135,26 @@ void Session::DeadSequence()
 {
 	if (not SetDead()) return;
 
-	_visual_type;
+	_visual_type = VisualInfo::VI_GRAVE;
+	SC_UPDATE_VI_PACKET update_vi_packet{ _id, _visual_type };
 
-	// TODO: Broadcast 및 비석 표시
+	_view_lock.lock();
+	std::unordered_set<uint64> view_list = _view_list;
+	_view_lock.unlock();
+
+	for (uint64 client_id : view_list) {
+
+		if (::IsNPC(client_id)) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+		Session* session = static_cast<Session*>(client);
+		session->Send(&update_vi_packet);
+	}
 }
 
 void Session::UpdateVisualInfo()

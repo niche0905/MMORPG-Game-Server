@@ -26,6 +26,7 @@ enum PacketID : uint8
 	S2C_LEAVE,					// 누군가 떠났다
 	S2C_CHAT,					// 누군가 채팅했다
 	S2C_ATTACK,					// 누군가 공격했다
+	S2C_UPDATE_VI,				// 누군가 Visual 정보가 바뀌었다
 	S2C_HP_CHANGE,				// 누군가 체력이 바뀌었다
 	S2C_LEVEL_CHANGE,			// 누군가 레벨이 바뀌었다
 
@@ -227,6 +228,17 @@ struct SC_ATTACK_PACKET : public BASE_PACKET
 		, _id{ id }
 		, _atk_key{ atk_key } 
 		, _atk_dir{ atk_dir } { }
+};
+
+struct SC_UPDATE_VI_PACKET : public BASE_PACKET
+{
+	uint64	_id;
+	uint8	_vi;
+
+	SC_UPDATE_VI_PACKET(uint64 id, uint8 vi)
+		: BASE_PACKET{ sizeof(SC_UPDATE_VI_PACKET), S2C_UPDATE_VI }
+		, _id{ id }
+		, _vi{ vi } { }
 };
 
 struct SC_HP_CHANGE_PACKET : public BASE_PACKET
