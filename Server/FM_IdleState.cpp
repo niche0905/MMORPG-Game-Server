@@ -15,7 +15,8 @@ void FM_IdleState::Enter(Bot* bot)
 
 void FM_IdleState::Execute(Bot* bot)
 {
-
+	using namespace std::chrono;
+	server.AddTimerEvent(Event{ bot->GetID(), system_clock::now() + 1s, Event::EventType::EV_UPDATE });
 }
 
 void FM_IdleState::Exit(Bot* bot)
