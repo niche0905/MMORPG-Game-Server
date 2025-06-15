@@ -1,5 +1,6 @@
 #pragma once
 #include "Types.h"
+#include <chrono>
 
 
 constexpr int16 PORT_NUM = 8252;
@@ -15,11 +16,11 @@ constexpr uint16 MAX_HEIGHT = 2000;
 
 constexpr uint64 INVALID_ID = UINT64_MAX;
 
-constexpr std::chrono::milliseconds GRACE_TIME = std::chrono::milliseconds(100);
-constexpr std::chrono::milliseconds MOVE_COOLTIME = std::chrono::milliseconds(500);
-constexpr std::chrono::milliseconds AATK_COOLTIME = std::chrono::milliseconds(1000);
-constexpr std::chrono::milliseconds MOVE_COOLTIME = std::chrono::milliseconds(5000);
-constexpr std::chrono::milliseconds MOVE_COOLTIME = std::chrono::milliseconds(20000);
+constexpr std::chrono::milliseconds GRACE_TIME{ 100 };
+constexpr std::chrono::milliseconds MOVE_COOLTIME{ 500 };
+constexpr std::chrono::milliseconds AATK_COOLTIME{ 1000 };
+constexpr std::chrono::milliseconds MOVE_COOLTIME{ 5000 };
+constexpr std::chrono::milliseconds MOVE_COOLTIME{ 20000 };
 
 enum LoginFailReason : int8
 {
