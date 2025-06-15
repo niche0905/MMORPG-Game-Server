@@ -108,9 +108,10 @@ bool Session::TakeDamage(uint64 id, uint16 damage)
 	std::unordered_set<uint64> view_list = _view_list;
 	_view_lock.unlock();
 
+	Send(&hp_change_packet);
 	for (uint64 client_id : view_list) {
 
-		if (client_id == _id or ::IsNPC(client_id)) continue;
+		if (::IsNPC(client_id)) continue;
 
 		Creature* client = server.GetClients()[client_id];
 		if (client == nullptr) continue;
