@@ -47,6 +47,7 @@ void World::LoadWorld()
 	uint32 width, height;
 	input_file.read(reinterpret_cast<char*>(&width), sizeof(uint32));
 	input_file.read(reinterpret_cast<char*>(&height), sizeof(uint32));
+	area = sf::Vector2i{ (int)width, (int)height };
 
 	maps.resize(width * height);
 	uint8 tile_info;
