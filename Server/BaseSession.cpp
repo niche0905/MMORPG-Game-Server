@@ -130,9 +130,9 @@ bool Creature::TakeDamage(uint64 id, uint16 damage)	// 만약 실제 들어간 �
 
 bool Creature::SetDead()
 {
-	if (_state == GameState::ST_DEAD) return false;
-
 	uint8 now_state = _state;
+	if (now_state == GameState::ST_DEAD or now_state == GameState::ST_CLOSE) return false;
+
 	return _state.compare_exchange_strong(now_state, GameState::ST_DEAD);
 }
 
