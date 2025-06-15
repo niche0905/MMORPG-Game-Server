@@ -280,6 +280,21 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		}
 		break;
 
+		case PacketID::S2C_UPDATE_VI:
+		{
+			SC_UPDATE_VI_PACKET* update_vi_packet = reinterpret_cast<SC_UPDATE_VI_PACKET*>(packet);
+
+			uint64 now_id = static_cast<uint64>(update_vi_packet->_id);
+			
+			if (now_id == game.GetID()) {
+				client_player->SetVisualInfo(update_vi_packet->_vi);
+			}
+			else {
+				other_players[now_id].SetVisualInfo(update_vi_packet->_vi);
+			}
+		}
+		break;
+
 		case PacketID::S2C_HP_CHANGE:
 		{
 			SC_HP_CHANGE_PACKET* hp_update_packet = reinterpret_cast<SC_HP_CHANGE_PACKET*>(packet);
