@@ -29,6 +29,14 @@ Position Position::operator+=(const Position& other)
 	return *this;
 }
 
+Position Position::operator-(const Position& other) const
+{
+	return {
+		static_cast<int16>(x - other.x),
+		static_cast<int16>(y - other.y)
+	};
+}
+
 bool Position::operator==(const Position& other) const
 {
 	return (x == other.x and y == other.y);

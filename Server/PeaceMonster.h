@@ -16,7 +16,5 @@ public:
 
 	void ReviveChangeState() override;
 
-	void DoReturnSequence();
-
 };
 

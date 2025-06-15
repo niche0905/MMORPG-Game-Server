@@ -359,6 +359,25 @@ void Bot::ReviveChangeState()
 	_fsm.ChangeState(this, &IdleState::Instance());
 }
 
+void Bot::DoPathFollow()
+{
+	if (_current_index == -1 || _current_index >= _path.size()) return;
+
+	// 목표 좌표
+	Position target = _path[_current_index];
+
+	if (DoMove(target)) // 이동에 성공하면
+	{
+		_current_index++;
+		if (_current_index >= _path.size())
+		{
+			// 도착 완료
+			_path.clear();
+			_current_index = -1;
+		}
+	}
+}
+
 void Bot::SetPath(const std::vector<Position>& path)
 {
 	_path = path;
@@ -386,4 +405,9 @@ void Bot::SetBasePosition(const Position& pos)
 Position Bot::GetBasePosition() const
 {
 	return _base_pos;
+}
+
+Creature* Bot::GetTarget() const
+{
+	return _target;
 }

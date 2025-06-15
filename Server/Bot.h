@@ -54,6 +54,7 @@ public:
 	void DoRevive() override;
 	virtual void ReviveInit();
 	virtual void ReviveChangeState();
+	void DoPathFollow();
 
 	void SetPath(const std::vector<Position>& path);
 	void SetPath(std::vector<Position>&& path);
@@ -61,6 +62,8 @@ public:
 	void SetBasePosition(int16 x, int16 y);
 	void SetBasePosition(const Position& pos);
 	Position GetBasePosition() const;
+
+	Creature* GetTarget() const;
 
 };
 

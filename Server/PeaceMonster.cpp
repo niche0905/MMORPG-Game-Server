@@ -67,22 +67,3 @@ void PeaceMonster::ReviveChangeState()
 {
 	_fsm.ChangeState(this, &PM_IdleState::Instance());
 }
-
-void PeaceMonster::DoReturnSequence()
-{
-	if (_current_index == -1 || _current_index >= _path.size()) return;
-
-	// 목표 좌표
-	Position target = _path[_current_index];
-
-	if (DoMove(target)) // 이동에 성공하면
-	{
-		_current_index++;
-		if (_current_index >= _path.size())
-		{
-			// 도착 완료
-			_path.clear();
-			_current_index = -1;
-		}
-	}
-}
