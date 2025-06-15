@@ -15,8 +15,6 @@ private:
 	using TimePoint = std::chrono::time_point<Epoch>;
 	using MicroSeconds = std::chrono::microseconds;
 
-	using Cooltime = std::chrono::steady_clock::time_point;
-
 private:
 	Window window;
 	sf::View view;
@@ -30,11 +28,6 @@ private:
 	uint64 my_id;
 	uint8 class_type;
 	std::string name;
-
-	Cooltime	_move_cooltime;
-	Cooltime	_aatk_cooltime;
-	Cooltime	_satk_cooltime;
-	Cooltime	_datk_cooltime;
 
 public:
 	Game();

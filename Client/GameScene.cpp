@@ -26,6 +26,13 @@ void GameScene::Init()
 	player_coordinate.setPosition(10.0f, 10.0f);
 	player_coordinate.setOutlineColor(sf::Color::Black);
 	player_coordinate.setOutlineThickness(1.0f);
+
+	using namespace std::chrono;
+
+	_move_cooltime = steady_clock::now();
+	_aatk_cooltime = steady_clock::now();
+	_satk_cooltime = steady_clock::now();
+	_datk_cooltime = steady_clock::now();
 }
 
 // Scene에 존재하는 Object 업데이트
@@ -63,30 +70,61 @@ void GameScene::HUD(sf::RenderWindow& window)
 // Player에게 Input 전달하기
 void GameScene::HandleInput(const sf::Event& input_event)
 {
+	using namespace std::chrono;
+	auto now_time = steady_clock::now();
+
 	if (input_event.type == sf::Event::KeyPressed) {
 		if (input_event.key.code == sf::Keyboard::Left) {
-			game.SendArrowKey(MOVE_LEFT);
 			dir = DIR_LEFT;
+			if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+				return;		// 이동 실패
+			}
+			_move_cooltime = now_time;
+			game.SendArrowKey(MOVE_LEFT);
 		}
 		if (input_event.key.code == sf::Keyboard::Right) {
-			game.SendArrowKey(MOVE_RIGHT);
 			dir = DIR_RIGHT;
+			if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+				return;		// 이동 실패
+			}
+			_move_cooltime = now_time;
+			game.SendArrowKey(MOVE_RIGHT);
 		}
 		if (input_event.key.code == sf::Keyboard::Up) {
-			game.SendArrowKey(MOVE_UP);
 			dir = DIR_UP;
+			if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+				return;		// 이동 실패
+			}
+			_move_cooltime = now_time;
+			game.SendArrowKey(MOVE_UP);
 		}
 		if (input_event.key.code == sf::Keyboard::Down) {
-			game.SendArrowKey(MOVE_DOWN);
 			dir = DIR_DOWN;
+			if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+				return;		// 이동 실패
+			}
+			_move_cooltime = now_time;
+			game.SendArrowKey(MOVE_DOWN);
 		}
 		if (input_event.key.code == sf::Keyboard::A) {
+			if ((now_time - _aatk_cooltime) < (AATK_COOLTIME)) {
+				return;		// A공격 실패
+			}
+			_aatk_cooltime = now_time;
 			game.SendAttack(KeyType::KEY_A, dir);
 		}
 		if (input_event.key.code == sf::Keyboard::S) {
+			if ((now_time - _satk_cooltime) < (SATK_COOLTIME)) {
+				return;		// S공격 실패
+			}
+			_satk_cooltime = now_time;
 			game.SendAttack(KeyType::KEY_S, dir);
 		}
 		if (input_event.key.code == sf::Keyboard::D) {
+			if ((now_time - _datk_cooltime) < (DATK_COOLTIME)) {
+				return;		// D공격 실패
+			}
+			_datk_cooltime = now_time;
 			game.SendAttack(KeyType::KEY_D, dir);
 		}
 		if (input_event.key.code == sf::Keyboard::Numpad4) {

@@ -9,6 +9,9 @@ class Creature;
 class GameScene : public BaseScene
 {
 private:
+	using Cooltime = std::chrono::steady_clock::time_point;
+
+private:
 	// TODO : 사용 변수들 (Pawn, Item 등등) 필요
 	std::shared_ptr<World> world;
 	
@@ -19,6 +22,11 @@ private:
 	sf::Text player_coordinate;
 
 	uint8 dir = DIR_LEFT;
+
+	Cooltime	_move_cooltime;
+	Cooltime	_aatk_cooltime;
+	Cooltime	_satk_cooltime;
+	Cooltime	_datk_cooltime;
 
 public:
 	GameScene();
