@@ -139,10 +139,18 @@ void ProcessPacket(uint64 ci, unsigned char packet[])
 		}
 	}
 	break;
+	case S2C_LOGIN_FAIL: break;
+	case S2C_STAT_CHANGE: break;
+	case S2C_DAMAGE: break;
+	case S2C_LEVEL_UP: break;
+	case S2C_EXP_UP: break;
 	case S2C_MOVE: break;
 	case S2C_ENTER: break;
 	case S2C_LEAVE: break;
 	case S2C_CHAT: break;
+	case S2C_ATTACK: break;
+	case S2C_HP_CHANGE: break;
+	case S2C_LEVEL_CHANGE: break;
 	case S2C_LOGIN_ALLOW:
 	{
 		g_clients[ci].connected = true;
