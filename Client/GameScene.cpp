@@ -59,11 +59,11 @@ void GameScene::Draw(sf::RenderWindow& window)
 	auto client_position = client_player->GetPosition();
 	world->Draw(window, client_position);
 
-	client_player->Draw(window);
-
 	for (auto& other_player : other_players) {
 		other_player.second.Draw(window);
 	}
+
+	client_player->Draw(window);
 }
 
 void GameScene::HUD(sf::RenderWindow& window)
@@ -291,6 +291,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			uint64 now_id = static_cast<uint64>(hp_update_packet->_id);
 
 			if (now_id == game.GetID()) {
+				std::cout << "Call\n";
 				uint16 hp_gap = client_player->GetHP() - hp_update_packet->_hp;
 				client_player->AddDamage(hp_gap);
 				client_player->ChangeHP(hp_update_packet->_hp);
