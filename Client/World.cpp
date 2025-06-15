@@ -41,14 +41,22 @@ sf::Vector2i World::GetArea() const
 // 월드 파일에서 불러오기
 void World::LoadWorld()
 {
+	std::cout << "Map Loading...\n";
+
 	std::ifstream input_file{ "../Resource/map.bin", std::ifstream::binary };
 	uint32 width, height;
 	input_file.read(reinterpret_cast<char*>(&width), sizeof(uint32));
 	input_file.read(reinterpret_cast<char*>(&height), sizeof(uint32));
 
 	maps.resize(width * height);
-	input_file.read(reinterpret_cast<char*>(maps.data()), maps.size());
+	uint8 tile_info;
+	for (auto& tile : maps) {
+		input_file.read(reinterpret_cast<char*>(&tile_info), sizeof(uint8));
+		tile = static_cast<TileType>(tile_info - 1);
+	}
 	input_file.close();
+
+	std::cout << "Map Loading Done!\n";
 }
 
 // 월드 파일에 저장하기

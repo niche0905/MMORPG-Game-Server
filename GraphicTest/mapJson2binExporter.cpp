@@ -29,7 +29,7 @@ int main()
 
     for (Json::ArrayIndex i = 0; i < data.size(); ++i) {
         uint8_t tile = static_cast<uint8_t>(data[i].asUInt());
-        output.write(reinterpret_cast<const char*>(&height), sizeof(uint8_t));
+        output.write(reinterpret_cast<const char*>(&tile), sizeof(uint8_t));
     }
 
     output.close();
