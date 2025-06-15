@@ -2,8 +2,8 @@
 #include "ServerCore.h"
 #include "IdleState.h"
 #include "DeadState.h"
+#include "ReturnState.h"
 #include "PM_IdleState.h"
-#include "PM_ReturnState.h"
 #include "PM_RunState.h"
 #include "PeaceMonster.h"
 
@@ -164,7 +164,7 @@ void ServerCore::StateInit()
 	IdleState::Instance();
 	DeadState::Instance();
 	PM_IdleState::Instance();
-	PM_ReturnState::Instance();
+	ReturnState::Instance();
 	PM_RunState::Instance();
 
 	std::cout << "NPC States Init Success\n";

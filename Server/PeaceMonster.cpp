@@ -3,7 +3,7 @@
 #include "DeadState.h"
 #include "PM_IdleState.h"
 #include "PM_RunState.h"
-#include "PM_ReturnState.h"
+#include "ReturnState.h"
 
 
 PeaceMonster::PeaceMonster()
@@ -45,7 +45,7 @@ void PeaceMonster::Update()
 
 	if (_target == nullptr) {
 		if (not CanSee(_base_pos, RETURN_RANGE)) {		// 스폰 지점에서 너무 멀다!
-			_fsm.ChangeState(this, &PM_ReturnState::Instance());
+			_fsm.ChangeState(this, &ReturnState::Instance());
 		}
 		else if (_path.empty()) {
 			_fsm.ChangeState(this, &PM_IdleState::Instance());

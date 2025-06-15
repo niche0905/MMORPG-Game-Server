@@ -92,9 +92,6 @@
     <ClCompile Include="PM_IdleState.cpp">
       <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
     </ClCompile>
-    <ClCompile Include="PM_ReturnState.cpp">
-      <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
-    </ClCompile>
     <ClCompile Include="PM_RunState.cpp">
       <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
     </ClCompile>
@@ -103,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="Astar.cpp">
       <Filter>Contents\Creature\NPC\Bot\Pathfinding\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="ReturnState.cpp">
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -291,9 +291,6 @@
     <ClInclude Include="PM_IdleState.h">
       <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
     </ClInclude>
-    <ClInclude Include="PM_ReturnState.h">
-      <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
-    </ClInclude>
     <ClInclude Include="WorldData.h">
       <Filter>Contents\World</Filter>
     </ClInclude>
@@ -302,6 +299,9 @@
     </ClInclude>
     <ClInclude Include="Astar.h">
       <Filter>Contents\Creature\NPC\Bot\Pathfinding\Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="ReturnState.h">
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

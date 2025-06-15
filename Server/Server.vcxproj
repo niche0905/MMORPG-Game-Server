@@ -190,10 +190,10 @@
     </ClCompile>
     <ClCompile Include="PeaceMonster.cpp" />
     <ClCompile Include="PM_IdleState.cpp" />
-    <ClCompile Include="PM_ReturnState.cpp" />
     <ClCompile Include="PM_RunState.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="QuestNPC.cpp" />
+    <ClCompile Include="ReturnState.cpp" />
     <ClCompile Include="Sector.cpp" />
     <ClCompile Include="SectorManager.cpp" />
     <ClCompile Include="ServerCore.cpp" />
@@ -223,10 +223,10 @@
     <ClInclude Include="NeutralMonster.h" />
     <ClInclude Include="PeaceMonster.h" />
     <ClInclude Include="PM_IdleState.h" />
-    <ClInclude Include="PM_ReturnState.h" />
     <ClInclude Include="PM_RunState.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="QuestNPC.h" />
+    <ClInclude Include="ReturnState.h" />
     <ClInclude Include="Sector.h" />
     <ClInclude Include="SectorManager.h" />
     <ClInclude Include="ServerDefines.h" />
