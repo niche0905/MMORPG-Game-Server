@@ -23,6 +23,15 @@ PeaceMonster::~PeaceMonster()
 
 }
 
+bool PeaceMonster::TakeDamage(uint64 id, uint16 damage)
+{
+	bool my_kill = Bot::TakeDamage(id, damage);
+
+	_target = server.GetClients()[id];
+
+	return my_kill;
+}
+
 void PeaceMonster::Update()
 {
 	if (_state == GameState::ST_DEAD) {

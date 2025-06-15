@@ -8,6 +8,8 @@ class PeaceMonster : public Monster
 	PeaceMonster(uint64 id);
 	~PeaceMonster();
 
+	bool TakeDamage(uint64 id, uint16 damage) override;
+
 	void Update() override;
 	void DropItem(uint64 id) override;
 
