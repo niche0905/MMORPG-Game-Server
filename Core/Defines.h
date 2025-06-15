@@ -55,6 +55,9 @@ enum ClassType : uint8
 	AGRS_MERCHANT_NPC,
 	KNIGHT_NPC,
 
+	// Monster들
+	FIXED_MONSTER,
+
 	CLASS_NONE,
 	BOT_NONE,
 
@@ -83,6 +86,8 @@ enum AttackType : uint8
 	WARRIOR_S,		// 전사 S
 	ROGUE_S,		// 도적 S
 	SORCERER_S,		// 마법사 S
+
+	FIXED_A,
 
 	// TODO: 추가할 필요가 있는 공격 타입 추가하기
 };

@@ -42,6 +42,12 @@ void Attack::SetAtkType(uint8 atk_type)
 		SetOrigin(not _diretional_atk);
 		break;
 
+	case AttackType::FIXED_A:
+		SetSprite("fixed_a");
+		SetSize(OBJECT_SIZE * 5);
+		SetOrigin(true);
+		break;
+
 	}
 	_duration = 500000;
 }

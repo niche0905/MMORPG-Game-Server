@@ -59,6 +59,10 @@
     {
       "key": "sorcerer_s",
       "path": "Resource/Texture/sorcerer_s.png"
+    },
+    {
+      "key": "fixed_a",
+      "path": "Resource/Texture/fixed_a.png"
     }
   ]
 }

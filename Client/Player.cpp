@@ -164,6 +164,9 @@ void Creature::SetClassType(uint8 class_type)
 	case ClassType::SORCERER:
 		_s_atk.SetAtkType(AttackType::SORCERER_S);
 		break;
+	case ClassType::FIXED_MONSTER:
+		_a_atk.SetAtkType(AttackType::FIXED_A);
+		break;
 	default:
 		break;
 	}
