@@ -101,6 +101,9 @@
     <ClCompile Include="WorldData.cpp">
       <Filter>Contents\World</Filter>
     </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>Contents\Creature\NPC\Bot\Pathfinding\Astar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -183,6 +186,12 @@
     </Filter>
     <Filter Include="Contents\World">
       <UniqueIdentifier>{5c323077-f35a-4387-92b4-d0c65396d76c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\Bot\Pathfinding">
+      <UniqueIdentifier>{259adc97-66c6-4abe-b888-74b8190c4b56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\Bot\Pathfinding\Astar">
+      <UniqueIdentifier>{51edc8eb-86ab-47c3-9967-db95e3d9dcba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +296,12 @@
     </ClInclude>
     <ClInclude Include="WorldData.h">
       <Filter>Contents\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Contents\Creature\NPC\Bot\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>Contents\Creature\NPC\Bot\Pathfinding\Astar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

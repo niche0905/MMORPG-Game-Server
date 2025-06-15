@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AgroMonster.cpp" />
+    <ClCompile Include="Astar.cpp" />
     <ClCompile Include="BaseSession.cpp" />
     <ClCompile Include="Bot.cpp" />
     <ClCompile Include="DatabaseEvent.cpp" />
@@ -205,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AgroMonster.h" />
+    <ClInclude Include="Astar.h" />
     <ClInclude Include="BaseSession.h" />
     <ClInclude Include="Bot.h" />
     <ClInclude Include="DatabaseEvent.h" />
@@ -238,6 +240,7 @@
     <ClInclude Include="TalkNPC.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="WorldData.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
