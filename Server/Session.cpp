@@ -89,9 +89,9 @@ uint16 Session::GetMaxHP() const
 	return _basic_stats.HP + _temp_stats.HP + _equip_stats.HP;
 }
 
-void Session::TakeDamage(uint16 damage)
+bool Session::TakeDamage(uint64 id, uint16 damage)
 {
-	Creature::TakeDamage(damage);
+	bool my_kill = Creature::TakeDamage(id, damage);
 
 	SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
 
@@ -112,6 +112,8 @@ void Session::TakeDamage(uint16 damage)
 		Session* session = static_cast<Session*>(client);
 		session->Send(&hp_change_packet);
 	}
+
+	return my_kill;
 }
 
 void Session::DeadSequence()
@@ -490,7 +492,7 @@ void Session::AttackProcess(BYTE* packet)
 			if ((dx + dy) <= 1) {
 				// 맞은 것임
 
-				client->TakeDamage(damage);
+				client->TakeDamage(_id, damage);
 				if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
 					damage_packet.AddDamageInfo(client_id, damage);
 			}
@@ -524,7 +526,7 @@ void Session::AttackProcess(BYTE* packet)
 			if (dx <= 2 and dy <= 2) {
 				// 맞은 것임
 
-				client->TakeDamage(damage);
+				client->TakeDamage(_id, damage);
 				if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
 					damage_packet.AddDamageInfo(client_id, damage);
 			}
@@ -577,7 +579,7 @@ void Session::AttackProcess(BYTE* packet)
 				if (can_pos == client_pos) {
 					// 맞은 것임
 
-					client->TakeDamage(damage);
+					client->TakeDamage(_id, damage);
 					if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
 						damage_packet.AddDamageInfo(client_id, damage);
 					break;
@@ -639,7 +641,7 @@ void Session::AttackProcess(BYTE* packet)
 				if (can_pos == client_pos) {
 					// 맞은 것임
 
-					client->TakeDamage(damage);
+					client->TakeDamage(_id, damage);
 					if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
 						damage_packet.AddDamageInfo(client_id, damage);
 					break;

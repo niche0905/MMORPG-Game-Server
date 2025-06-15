@@ -114,13 +114,13 @@ uint16 Creature::GetHP() const
 	return _hp;
 }
 
-void Creature::TakeDamage(uint16 damage)	// 만약 실제 들어간 데미지가 필요하면 이를 수정하거나 메서드를 추가하여야 함
+bool Creature::TakeDamage(uint64 id, uint16 damage)	// 만약 실제 들어간 데미지가 필요하면 이를 수정하거나 메서드를 추가하여야 함
 {
 	uint16 expected = _hp.load();
 	uint16 desired;
 	do {
 		if (_state != GameState::ST_DEAD and expected <= 0) {
-			return;
+			return false;
 		}
 
 		int32 calc = static_cast<int32>(expected) - static_cast<int32>(damage);
@@ -129,7 +129,7 @@ void Creature::TakeDamage(uint16 damage)	// 만약 실제 들어간 데미지가
 
 	if (_state != GameState::ST_DEAD and _hp <= 0) {
 		SetDead();
-		return;
+		return true;
 	}
 }
 

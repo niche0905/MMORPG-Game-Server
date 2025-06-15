@@ -50,9 +50,9 @@ uint16 Bot::GetMaxHP() const
 	return _basic_stats.HP + _temp_stats.HP;
 }
 
-void Bot::TakeDamage(uint16 damage)
+bool Bot::TakeDamage(uint64 id, uint16 damage)
 {
-	Creature::TakeDamage(damage);
+	bool my_kill = Creature::TakeDamage(id, damage);
 
 	SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
 
@@ -73,6 +73,8 @@ void Bot::TakeDamage(uint16 damage)
 		Session* session = static_cast<Session*>(client);
 		session->Send(&hp_change_packet);
 	}
+
+	return my_kill;
 }
 
 void Bot::DeadSequence()

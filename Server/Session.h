@@ -50,7 +50,7 @@ public:
 	uint64 GetExp() const;
 
 	uint16 GetMaxHP() const override;
-	void TakeDamage(uint16 damage) override;
+	bool TakeDamage(uint64 id, uint16 damage) override;
 	void DeadSequence() override;
 
 	void Send(void* packet);

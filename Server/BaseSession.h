@@ -55,7 +55,7 @@ public:
 
 	uint16 GetHP() const;
 	virtual uint16 GetMaxHP() const = 0;
-	virtual void TakeDamage(uint16 damage);	
+	virtual bool TakeDamage(uint64 id, uint16 damage);
 	bool SetDead();
 	virtual void DeadSequence();
 
