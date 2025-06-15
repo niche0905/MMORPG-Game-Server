@@ -9,6 +9,7 @@ protected:
 
 	Creature*				_target;						// 공격 대상
 	std::vector<Position>	_path;							// 가야할 경로 (_target이 유효할 때만 사용할 것)
+	uint64					_current_index;					// 현재 경로 진행 정도
 
 	Position				_base_pos = { 0, 0 };			// 기본 위치
 
@@ -52,6 +53,9 @@ public:
 	void DoRevive() override;
 	virtual void ReviveInit();
 	virtual void ReviveChangeState();
+
+	void SetPath(const std::vector<Position>& path);
+	void SetPath(std::vector<Position>&& path);
 
 	void SetBasePosition(int16 x, int16 y);
 	void SetBasePosition(const Position& pos);

@@ -279,6 +279,18 @@ void Bot::ReviveChangeState()
 	_fsm.ChangeState(this, &IdleState::Instance());
 }
 
+void Bot::SetPath(const std::vector<Position>& path)
+{
+	_path = path;
+	_current_index = _path.empty() ? -1 : 0;
+}
+
+void Bot::SetPath(std::vector<Position>&& path)
+{
+	_path = std::move(path);
+	_current_index = _path.empty() ? -1 : 0;
+}
+
 void Bot::SetBasePosition(int16 x, int16 y)
 {
 	_base_pos = { x, y };

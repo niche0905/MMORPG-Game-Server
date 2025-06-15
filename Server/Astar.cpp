@@ -2,7 +2,7 @@
 #include "Astar.h"
 #include "Node.h"
 
-std::vector<Position> Astar::FindPath(Position start, Position goal, std::function<bool(Position)> IsBlocked)
+std::vector<Position> Astar::FindPath(Position start, Position goal, std::function<bool(const Position&)> IsBlocked)
 {
     std::priority_queue<Node*, std::vector<Node*>, std::function<bool(Node*, Node*)>> openList(
         [](Node* a, Node* b) { return a->fCost() > b->fCost(); }
