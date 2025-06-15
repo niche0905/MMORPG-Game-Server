@@ -190,6 +190,8 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
 				client_player->SetName(game.GetName());
 				client_player->SetClassType(login_packet->_class_type);
+				client_player->SetMaxHP(login_packet->_max_hp);
+				client_player->ChangeHP(login_packet->_hp);
 			}
 			else {
 				std::cout << "re Login Allow Error\n";
