@@ -304,6 +304,10 @@ void Bot::DoPathFollow()
 			_current_index = -1;
 		}
 	}
+
+	if (not _is_active) {	// 시야 밖이라면 초기화
+		_target = nullptr;
+	}
 }
 
 void Bot::SetPath(const std::vector<Position>& path)

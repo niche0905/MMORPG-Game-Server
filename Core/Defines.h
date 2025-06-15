@@ -7,7 +7,7 @@ constexpr int16 PORT_NUM = 8252;
 constexpr int32 BUF_SIZE = 1024;
 
 constexpr int32 MAX_USER = 10000;
-constexpr int32 NUM_MONSTER = 200000;
+constexpr int32 NUM_MONSTER = 20000;
 
 constexpr int32 CACHE_LINE_SIZE = 64;
 
