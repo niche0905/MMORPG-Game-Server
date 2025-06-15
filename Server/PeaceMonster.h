@@ -4,6 +4,7 @@
 // 도망만 가는 몬스터에요
 class PeaceMonster : public Monster
 {
+public:
 	PeaceMonster();
 	PeaceMonster(uint64 id);
 	~PeaceMonster();
@@ -14,6 +15,8 @@ class PeaceMonster : public Monster
 	void DropItem(uint64 id) override;
 
 	void ReviveChangeState() override;
+
+	void DoReturnSequence();
 
 };
 

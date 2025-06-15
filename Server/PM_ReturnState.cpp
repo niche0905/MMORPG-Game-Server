@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "PM_ReturnState.h"
+#include "PeaceMonster.h"
 
 
 PM_ReturnState& PM_ReturnState::Instance()
@@ -16,7 +17,8 @@ void PM_ReturnState::Enter(Bot* bot)
 
 void PM_ReturnState::Execute(Bot* bot)
 {
-	
+	PeaceMonster* PM_bot = static_cast<PeaceMonster*>(bot);
+	PM_bot->DoReturnSequence();
 }
 
 void PM_ReturnState::Exit(Bot* bot)

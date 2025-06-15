@@ -47,7 +47,7 @@ void PeaceMonster::Update()
 		if (not CanSee(_base_pos, RETURN_RANGE)) {		// 스폰 지점에서 너무 멀다!
 			_fsm.ChangeState(this, &PM_ReturnState::Instance());
 		}
-		else {											// 스폰 지점 근처니깐 괜찮다
+		else if (_path.empty()) {
 			_fsm.ChangeState(this, &PM_IdleState::Instance());
 		}
 	}
@@ -66,4 +66,23 @@ void PeaceMonster::DropItem(uint64 id)
 void PeaceMonster::ReviveChangeState()
 {
 	_fsm.ChangeState(this, &PM_IdleState::Instance());
+}
+
+void PeaceMonster::DoReturnSequence()
+{
+	if (_current_index == -1 || _current_index >= _path.size()) return;
+
+	// 목표 좌표
+	Position target = _path[_current_index];
+
+	if (DoMove(target)) // 이동에 성공하면
+	{
+		_current_index++;
+		if (_current_index >= _path.size())
+		{
+			// 도착 완료
+			_path.clear();
+			_current_index = -1;
+		}
+	}
 }

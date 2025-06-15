@@ -49,6 +49,7 @@ public:
 	void FirstSeen(uint64 id);
 	void WakeUp();
 
+	bool DoMove(const Position& pos);
 	void DoRandomMove();
 	void DoRevive() override;
 	virtual void ReviveInit();

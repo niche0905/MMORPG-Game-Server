@@ -4,6 +4,7 @@
 // 고정된 몬스터 (비선공)
 class FixedMonster : public Monster
 {
+public:
 	FixedMonster();
 	FixedMonster(uint64 id);
 	~FixedMonster();
