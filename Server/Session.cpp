@@ -123,11 +123,20 @@ bool Session::TakeDamage(uint64 id, uint16 damage)
 		session->Send(&hp_change_packet);
 	}
 
+	if (my_kill) {
+		// TODO: 내가 죽었다면 사망 패킷 보내기
+		DeadSequence();
+	}
+
 	return my_kill;
 }
 
 void Session::DeadSequence()
 {
+	if (not SetDead()) return;
+
+	_visual_type;
+
 	// TODO: Broadcast 및 비석 표시
 }
 
