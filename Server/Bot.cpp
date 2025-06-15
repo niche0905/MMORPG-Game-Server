@@ -236,8 +236,6 @@ bool Bot::DoMove(const Position& pos)
 
 void Bot::DoRandomMove()
 {
-	using namespace std::chrono;
-
 	Position new_position = _position;
 	switch (rand() % 4 + 1)
 	{
@@ -259,77 +257,7 @@ void Bot::DoRandomMove()
 		break;
 	}
 
-	if (::IsBlock(new_position) or _position == new_position) {
-		// 벽에 막혀서 못움직여요		변한게 없다면 스스로에게만 시간 Update
-
-		Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_UPDATE };
-		server.AddTimerEvent(evt);
-
-		return;
-	}
-	
-	std::unordered_set<uint64> old_view;
-	std::unordered_set<uint64> old_close_id = server.GetClientList(_position);
-	for (uint64 client_id : old_close_id) {
-
-		if (::IsNPC(client_id)) continue;
-
-		Creature* client = server.GetClients()[client_id];
-		if (client == nullptr) continue;
-
-		auto state = client->GetState();
-		if (state == ST_ALLOC or state == ST_CLOSE) continue;
-
-		if (client->CanSee(_position, VIEW_RANGE)) {
-			old_view.insert(client_id);
-		}
-	}
-
-	server.MoveSector(_id, _position, new_position);
-	_position = new_position;
-
-	std::unordered_set<uint64> new_view;
-	std::unordered_set<uint64> new_close_id = server.GetClientList(_position);
-	for (uint64 client_id : new_close_id) {
-		if (::IsNPC(client_id)) continue;
-
-		Creature* client = server.GetClients()[client_id];
-		if (client == nullptr) continue;
-
-		auto state = client->GetState();
-		if (state == ST_ALLOC or state == ST_CLOSE) continue;
-
-		if (client->CanSee(_position, VIEW_RANGE)) {
-			new_view.insert(client_id);
-		}
-	}
-
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _class_type, _level };
-	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
-
-	for (uint64 client_id : new_view) {
-		Creature* client = server.GetClients()[client_id];
-		if (client == nullptr) continue;
-		Session* session = static_cast<Session*>(client);
-		session->ProcessCloseCreature(_id, &enter_packet, &update_packet);
-	}
-
-	for (uint64 client_id : old_view) {
-		if (new_view.count(client_id) != 0) continue;
-
-		Creature* client = server.GetClients()[client_id];
-		if (client == nullptr) continue;
-		Session* session = static_cast<Session*>(client);
-		session->SendLeaveCreature(_id);
-	}
-
-	if (new_view.size() == 0) {
-		_is_active = false;
-		return;
-	}
-
-	Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_UPDATE };
-	server.AddTimerEvent(evt);
+	DoMove(new_position);
 }
 
 void Bot::DoRevive()
