@@ -21,6 +21,18 @@
       "path": "Resource/Texture/grass.png"
     },
     {
+      "key": "water",
+      "path": "Resource/Texture/water.png"
+    },
+    {
+      "key": "house",
+      "path": "Resource/Texture/house.png"
+    },
+    {
+      "key": "tree",
+      "path": "Resource/Texture/tree.png"
+    },
+    {
       "key": "standard_atk",
       "path": "Resource/Texture/standard_atk.png"
     },

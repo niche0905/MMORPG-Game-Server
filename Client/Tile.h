@@ -6,7 +6,9 @@
 enum class TileType : uint8
 {
 	grass,
-
+	water,
+	house,
+	tree
 };
 
 

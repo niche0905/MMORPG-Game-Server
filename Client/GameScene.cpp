@@ -19,6 +19,9 @@ void GameScene::Init()
 	world->LoadWorld();
 
 	TileManager::Instance().AddTile(TileType::grass, "grass");
+	TileManager::Instance().AddTile(TileType::water, "water");
+	TileManager::Instance().AddTile(TileType::house, "house");
+	TileManager::Instance().AddTile(TileType::tree, "tree");
 
 	player_coordinate.setFont(FontManager::Instance().GetFont("neodot"));
 	player_coordinate.setCharacterSize(20);
