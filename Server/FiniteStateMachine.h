@@ -15,6 +15,7 @@ public:
 	FiniteStateMachine();
 
 	void ChangeState(Bot* bot, State* new_state);
+	void ForceChangeState(Bot* bot, State* new_state);
 	void Update(Bot* bot);
 
 };

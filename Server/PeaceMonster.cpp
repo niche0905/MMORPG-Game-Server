@@ -52,7 +52,12 @@ void PeaceMonster::Update()
 		}
 	}
 	else {
-		_fsm.ChangeState(this, &PM_RunState::Instance());
+		if (not _path.empty()) {
+			_fsm.ChangeState(this, &PM_RunState::Instance());
+		}
+		else {
+			_fsm.ForceChangeState(this, &PM_RunState::Instance());
+		}
 	}
 
 	_fsm.Update(this);
