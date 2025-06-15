@@ -124,7 +124,7 @@ bool Creature::TakeDamage(uint64 id, uint16 damage)	// 만약 실제 들어간 �
 		}
 
 		int32 calc = static_cast<int32>(expected) - static_cast<int32>(damage);
-		desired = static_cast<uint16>(std::max<uint16>(calc, 0));
+		desired = static_cast<uint16>(std::max<int32>(calc, 0));
 	} while (not _hp.compare_exchange_strong(expected, desired));
 
 	if (_state != GameState::ST_DEAD and _hp <= 0) {
