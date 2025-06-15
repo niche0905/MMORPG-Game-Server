@@ -528,7 +528,53 @@ void Session::AttackProcess(BYTE* packet)
 
 	case AttackType::ROGUE_S:
 	{
+		uint16 damage = 100;
 
+		std::vector<Position> hit_pos;
+		hit_pos.reserve(2);
+		hit_pos.emplace_back(pos);
+		switch (attack_packet->_atk_dir)
+		{
+		case DIR_LEFT:
+			hit_pos.emplace_back(pos.x - 1, pos.y);
+			break;
+		case DIR_RIGHT:
+			hit_pos.emplace_back(pos.x + 1, pos.y);
+			break;
+		case DIR_UP:
+			hit_pos.emplace_back(pos.x, pos.y - 1);
+			break;
+		case DIR_DOWN:
+			hit_pos.emplace_back(pos.x, pos.y + 1);
+			break;
+		}
+
+		for (uint64 client_id : closed_clients) {
+
+			if (client_id == _id) continue;
+
+			if (::IsPlayer(client_id)) continue;
+
+			Creature* client = server.GetClients()[client_id];
+			if (client == nullptr) continue;
+
+			uint8 state = client->GetState();
+			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;
+
+			// 공격 범위 판정!
+			Position client_pos = client->GetPosition();
+			
+			for (auto& can_pos : hit_pos) {
+				if (can_pos == client_pos) {
+					// 맞은 것임
+
+					client->TakeDamage(damage);
+					if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
+						damage_packet.AddDamageInfo(client_id, damage);
+					break;
+				}
+			}
+		}
 	}
 	break;
 
