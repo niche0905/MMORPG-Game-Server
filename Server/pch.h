@@ -18,6 +18,7 @@
 
 #include "Position.h"
 #include "Util.h"
+#include "Astar.h"
 #include "Packet.h"
 #include "ServerDefines.h"
 #include "Stat.h"
