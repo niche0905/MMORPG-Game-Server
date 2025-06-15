@@ -98,6 +98,9 @@
     <ClCompile Include="PM_RunState.cpp">
       <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
     </ClCompile>
+    <ClCompile Include="WorldData.cpp">
+      <Filter>Contents\World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -177,6 +180,9 @@
     </Filter>
     <Filter Include="Contents\Creature\NPC\State\PeaceMonsterStates">
       <UniqueIdentifier>{53c9118c-3d2d-4df3-a650-d05ec40e3e8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\World">
+      <UniqueIdentifier>{5c323077-f35a-4387-92b4-d0c65396d76c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="PM_ReturnState.h">
       <Filter>Contents\Creature\NPC\State\PeaceMonsterStates</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldData.h">
+      <Filter>Contents\World</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

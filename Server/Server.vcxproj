@@ -201,6 +201,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="TalkNPC.cpp" />
     <ClCompile Include="Util.cpp" />
+    <ClCompile Include="WorldData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AgroMonster.h" />
@@ -236,6 +237,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="TalkNPC.h" />
     <ClInclude Include="Util.h" />
+    <ClInclude Include="WorldData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
