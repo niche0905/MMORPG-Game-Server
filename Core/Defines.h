@@ -61,6 +61,8 @@ enum ClassType : uint8
 	CLASS_END
 };
 
+// TODO: VisualInfo 만들어야 함
+
 enum KeyType : uint8
 {
 	KEY_START = 0,
