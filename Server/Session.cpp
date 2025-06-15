@@ -19,10 +19,10 @@ Session::Session(SOCKET socket, uint64 id)
 	using namespace std::chrono;
 
 	_class_type = ClassType::CLASS_NONE;
-	_move_cooltime = steady_clock::now();
-	_aatk_cooltime = steady_clock::now();
-	_satk_cooltime = steady_clock::now();
-	_datk_cooltime = steady_clock::now();
+	_move_cooltime = steady_clock::now() - MOVE_COOLTIME;
+	_aatk_cooltime = steady_clock::now() - AATK_COOLTIME;
+	_satk_cooltime = steady_clock::now() - SATK_COOLTIME;
+	_datk_cooltime = steady_clock::now() - DATK_COOLTIME;
 }
 
 Session::~Session()
@@ -397,7 +397,18 @@ void Session::AttackProcess(BYTE* packet)
 		break;
 	case KeyType::KEY_S:
 	{
-
+		switch (_class_type)
+		{
+		case ClassType::WARRIOR:
+			attack_type = AttackType::WARRIOR_S;
+			break;
+		case ClassType::ROGUE:
+			attack_type = AttackType::ROGUE_S;
+			break;
+		case ClassType::SORCERER:
+			attack_type = AttackType::SORCERER_S;
+			break;
+		}
 
 		if ((now_point - _satk_cooltime) < (SATK_COOLTIME - GRACE_TIME)) {
 			return;		// S공격 실패
@@ -481,6 +492,49 @@ void Session::AttackProcess(BYTE* packet)
 					damage_packet.AddDamageInfo(client_id, damage);
 			}
 		}
+	}
+	break;
+
+	case AttackType::WARRIOR_S:
+	{
+		uint16 damage = 40;
+
+		for (uint64 client_id : closed_clients) {
+
+			if (client_id == _id) continue;
+
+			if (::IsPlayer(client_id)) continue;
+
+			Creature* client = server.GetClients()[client_id];
+			if (client == nullptr) continue;
+
+			uint8 state = client->GetState();
+			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;
+
+			// 공격 범위 판정!
+			Position client_pos = client->GetPosition();
+			int16 dx = std::abs(client_pos.x - pos.x);
+			int16 dy = std::abs(client_pos.y - pos.y);
+			if (dx <= 2 and dy <= 2) {
+				// 맞은 것임
+
+				client->TakeDamage(damage);
+				if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
+					damage_packet.AddDamageInfo(client_id, damage);
+			}
+		}
+	}
+	break;
+
+	case AttackType::ROGUE_S:
+	{
+
+	}
+	break;
+
+	case AttackType::SORCERER_S:
+	{
+
 	}
 	break;
 
