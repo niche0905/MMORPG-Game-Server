@@ -168,21 +168,21 @@ void ServerCore::NPCInit()
 	StateInit();
 
 	for (uint64 i = 0; i < NUM_MONSTER; ++i) {
-		Creature* npc = new Bot{ i };
+		Creature* creature = new Bot{ i };
 		std::string name = ("NPC" + std::to_string(i));
-		npc->SetName(name);
+		creature->SetName(name);
 		Position spawn_pos;
 		while (true) {
 			spawn_pos = { rand() % MAX_WIDTH, rand() % MAX_HEIGHT };
 			if (not IsBlock(spawn_pos))
 				break;
 		}
+		Bot* npc = static_cast<Bot*>(creature);
+		npc->SetBasePosition(spawn_pos);
+		creature->SetState(ST_INGAME);
 
-		npc->SetPosition(spawn_pos);
-		npc->SetState(ST_INGAME);
-
-		RegisterSector(i, npc->GetPosition());
-		_clients.insert(std::make_pair(i, npc));
+		RegisterSector(i, creature->GetPosition());
+		_clients.insert(std::make_pair(i, creature));
 	}
 
 	std::cout << "NPC " << NUM_MONSTER << " Init Success\n";

@@ -278,3 +278,15 @@ void Bot::ReviveChangeState()
 {
 	_fsm.ChangeState(this, &IdleState::Instance());
 }
+
+void Bot::SetBasePosition(int16 x, int16 y)
+{
+	_base_pos = { x, y };
+	SetPosition(_base_pos);
+}
+
+void Bot::SetBasePosition(const Position& pos)
+{
+	_base_pos = pos;
+	SetPosition(_base_pos);
+}
