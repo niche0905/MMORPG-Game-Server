@@ -111,10 +111,13 @@ uint16 Creature::GetHP() const
 
 bool Creature::TakeDamage(uint64 id, uint16 damage)	// 만약 실제 들어간 데미지가 필요하면 이를 수정하거나 메서드를 추가하여야 함
 {
+	std::cout << "Start hp: " << _hp << '\n';
 	uint16 expected = _hp.load();
+	std::cout << "expected: " << expected << '\n';
 	uint16 desired;
 	do {
-		if (_state != GameState::ST_DEAD and expected <= 0) {
+		if (expected <= 0) {
+			std::cout << "return false\n";
 			return false;
 		}
 
@@ -122,9 +125,12 @@ bool Creature::TakeDamage(uint64 id, uint16 damage)	// 만약 실제 들어간 �
 		desired = static_cast<uint16>(std::max<int32>(calc, 0));
 	} while (not _hp.compare_exchange_strong(expected, desired));
 
-	if (_state != GameState::ST_DEAD and _hp <= 0) {
-		SetDead();
-		return true;
+	if (_state != GameState::ST_DEAD and desired <= 0) {
+		std::cout << "return SetDead\n";
+		std::cout << "state: " << (int)_state << '\n';
+		std::cout << "desired: " << desired << '\n';
+		std::cout << "Dead hp: " << _hp << '\n';
+		return SetDead();
 	}
 }
 
