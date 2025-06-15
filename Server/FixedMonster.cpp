@@ -14,6 +14,7 @@ FixedMonster::FixedMonster()
 FixedMonster::FixedMonster(uint64 id)
 	: Monster{ id, true, false, true }
 {
+	_class_type = ClassType::FIXED_MONSTER;
 	_fsm.ChangeState(this, &FM_IdleState::Instance());
 }
 
