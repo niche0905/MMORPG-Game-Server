@@ -94,7 +94,8 @@ uint64 Session::GetExp() const
 
 uint16 Session::GetMaxHP() const
 {
-	return _basic_stats.HP + _temp_stats.HP + _equip_stats.HP;
+	//return _basic_stats.HP + _temp_stats.HP + _equip_stats.HP; // TODO: 정식으로 수정해야함
+	return 100;	// TEMP
 }
 
 bool Session::TakeDamage(uint64 id, uint16 damage)
@@ -313,7 +314,7 @@ void Session::MoveProcess(BYTE* packet)
 		}
 	}
 
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _class_type, _level };
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.c_str(),  GetMaxHP(), _hp, _visual_type, _class_type, _level };
 	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
 
 	for (uint64 client_id : near_list) {
@@ -339,7 +340,7 @@ void Session::MoveProcess(BYTE* packet)
 			}
 
 			Position pos = client->GetPosition();
-			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().data(), client->GetVisualType(), client->GetClassType(), client->GetLevel()};
+			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().c_str(), client->GetMaxHP(), client->GetHP(), client->GetVisualType(), client->GetClassType(), client->GetLevel()};
 
 			SendNewCreature(client_id, &object_enter_packet);
 		}
@@ -717,7 +718,7 @@ void Session::LoginDone()
 	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, _visual_type, _class_type, _level, _exp };
 	Send(&login_allow_packet);
 
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _class_type, _level };
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.c_str(), GetMaxHP(), _hp, _visual_type, _class_type, _level };
 	SC_MOVE_PACKET move_packet{ _id, _position.x, _position.y };
 
 	std::unordered_set<uint64> user_list = server.GetClientList(_position);
@@ -735,7 +736,7 @@ void Session::LoginDone()
 		if (not client->CanSee(_position, VIEW_RANGE)) continue;
 
 		Position client_pos = client->GetPosition();
-		SC_ENTER_PACKET other_enter_packet{ client_id, client_pos.x, client_pos.y, client->GetName().data(), client->GetVisualType(), client->GetClassType(), client->GetLevel()};
+		SC_ENTER_PACKET other_enter_packet{ client_id, client_pos.x, client_pos.y, client->GetName().c_str(),  client->GetMaxHP(), client->GetHP(), client->GetVisualType(), client->GetClassType(), client->GetLevel()};
 		SendNewCreature(client_id, &other_enter_packet);
 
 		if (client->IsPlayer()) {

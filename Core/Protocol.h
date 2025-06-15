@@ -179,14 +179,18 @@ struct SC_ENTER_PACKET			: public BASE_PACKET
 	uint64	_id;
 	int16	_x, _y;
 	char	_name[MAX_NAME_LEN];
+	uint16	_max_hp;
+	uint16	_hp;
 	uint8	_visual_info;
 	uint8	_class_type;
 	uint8	_level;
 
-	SC_ENTER_PACKET(uint64 id, int16 x, int16 y, const char* name, uint8 visual_info, uint8 class_type, uint8 level)
+	SC_ENTER_PACKET(uint64 id, int16 x, int16 y, const char* name, uint16 max_hp, uint16 hp, uint8 visual_info, uint8 class_type, uint8 level)
 		: BASE_PACKET{ sizeof(SC_ENTER_PACKET), S2C_ENTER }
 		, _id{ id }
 		, _x{ x }, _y{ y }
+		, _max_hp{ max_hp }
+		, _hp{ hp }
 		, _visual_info{ visual_info }
 		, _class_type{ class_type }
 		, _level{ level } { strcpy_s(_name, name); }

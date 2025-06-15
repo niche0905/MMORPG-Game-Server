@@ -47,7 +47,8 @@ bool Bot::IsNPC() const
 
 uint16 Bot::GetMaxHP() const
 {
-	return _basic_stats.HP + _temp_stats.HP;
+	//return _basic_stats.HP + _temp_stats.HP; // TODO: 정식으로 수정해야함
+	return 100;	// TEMP
 }
 
 bool Bot::TakeDamage(uint64 id, uint16 damage)
@@ -205,7 +206,7 @@ bool Bot::DoMove(const Position& pos)
 		}
 	}
 
-	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.data(), _visual_type, _class_type, _level };
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.c_str(), GetMaxHP(), _hp, _visual_type, _class_type, _level};
 	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
 
 	for (uint64 client_id : new_view) {

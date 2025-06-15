@@ -166,7 +166,7 @@ bool Creature::ReviveBroadcast()
 	std::unordered_set<uint64> view_list = server.GetClientList(_position);
 	Position pos = _position;
 	SC_MOVE_PACKET move_packet{ _id, pos.x, pos.y };
-	SC_ENTER_PACKET enter_packet{ _id, pos.x, pos.y, _name.c_str(), _visual_type, _class_type, _level };
+	SC_ENTER_PACKET enter_packet{ _id, pos.x, pos.y, _name.c_str(), GetMaxHP(), _hp, _visual_type, _class_type, _level};
 
 	std::unordered_set<uint64> near_list;
 	for (uint64 client_id : view_list) {
