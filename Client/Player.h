@@ -58,5 +58,7 @@ public:
 	void ShowAttack(uint8 atk_type, uint8 atk_dir);
 	void ChangeHP(uint16 hp);
 
+	void SetMaxHP(uint16 max_hp);
+	
 };
 

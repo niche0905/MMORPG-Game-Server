@@ -221,7 +221,6 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			other_players[now_id].Move(static_cast<int>(enter_packet->_x), static_cast<int>(enter_packet->_y));
 			
 			// TODO: 외형 정보를 이용하도록
-			// TODO: hp를 이용하도록
 			if (enter_packet->_id < NUM_MONSTER) {
 				other_players[now_id].SetMonster();
 			}
@@ -230,6 +229,8 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			}
 			other_players[now_id].SetName(enter_packet->_name);
 			other_players[now_id].SetClassType(enter_packet->_class_type);
+			other_players[now_id].SetMaxHP(enter_packet->_max_hp);
+			other_players[now_id].ChangeHP(enter_packet->_hp);
 		}
 		break;
 

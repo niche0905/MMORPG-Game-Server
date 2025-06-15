@@ -210,3 +210,8 @@ void Creature::ChangeHP(uint16 hp_)
 
 	_hp_fg.setSize(sf::Vector2f(HP_WIDTH * hp_size, HP_HEIGHT));
 }
+
+void Creature::SetMaxHP(uint16 max_hp_)
+{
+	max_hp = max_hp_;
+}
