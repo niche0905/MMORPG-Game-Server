@@ -183,13 +183,14 @@ struct SC_ENTER_PACKET			: public BASE_PACKET
 	uint8	_class_type;
 	uint8	_level;
 
-	SC_ENTER_PACKET(uint64 id, int16 x, int16 y, char* name, uint8 visual_info, uint8 class_type, uint8 level)
+	SC_ENTER_PACKET(uint64 id, int16 x, int16 y, const char* name, uint8 visual_info, uint8 class_type, uint8 level)
 		: BASE_PACKET{ sizeof(SC_ENTER_PACKET), S2C_ENTER }
 		, _id{ id }
 		, _x{ x }, _y{ y }
 		, _visual_info{ visual_info }
 		, _class_type{ class_type }
 		, _level{ level } { strcpy_s(_name, name); }
+
 };
 
 struct SC_LEAVE_PACKET			: public BASE_PACKET
@@ -250,10 +251,6 @@ struct CS_LOGIN_PACKET			: public BASE_PACKET
 {
 	char	_name[MAX_NAME_LEN];
 
-	CS_LOGIN_PACKET(char* name)
-		: BASE_PACKET{ sizeof(CS_LOGIN_PACKET), C2S_LOGIN }
-		{ strcpy_s(_name, name); }
-
 	CS_LOGIN_PACKET(const char* name)
 		: BASE_PACKET{ sizeof(CS_LOGIN_PACKET), C2S_LOGIN }
 		{ strcpy_s(_name, name); }
@@ -263,11 +260,6 @@ struct CS_REGISTER_PACKET : public BASE_PACKET
 {
 	char	_name[MAX_NAME_LEN];
 	uint8	_class_type;
-
-	CS_REGISTER_PACKET(char* name, uint8 class_type)
-		: BASE_PACKET{ sizeof(CS_REGISTER_PACKET), C2S_REGISTER }
-		, _class_type{ class_type }
-		{ strcpy_s(_name, name); }
 
 	CS_REGISTER_PACKET(const char* name, uint8 class_type)
 		: BASE_PACKET{ sizeof(CS_REGISTER_PACKET), C2S_REGISTER }
@@ -290,7 +282,7 @@ struct CS_CHAT_PACKET			: public BASE_PACKET
 {
 	char	_message[MAX_CHAT_LENGTH];
 
-	CS_CHAT_PACKET(char* message)
+	CS_CHAT_PACKET(const char* message)
 		: BASE_PACKET{ sizeof(CS_CHAT_PACKET), C2S_CHAT }
 		{ strcpy_s(_message, message); }
 };
