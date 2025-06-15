@@ -139,14 +139,28 @@ uint16 Creature::GetHP() const
 	return hp;
 }
 
-void Creature::SetDummy()
+void Creature::SetVisualInfo(uint8 visual_info)
 {
-	SetSprite("dummy");
-}
-
-void Creature::SetMonster()
-{
-	SetSprite("monster");
+	_visual_info = visual_info;
+	switch (_visual_info)
+	{
+	case VisualInfo::VI_WARRIOR:
+		SetSprite("warrior");
+		break;
+	case VisualInfo::VI_ROGUE:
+		SetSprite("rogue");
+		break;
+	case VisualInfo::VI_SORCERER:
+		SetSprite("sorcerer");
+		break;
+	case VisualInfo::VI_GRAVE:
+		SetSprite("grave");
+		break;
+	case VisualInfo::VI_MONSTER:
+		SetSprite("monster");
+		break;
+		
+	}
 }
 
 void Creature::FixAttack()

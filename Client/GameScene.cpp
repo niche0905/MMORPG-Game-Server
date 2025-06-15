@@ -188,6 +188,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 
 				client_player = std::make_shared<Creature>(world, game.GetID());
 				client_player->Move(static_cast<int>(login_packet->_x), static_cast<int>(login_packet->_y));
+				client_player->SetVisualInfo(login_packet->_visual_info);
 				client_player->SetName(game.GetName());
 				client_player->SetClassType(login_packet->_class_type);
 				client_player->SetMaxHP(login_packet->_max_hp);
@@ -221,14 +222,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 
 			other_players.try_emplace(now_id, world, now_id);
 			other_players[now_id].Move(static_cast<int>(enter_packet->_x), static_cast<int>(enter_packet->_y));
-			
-			// TODO: 외형 정보를 이용하도록
-			if (enter_packet->_id < NUM_MONSTER) {
-				other_players[now_id].SetMonster();
-			}
-			else {
-				other_players[now_id].SetDummy();
-			}
+			other_players[now_id].SetVisualInfo(enter_packet->_visual_info);
 			other_players[now_id].SetName(enter_packet->_name);
 			other_players[now_id].SetClassType(enter_packet->_class_type);
 			other_players[now_id].SetMaxHP(enter_packet->_max_hp);

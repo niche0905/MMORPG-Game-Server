@@ -15,6 +15,8 @@ private:
 	// TODO : 멤버 변수 추가
 	uint64 id;
 
+	uint8 _visual_info = VISUAL_START;
+
 	uint16 hp = 100;
 	uint16 max_hp = 100;
 	sf::RectangleShape _hp_bg;		// HP 배경
@@ -46,9 +48,7 @@ public:
 	uint64 GetID() const;
 	uint16 GetHP() const;
 
-	// TODO: 바꾸어야 함
-	void SetDummy();
-	void SetMonster();
+	void SetVisualInfo(uint8 visual_info);
 
 	void FixAttack();
 	void SetClassType(uint8 class_type);
