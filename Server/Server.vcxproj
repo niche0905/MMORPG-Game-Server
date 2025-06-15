@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="AgroMonster.cpp" />
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="BaseSession.cpp" />
     <ClCompile Include="Bot.cpp" />
     <ClCompile Include="DatabaseEvent.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="ExpansionOverlapped.cpp" />
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="FixedMonster.cpp" />
+    <ClCompile Include="FM_IdleState.cpp" />
     <ClCompile Include="GlobalVariable.cpp" />
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="IocpCore.cpp" />
@@ -207,6 +209,7 @@
   <ItemGroup>
     <ClInclude Include="AgroMonster.h" />
     <ClInclude Include="Astar.h" />
+    <ClInclude Include="AttackState.h" />
     <ClInclude Include="BaseSession.h" />
     <ClInclude Include="Bot.h" />
     <ClInclude Include="DatabaseEvent.h" />
@@ -215,6 +218,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="FixedMonster.h" />
+    <ClInclude Include="FM_IdleState.h" />
     <ClInclude Include="GlobalVariable.h" />
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="KnightNPC.h" />

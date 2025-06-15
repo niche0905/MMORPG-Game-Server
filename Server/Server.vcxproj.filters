@@ -104,6 +104,12 @@
     <ClCompile Include="ReturnState.cpp">
       <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClCompile>
+    <ClCompile Include="FM_IdleState.cpp">
+      <Filter>Contents\Creature\NPC\State\FixedMonsterStates</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackState.cpp">
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -192,6 +198,9 @@
     </Filter>
     <Filter Include="Contents\Creature\NPC\Bot\Pathfinding\Astar">
       <UniqueIdentifier>{51edc8eb-86ab-47c3-9967-db95e3d9dcba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Creature\NPC\State\FixedMonsterStates">
+      <UniqueIdentifier>{9b97b4f5-2a82-4ab1-aed9-2cde0d7bfaf6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +310,12 @@
       <Filter>Contents\Creature\NPC\Bot\Pathfinding\Astar</Filter>
     </ClInclude>
     <ClInclude Include="ReturnState.h">
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
+    </ClInclude>
+    <ClInclude Include="FM_IdleState.h">
+      <Filter>Contents\Creature\NPC\State\FixedMonsterStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackState.h">
       <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClInclude>
   </ItemGroup>
