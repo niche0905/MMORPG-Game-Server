@@ -21,5 +21,8 @@
     <ClCompile Include="TextRender.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="mapJson2binExporter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
