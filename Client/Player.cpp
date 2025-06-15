@@ -219,7 +219,6 @@ void Creature::ChangeHP(uint16 hp_)
 {
 	hp = hp_;
 	float hp_size = (static_cast<float>(hp) / max_hp);
-	std::cout << hp_size << '\n';
 
 	_hp_fg.setSize(sf::Vector2f(HP_WIDTH * hp_size, HP_HEIGHT));
 }

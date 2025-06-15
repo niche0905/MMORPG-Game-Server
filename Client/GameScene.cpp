@@ -293,7 +293,6 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			uint64 now_id = static_cast<uint64>(hp_update_packet->_id);
 
 			if (now_id == game.GetID()) {
-				std::cout << "Call\n";
 				uint16 hp_gap = client_player->GetHP() - hp_update_packet->_hp;
 				client_player->AddDamage(hp_gap);
 				client_player->ChangeHP(hp_update_packet->_hp);
