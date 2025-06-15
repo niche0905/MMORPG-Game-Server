@@ -49,6 +49,8 @@ public:
 	void FirstSeen(uint64 id);
 	void WakeUp();
 
+	virtual void Attack();
+
 	bool DoMove(const Position& pos);
 	void DoRandomMove();
 	void DoRevive() override;
@@ -64,6 +66,8 @@ public:
 	Position GetBasePosition() const;
 
 	Creature* GetTarget() const;
+
+	void AttackBroadcast(void* attack_packet);
 
 };
 
