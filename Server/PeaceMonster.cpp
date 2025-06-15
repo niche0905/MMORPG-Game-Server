@@ -15,7 +15,7 @@ PeaceMonster::PeaceMonster()
 PeaceMonster::PeaceMonster(uint64 id)
 	: Monster{ _id, true, true, false }
 {
-
+	_fsm.ChangeState(this, &PM_IdleState::Instance());
 }
 
 PeaceMonster::~PeaceMonster()
