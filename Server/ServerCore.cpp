@@ -180,7 +180,7 @@ void ServerCore::NPCInit()
 	StateInit();
 
 	for (uint64 i = 0; i < NUM_MONSTER; ++i) {
-		Creature* creature = new PeaceMonster{ i };
+		Creature* creature = new FixedMonster{ i };
 		std::string name = ("NPC" + std::to_string(i));
 		creature->SetName(name);
 		Position spawn_pos;
