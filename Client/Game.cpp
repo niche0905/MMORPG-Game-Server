@@ -15,6 +15,12 @@ Game::Game()
 	, communication{}
 	, my_id{ 0 }
 {
+	using namespace std::chrono;
+
+	_move_cooltime = steady_clock::now();
+	_aatk_cooltime = steady_clock::now();
+	_satk_cooltime = steady_clock::now();
+	_datk_cooltime = steady_clock::now();
 	Init();
 }
 
@@ -113,13 +119,50 @@ void Game::SendRegister(uint8 class_type)
 
 void Game::SendAttack(uint8 atk_key, uint8 atk_dir)
 {
+	using namespace std::chrono;
+
+	auto now_point = steady_clock::now();
+	switch (atk_key)
+	{
+	case KeyType::KEY_A:
+		if ((now_point - _aatk_cooltime) < (AATK_COOLTIME)) {
+			return;		// A공격 실패
+		}
+		_aatk_cooltime = now_point;
+		break;
+	case KeyType::KEY_S:
+	{
+		if ((now_point - _satk_cooltime) < (SATK_COOLTIME)) {
+			return;		// S공격 실패
+		}
+		_satk_cooltime = now_point;
+	}
+	break;
+
+	case KeyType::KEY_D:
+	{
+		if ((now_point - _datk_cooltime) < (DATK_COOLTIME)) {
+			return;		// D공격 실패
+		}
+		_datk_cooltime = now_point;
+	}
+	break;
+	}
+
 	CS_ATTACK_PACKET attack_packet{ atk_key, atk_dir };
 	communication.Send(reinterpret_cast<BYTE*>(&attack_packet), sizeof(attack_packet));
 }
 
 void Game::SendArrowKey(uint8 dir)
 {
-	// TODO: move_time 적용하기
+	using namespace std::chrono;
+
+	auto now_time = steady_clock::now();
+	if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+		return;		// 이동 실패
+	}
+	_move_cooltime = now_time;
+
 	CS_MOVE_PACKET move_packet{ dir, 0 };
 	communication.Send(reinterpret_cast<BYTE*>(&move_packet), sizeof(move_packet));
 }
