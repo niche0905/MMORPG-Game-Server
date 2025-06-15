@@ -253,7 +253,7 @@ void ServerCore::Worker()
 			delete exp_overlapped;
 		}
 		break;
-		case OverOperation::DO_RANDOM_MOVE:
+		case OverOperation::DO_UPDATE:
 		{
 			Creature* client = _clients.at(key);
 
@@ -370,9 +370,9 @@ void ServerCore::TimerWorker()
 
 			switch (evt._event_type)
 			{
-			case Event::EventType::EV_RANDOM_MOVE:
+			case Event::EventType::EV_UPDATE:
 			{
-				ExOver* new_task = new ExOver(DO_RANDOM_MOVE);
+				ExOver* new_task = new ExOver(DO_UPDATE);
 				_iocp_core.AddTask(evt._id, new_task);
 			}
 			break;

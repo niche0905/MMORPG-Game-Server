@@ -17,7 +17,7 @@ enum OverOperation
 	IO_SEND,
 	IO_ACCEPT,
 
-	DO_RANDOM_MOVE,
+	DO_UPDATE,
 	DO_REVIVE,
 
 	DB_LOGIN,

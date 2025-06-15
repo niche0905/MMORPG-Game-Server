@@ -150,7 +150,7 @@ void Bot::WakeUp()
 	bool old_state = false;
 	if (_is_active.compare_exchange_strong(old_state, true) == false) return;
 
-	Event evt{ _id, std::chrono::system_clock::now(), Event::EventType::EV_RANDOM_MOVE };
+	Event evt{ _id, std::chrono::system_clock::now(), Event::EventType::EV_UPDATE };
 	server.AddTimerEvent(evt);
 }
 
@@ -181,7 +181,7 @@ void Bot::DoRandomMove()
 
 	if (_position == new_position) {
 
-		Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_RANDOM_MOVE };
+		Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_UPDATE };
 		server.AddTimerEvent(evt);
 
 		return;
@@ -247,7 +247,7 @@ void Bot::DoRandomMove()
 		return;
 	}
 
-	Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_RANDOM_MOVE };
+	Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_UPDATE };
 	server.AddTimerEvent(evt);
 }
 
@@ -263,5 +263,5 @@ void Bot::DoRevive()
 	}
 
 	using namespace std::chrono;
-	server.AddTimerEvent(Event{ _id, system_clock::now() + 1s, Event::EventType::EV_RANDOM_MOVE });
+	server.AddTimerEvent(Event{ _id, system_clock::now() + 1s, Event::EventType::EV_UPDATE });
 }
