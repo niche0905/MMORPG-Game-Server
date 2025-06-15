@@ -44,10 +44,10 @@ void PeaceMonster::Update()
 	}
 
 	if (_target == nullptr) {
-		if (true /* TODO: base_pos에서 일정 거리 떨어졌다면 */ ) {
+		if (not CanSee(_base_pos, RETURN_RANGE)) {		// 스폰 지점에서 너무 멀다!
 			_fsm.ChangeState(this, &PM_ReturnState::Instance());
 		}
-		else {
+		else {											// 스폰 지점 근처니깐 괜찮다
 			_fsm.ChangeState(this, &PM_IdleState::Instance());
 		}
 	}

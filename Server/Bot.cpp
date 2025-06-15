@@ -270,7 +270,7 @@ void Bot::DoRevive()
 void Bot::ReviveInit()
 {
 	_target == nullptr;
-	//_position = _base_pos;	// TODO: 부활시켜야 함 (base_pos를 적용시켜야 함)
+	_position = _base_pos;
 	_hp = 100;	// TODO: 제대로 바꾸어야 함
 }
 
@@ -289,4 +289,9 @@ void Bot::SetBasePosition(const Position& pos)
 {
 	_base_pos = pos;
 	SetPosition(_base_pos);
+}
+
+Position Bot::GetBasePosition() const
+{
+	return _base_pos;
 }

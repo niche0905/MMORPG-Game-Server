@@ -55,6 +55,7 @@ public:
 
 	void SetBasePosition(int16 x, int16 y);
 	void SetBasePosition(const Position& pos);
+	Position GetBasePosition() const;
 
 };
 
