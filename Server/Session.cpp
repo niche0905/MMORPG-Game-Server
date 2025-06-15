@@ -270,11 +270,12 @@ void Session::MoveProcess(BYTE* packet)
 		break;
 	}
 
-	if (_position == new_position) {
-		// 변한게 없다면 스스로에게만 시간 Update
+	if (::IsBlock(new_position) or _position == new_position) {
+		// 벽에 막혀서 못움직여요		변한게 없다면 스스로에게만 시간 Update
 		SelfUpdate();
 		return;
 	}
+
 	server.MoveSector(_id, _position, new_position);
 
 	_position = new_position;

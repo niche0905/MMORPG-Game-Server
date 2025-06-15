@@ -39,7 +39,6 @@ public:
 	virtual bool IsNPC() const = 0;
 
 	void SetPosition(int16 x, int16 y);
-	void SetPosition(Position pos);
 	void SetPosition(const Position& pos);
 
 	void SetName(std::string_view name);

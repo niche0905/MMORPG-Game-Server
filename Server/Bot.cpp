@@ -179,7 +179,8 @@ void Bot::DoRandomMove()
 		break;
 	}
 
-	if (_position == new_position) {
+	if (::IsBlock(new_position) or _position == new_position) {
+		// 벽에 막혀서 못움직여요		변한게 없다면 스스로에게만 시간 Update
 
 		Event evt{ _id, system_clock::now() + 1s, Event::EventType::EV_UPDATE };
 		server.AddTimerEvent(evt);

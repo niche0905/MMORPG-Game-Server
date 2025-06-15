@@ -171,7 +171,14 @@ void ServerCore::NPCInit()
 		Creature* npc = new Bot{ i };
 		std::string name = ("NPC" + std::to_string(i));
 		npc->SetName(name);
-		npc->SetPosition(rand() % MAX_WIDTH, rand() % MAX_HEIGHT);
+		Position spawn_pos;
+		while (true) {
+			spawn_pos = { rand() % MAX_WIDTH, rand() % MAX_HEIGHT };
+			if (not IsBlock(spawn_pos))
+				break;
+		}
+
+		npc->SetPosition(spawn_pos);
 		npc->SetState(ST_INGAME);
 
 		RegisterSector(i, npc->GetPosition());

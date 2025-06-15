@@ -57,11 +57,6 @@ void Creature::SetPosition(int16 x, int16 y)
 	_position = { x, y };
 }
 
-void Creature::SetPosition(Position pos)
-{
-	_position = pos;
-}
-
 void Creature::SetPosition(const Position& pos)
 {
 	_position = pos;
