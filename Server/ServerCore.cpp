@@ -3,9 +3,12 @@
 #include "IdleState.h"
 #include "DeadState.h"
 #include "ReturnState.h"
+#include "AttackState.h"
 #include "PM_IdleState.h"
 #include "PM_RunState.h"
 #include "PeaceMonster.h"
+#include "FM_IdleState.h"
+#include "FixedMonster.h"
 
 
 
@@ -163,9 +166,11 @@ void ServerCore::StateInit()
 	// TODO: 사용할 모든 State를 한번 Instance() 호출해 주어야 한다
 	IdleState::Instance();
 	DeadState::Instance();
-	PM_IdleState::Instance();
 	ReturnState::Instance();
+	AttackState::Instance();
+	PM_IdleState::Instance();
 	PM_RunState::Instance();
+	FM_IdleState::Instance();
 
 	std::cout << "NPC States Init Success\n";
 }
