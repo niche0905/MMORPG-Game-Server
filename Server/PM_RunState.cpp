@@ -21,7 +21,7 @@ void PM_RunState::Enter(Bot* bot)
 
     const int16 DIST = 6;
     std::vector<Position> candidates;
-    for (int16 dist = DIST; dist >= 1; -dist) {
+    for (int16 dist = DIST; dist >= 1; --dist) {
         Position candidate = bot->GetPosition() + Position{ static_cast<int16>(dx * dist), static_cast<int16>(dy * dist) };
         if (!server.IsBlock(candidate))
             candidates.push_back(candidate);
