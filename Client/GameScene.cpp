@@ -29,10 +29,10 @@ void GameScene::Init()
 
 	using namespace std::chrono;
 
-	_move_cooltime = steady_clock::now();
-	_aatk_cooltime = steady_clock::now();
-	_satk_cooltime = steady_clock::now();
-	_datk_cooltime = steady_clock::now();
+	_move_cooltime = steady_clock::now() - MOVE_COOLTIME;
+	_aatk_cooltime = steady_clock::now() - AATK_COOLTIME;
+	_satk_cooltime = steady_clock::now() - SATK_COOLTIME;
+	_datk_cooltime = steady_clock::now() - DATK_COOLTIME;
 }
 
 // Scene에 존재하는 Object 업데이트
