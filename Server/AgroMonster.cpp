@@ -82,19 +82,18 @@ void AgroMonster::Update()
 	else {
 		Position client_pos = _target->GetPosition();
 
-		if (not _path.empty()) {
-			// 때릴 수 있으면 Attack
-			if (Attackalbe(client_pos)) {
-				_fsm.ChangeState(this, &AttackState::Instance());
-			}
-			// 떄릴 수 없다면 Chase
-			else {
+		// 때릴 수 있으면 Attack
+		if (Attackalbe(client_pos)) {
+			_fsm.ChangeState(this, &AttackState::Instance());
+		}
+		// 떄릴 수 없다면 Chase
+		else {
+			if (not _path.empty()) {
 				_fsm.ChangeState(this, &ChaseState::Instance());
 			}
-		}
-		// 경로를 도달 했지만 할 수 있는게 없다 (다시 찾아라)
-		else {
-			_fsm.ForceChangeState(this, &ChaseState::Instance());
+			else {
+				_fsm.ForceChangeState(this, &ChaseState::Instance());
+			}
 		}
 	}
 
