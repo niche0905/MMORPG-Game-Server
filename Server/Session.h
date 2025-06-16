@@ -85,6 +85,9 @@ public:
 	void SendNewCreature(uint64 id, void* enter_packet);
 	void SendLeaveCreature(uint64 id);
 
+	void AddExp(uint64 exp);
+	void DoLevelUp();
+
 private:
 	void SelfUpdate();
 	void StatsChange();

@@ -1128,6 +1128,34 @@ void Session::SendLeaveCreature(uint64 id)
 	Send(&leave_packet);
 }
 
+void Session::AddExp(uint64 exp)
+{
+	if (_exp > UINT64_MAX - exp) {
+		_exp = UINT64_MAX;		// 오버 플로우 발생;;
+	}
+	else {
+		_exp += exp;
+	}
+
+	while (_level < MAX_LEVEL) {
+
+		uint64 need_exp = ::NeedExpToLevelUp(_level);
+		if (_exp >= need_exp) {
+			_exp -= need_exp;
+
+			DoLevelUp();
+		}
+		else break;
+
+	}
+}
+
+void Session::DoLevelUp()
+{
+	++_level;
+	// TODO: 스텟과 등등 바꾸어 주기 (그리고 broadcast)
+}
+
 void Session::SelfUpdate()
 {
 	SC_MOVE_SELF_PACKET update_packet{ _position.x, _position.y, _last_move_time };

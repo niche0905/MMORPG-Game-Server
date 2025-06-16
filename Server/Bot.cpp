@@ -377,7 +377,7 @@ void Bot::DropItem(uint64 id)
 	uint64 add_exp = GetDropExp();
 	// TODO: Bot의 Level에 따라 아이템이 존재한다면 떨구기
 	// TODO: add_exp만큼 Session에 더하기
-
+	session->AddExp(add_exp);
 
 }
 
