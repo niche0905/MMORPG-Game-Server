@@ -39,8 +39,10 @@ void FixedMonster::Update()
 		return;
 	}
 
-	if (_target != nullptr and not _target->CanSee(_position, VIEW_RANGE)) {
-		_target == nullptr;
+	if (_target != nullptr) {
+		uint8 state = _target->GetState();
+		if (state == GameState::ST_CLOSE or state == GameState::ST_DEAD or not _target->CanSee(_position, VIEW_RANGE))
+			_target == nullptr;
 	}
 
 	if (_target == nullptr) {
@@ -66,6 +68,13 @@ void FixedMonster::Attack()
 
 		if (_target->CanSee(_position, FIX_MONSTER_ATK_RANGE)) {
 			if (_target->IsPlayer()) {
+
+				uint8 state = _target->GetState();
+				if (state == GameState::ST_CLOSE or state == GameState::ST_DEAD or not _target->CanSee(_position, VIEW_RANGE)) {
+					_target == nullptr;
+					return;
+				}
+
 				Session* session = static_cast<Session*>(_target);
 				SC_ATTACK_PACKET attack_packet{ _id, KeyType::KEY_A, AttackDirection::NO_DIRECTION };
 				AttackBroadcast(&attack_packet);
