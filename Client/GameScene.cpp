@@ -290,12 +290,18 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		case PacketID::S2C_CHAT:
 		{
 			SC_CHAT_PACKET* chat_packet = reinterpret_cast<SC_CHAT_PACKET*>(packet);
+			uint64 now_id = static_cast<uint64>(chat_packet->_id);
 
 			std::string now_text = chat_packet->_message;
-			now_text = std::to_string(chat_packet->_id) + ": " + now_text;
+			if (now_id == game.GetID()) {
+				client_player->AddChat(chat_packet->_message);
+				now_text = client_player->GetName() + ": " + now_text;
+			}
+			else {
+				other_players[now_id].AddChat(chat_packet->_message);
+				now_text = other_players[now_id].GetName() + ": " + now_text;
+			}
 			_chat_box.AddMessage(now_text);
-			uint64 now_id = static_cast<uint64>(chat_packet->_id);
-			other_players[now_id].AddChat(chat_packet->_message);
 		}
 		break;
 

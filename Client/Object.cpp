@@ -151,6 +151,16 @@ void Object::SetName(const std::string& input_name)
 	name_text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
 
+const std::string& Object::GetName() const
+{
+	return name;
+}
+
+std::string& Object::GetName()
+{
+	return name;
+}
+
 sf::Vector2i Object::GetPosition() const
 {
 	return position;
