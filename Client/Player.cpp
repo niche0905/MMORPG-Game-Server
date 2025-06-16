@@ -189,6 +189,15 @@ void Creature::SetVisualInfo(uint8 visual_info)
 	case VisualInfo::VI_BEAR:
 		SetSprite("bear");
 		break;
+	case VisualInfo::VI_HELLO:
+		SetSprite("hello");
+		break;
+	case VisualInfo::VI_KNIGHT:
+		SetSprite("knight");
+		break;
+	case VisualInfo::VI_ACTION:
+		SetSprite("action");
+		break;
 		
 	}
 }

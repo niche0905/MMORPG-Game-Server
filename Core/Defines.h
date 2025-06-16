@@ -54,6 +54,7 @@ enum ClassType : uint8
 	MERCHANT_NPC,
 	AGRS_MERCHANT_NPC,
 	KNIGHT_NPC,
+	ACTION_NPC,
 
 	// Monster들
 	SLIME_MONSTER,
@@ -81,6 +82,10 @@ enum VisualInfo : uint8
 	VI_NEPENTHES,		// 식물 고정몹
 	VI_DOG,				// 개 어그로몹
 	VI_BEAR,			// 곰 중립몹
+
+	VI_HELLO,
+	VI_KNIGHT,
+	VI_ACTION,
 
 	// TODO: 몬스터, 상인 등등 더 추가해야 한다
 

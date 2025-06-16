@@ -11,7 +11,7 @@ TalkNPC::TalkNPC()
 TalkNPC::TalkNPC(uint64 id)
 	: Bot{id, ClassType::TALK_NPC, true, true, true, true, true}
 {
-	_visual_type = VisualInfo::VI_MONSTER;
+	_visual_type = VisualInfo::VI_HELLO;
 }
 
 TalkNPC::~TalkNPC()

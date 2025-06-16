@@ -9,10 +9,10 @@ ActionNPC::ActionNPC()
 }
 
 ActionNPC::ActionNPC(uint64 id)
-	: Bot{ id, ClassType::KNIGHT_NPC, true, true, true, true, true }
+	: Bot{ id, ClassType::ACTION_NPC, true, true, true, true, true }
 {
 	_is_action = true;
-	_visual_type = VisualInfo::VI_MONSTER;
+	_visual_type = VisualInfo::VI_ACTION;
 }
 
 ActionNPC::~ActionNPC()
