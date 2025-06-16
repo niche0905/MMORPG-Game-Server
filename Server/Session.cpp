@@ -330,7 +330,14 @@ void Session::RegisterProcess(BYTE* packet)
 
 	_class_type = register_packet->_class_type;
 	// TODO: 적절한 위치에 생성해야 함
-	_position = { 1000, 1000 };
+
+	Position spawn_pos;
+	while (true) {
+		spawn_pos = { rand() % MAX_WIDTH, rand() % MAX_HEIGHT };
+		if (not IsBlock(spawn_pos))
+			break;
+	}
+	_position = spawn_pos;
 
 	DatabaseEvent db_event{ _id, DatabaseEvent::DbOperation::DB_REGISTER_REQUEST };
 	server.AddRequestDB(db_event);
