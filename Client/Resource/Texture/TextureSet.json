@@ -49,6 +49,18 @@
       "path": "Resource/Texture/bear.png"
     },
     {
+      "key": "hello",
+      "path": "Resource/Texture/hello.png"
+    },
+    {
+      "key": "knight",
+      "path": "Resource/Texture/knight.png"
+    },
+    {
+      "key": "action",
+      "path": "Resource/Texture/action.png"
+    },
+    {
       "key": "grass",
       "path": "Resource/Texture/grass.png"
     },
