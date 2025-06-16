@@ -20,6 +20,8 @@ enum PacketID : uint8
 	S2C_DAMAGE,					// 스스로 공격에 대한 Damage 출력용
 	S2C_LEVEL_UP,				// 스스로 레벨이 올랐음을 알려주는 패킷
 	S2C_EXP_UP,					// 스스로 경험치가 올랐음을 알려주는 패킷
+	S2C_DEAD,					// 스스로 죽었다
+	S2C_REVIVE,					// 스스로 부활했다
 
 	S2C_MOVE,					// 누군가 움직였다
 	S2C_ENTER,					// 누군가 들어왔다
@@ -29,8 +31,6 @@ enum PacketID : uint8
 	S2C_UPDATE_VI,				// 누군가 Visual 정보가 바뀌었다		// TODO: 개편해야 한다
 	S2C_HP_CHANGE,				// 누군가 체력이 바뀌었다
 	S2C_LEVEL_CHANGE,			// 누군가 레벨이 바뀌었다
-	S2C_DEAD,					// 누군가 죽었다
-	S2C_REVIVE,					// 누군가 부활했다
 
 
 	C2S_LOGIN,					// 로그인 요청
@@ -166,6 +166,18 @@ struct SC_EXP_UP_PACKET : public BASE_PACKET
 		, _exp{ exp } { }
 };
 
+struct SC_DEAD_PACKET : public BASE_PACKET
+{
+	SC_DEAD_PACKET(uint64 id)
+		: BASE_PACKET{ sizeof(SC_DEAD_PACKET), S2C_DEAD } { }
+};
+
+struct SC_REVIVE_PACKET : public BASE_PACKET
+{
+	SC_REVIVE_PACKET(uint64 id)
+		: BASE_PACKET{ sizeof(SC_REVIVE_PACKET), S2C_REVIVE } { }
+};
+
 struct SC_MOVE_PACKET			: public BASE_PACKET
 {
 	uint64	_id;
@@ -263,24 +275,6 @@ struct SC_LEVEL_CHANGE_PACKET : public BASE_PACKET
 		: BASE_PACKET{ sizeof(SC_LEVEL_CHANGE_PACKET), S2C_LEVEL_CHANGE }
 		, _id{ id }
 		, _level{ level } { }
-};
-
-struct SC_DEAD_PACKET : public BASE_PACKET
-{
-	uint64	_id;
-
-	SC_DEAD_PACKET(uint64 id)
-		: BASE_PACKET{ sizeof(SC_DEAD_PACKET), S2C_DEAD }
-		, _id{ id } { }
-};
-
-struct SC_REVIVE_PACKET : public BASE_PACKET
-{
-	uint64	_id;
-
-	SC_REVIVE_PACKET(uint64 id)
-		: BASE_PACKET{ sizeof(SC_REVIVE_PACKET), S2C_REVIVE }
-		, _id{ id } { }
 };
 
 struct CS_LOGIN_PACKET			: public BASE_PACKET
