@@ -100,6 +100,8 @@ uint16 Session::GetMaxHP() const
 
 bool Session::TakeDamage(uint64 id, uint16 damage)
 {
+	if (_state == GameState::ST_DEAD) return false;
+
 	bool my_kill = Creature::TakeDamage(id, damage);
 
 	SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
@@ -298,6 +300,8 @@ void Session::RegisterProcess(BYTE* packet)
 
 void Session::MoveProcess(BYTE* packet)
 {
+	if (_state == GameState::ST_DEAD) return;
+
 	using namespace std::chrono;
 
 	auto now_point = steady_clock::now();
@@ -442,6 +446,8 @@ void Session::ChatProcess(BYTE* packet)
 
 void Session::AttackProcess(BYTE* packet)
 {
+	if (_state == GameState::ST_DEAD) return;
+
 	using namespace std::chrono;
 
 	auto now_point = steady_clock::now();
