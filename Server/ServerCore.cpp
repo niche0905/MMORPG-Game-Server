@@ -14,6 +14,7 @@
 #include "NeutralMonster.h"
 #include "TalkNPC.h"
 #include "KnightNPC.h"
+#include "ActionNPC.h"
 
 
 
@@ -186,7 +187,7 @@ void ServerCore::NPCInit()
 	StateInit();
 
 	for (uint64 i = 0; i < NUM_MONSTER; ++i) {
-		Creature* creature = new TalkNPC{ i };
+		Creature* creature = new ActionNPC{ i };
 		std::string name = ("NPC" + std::to_string(i));
 		creature->SetName(name);
 		Position spawn_pos;
