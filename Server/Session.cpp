@@ -91,6 +91,11 @@ bool Session::IsNPC() const
 	return false;
 }
 
+void Session::SetLevel(uint8 level)
+{
+	_level = level;
+}
+
 uint64 Session::GetExp() const
 {
 	return _exp;

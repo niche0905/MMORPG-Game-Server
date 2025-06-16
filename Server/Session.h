@@ -50,6 +50,8 @@ public:
 	bool IsPlayer() const override;
 	bool IsNPC() const override;
 
+	void SetLevel(uint8 level);
+
 	uint64 GetExp() const;
 
 	Stats GetStats() const override;

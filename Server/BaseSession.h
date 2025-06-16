@@ -64,6 +64,7 @@ public:
 	uint8 GetClassType() const;
 
 	uint8 GetVisualType() const;
+	void SetLevel(uint8 level);
 	uint8 GetLevel() const;
 
 	virtual bool ReviveBroadcast();

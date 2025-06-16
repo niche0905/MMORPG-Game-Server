@@ -171,6 +171,11 @@ uint8 Creature::GetVisualType() const
 	return _visual_type;
 }
 
+void Creature::SetLevel(uint8 level)
+{
+	_level = level;
+}
+
 uint8 Creature::GetLevel() const
 {
 	return _level;
