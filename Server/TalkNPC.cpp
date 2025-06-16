@@ -41,10 +41,13 @@ void TalkNPC::FirstSeen(uint64 id)
 
 	if (not client->CanSee(_position, VIEW_RANGE)) return;
 
+	Session* session = static_cast<Session*>(client);
+
+	SC_ENTER_PACKET other_enter_packet{ _id, _position.x, _position.y, _name.c_str(), GetMaxHP(), _hp, _visual_type, _class_type, _level };
+	session->SendNewCreature(_id, &other_enter_packet);
+
 	std::string chat = "Hello";
 	SC_CHAT_PACKET chat_packet{ _id, chat.c_str() };
-
-	Session* session = static_cast<Session*>(client);
 	session->Send(&chat_packet);
 
 }
