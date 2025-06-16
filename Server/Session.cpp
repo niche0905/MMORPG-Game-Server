@@ -95,6 +95,16 @@ uint64 Session::GetExp() const
 	return _exp;
 }
 
+Stats Session::GetStats() const
+{
+	return Creature::GetStats() + GetEquipStats();
+}
+
+Stats Session::GetEquipStats() const
+{
+	return Stats();		// TODO 구현 하여야 함
+}
+
 uint16 Session::GetMaxHP() const
 {
 	//return _basic_stats.HP + _temp_stats.HP + _equip_stats.HP; // TODO: 정식으로 수정해야함
