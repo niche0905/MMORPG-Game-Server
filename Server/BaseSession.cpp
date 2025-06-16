@@ -174,6 +174,7 @@ uint8 Creature::GetVisualType() const
 void Creature::SetLevel(uint8 level)
 {
 	_level = level;
+	_hp = GetMaxHP();
 }
 
 uint8 Creature::GetLevel() const
