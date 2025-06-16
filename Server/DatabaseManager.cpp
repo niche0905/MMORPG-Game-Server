@@ -256,7 +256,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				int64 userID = static_cast<int64>(session->GetUserID());
 				Position pos = session->GetPosition();
 				int16 maxHP = static_cast<int16>(session->GetMaxHP());
-				int16 HP = 100;	// TEMP
+				int16 HP = session->GetHP();	// TEMP
 				//int16 HP = static_cast<int16>(session->GetHP());
 				int32 level = static_cast<int32>(session->GetLevel());
 				int64 exp = static_cast<int64>(session->GetExp());
