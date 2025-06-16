@@ -183,8 +183,68 @@ void ServerCore::NPCInit()
 {
 	StateInit();
 
-	for (uint64 i = 0; i < NUM_MONSTER; ++i) {
+	uint64 quater = NUM_MONSTER / 4;
+	uint64 now_range = quater;
+	uint64 i = 0;
+	for ( ; i < now_range; ++i) {
+		Creature* creature = new PeaceMonster{ i };
+		std::string name = ("NPC" + std::to_string(i));
+		creature->SetName(name);
+		Position spawn_pos;
+		while (true) {
+			spawn_pos = { rand() % MAX_WIDTH, rand() % MAX_HEIGHT };
+			if (not IsBlock(spawn_pos))
+				break;
+		}
+		Bot* npc = static_cast<Bot*>(creature);
+		npc->SetBasePosition(spawn_pos);
+		creature->SetState(ST_INGAME);
+
+		RegisterSector(i, creature->GetPosition());
+		_clients.insert(std::make_pair(i, creature));
+	}
+
+	now_range += quater;
+	for (; i < now_range; ++i) {
+		Creature* creature = new FixedMonster{ i };
+		std::string name = ("NPC" + std::to_string(i));
+		creature->SetName(name);
+		Position spawn_pos;
+		while (true) {
+			spawn_pos = { rand() % MAX_WIDTH, rand() % MAX_HEIGHT };
+			if (not IsBlock(spawn_pos))
+				break;
+		}
+		Bot* npc = static_cast<Bot*>(creature);
+		npc->SetBasePosition(spawn_pos);
+		creature->SetState(ST_INGAME);
+
+		RegisterSector(i, creature->GetPosition());
+		_clients.insert(std::make_pair(i, creature));
+	}
+
+	now_range += quater;
+	for (; i < now_range; ++i) {
 		Creature* creature = new NeutralMonster{ i };
+		std::string name = ("NPC" + std::to_string(i));
+		creature->SetName(name);
+		Position spawn_pos;
+		while (true) {
+			spawn_pos = { rand() % MAX_WIDTH, rand() % MAX_HEIGHT };
+			if (not IsBlock(spawn_pos))
+				break;
+		}
+		Bot* npc = static_cast<Bot*>(creature);
+		npc->SetBasePosition(spawn_pos);
+		creature->SetState(ST_INGAME);
+
+		RegisterSector(i, creature->GetPosition());
+		_clients.insert(std::make_pair(i, creature));
+	}
+
+	now_range += quater;
+	for (; i < now_range; ++i) {
+		Creature* creature = new AgroMonster{ i };
 		std::string name = ("NPC" + std::to_string(i));
 		creature->SetName(name);
 		Position spawn_pos;
