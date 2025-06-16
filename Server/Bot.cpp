@@ -118,7 +118,7 @@ bool Bot::IsPeace() const
 
 bool Bot::IsFriendly() const
 {
-	return false;
+	return _is_friendly;
 }
 
 bool Bot::IsFix() const

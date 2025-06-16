@@ -48,8 +48,6 @@ void AgroMonster::Update()
 
 		for (uint64 client_id : view_list) {
 
-			if (::IsNPC(client_id)) continue;
-
 			Creature* client = server.GetClients()[client_id];
 			if (client == nullptr) continue;
 
@@ -57,6 +55,11 @@ void AgroMonster::Update()
 			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;
 
 			if (not client->CanSee(_position, VIEW_RANGE)) continue;
+
+			if (::IsNPC(client_id)) {
+				Bot* npc = static_cast<Bot*>(client);
+				if (npc->IsInvincibility() or not npc->IsFriendly()) continue;
+			}
 
 			for (int16 gap = 0; gap <= AGRO_MONSTER_RANGE; ++gap) {
 				if (client->CanSee(_position, gap)) {
@@ -116,18 +119,24 @@ void AgroMonster::Attack()
 
 				if (client_id == _id) continue;
 
-				if (::IsNPC(client_id)) continue;
-
 				Creature* client = server.GetClients()[client_id];
 				if (client == nullptr) continue;
+
+				if (::IsNPC(client_id)) {
+					Bot* npc = static_cast<Bot*>(client);
+					if (npc->IsInvincibility() or not npc->IsFriendly()) continue;
+				}
 
 				uint8 state = client->GetState();
 				if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
 
 				if (not client->CanSee(_position, VIEW_RANGE)) continue;
 
-				Session* session = static_cast<Session*>(client);
-				session->Send(&attack_packet);
+				if (::IsPlayer(client_id)) {
+
+					Session* session = static_cast<Session*>(client);
+					session->Send(&attack_packet);
+				}
 
 				if (state == GameState::ST_DEAD) continue;
 
