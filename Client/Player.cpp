@@ -117,9 +117,8 @@ void Creature::DrawDamages(sf::RenderWindow& window)
 
 	int32 damage_num = _damages.size();
 	float damage_size = 8.f;
-	float damage_offset_x = 10.f;
 	float damage_offset_y = 5.f;
-	sf::Vector2f name_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + (TILE_SIZE / 2)) - damage_offset_x, static_cast<float>(position.y * TILE_SIZE + (-TILE_SIZE / 2) - damage_offset_y) };
+	sf::Vector2f name_pos = sf::Vector2f{ static_cast<float>(position.x * TILE_SIZE + (TILE_SIZE / 2)), static_cast<float>(position.y * TILE_SIZE + (-TILE_SIZE / 2) - damage_offset_y) };
 	name_pos.y -= damage_num * damage_size;
 	for (auto& damage : _damages) {
 		damage.SetPosition(name_pos);
