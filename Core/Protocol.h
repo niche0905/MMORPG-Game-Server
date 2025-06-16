@@ -1,6 +1,7 @@
 #pragma once
 #include "Types.h"
 #include "Defines.h"
+#include "Stat.h"
 
 
 constexpr int8 MAX_NAME_LEN = 20;
@@ -138,13 +139,11 @@ struct SC_DAMAGE_PACKET : public BASE_PACKET
 
 struct SC_STATS_CHANGE_PACKET : public BASE_PACKET
 {
-	uint16	_max_hp;
-	uint16	_hp;
+	Stats	_stats;
 
-	SC_STATS_CHANGE_PACKET(uint16 max_hp, uint16 hp)
+	SC_STATS_CHANGE_PACKET(Stats stats)
 		: BASE_PACKET{ sizeof(SC_STATS_CHANGE_PACKET), S2C_STATS_CHANGE }
-		, _max_hp{ max_hp }
-		, _hp{ hp } { }
+		, _stats{ stats } { }
 };
 
 struct SC_LEVEL_UP_PACKET : public BASE_PACKET
