@@ -78,7 +78,7 @@ public:
 	bool RegisterInfo(uint64 user_id);
 	void RegisterFalse();
 
-	void ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet);
+	void ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet, void* vi_packet = nullptr);
 	void SendNewCreature(uint64 id, void* enter_packet);
 	void SendLeaveCreature(uint64 id);
 

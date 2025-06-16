@@ -789,6 +789,7 @@ void Session::RespawnProcess(BYTE* packet)
 		}
 	}
 
+	SC_UPDATE_VI_PACKET vi_packet{ _id, _visual_type };
 	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.c_str(),  GetMaxHP(), _hp, _visual_type, _class_type, _level };
 	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
 
@@ -801,7 +802,7 @@ void Session::RespawnProcess(BYTE* packet)
 
 		if (client->IsPlayer()) {
 			auto session = static_cast<Session*>(client);
-			session->ProcessCloseCreature(_id, &enter_packet, &update_packet);
+			session->ProcessCloseCreature(_id, &enter_packet, &update_packet, &vi_packet);
 		}
 		else {
 			auto npc = static_cast<Bot*>(client);
@@ -942,7 +943,7 @@ void Session::RegisterFalse()
 	Send(&login_fail_packet);
 }
 
-void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet)
+void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_packet, void* vi_packet)
 {
 	_view_lock.lock();
 	if (_view_list.count(id) == 0) {	// 기존에 없던 생명체
@@ -953,7 +954,8 @@ void Session::ProcessCloseCreature(uint64 id, void* enter_packet, void* move_pac
 	}
 	else {								// 기존에 있던 생명체
 		_view_lock.unlock();
-
+		if (vi_packet)
+			Send(vi_packet);
 		Send(move_packet);
 	}
 }
