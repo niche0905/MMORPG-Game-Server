@@ -7,6 +7,7 @@ constexpr int16 RETURN_RANGE = 10;
 constexpr int32 SECTOR_SIZE = 20;	// 섹터의 기본 크기
 
 constexpr int16 FIX_MONSTER_ATK_RANGE = 2;
+constexpr int16 AGRO_MONSTER_RANGE = 5;
 
 constexpr std::array<int16, 4> vx = { -VIEW_RANGE, VIEW_RANGE, -VIEW_RANGE, VIEW_RANGE };	// 꼭지점 x
 constexpr std::array<int16, 4> vy = { -VIEW_RANGE, -VIEW_RANGE, VIEW_RANGE, VIEW_RANGE };	// 꼭지점 y
