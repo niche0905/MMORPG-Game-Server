@@ -110,6 +110,9 @@
     <ClCompile Include="AttackState.cpp">
       <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClCompile>
+    <ClCompile Include="ChaseState.cpp">
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -316,6 +319,9 @@
       <Filter>Contents\Creature\NPC\State\FixedMonsterStates</Filter>
     </ClInclude>
     <ClInclude Include="AttackState.h">
+      <Filter>Contents\Creature\NPC\State\SharedState</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaseState.h">
       <Filter>Contents\Creature\NPC\State\SharedState</Filter>
     </ClInclude>
   </ItemGroup>

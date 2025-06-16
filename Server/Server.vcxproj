@@ -168,6 +168,7 @@
     <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="BaseSession.cpp" />
     <ClCompile Include="Bot.cpp" />
+    <ClCompile Include="ChaseState.cpp" />
     <ClCompile Include="DatabaseEvent.cpp" />
     <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="DeadState.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="AttackState.h" />
     <ClInclude Include="BaseSession.h" />
     <ClInclude Include="Bot.h" />
+    <ClInclude Include="ChaseState.h" />
     <ClInclude Include="DatabaseEvent.h" />
     <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="DeadState.h" />

@@ -4,6 +4,7 @@
 #include "DeadState.h"
 #include "ReturnState.h"
 #include "AttackState.h"
+#include "ChaseState.h"
 #include "PM_IdleState.h"
 #include "PM_RunState.h"
 #include "PeaceMonster.h"
@@ -168,6 +169,7 @@ void ServerCore::StateInit()
 	DeadState::Instance();
 	ReturnState::Instance();
 	AttackState::Instance();
+	ChaseState::Instance();
 	PM_IdleState::Instance();
 	PM_RunState::Instance();
 	FM_IdleState::Instance();
