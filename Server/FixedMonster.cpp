@@ -67,19 +67,30 @@ void FixedMonster::Attack()
 	if (_target) {
 
 		if (_target->CanSee(_position, FIX_MONSTER_ATK_RANGE)) {
-			if (_target->IsPlayer()) {
 
-				uint8 state = _target->GetState();
-				if (state == GameState::ST_CLOSE or state == GameState::ST_DEAD or not _target->CanSee(_position, VIEW_RANGE)) {
-					_target == nullptr;
-					return;
+			std::unordered_set<uint64> closed_clients = server.GetClientList(_position);
+
+			for (uint64 client_id : closed_clients) {
+
+				if (client_id == _id) continue;
+
+				if (::IsNPC(client_id)) continue;
+
+				Creature* client = server.GetClients()[client_id];
+				if (client == nullptr) continue;
+
+				uint8 state = client->GetState();
+				if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE or state == GameState::ST_DEAD) continue;
+
+				// 공격 범위 판정!
+				Position client_pos = client->GetPosition();
+				int16 dx = std::abs(client_pos.x - _position.x);
+				int16 dy = std::abs(client_pos.y - _position.y);
+				if (dx <= 2 and dy <= 2) {
+					// 맞은 것임
+
+					client->TakeDamage(_id, damage);
 				}
-
-				Session* session = static_cast<Session*>(_target);
-				SC_ATTACK_PACKET attack_packet{ _id, KeyType::KEY_A, AttackDirection::NO_DIRECTION };
-				AttackBroadcast(&attack_packet);
-
-				session->TakeDamage(_id, damage);
 			}
 		}
 
