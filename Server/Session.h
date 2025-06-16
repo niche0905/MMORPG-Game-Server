@@ -30,7 +30,7 @@ private:
 
 	ExOver		_recv_overlapped;
 	int32		_remain_size;
-	Position	_base_pos = {0, 0};
+	Position	_base_pos = { 398, 786 };	// TEMP
 
 public:
 	uint64		_ebr_number{ EBR<Session>::MAX_ULLONG };
