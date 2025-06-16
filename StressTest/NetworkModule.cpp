@@ -362,13 +362,16 @@ void Test_Thread()
 
 void InitializeNetwork()
 {
+	setlocale(LC_ALL, "korean");
+	std::wcout.imbue(std::locale("korean"));
+
 #ifdef LOOPBACK
 	std::string temp;
 	std::cout << "Loopback Connect Waiting : ";
 	std::cin >> temp;
 	strcpy_s(serverIP, "127.0.0.1");
 #else
-	std::cout << "스트레스 테스트 서버 IP를 입력하세요: ";
+	std::wcout << L"스트레스 테스트 서버 IP를 입력하세요: ";
 	std::cin >> serverIP;
 #endif // LOOPBACK
 
