@@ -1152,15 +1152,10 @@ void Session::AddExp(uint64 exp)
 
 	}
 
-	SC_EXP_UP_PACKET exp_change{ _exp };
-	Send(&exp_change);
-
 	if (flag) {
 
 		SC_STATS_CHANGE_PACKET sc_packet{ GetStats() };
 		Send(&sc_packet);
-		// TODO: HP 바뀐 것을 알려야 함	MAXHP 변경 패킷이 필요하다
-		
 
 		SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
 		SC_LEVEL_CHANGE_PACKET level_chabge_packet{ _id, _level };
@@ -1186,6 +1181,9 @@ void Session::AddExp(uint64 exp)
 			session->Send(&level_chabge_packet);
 		}
 	}
+
+	SC_EXP_UP_PACKET exp_change{ _exp };
+	Send(&exp_change);
 }
 
 void Session::SelfUpdate()
