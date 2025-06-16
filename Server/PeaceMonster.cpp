@@ -69,11 +69,6 @@ void PeaceMonster::Update()
 	_fsm.Update(this);
 }
 
-void PeaceMonster::DropItem(uint64 id)
-{
-
-}
-
 void PeaceMonster::ReviveChangeState()
 {
 	_fsm.ChangeState(this, &PM_IdleState::Instance());

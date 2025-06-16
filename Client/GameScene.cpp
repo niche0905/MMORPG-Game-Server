@@ -53,6 +53,16 @@ void GameScene::Init()
 	_stats_text.setOutlineColor(sf::Color::White);
 	_stats_text.setOutlineThickness(0.2f);
 
+	_exp_bg.setSize({ WINDOW_WIDTH, EXP_HEIGHT });
+	_exp_bg.setFillColor(sf::Color{ 55, 55, 55 });
+	_exp_bg.setOrigin({ 0.f, EXP_HEIGHT });
+	_exp_bg.setPosition({ 0.f, WINDOW_HEIGHT });
+
+	_exp_fg.setSize({ WINDOW_WIDTH, EXP_HEIGHT });
+	_exp_fg.setFillColor(sf::Color::Yellow);
+	_exp_fg.setOrigin({ 0.f, EXP_HEIGHT });
+	_exp_fg.setPosition({ 0.f, WINDOW_HEIGHT });
+
 	using namespace std::chrono;
 
 	_move_cooltime = steady_clock::now() - MOVE_COOLTIME;
@@ -100,6 +110,8 @@ void GameScene::HUD(sf::RenderWindow& window)
 	}
 
 	window.draw(_stats_text);
+	window.draw(_exp_bg);
+	window.draw(_exp_fg);
 }
 
 // Player에게 Input 전달하기
@@ -395,7 +407,6 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		}
 		break;
 
-
 		case PacketID::S2C_LEVEL_CHANGE:
 		{
 			SC_LEVEL_CHANGE_PACKET* level_update_packet = reinterpret_cast<SC_LEVEL_CHANGE_PACKET*>(packet);
@@ -408,6 +419,14 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			else {
 				other_players[now_id].SetLevel(level_update_packet->_level);
 			}
+		}
+		break;
+
+		case PacketID::S2C_EXP_UP:
+		{
+			SC_EXP_UP_PACKET* exp_packet = reinterpret_cast<SC_EXP_UP_PACKET*>(packet);
+
+			_exp = exp_packet->_exp;
 		}
 		break;
 
@@ -434,8 +453,18 @@ void GameScene::StatsChangeUpdate()
 	std::string stats_string = "ATK: " + std::to_string(_stats.ATK) + " DEF: " + std::to_string(_stats.DEF) + " STR: " + std::to_string(_stats.STR) + " DEX: " + std::to_string(_stats.DEX) + " INT: " + std::to_string(_stats.INT) + " CRT: " + std::to_string(_stats.CRT) + " MOV: " + std::to_string(_stats.MOV);
 	_stats_text.setString(stats_string);
 
-	float offset = 40.f;
+	float offset = 60.f;
 	sf::FloatRect bounds = _stats_text.getLocalBounds();
 	_stats_text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 	_stats_text.setPosition({ WINDOW_WIDTH / 2.f, WINDOW_HEIGHT - offset });
+}
+
+void GameScene::ExpChangeUpdate()
+{
+	uint8 level = client_player->GetLevel();
+	uint64 need_exp = ::NeedExpToLevelUp(level);
+
+	float ratio = static_cast<float>(_exp) / need_exp;
+	_exp_fg.setSize({ WINDOW_WIDTH * ratio, EXP_HEIGHT });
+
 }

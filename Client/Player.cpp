@@ -292,3 +292,8 @@ void Creature::LevelUpdate()
 	sf::FloatRect bounds = _level_text.getLocalBounds();
 	_level_text.setOrigin(bounds.width, bounds.height / 2.f);
 }
+
+uint8 Creature::GetLevel() const
+{
+	return _level;
+}

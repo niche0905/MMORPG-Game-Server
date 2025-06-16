@@ -39,6 +39,10 @@ private:
 	sf::RectangleShape	_dead_info_bg;
 	sf::Text			_dead_info_text;
 
+	uint64				_exp;
+	sf::RectangleShape	_exp_bg;
+	sf::RectangleShape	_exp_fg;
+
 public:
 	GameScene();
 
@@ -54,6 +58,7 @@ public:
 private:
 	// TODO : 클래스 내부에서 사용할 함수
 	void StatsChangeUpdate();
+	void ExpChangeUpdate();
 
 };
 

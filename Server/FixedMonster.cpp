@@ -57,11 +57,6 @@ void FixedMonster::Update()
 	_fsm.Update(this);
 }
 
-void FixedMonster::DropItem(uint64 id)
-{
-
-}
-
 void FixedMonster::Attack()
 {
 	const uint16 damage = 10;

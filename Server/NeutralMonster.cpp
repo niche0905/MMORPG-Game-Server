@@ -81,11 +81,6 @@ void NeutralMonster::Update()
 	_fsm.Update(this);
 }
 
-void NeutralMonster::DropItem(uint64 id)
-{
-
-}
-
 void NeutralMonster::Attack()
 {
 	const uint16 damage = 13;

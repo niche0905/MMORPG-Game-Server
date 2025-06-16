@@ -18,4 +18,6 @@ constexpr double OBJECT_SIZE{ 40.0 };
 constexpr float HP_WIDTH{ 40.0f };
 constexpr float HP_HEIGHT{ 5.0f };
 
+constexpr float EXP_HEIGHT{ 10.0f };
+
 inline constexpr const char* LOOPBACK_ADDRESS = "127.0.0.1";

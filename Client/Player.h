@@ -71,6 +71,7 @@ public:
 
 	void SetLevel(uint8 level);
 	void LevelUpdate();
+	uint8 GetLevel() const;
 	
 };
 

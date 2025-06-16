@@ -100,11 +100,6 @@ void AgroMonster::Update()
 	_fsm.Update(this);
 }
 
-void AgroMonster::DropItem(uint64 id)
-{
-
-}
-
 void AgroMonster::Attack()
 {
 	const uint16 damage = 15;
