@@ -68,7 +68,8 @@ public:
 
 	void AttackBroadcast(void* attack_packet);
 	
-	virtual void DropItem(uint64 id);
+	void DropItem(uint64 id);
+	virtual uint64 GetDropExp();
 
 };
 

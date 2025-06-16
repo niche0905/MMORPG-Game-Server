@@ -611,7 +611,8 @@ void Session::AttackProcess(BYTE* packet)
 			if ((dx + dy) <= 1) {
 				// 맞은 것임
 
-				client->TakeDamage(_id, damage);
+				if (client->TakeDamage(_id, damage))
+					npc->DropItem(_id);
 				if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
 					damage_packet.AddDamageInfo(client_id, damage);
 			}
@@ -647,7 +648,8 @@ void Session::AttackProcess(BYTE* packet)
 			if (dx <= 2 and dy <= 2) {
 				// 맞은 것임
 
-				client->TakeDamage(_id, damage);
+				if (client->TakeDamage(_id, damage))
+					npc->DropItem(_id);
 				if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
 					damage_packet.AddDamageInfo(client_id, damage);
 			}
@@ -702,7 +704,8 @@ void Session::AttackProcess(BYTE* packet)
 				if (can_pos == client_pos) {
 					// 맞은 것임
 
-					client->TakeDamage(_id, damage);
+					if (client->TakeDamage(_id, damage))
+						npc->DropItem(_id);
 					if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
 						damage_packet.AddDamageInfo(client_id, damage);
 					break;
@@ -766,7 +769,8 @@ void Session::AttackProcess(BYTE* packet)
 				if (can_pos == client_pos) {
 					// 맞은 것임
 
-					client->TakeDamage(_id, damage);
+					if (client->TakeDamage(_id, damage))
+						npc->DropItem(_id);
 					if (damage_packet._num < SC_DAMAGE_PACKET::MAX_DAMAGE_INFO_NUM)
 						damage_packet.AddDamageInfo(client_id, damage);
 					break;
