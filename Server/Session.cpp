@@ -136,7 +136,7 @@ bool Session::TakeDamage(uint64 id, uint16 damage)
 		DeadSequence();
 	}
 
-	// TODO: 내 체력이 적다면 회복 타이머 걸기
+	NeedGeneration();
 
 	return my_kill;
 }
@@ -1015,6 +1015,8 @@ void Session::LoginDone()
 	server.GetMappingTable()[_user_id] = _id;
 	_state = GameState::ST_INGAME;
 
+	NeedGeneration();
+
 	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, _visual_type, _class_type, _level, _exp };
 	Send(&login_allow_packet);
 	StatsChange();
@@ -1198,4 +1200,15 @@ void Session::StatsChange()
 {
 	SC_STATS_CHANGE_PACKET stats_change_packet{ GetStats() };
 	Send(&stats_change_packet);
+}
+
+void Session::NeedGeneration()
+{
+	using namespace std::chrono;
+
+	if (_hp < GetMaxHP()) {
+
+		Event evt{ _id, std::chrono::system_clock::now() + 10s, Event::EventType::EV_HEAL };
+		server.AddTimerEvent(evt);
+	}
 }

@@ -90,6 +90,7 @@ public:
 private:
 	void SelfUpdate();
 	void StatsChange();
+	void NeedGeneration();
 
 };
 

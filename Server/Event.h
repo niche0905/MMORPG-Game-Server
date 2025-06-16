@@ -11,6 +11,8 @@ public:
 	{
 		EVENT_START = 0,
 
+		EV_HEAL,
+
 		EV_UPDATE,
 		EV_REVIVE,
 
