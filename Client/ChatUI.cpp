@@ -24,15 +24,18 @@ ChatBox::ChatBox()
 
 void ChatBox::HandleInput(const sf::Event& ev)
 {
-	if (ev.type == sf::Event::TextEntered) {
-		char entered = static_cast<char>(ev.text.unicode);
-		if (entered >= 32 && entered <= 126 && _input_buffer.size() < 80) {
-			_input_buffer += entered;
+	if (_is_active) {
+
+		if (ev.type == sf::Event::TextEntered) {
+			char entered = static_cast<char>(ev.text.unicode);
+			if (entered >= 32 && entered <= 126 && _input_buffer.size() < 80) {
+				_input_buffer += entered;
+			}
+			else if (entered == 8 && !_input_buffer.empty()) { // Backspace
+				_input_buffer.pop_back();
+			}
+			UpdateInputText();
 		}
-		else if (entered == 8 && !_input_buffer.empty()) { // Backspace
-			_input_buffer.pop_back();
-		}
-		UpdateInputText();
 	}
 
 	if (ev.type == sf::Event::KeyPressed) {
