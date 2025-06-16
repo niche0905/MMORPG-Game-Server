@@ -761,8 +761,6 @@ void Session::RespawnProcess(BYTE* packet)
 
 	_state = GameState::ST_ALIVE;
 
-	// TODO: 바뀐 위치에 따라 Leave, Enter, Move 해야함
-
 	SC_REVIVE_PACKET revive_packet{};
 	Send(&revive_packet);
 	SelfUpdate();
