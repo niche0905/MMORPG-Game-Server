@@ -238,11 +238,16 @@ void Creature::AddChat(std::string_view chat)
 	_chattings.emplace_back(chat, 2000000);
 }
 
-void Creature::AddDamage(uint16 damage)
+void Creature::AddDamage(uint16 damage, bool heal)
 {
 	_damages.emplace_back(std::to_string(damage), 500000);
-	_damages.back().SetColor(_damage_color);
 	_damages.back().SetSize(20, 0.3);
+	if (heal) {
+		_damages.back().SetColor(sf::Color::Green);
+	}
+	else {
+		_damages.back().SetColor(_damage_color);
+	}
 }
 
 void Creature::ShowAttack(uint8 atk_key, uint8 atk_dir)

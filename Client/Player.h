@@ -61,7 +61,7 @@ public:
 	uint8 GetClassType() const;
 
 	void AddChat(std::string_view chat);
-	void AddDamage(uint16 damage);
+	void AddDamage(uint16 damage, bool heal = false);
 	void ShowAttack(uint8 atk_type, uint8 atk_dir);
 	void ChangeHP(uint16 hp);
 

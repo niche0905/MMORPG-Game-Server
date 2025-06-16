@@ -401,6 +401,10 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 					uint16 hp_gap = client_player->GetHP() - hp_update_packet->_hp;
 					client_player->AddDamage(hp_gap);
 				}
+				else {
+					uint16 hp_gap = hp_update_packet->_hp - client_player->GetHP();
+					client_player->AddDamage(hp_gap, true);
+				}
 				client_player->ChangeHP(hp_update_packet->_hp);
 			}
 			else {
