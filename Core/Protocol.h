@@ -39,6 +39,7 @@ enum PacketID : uint8
 	C2S_TELEPORT,				// TP 요청
 	C2S_CHAT,					// 채팅 송신
 	C2S_ATTACK,					// 공격
+	C2S_RESPAWN,				// 부활 요청
 
 //---------------------------------------------------------------------------//
 
@@ -336,6 +337,12 @@ struct CS_TELEPORT_PACKET		: public BASE_PACKET
 		: BASE_PACKET(sizeof(CS_TELEPORT_PACKET), C2S_TELEPORT)
 		, _x{ x }
 		, _y{ y } { }
+};
+
+struct CS_RESPAWN_PACKET : public BASE_PACKET
+{
+	CS_RESPAWN_PACKET()
+		: BASE_PACKET(sizeof(CS_RESPAWN_PACKET), C2S_RESPAWN) { }
 };
 
 #pragma pack(pop)
