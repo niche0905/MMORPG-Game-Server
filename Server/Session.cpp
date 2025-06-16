@@ -1055,6 +1055,7 @@ bool Session::LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 H
 
 void Session::LoginDone()
 {
+	_base_pos = _position;
 	server.GetMappingTable()[_user_id] = _id;
 	_state = GameState::ST_INGAME;
 
