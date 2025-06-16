@@ -11,6 +11,7 @@
 #include "FM_IdleState.h"
 #include "FixedMonster.h"
 #include "AgroMonster.h"
+#include "NeutralMonster.h"
 
 
 
@@ -183,7 +184,7 @@ void ServerCore::NPCInit()
 	StateInit();
 
 	for (uint64 i = 0; i < NUM_MONSTER; ++i) {
-		Creature* creature = new AgroMonster{ i };
+		Creature* creature = new NeutralMonster{ i };
 		std::string name = ("NPC" + std::to_string(i));
 		creature->SetName(name);
 		Position spawn_pos;
