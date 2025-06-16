@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Session.h"
+#include "ActionNPC.h"
 
 
 Session::Session()
@@ -265,6 +266,12 @@ void Session::ProcessPacket(BYTE* packet)
 	case PacketID::C2S_RESPAWN:
 	{
 		RespawnProcess(packet);
+	}
+	break;
+
+	case PacketID::C2S_INTERACTION:
+	{
+		InteractionProcess(packet);
 	}
 	break;
 
@@ -982,6 +989,31 @@ void Session::RespawnProcess(BYTE* packet)
 				session->SendLeaveCreature(_id);
 			}
 			SendLeaveCreature(client_id);
+		}
+	}
+}
+
+void Session::InteractionProcess(BYTE* packet)
+{
+	std::unordered_set<uint64> closed_clients = server.GetClientList(_position);
+	for (uint64 client_id : closed_clients) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시
+
+		if (::IsPlayer(client_id)) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE and state == GameState::ST_DEAD) continue;	// 게임 참여 중 아니라면 무시
+
+		Bot* npc = static_cast<Bot*>(client);
+		if (not npc->IsAction()) continue;
+
+		ActionNPC* a_npc = static_cast<ActionNPC*>(npc);
+		if (a_npc->CanAction(_position)) {
+			a_npc->DoAction(_id);
 		}
 	}
 }

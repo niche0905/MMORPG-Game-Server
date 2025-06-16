@@ -74,6 +74,7 @@ public:
 	void AttackProcess(BYTE* packet);
 	void TeleportProcess(BYTE* packet);
 	void RespawnProcess(BYTE* packet);
+	void InteractionProcess(BYTE* packet);
 	void SetBasePosProcess(BYTE* packet);
 
 	uint64 GetUserID() const;
