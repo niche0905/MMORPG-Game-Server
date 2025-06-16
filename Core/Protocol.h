@@ -22,6 +22,7 @@ enum PacketID : uint8
 	S2C_EXP_UP,					// 스스로 경험치가 올랐음을 알려주는 패킷
 	S2C_DEAD,					// 스스로 죽었다
 	S2C_REVIVE,					// 스스로 부활했다
+	S2C_DIALOG,					// 대화창을 열도록
 
 	S2C_MOVE,					// 누군가 움직였다
 	S2C_ENTER,					// 누군가 들어왔다
@@ -164,6 +165,13 @@ struct SC_REVIVE_PACKET : public BASE_PACKET
 {
 	SC_REVIVE_PACKET()
 		: BASE_PACKET{ sizeof(SC_REVIVE_PACKET), S2C_REVIVE } { }
+};
+
+struct SC_DIALOG_PACKET : public BASE_PACKET
+{
+	// 사실 여기도 무슨 타입의 대화창인지 설정할 수 있어야 할 텐데
+	SC_DIALOG_PACKET()
+		: BASE_PACKET{ sizeof(SC_DIALOG_PACKET), S2C_DIALOG } { }
 };
 
 struct SC_MOVE_PACKET			: public BASE_PACKET

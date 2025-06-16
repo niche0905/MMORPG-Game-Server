@@ -39,8 +39,10 @@ void ActionNPC::DoAction(uint64 id)
 
 	if (state == GameState::ST_DEAD) return;
 
-	// TODO: 대화창 팝업
+	Session* session = static_cast<Session*>(client);
 
+	SC_DIALOG_PACKET dialog_packet{};
+	session->Send(&dialog_packet);
 }
 
 bool ActionNPC::CanAction(Position pos)
