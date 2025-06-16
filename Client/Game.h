@@ -49,6 +49,7 @@ public:
 	void SendArrowKey(uint8 dir);
 	void SendChatting(const std::string& str);
 	void SendRespawn();
+	void SendTeleport(int x, int y);
 
 	void ProcessPacket(std::vector<BYTE> packet);
 

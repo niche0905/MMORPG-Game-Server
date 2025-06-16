@@ -141,6 +141,12 @@ void Game::SendRespawn()
 	communication.Send(reinterpret_cast<BYTE*>(&respawn_packet), sizeof(respawn_packet));
 }
 
+void Game::SendTeleport(int x, int y)
+{
+	CS_TELEPORT_PACKET tp_packet{ static_cast<int16>(x), static_cast<int16>(y) };
+	communication.Send(reinterpret_cast<BYTE*>(&tp_packet), sizeof(tp_packet));
+}
+
 void Game::ProcessPacket(std::vector<BYTE> packet)
 {
 	if (packet.size() == 0)
