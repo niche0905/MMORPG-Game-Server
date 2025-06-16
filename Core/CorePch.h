@@ -5,6 +5,7 @@
 #include "TLS.h"
 #include "Defines.h"
 #include "Protocol.h"
+#include "Stat.h"
 
 // 알고리즘
 #include <random>

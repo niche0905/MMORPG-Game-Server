@@ -16,6 +16,12 @@
     <Filter Include="Protocol">
       <UniqueIdentifier>{e8963a63-ddcf-432e-a528-b946dc98aac3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>{b46a45fb-0645-4057-a219-3e9ba456f5e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Stat">
+      <UniqueIdentifier>{e30bc353-3c46-465c-b1e1-3f100e81da16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -29,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="TLS.cpp">
       <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Stat.cpp">
+      <Filter>Content\Stat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="game_header.h">
       <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Stat.h">
+      <Filter>Content\Stat</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

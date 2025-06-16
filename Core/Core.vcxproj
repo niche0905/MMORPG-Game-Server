@@ -27,6 +27,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Stat.cpp" />
     <ClCompile Include="TLS.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +43,7 @@
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Protocol.h" />
+    <ClInclude Include="Stat.h" />
     <ClInclude Include="TLS.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>

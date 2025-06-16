@@ -201,7 +201,6 @@
     <ClCompile Include="SectorManager.cpp" />
     <ClCompile Include="ServerCore.cpp" />
     <ClCompile Include="Session.cpp" />
-    <ClCompile Include="Stat.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="TalkNPC.cpp" />
     <ClCompile Include="Util.cpp" />
@@ -241,7 +240,6 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="ServerCore.h" />
     <ClInclude Include="Session.h" />
-    <ClInclude Include="Stat.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="TalkNPC.h" />
     <ClInclude Include="Util.h" />

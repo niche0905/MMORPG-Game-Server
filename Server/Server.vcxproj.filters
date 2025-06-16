@@ -25,9 +25,6 @@
     <ClCompile Include="SectorManager.cpp">
       <Filter>Contents\Sector</Filter>
     </ClCompile>
-    <ClCompile Include="Stat.cpp">
-      <Filter>Contents\Item</Filter>
-    </ClCompile>
     <ClCompile Include="GlobalVariable.cpp">
       <Filter>Utils\GrobalVariable</Filter>
     </ClCompile>
@@ -139,9 +136,6 @@
     <Filter Include="Contents\Sector">
       <UniqueIdentifier>{3cfc02b6-6685-4b91-a473-7dd9cad4b15a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Item">
-      <UniqueIdentifier>{8aa1dee3-a40c-47ca-b250-06f509b8896d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils\GrobalVariable">
       <UniqueIdentifier>{3e0d0a8d-e697-4b60-8b33-35f4157ed3d7}</UniqueIdentifier>
     </Filter>
@@ -230,9 +224,6 @@
     </ClInclude>
     <ClInclude Include="SectorManager.h">
       <Filter>Contents\Sector</Filter>
-    </ClInclude>
-    <ClInclude Include="Stat.h">
-      <Filter>Contents\Item</Filter>
     </ClInclude>
     <ClInclude Include="GlobalVariable.h">
       <Filter>Utils\GrobalVariable</Filter>

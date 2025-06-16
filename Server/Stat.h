@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Types.h"
 
 struct BaseStats			// 모든 캐릭터/장비가 가지는 스텟
 {
