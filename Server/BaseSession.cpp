@@ -94,6 +94,11 @@ bool Creature::CanSee(Position pos, int16 gap) const
 	return (std::abs(_position.y - pos.y) <= gap);
 }
 
+Stats Creature::GetStats() const
+{
+	return ::BasicStats(_level) + _temp_stats;
+}
+
 void Creature::SetState(uint8 state)
 {
 	_state.store(state);

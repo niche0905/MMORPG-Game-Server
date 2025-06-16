@@ -49,6 +49,8 @@ public:
 	bool CanSee(int16 x, int16 y, int16 gap) const;
 	bool CanSee(Position pos, int16 gap) const;
 
+	virtual Stats GetStats() const;
+
 	void SetState(uint8 state);
 	uint8 GetState() const;
 
