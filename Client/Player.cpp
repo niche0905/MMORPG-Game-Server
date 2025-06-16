@@ -226,6 +226,9 @@ void Creature::SetClassType(uint8 class_type)
 	case ClassType::BEAR_MONSTER:
 		_a_atk.SetAtkType(AttackType::NEUT_A);
 		break;
+	case ClassType::KNIGHT_NPC:
+		_a_atk.SetAtkType(AttackType::KNIGHT_A);
+		break;
 	default:
 		break;
 	}

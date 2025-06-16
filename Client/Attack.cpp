@@ -60,6 +60,12 @@ void Attack::SetAtkType(uint8 atk_type)
 		SetOrigin(true);
 		break;
 
+	case AttackType::KNIGHT_A:
+		SetSprite("knight_a");
+		SetSize(OBJECT_SIZE * 3);
+		SetOrigin(true);
+		break;
+
 	}
 	_duration = 500000;
 }
