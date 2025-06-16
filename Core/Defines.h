@@ -56,7 +56,9 @@ enum ClassType : uint8
 	KNIGHT_NPC,
 
 	// Monster들
+	PEACE_MONSTER,
 	FIXED_MONSTER,
+	AGRO_MONSTER,
 
 	CLASS_NONE,
 	BOT_NONE,
