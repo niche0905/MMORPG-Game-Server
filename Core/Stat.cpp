@@ -48,7 +48,7 @@ BaseStats BaseStats::operator+=(const BaseStats& other)
 Stats BasicStats(uint32 level)
 {
     // 기본 스텟은 아래와 같다
-    return Stats{ (100 * level), level, level, level, level, level, level, (2 * level) };
+    return Stats{ (uint16)(100 * level), (uint16)level, (uint16)level, (uint16)level, (uint16)level, (uint16)level, (uint16)level, (uint16)(2 * level) };
 }
 
 uint64 NeedExpToLevelUp(uint32 level)
