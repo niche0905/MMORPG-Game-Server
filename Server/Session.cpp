@@ -133,6 +133,7 @@ bool Session::TakeDamage(uint64 id, uint16 damage)
 
 void Session::DeadSequence()
 {
+	SC_DEAD_PACKET dead_packet{};
 	_visual_type = VisualInfo::VI_GRAVE;
 	SC_UPDATE_VI_PACKET update_vi_packet{ _id, _visual_type };
 
@@ -140,6 +141,7 @@ void Session::DeadSequence()
 	std::unordered_set<uint64> view_list = _view_list;
 	_view_lock.unlock();
 
+	Send(&dead_packet);
 	Send(&update_vi_packet);
 	for (uint64 client_id : view_list) {
 
