@@ -557,6 +557,26 @@ void Session::AttackProcess(BYTE* packet)
 		session->Send(&attack_broadcast_packet);
 	}
 
+
+	Stats my_stats = GetStats();
+	uint16 addition_damage = 0;
+	switch (_class_type)
+	{
+	case ClassType::WARRIOR:
+		addition_damage = static_cast<uint16>(my_stats.ATK + (my_stats.STR / 2.f) + (my_stats.DEX / 4.f) + (my_stats.INT / 4.f));
+		break;
+	case ClassType::ROGUE:
+		addition_damage = static_cast<uint16>(my_stats.ATK + (my_stats.STR / 4.f) + (my_stats.DEX / 2.f) + (my_stats.INT / 4.f));
+		break;
+	case ClassType::SORCERER:
+		addition_damage = static_cast<uint16>(my_stats.ATK + (my_stats.STR / 4.f) + (my_stats.DEX / 4.f) + (my_stats.INT / 2.f));
+		break;
+	}
+	float critical = 1.f;
+	if ((rand() % 100) < static_cast<int>(my_stats.CRT / 150.f)) {
+		critical = 1.5f;
+	}
+
 	Position pos = _position;
 	SC_DAMAGE_PACKET damage_packet{};
 	std::unordered_set<uint64> closed_clients = server.GetClientList(pos);
@@ -565,6 +585,8 @@ void Session::AttackProcess(BYTE* packet)
 	case AttackType::STANDARD_ATK:
 	{
 		uint16 damage = 20;
+		damage = addition_damage;
+		damage = static_cast<uint16>(addition_damage * critical);
 
 		for (uint64 client_id : closed_clients) {
 
@@ -599,6 +621,8 @@ void Session::AttackProcess(BYTE* packet)
 	case AttackType::WARRIOR_S:
 	{
 		uint16 damage = 40;
+		damage = addition_damage;
+		damage = static_cast<uint16>(addition_damage * critical);
 
 		for (uint64 client_id : closed_clients) {
 
@@ -633,6 +657,8 @@ void Session::AttackProcess(BYTE* packet)
 	case AttackType::ROGUE_S:
 	{
 		uint16 damage = 100;
+		damage = addition_damage;
+		damage = static_cast<uint16>(addition_damage * critical);
 
 		std::vector<Position> hit_pos;
 		hit_pos.reserve(2);
@@ -688,6 +714,8 @@ void Session::AttackProcess(BYTE* packet)
 	case AttackType::SORCERER_S:
 	{
 		uint16 damage = 60;
+		damage = addition_damage;
+		damage = static_cast<uint16>(addition_damage * critical);
 
 		std::vector<Position> hit_pos;
 		hit_pos.reserve(6);
