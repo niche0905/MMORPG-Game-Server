@@ -168,3 +168,8 @@ bool AgroMonster::Attackalbe(Position pos)
 
 	return false;
 }
+
+uint64 AgroMonster::GetDropExp()
+{
+	return _level * _level * 4;
+}

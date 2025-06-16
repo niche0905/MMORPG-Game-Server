@@ -14,5 +14,7 @@ public:
 	void Attack() override;
 	bool Attackalbe(Position pos);
 
+	uint64 GetDropExp() override;
+
 };
 

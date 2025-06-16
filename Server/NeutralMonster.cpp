@@ -147,3 +147,8 @@ bool NeutralMonster::Attackalbe(Position pos)
 
 	return false;
 }
+
+uint64 NeutralMonster::GetDropExp()
+{
+	return _level * _level * 2;
+}
