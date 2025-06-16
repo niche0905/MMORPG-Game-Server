@@ -26,9 +26,11 @@ enum PacketID : uint8
 	S2C_LEAVE,					// 누군가 떠났다
 	S2C_CHAT,					// 누군가 채팅했다
 	S2C_ATTACK,					// 누군가 공격했다
-	S2C_UPDATE_VI,				// 누군가 Visual 정보가 바뀌었다
+	S2C_UPDATE_VI,				// 누군가 Visual 정보가 바뀌었다		// TODO: 개편해야 한다
 	S2C_HP_CHANGE,				// 누군가 체력이 바뀌었다
 	S2C_LEVEL_CHANGE,			// 누군가 레벨이 바뀌었다
+	S2C_DEAD,					// 누군가 죽었다
+	S2C_REVIVE,					// 누군가 부활했다
 
 
 	C2S_LOGIN,					// 로그인 요청
@@ -261,6 +263,24 @@ struct SC_LEVEL_CHANGE_PACKET : public BASE_PACKET
 		: BASE_PACKET{ sizeof(SC_LEVEL_CHANGE_PACKET), S2C_LEVEL_CHANGE }
 		, _id{ id }
 		, _level{ level } { }
+};
+
+struct SC_DEAD_PACKET : public BASE_PACKET
+{
+	uint64	_id;
+
+	SC_DEAD_PACKET(uint64 id)
+		: BASE_PACKET{ sizeof(SC_DEAD_PACKET), S2C_DEAD }
+		, _id{ id } { }
+};
+
+struct SC_REVIVE_PACKET : public BASE_PACKET
+{
+	uint64	_id;
+
+	SC_REVIVE_PACKET(uint64 id)
+		: BASE_PACKET{ sizeof(SC_REVIVE_PACKET), S2C_REVIVE }
+		, _id{ id } { }
 };
 
 struct CS_LOGIN_PACKET			: public BASE_PACKET
