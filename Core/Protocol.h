@@ -16,8 +16,8 @@ enum PacketID : uint8
 	S2C_LOGIN_ALLOW = 1,		// 스스로 보내는 로그인 허락 및 정보
 	S2C_LOGIN_FAIL,				// 스스로 보내는 로그린 실패와 이유
 	S2C_MOVE_SELF,				// 스스로 위치 Update (스트레스 테스트용)
-	S2C_STAT_CHANGE,			// 스스로 보내는 스텟 변경
 	S2C_DAMAGE,					// 스스로 공격에 대한 Damage 출력용
+	S2C_STATS_CHANGE,			// 스스로 보내는 스텟 변경S
 	S2C_LEVEL_UP,				// 스스로 레벨이 올랐음을 알려주는 패킷
 	S2C_EXP_UP,					// 스스로 경험치가 올랐음을 알려주는 패킷
 	S2C_DEAD,					// 스스로 죽었다
@@ -116,17 +116,6 @@ struct SC_MOVE_SELF_PACKET : public BASE_PACKET
 		, _move_time{ move_time } { }
 };
 
-struct SC_STAT_CHANGE_PACKET : public BASE_PACKET
-{
-	uint16	_max_hp;
-	uint16	_hp;
-
-	SC_STAT_CHANGE_PACKET(uint16 max_hp, uint16 hp)
-		: BASE_PACKET{ sizeof(SC_STAT_CHANGE_PACKET), S2C_STAT_CHANGE }
-		, _max_hp{ max_hp }
-		, _hp{ hp } { }
-};
-
 struct SC_DAMAGE_PACKET : public BASE_PACKET
 {
 	static constexpr int32 MAX_DAMAGE_INFO_NUM = 20;
@@ -145,6 +134,17 @@ struct SC_DAMAGE_PACKET : public BASE_PACKET
 		_size += sizeof(DamageInfo);
 		_num += 1;
 	}
+};
+
+struct SC_STATS_CHANGE_PACKET : public BASE_PACKET
+{
+	uint16	_max_hp;
+	uint16	_hp;
+
+	SC_STATS_CHANGE_PACKET(uint16 max_hp, uint16 hp)
+		: BASE_PACKET{ sizeof(SC_STATS_CHANGE_PACKET), S2C_STATS_CHANGE }
+		, _max_hp{ max_hp }
+		, _hp{ hp } { }
 };
 
 struct SC_LEVEL_UP_PACKET : public BASE_PACKET
