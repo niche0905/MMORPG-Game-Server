@@ -78,91 +78,100 @@ void GameScene::HandleInput(const sf::Event& input_event)
 	auto now_time = steady_clock::now();
 
 	if (input_event.type == sf::Event::KeyPressed) {
-		if (input_event.key.code == sf::Keyboard::Left) {
-			dir = DIR_LEFT;
-			if (game.IsDev());
-			else {
-				if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
-					return;		// 이동 실패
+		if (_alive) {
+
+			if (input_event.key.code == sf::Keyboard::Left) {
+				dir = DIR_LEFT;
+				if (game.IsDev());
+				else {
+					if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+						return;		// 이동 실패
+					}
 				}
+				_move_cooltime = now_time;
+				game.SendArrowKey(MOVE_LEFT);
 			}
-			_move_cooltime = now_time;
-			game.SendArrowKey(MOVE_LEFT);
-		}
-		if (input_event.key.code == sf::Keyboard::Right) {
-			dir = DIR_RIGHT;
-			if (game.IsDev());
-			else {
-				if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
-					return;		// 이동 실패
+			if (input_event.key.code == sf::Keyboard::Right) {
+				dir = DIR_RIGHT;
+				if (game.IsDev());
+				else {
+					if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+						return;		// 이동 실패
+					}
 				}
+				_move_cooltime = now_time;
+				game.SendArrowKey(MOVE_RIGHT);
 			}
-			_move_cooltime = now_time;
-			game.SendArrowKey(MOVE_RIGHT);
-		}
-		if (input_event.key.code == sf::Keyboard::Up) {
-			dir = DIR_UP;
-			if (game.IsDev());
-			else {
-				if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
-					return;		// 이동 실패
+			if (input_event.key.code == sf::Keyboard::Up) {
+				dir = DIR_UP;
+				if (game.IsDev());
+				else {
+					if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+						return;		// 이동 실패
+					}
 				}
+				_move_cooltime = now_time;
+				game.SendArrowKey(MOVE_UP);
 			}
-			_move_cooltime = now_time;
-			game.SendArrowKey(MOVE_UP);
-		}
-		if (input_event.key.code == sf::Keyboard::Down) {
-			dir = DIR_DOWN;
-			if (game.IsDev());
-			else {
-				if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
-					return;		// 이동 실패
+			if (input_event.key.code == sf::Keyboard::Down) {
+				dir = DIR_DOWN;
+				if (game.IsDev());
+				else {
+					if ((now_time - _move_cooltime) < (MOVE_COOLTIME)) {
+						return;		// 이동 실패
+					}
 				}
+				_move_cooltime = now_time;
+				game.SendArrowKey(MOVE_DOWN);
 			}
-			_move_cooltime = now_time;
-			game.SendArrowKey(MOVE_DOWN);
-		}
-		if (input_event.key.code == sf::Keyboard::A) {
-			if (game.IsDev());
-			else {
-				if ((now_time - _aatk_cooltime) < (AATK_COOLTIME)) {
-					return;		// A공격 실패
+			if (input_event.key.code == sf::Keyboard::A) {
+				if (game.IsDev());
+				else {
+					if ((now_time - _aatk_cooltime) < (AATK_COOLTIME)) {
+						return;		// A공격 실패
+					}
 				}
+				_aatk_cooltime = now_time;
+				game.SendAttack(KeyType::KEY_A, dir);
 			}
-			_aatk_cooltime = now_time;
-			game.SendAttack(KeyType::KEY_A, dir);
-		}
-		if (input_event.key.code == sf::Keyboard::S) {
-			if (game.IsDev());
-			else {
-				if ((now_time - _satk_cooltime) < (SATK_COOLTIME)) {
-					return;		// S공격 실패
+			if (input_event.key.code == sf::Keyboard::S) {
+				if (game.IsDev());
+				else {
+					if ((now_time - _satk_cooltime) < (SATK_COOLTIME)) {
+						return;		// S공격 실패
+					}
 				}
+				_satk_cooltime = now_time;
+				game.SendAttack(KeyType::KEY_S, dir);
 			}
-			_satk_cooltime = now_time;
-			game.SendAttack(KeyType::KEY_S, dir);
-		}
-		if (input_event.key.code == sf::Keyboard::D) {
-			if (game.IsDev());
-			else {
-				if ((now_time - _datk_cooltime) < (DATK_COOLTIME)) {
-					return;		// D공격 실패
+			if (input_event.key.code == sf::Keyboard::D) {
+				if (game.IsDev());
+				else {
+					if ((now_time - _datk_cooltime) < (DATK_COOLTIME)) {
+						return;		// D공격 실패
+					}
 				}
+				_datk_cooltime = now_time;
+				game.SendAttack(KeyType::KEY_D, dir);
 			}
-			_datk_cooltime = now_time;
-			game.SendAttack(KeyType::KEY_D, dir);
+			if (input_event.key.code == sf::Keyboard::Numpad4) {
+				dir = DIR_LEFT;
+			}
+			if (input_event.key.code == sf::Keyboard::Numpad6) {
+				dir = DIR_RIGHT;
+			}
+			if (input_event.key.code == sf::Keyboard::Numpad8) {
+				dir = DIR_UP;
+			}
+			if (input_event.key.code == sf::Keyboard::Numpad2) {
+				dir = DIR_DOWN;
+			}
 		}
-		if (input_event.key.code == sf::Keyboard::Numpad4) {
-			dir = DIR_LEFT;
-		}
-		if (input_event.key.code == sf::Keyboard::Numpad6) {
-			dir = DIR_RIGHT;
-		}
-		if (input_event.key.code == sf::Keyboard::Numpad8) {
-			dir = DIR_UP;
-		}
-		if (input_event.key.code == sf::Keyboard::Numpad2) {
-			dir = DIR_DOWN;
+		else {
+
+			if (input_event.key.code == sf::Keyboard::R) {
+				// TODO: 부활을 요청하는 패킷
+			}
 		}
 	}
 }
@@ -211,6 +220,22 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				DamageInfo& damage_info = damage_packet->_damage_infos[index];
 				other_players[damage_info._id].AddDamage(damage_info._damage);
 			}
+		}
+		break;
+
+		case PacketID::S2C_DEAD:
+		{
+			SC_DEAD_PACKET* damage_packet = reinterpret_cast<SC_DEAD_PACKET*>(packet);
+
+			_alive = false;
+		}
+		break;
+
+		case PacketID::S2C_REVIVE:
+		{
+			SC_REVIVE_PACKET* damage_packet = reinterpret_cast<SC_REVIVE_PACKET*>(packet);
+
+			_alive = true;
 		}
 		break;
 

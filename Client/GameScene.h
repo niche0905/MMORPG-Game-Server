@@ -16,6 +16,7 @@ private:
 	std::shared_ptr<World> world;
 	
 	std::shared_ptr<Creature> client_player;
+	bool _alive = true;
 
 	std::unordered_map<uint64, Creature> other_players;
 
