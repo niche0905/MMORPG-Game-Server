@@ -80,6 +80,7 @@ void GameScene::HandleInput(const sf::Event& input_event)
 	auto now_time = steady_clock::now();
 
 	_chat_box.HandleInput(input_event);
+	if (_chat_box.IsActive()) return;
 
 	if (input_event.type == sf::Event::KeyPressed) {
 		if (_alive) {
@@ -290,6 +291,9 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		{
 			SC_CHAT_PACKET* chat_packet = reinterpret_cast<SC_CHAT_PACKET*>(packet);
 
+			std::string now_text = chat_packet->_message;
+			now_text = std::to_string(chat_packet->_id) + now_text;
+			_chat_box.AddMessage(now_text);
 			uint64 now_id = static_cast<uint64>(chat_packet->_id);
 			other_players[now_id].AddChat(chat_packet->_message);
 		}
