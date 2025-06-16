@@ -15,7 +15,8 @@ PeaceMonster::PeaceMonster()
 PeaceMonster::PeaceMonster(uint64 id)
 	: Monster{ id, true, true, false }
 {
-	_class_type = ClassType::PEACE_MONSTER;
+	_class_type = ClassType::SLIME_MONSTER;
+	_visual_type = VisualInfo::VI_SLIME;
 	_fsm.ChangeState(this, &PM_IdleState::Instance());
 }
 

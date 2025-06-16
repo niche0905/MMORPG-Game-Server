@@ -56,10 +56,10 @@ enum ClassType : uint8
 	KNIGHT_NPC,
 
 	// Monster들
-	PEACE_MONSTER,
-	FIXED_MONSTER,
-	AGRO_MONSTER,
-	NEUTRAL_MONSTER,
+	SLIME_MONSTER,
+	NEPENTHES_MONSTER,
+	DOG_MONSTER,
+	BEAR_MONSTER,
 
 	CLASS_NONE,
 	BOT_NONE,
@@ -77,6 +77,10 @@ enum VisualInfo : uint8
 	VI_GRAVE,			// 묘비(플레이어 사망)
 
 	VI_MONSTER,			// 빨간색 테스트용 몬스터
+	VI_SLIME,			// 슬라임 평화몹
+	VI_NEPENTHES,		// 식물 고정몹
+	VI_DOG,				// 개 어그로몹
+	VI_BEAR,			// 곰 중립몹
 
 	// TODO: 몬스터, 상인 등등 더 추가해야 한다
 

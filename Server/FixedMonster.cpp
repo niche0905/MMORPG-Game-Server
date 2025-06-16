@@ -14,7 +14,8 @@ FixedMonster::FixedMonster()
 FixedMonster::FixedMonster(uint64 id)
 	: Monster{ id, true, false, true }
 {
-	_class_type = ClassType::FIXED_MONSTER;
+	_class_type = ClassType::NEPENTHES_MONSTER;
+	_visual_type = VisualInfo::VI_NEPENTHES;
 	_fsm.ChangeState(this, &FM_IdleState::Instance());
 }
 

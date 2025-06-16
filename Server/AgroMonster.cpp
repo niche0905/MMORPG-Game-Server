@@ -16,7 +16,8 @@ AgroMonster::AgroMonster()
 AgroMonster::AgroMonster(uint64 id)
 	: Monster{ id, false, false, false}
 {
-	_class_type = ClassType::AGRO_MONSTER;
+	_class_type = ClassType::DOG_MONSTER;
+	_visual_type = VisualInfo::VI_DOG;
 	_fsm.ChangeState(this, &IdleState::Instance());
 }
 

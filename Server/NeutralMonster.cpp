@@ -16,7 +16,8 @@ NeutralMonster::NeutralMonster()
 NeutralMonster::NeutralMonster(uint64 id)
 	: Monster{ id, true, false, false }
 {
-	_class_type = ClassType::NEUTRAL_MONSTER;
+	_class_type = ClassType::BEAR_MONSTER;
+	_visual_type = VisualInfo::VI_BEAR;
 	_fsm.ChangeState(this, &IdleState::Instance());
 }
 

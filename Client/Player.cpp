@@ -174,8 +174,17 @@ void Creature::SetVisualInfo(uint8 visual_info)
 	case VisualInfo::VI_GRAVE:
 		SetSprite("grave");
 		break;
-	case VisualInfo::VI_MONSTER:
-		SetSprite("monster");
+	case VisualInfo::VI_SLIME:
+		SetSprite("slime");
+		break;
+	case VisualInfo::VI_NEPENTHES:
+		SetSprite("nepenthes");
+		break;
+	case VisualInfo::VI_DOG:
+		SetSprite("dog");
+		break;
+	case VisualInfo::VI_BEAR:
+		SetSprite("bear");
 		break;
 		
 	}
@@ -205,13 +214,13 @@ void Creature::SetClassType(uint8 class_type)
 		_a_atk.SetAtkType(AttackType::STANDARD_ATK);
 		_s_atk.SetAtkType(AttackType::SORCERER_S);
 		break;
-	case ClassType::FIXED_MONSTER:
+	case ClassType::NEPENTHES_MONSTER:
 		_a_atk.SetAtkType(AttackType::FIXED_A);
 		break;
-	case ClassType::AGRO_MONSTER:
+	case ClassType::DOG_MONSTER:
 		_a_atk.SetAtkType(AttackType::AGRO_A);
 		break;
-	case ClassType::NEUTRAL_MONSTER:
+	case ClassType::BEAR_MONSTER:
 		_a_atk.SetAtkType(AttackType::NEUT_A);
 		break;
 	default:
