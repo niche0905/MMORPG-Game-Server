@@ -395,6 +395,22 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 		}
 		break;
 
+
+		case PacketID::S2C_LEVEL_CHANGE:
+		{
+			SC_LEVEL_CHANGE_PACKET* level_update_packet = reinterpret_cast<SC_LEVEL_CHANGE_PACKET*>(packet);
+
+			uint64 now_id = static_cast<uint64>(level_update_packet->_id);
+
+			if (now_id == game.GetID()) {
+				client_player->SetLevel(level_update_packet->_level);
+			}
+			else {
+				other_players[now_id].SetLevel(level_update_packet->_level);
+			}
+		}
+		break;
+
 		default:
 			std::cout << "Packet id Done Exist\n";
 			break;
