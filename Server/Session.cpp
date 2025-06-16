@@ -326,7 +326,8 @@ void Session::MoveProcess(BYTE* packet)
 	auto now_point = steady_clock::now();
 	if (server.IsDev());
 	else {
-		if ((now_point - _move_cooltime) < (MOVE_COOLTIME - GRACE_TIME)) {
+		uint16 mover = GetStats().MOV;
+		if ((now_point - _move_cooltime) < (MOVE_COOLTIME - GRACE_TIME - milliseconds(mover))) {
 			return;		// 이동 실패
 		}
 	}
