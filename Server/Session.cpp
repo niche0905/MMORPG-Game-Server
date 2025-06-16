@@ -755,12 +755,90 @@ void Session::RespawnProcess(BYTE* packet)
 
 	_hp = GetMaxHP();
 	Position old_pos = _position;
+
+	server.MoveSector(_id, _position, _base_pos);
 	_position = _base_pos;
 
 	_state = GameState::ST_ALIVE;
 
-	// TODO: 스스로에게 부활, 위치 업데이트
 	// TODO: 바뀐 위치에 따라 Leave, Enter, Move 해야함
+
+	SC_REVIVE_PACKET revive_packet{};
+	Send(&revive_packet);
+	SelfUpdate();
+
+	std::unordered_set<uint64> near_list;
+	_view_lock.lock();
+	std::unordered_set<uint64> old_list = _view_list;
+	_view_lock.unlock();
+
+	std::unordered_set<uint64> closed_clients = server.GetClientList(_position);
+	for (uint64 client_id : closed_clients) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
+
+		if (client->IsNPC() and state == GameState::ST_DEAD) continue;
+
+		// view list 판단
+		if (client->CanSee(_position, VIEW_RANGE)) {	// 보이는 경우
+			near_list.insert(client_id);
+		}
+	}
+
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.c_str(),  GetMaxHP(), _hp, _visual_type, _class_type, _level };
+	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
+
+	for (uint64 client_id : near_list) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시 위에서 거르지만 혹시 모르니깐
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		if (client->IsPlayer()) {
+			auto session = static_cast<Session*>(client);
+			session->ProcessCloseCreature(_id, &enter_packet, &update_packet);
+		}
+		else {
+			auto npc = static_cast<Bot*>(client);
+			npc->WakeUp();
+		}
+
+		if (old_list.count(client_id) == 0) {
+			if (client->IsNPC()) {
+				auto npc = static_cast<Bot*>(client);
+				npc->FirstSeen(_id);
+			}
+
+			Position pos = client->GetPosition();
+			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().c_str(), client->GetMaxHP(), client->GetHP(), client->GetVisualType(), client->GetClassType(), client->GetLevel() };
+
+			SendNewCreature(client_id, &object_enter_packet);
+		}
+	}
+
+	// view_list 벗어났다면 leave_packet 전송
+	for (uint64 client_id : old_list) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시 위에서 거르지만 혹시 모르니깐
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		if (near_list.count(client_id) == 0) {
+			if (client->IsPlayer()) {
+				auto session = static_cast<Session*>(client);
+				session->SendLeaveCreature(_id);
+			}
+			SendLeaveCreature(client_id);
+		}
+	}
 }
 
 uint64 Session::GetUserID() const
