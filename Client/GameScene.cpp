@@ -250,6 +250,8 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				client_player->ChangeHP(login_packet->_hp);
 				client_player->SetLevel(login_packet->_level);
 				client_player->SetDamageColor(sf::Color{ 145, 101, 226 });
+				_exp = login_packet->_exp;
+				ExpChangeUpdate();
 			}
 			else {
 				std::cout << "re Login Allow Error\n";
@@ -427,6 +429,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			SC_EXP_UP_PACKET* exp_packet = reinterpret_cast<SC_EXP_UP_PACKET*>(packet);
 
 			_exp = exp_packet->_exp;
+			ExpChangeUpdate();
 		}
 		break;
 

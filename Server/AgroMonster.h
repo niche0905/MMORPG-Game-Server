@@ -10,7 +10,6 @@ public:
 	~AgroMonster();
 
 	void Update() override;
-	void DropItem(uint64 id) override;
 
 	void Attack() override;
 	bool Attackalbe(Position pos);

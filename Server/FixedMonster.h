@@ -12,7 +12,6 @@ public:
 	bool TakeDamage(uint64 id, uint16 damage) override;
 
 	void Update() override;
-	void DropItem(uint64 id) override;
 
 	void Attack() override;
 
