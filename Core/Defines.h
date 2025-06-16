@@ -106,6 +106,7 @@ enum AttackType : uint8
 
 	FIXED_A,
 	AGRO_A,
+	NEUT_A,
 
 	// TODO: 추가할 필요가 있는 공격 타입 추가하기
 };

@@ -192,6 +192,9 @@ void Creature::SetClassType(uint8 class_type)
 	case ClassType::AGRO_MONSTER:
 		_a_atk.SetAtkType(AttackType::AGRO_A);
 		break;
+	case ClassType::NEUTRAL_MONSTER:
+		_a_atk.SetAtkType(AttackType::NEUT_A);
+		break;
 	default:
 		break;
 	}

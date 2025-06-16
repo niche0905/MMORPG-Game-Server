@@ -54,6 +54,12 @@ void Attack::SetAtkType(uint8 atk_type)
 		SetOrigin(true);
 		break;
 
+	case AttackType::NEUT_A:
+		SetSprite("neut_a");
+		SetSize(OBJECT_SIZE * 3);
+		SetOrigin(true);
+		break;
+
 	}
 	_duration = 500000;
 }
