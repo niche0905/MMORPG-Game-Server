@@ -1137,25 +1137,55 @@ void Session::AddExp(uint64 exp)
 		_exp += exp;
 	}
 
+	bool flag = false;
 	while (_level < MAX_LEVEL) {
 
 		uint64 need_exp = ::NeedExpToLevelUp(_level);
 		if (_exp >= need_exp) {
 			_exp -= need_exp;
 
-			DoLevelUp();
+			++_level;
+			_hp = GetMaxHP();
+			flag = true;
 		}
 		else break;
 
 	}
 
-	// TODO: Exp 변경된 것 알려야 함
-}
+	SC_EXP_UP_PACKET exp_change{ _exp };
+	Send(&exp_change);
 
-void Session::DoLevelUp()
-{
-	++_level;
-	// TODO: 스텟과 등등 바꾸어 주기 (그리고 broadcast)
+	if (flag) {
+
+		SC_STATS_CHANGE_PACKET sc_packet{ GetStats() };
+		Send(&sc_packet);
+		// TODO: HP 바뀐 것을 알려야 함	MAXHP 변경 패킷이 필요하다
+		
+
+		SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
+		SC_LEVEL_CHANGE_PACKET level_chabge_packet{ _id, _level };
+
+		_view_lock.lock();
+		std::unordered_set<uint64> view_list = _view_list;
+		_view_lock.unlock();
+
+		Send(&hp_change_packet);
+		Send(&level_chabge_packet);
+		for (uint64 client_id : view_list) {
+
+			if (::IsNPC(client_id)) continue;
+
+			Creature* client = server.GetClients()[client_id];
+			if (client == nullptr) continue;
+
+			uint8 state = client->GetState();
+			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+			Session* session = static_cast<Session*>(client);
+			session->Send(&hp_change_packet);
+			session->Send(&level_chabge_packet);
+		}
+	}
 }
 
 void Session::SelfUpdate()

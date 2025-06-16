@@ -86,7 +86,6 @@ public:
 	void SendLeaveCreature(uint64 id);
 
 	void AddExp(uint64 exp);
-	void DoLevelUp();
 
 private:
 	void SelfUpdate();
