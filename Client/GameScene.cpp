@@ -216,10 +216,6 @@ void GameScene::HandleInput(const sf::Event& input_event)
 			if (input_event.key.code == sf::Keyboard::Numpad2) {
 				dir = DIR_DOWN;
 			}
-
-			if (input_event.key.code == sf::Keyboard::P) {
-				_dialog_box.SetActive(true);
-			}
 		}
 		else {
 
@@ -304,6 +300,12 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			SC_REVIVE_PACKET* damage_packet = reinterpret_cast<SC_REVIVE_PACKET*>(packet);
 
 			_alive = true;
+		}
+		break;
+
+		case PacketID::S2C_DIALOG:
+		{
+			_dialog_box.SetActive(true);
 		}
 		break;
 

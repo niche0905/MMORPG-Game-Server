@@ -50,6 +50,7 @@ public:
 	void SendChatting(const std::string& str);
 	void SendRespawn();
 	void SendTeleport(int x, int y);
+	void SendSetBasePos();
 
 	void ProcessPacket(std::vector<BYTE> packet);
 

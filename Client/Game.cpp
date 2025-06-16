@@ -147,6 +147,12 @@ void Game::SendTeleport(int x, int y)
 	communication.Send(reinterpret_cast<BYTE*>(&tp_packet), sizeof(tp_packet));
 }
 
+void Game::SendSetBasePos()
+{
+	CS_SET_BASE_POS_PACKET sbp_packet{};
+	communication.Send(reinterpret_cast<BYTE*>(&sbp_packet), sizeof(sbp_packet));
+}
+
 void Game::ProcessPacket(std::vector<BYTE> packet)
 {
 	if (packet.size() == 0)

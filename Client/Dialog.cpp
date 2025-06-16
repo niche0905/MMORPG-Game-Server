@@ -69,7 +69,9 @@ void Dialog::HandleInput(const sf::Event& event)
 			UpdateButtonSelect();
 		}
 		if (event.key.code == sf::Keyboard::Enter) {
-			// TODO: confirm
+			if (_button_index == 0) {
+				game.SendSetBasePos();
+			}
 			_is_active = false;
 		}
 		if (event.key.code == sf::Keyboard::Escape) {

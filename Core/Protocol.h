@@ -41,6 +41,7 @@ enum PacketID : uint8
 	C2S_CHAT,					// 채팅 송신
 	C2S_ATTACK,					// 공격
 	C2S_RESPAWN,				// 부활 요청
+	C2S_SET_BASE_POS,			// 부활 장소 set
 
 //---------------------------------------------------------------------------//
 
@@ -338,6 +339,12 @@ struct CS_RESPAWN_PACKET : public BASE_PACKET
 {
 	CS_RESPAWN_PACKET()
 		: BASE_PACKET(sizeof(CS_RESPAWN_PACKET), C2S_RESPAWN) { }
+};
+
+struct CS_SET_BASE_POS_PACKET : public BASE_PACKET
+{
+	CS_SET_BASE_POS_PACKET()
+		: BASE_PACKET(sizeof(CS_SET_BASE_POS_PACKET), C2S_SET_BASE_POS) { }
 };
 
 #pragma pack(pop)
