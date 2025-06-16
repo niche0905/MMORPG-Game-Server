@@ -8,7 +8,8 @@ public:
 	TalkNPC(uint64 id);
 	~TalkNPC();
 
-	// TODO: Update와 WakeUp 오버라이딩 하기
+	void Update() override;
+	void FirstSeen(uint64 id) override;
 
 };
 

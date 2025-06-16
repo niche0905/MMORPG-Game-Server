@@ -214,7 +214,7 @@ struct SC_CHAT_PACKET			: public BASE_PACKET
 	uint64	_id;
 	char	_message[MAX_CHAT_LENGTH];
 
-	SC_CHAT_PACKET(uint64 id, char* message)
+	SC_CHAT_PACKET(uint64 id, const char* message)
 		: BASE_PACKET{ sizeof(SC_CHAT_PACKET), S2C_CHAT }
 		, _id{ id } { strcpy_s(_message, message); }
 };
