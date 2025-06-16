@@ -16,7 +16,7 @@ KnightNPC::KnightNPC()
 KnightNPC::KnightNPC(uint64 id)
 	: Bot{ id, ClassType::KNIGHT_NPC, false, true, false, true, false }
 {
-
+	_visual_type = VisualInfo::VI_MONSTER;
 }
 
 KnightNPC::~KnightNPC()
