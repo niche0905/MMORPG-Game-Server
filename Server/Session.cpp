@@ -428,9 +428,9 @@ void Session::ChatProcess(BYTE* packet)
 	std::unordered_set<uint64> now_list = _view_list;
 	_view_lock.unlock();
 
+	Send(&chat_broadcast_packet);
 	for (uint64 client_id : now_list) {
 
-		if (client_id == _id) continue;	// 내 ID라면 무시
 		if (::IsNPC(client_id)) continue;	// NPC 라면 무시
 
 		Creature* client = server.GetClients()[client_id];
