@@ -55,6 +55,9 @@
     <Filter Include="Content\Object\Chat\ChatUI">
       <UniqueIdentifier>{9c273897-169b-4fa5-b30a-6a95a8db7ff7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content\Object\Dialog">
+      <UniqueIdentifier>{1cc1c2c5-2715-4826-ae08-572cbf2e15cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -129,6 +132,9 @@
     </ClCompile>
     <ClCompile Include="ChatUI.cpp">
       <Filter>Content\Object\Chat\ChatUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog.cpp">
+      <Filter>Content\Object\Dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="ChatUI.h">
       <Filter>Content\Object\Chat\ChatUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog.h">
+      <Filter>Content\Object\Dialog</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
