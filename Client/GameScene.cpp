@@ -103,6 +103,7 @@ void GameScene::HUD(sf::RenderWindow& window)
 	window.draw(player_coordinate);
 
 	_chat_box.Draw(window);
+	_dialog_box.Draw(window);
 
 	if (not _alive) {
 		window.draw(_dead_info_bg);
@@ -122,6 +123,9 @@ void GameScene::HandleInput(const sf::Event& input_event)
 
 	_chat_box.HandleInput(input_event);
 	if (_chat_box.IsActive()) return;
+
+	_dialog_box.HandleInput(input_event);
+	if (_dialog_box.IsActive()) return;
 
 	if (input_event.type == sf::Event::KeyPressed) {
 		if (_alive) {
@@ -211,6 +215,10 @@ void GameScene::HandleInput(const sf::Event& input_event)
 			}
 			if (input_event.key.code == sf::Keyboard::Numpad2) {
 				dir = DIR_DOWN;
+			}
+
+			if (input_event.key.code == sf::Keyboard::P) {
+				_dialog_box.SetActive(true);
 			}
 		}
 		else {

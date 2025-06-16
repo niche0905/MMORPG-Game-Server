@@ -21,7 +21,7 @@ Dialog::Dialog()
 	_text.setOutlineThickness(1.0f);
 	sf::FloatRect bounds = _text.getLocalBounds();
 	_text.setOrigin({ bounds.width / 2.f, bounds.height });
-	_text.setPosition({ WINDOW_WIDTH / 2.f, WINDOW_HEIGHT - 150.f });
+	_text.setPosition({ WINDOW_WIDTH / 2.f, WINDOW_HEIGHT - 220.f });
 
 	_yes_text.setFont(FontManager::Instance().GetFont("neodot"));
 	_yes_text.setString("Yes");
@@ -32,7 +32,7 @@ Dialog::Dialog()
 	_yes_text.setOutlineThickness(1.0f);
 	sf::FloatRect bounds2 = _yes_text.getLocalBounds();
 	_yes_text.setOrigin({ bounds2.width / 2.f, bounds2.height });
-	_yes_text.setPosition({ 400.f , WINDOW_HEIGHT - 50.f });
+	_yes_text.setPosition({ 400.f , WINDOW_HEIGHT - 80.f });
 
 	_no_text.setFont(FontManager::Instance().GetFont("neodot"));
 	_no_text.setString("No");
@@ -43,11 +43,10 @@ Dialog::Dialog()
 	_no_text.setOutlineThickness(1.0f);
 	sf::FloatRect bounds3 = _no_text.getLocalBounds();
 	_no_text.setOrigin({ bounds3.width / 2.f, bounds3.height });
-	_yes_text.setPosition({ 1200.f , WINDOW_HEIGHT - 50.f });
-
+	_no_text.setPosition({ 1200.f , WINDOW_HEIGHT - 80.f });
 
 	_button_box.setFillColor(sf::Color::White);
-	_button_box.setSize({ 300.0f , bounds3.height*1.5 });
+	_button_box.setSize({ 300.0f , bounds3.height*1.5f });
 	sf::FloatRect bounds4 = _button_box.getLocalBounds();
 	_button_box.setOrigin({ bounds4.width / 2.f , bounds4.height / 2.f });
 	UpdateButtonSelect();

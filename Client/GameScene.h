@@ -2,10 +2,12 @@
 #include "BaseScene.h"
 #include "Player.h"
 #include "ChatUI.h"
+#include "Dialog.h"
 
 class World;
 class Creature;
 class ChatBox;
+class Dialog;
 
 
 class GameScene : public BaseScene
@@ -35,6 +37,7 @@ private:
 	sf::Text	_stats_text;
 
 	ChatBox		_chat_box;
+	Dialog		_dialog_box;
 
 	sf::RectangleShape	_dead_info_bg;
 	sf::Text			_dead_info_text;
