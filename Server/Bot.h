@@ -18,6 +18,7 @@ protected:
 	bool					_is_peace = false;				// 공격을 하지 않는 몹인지
 	bool					_is_friendly = false;			// 우호적인지 (Player와 전투가 성립되지 않음)
 	bool					_is_fix = false;				// 고정 몹인지 (가만히 만 있는지)
+	bool					_is_action = false;				// 상호작용이 가능한지
 
 	std::atomic_bool		_is_active = false;		// 주위에 플레이어가 있어서 활동 중인가?
 
@@ -42,6 +43,7 @@ public:
 	bool IsPeace() const;
 	bool IsFriendly() const;
 	bool IsFix() const;
+	bool IsAction() const;
 
 	virtual void Update();
 

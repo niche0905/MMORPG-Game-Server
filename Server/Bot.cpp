@@ -126,6 +126,11 @@ bool Bot::IsFix() const
 	return _is_fix;
 }
 
+bool Bot::IsAction() const
+{
+	return _is_action;
+}
+
 void Bot::Update()
 {
 	// TODO: 조건에 따라서 change state

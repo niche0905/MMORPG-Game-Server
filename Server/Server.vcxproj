@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionNPC.cpp" />
     <ClCompile Include="AgroMonster.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="AttackState.cpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="WorldData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionNPC.h" />
     <ClInclude Include="AgroMonster.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="AttackState.h" />
