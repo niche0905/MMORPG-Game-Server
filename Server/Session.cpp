@@ -34,26 +34,29 @@ void Session::Disconnect()
 {
 	if (_state != ST_CLOSE) {
 
-		_view_lock.lock();
-		std::unordered_set<uint64> view_list = _view_list;
-		_view_lock.unlock();
+		if (_state != GameState::ST_ALLOC) {
 
-		for (uint64 client_id : view_list) {
+			_view_lock.lock();
+			std::unordered_set<uint64> view_list = _view_list;
+			_view_lock.unlock();
 
-			if (client_id == _id or ::IsNPC(client_id)) continue;
+			for (uint64 client_id : view_list) {
 
-			Creature* client = server.GetClients()[client_id];
-			if (client == nullptr) continue;
+				if (client_id == _id or ::IsNPC(client_id)) continue;
 
-			uint8 state = client->GetState();
-			if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+				Creature* client = server.GetClients()[client_id];
+				if (client == nullptr) continue;
 
-			Session* session = static_cast<Session*>(client);
-			session->SendLeaveCreature(_id);
+				uint8 state = client->GetState();
+				if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+				Session* session = static_cast<Session*>(client);
+				session->SendLeaveCreature(_id);
+			}
+			server.RemoveSector(_id, _position);
+
+			server.AddRequestDB(DatabaseEvent{ _id, DatabaseEvent::DbOperation::DB_LOGOUT_PROCESS });
 		}
-		server.RemoveSector(_id, _position);
-
-		server.AddRequestDB(DatabaseEvent{ _id, DatabaseEvent::DbOperation::DB_LOGOUT_PROCESS });
 	}
 
 	_state = ST_CLOSE;
