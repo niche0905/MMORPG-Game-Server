@@ -268,6 +268,12 @@ void Session::ProcessPacket(BYTE* packet)
 	}
 	break;
 
+	case PacketID::C2S_SET_BASE_POS:
+	{
+		SetBasePosProcess(packet);
+	}
+	break;
+
 	}
 }
 
@@ -978,6 +984,11 @@ void Session::RespawnProcess(BYTE* packet)
 			SendLeaveCreature(client_id);
 		}
 	}
+}
+
+void Session::SetBasePosProcess(BYTE* packet)
+{
+	_base_pos = _position;
 }
 
 uint64 Session::GetUserID() const

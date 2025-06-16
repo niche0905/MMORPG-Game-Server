@@ -74,6 +74,7 @@ public:
 	void AttackProcess(BYTE* packet);
 	void TeleportProcess(BYTE* packet);
 	void RespawnProcess(BYTE* packet);
+	void SetBasePosProcess(BYTE* packet);
 
 	uint64 GetUserID() const;
 	bool LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 HP, uint8 class_type, uint32 level, uint64 exp);
