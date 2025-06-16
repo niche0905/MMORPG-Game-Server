@@ -47,6 +47,7 @@ public:
 	void SendRegister(uint8 class_type);
 	void SendAttack(uint8 atk_key, uint8 atk_dir);
 	void SendArrowKey(uint8 dir);
+	void SendChatting(const std::string& str);
 	void ProcessPacket(std::vector<BYTE> packet);
 
 	void ConnectServer();

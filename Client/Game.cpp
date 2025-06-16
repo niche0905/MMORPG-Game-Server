@@ -129,6 +129,12 @@ void Game::SendArrowKey(uint8 dir)
 	communication.Send(reinterpret_cast<BYTE*>(&move_packet), sizeof(move_packet));
 }
 
+void Game::SendChatting(const std::string& str)
+{
+	CS_CHAT_PACKET chat_packet{ str.c_str() };
+	communication.Send(reinterpret_cast<BYTE*>(&chat_packet), sizeof(chat_packet));
+}
+
 void Game::ProcessPacket(std::vector<BYTE> packet)
 {
 	if (packet.size() == 0)
