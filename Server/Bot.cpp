@@ -277,9 +277,10 @@ void Bot::DoRevive()
 
 void Bot::ReviveInit()
 {
-	_target == nullptr;
+	_target = nullptr;
+	_path.clear();
 	_position = _base_pos;
-	_hp = 100;	// TODO: 제대로 바꾸어야 함
+	_hp = GetMaxHP();
 }
 
 void Bot::ReviveChangeState()
