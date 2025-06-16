@@ -145,7 +145,7 @@ void AgroMonster::Attack()
 			}
 		}
 
-		if (not _target->CanSee(_position, VIEW_RANGE)) {	// TODO: 어그로 풀리는 범위를 적용하고 싶다면 상수 정의 ㄱㄱ
+		if (not _target->CanSee(_position, VIEW_RANGE) or _target->GetState() == GameState::ST_DEAD) {	// TODO: 어그로 풀리는 범위를 적용하고 싶다면 상수 정의 ㄱㄱ
 			_target = nullptr;
 			_path.clear();
 		}
