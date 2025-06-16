@@ -42,7 +42,7 @@ void PeaceMonster::Update()
 	if (_target != nullptr) {
 		uint8 state = _target->GetState();
 		if (state == GameState::ST_CLOSE or state == GameState::ST_DEAD or not _target->CanSee(_position, VIEW_RANGE)) {
-			_target == nullptr;
+			_target = nullptr;
 			return;
 		}
 	}
