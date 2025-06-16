@@ -52,6 +52,8 @@ public:
 
 	void ProcessPacket(std::vector<BYTE> packet);
 
+	bool HandleChatCommand(const std::string& command);
+
 	void ConnectServer();
 
 	void SetCameraView();

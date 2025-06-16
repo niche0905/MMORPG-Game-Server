@@ -149,6 +149,41 @@ void Game::ProcessPacket(std::vector<BYTE> packet)
 	scene->ProcessPacket(packet);
 }
 
+bool Game::HandleChatCommand(const std::string& command)
+{
+	std::istringstream iss(command);
+	std::vector<std::string> tokens;
+	std::string word;
+
+	while (iss >> word)
+		tokens.push_back(word);
+
+	if (tokens.empty())
+		return false;
+
+	if (tokens[0] == "/tp") {
+		if (tokens.size() != 3) {
+			std::cout << "Invalid command Teleport command is: /tp x y\n";
+			return false;
+		}
+
+		try {
+			int x = std::stoi(tokens[1]);
+			int y = std::stoi(tokens[2]);
+
+			// TODO: 서버에 텔레포트 패킷 전송
+			
+			return true;
+		}
+		catch (const std::exception&) {
+			std::cout << "Invalid value in x, y\n";
+			return false;
+		}
+	}
+
+	return false;
+}
+
 void Game::ConnectServer()
 {
 #ifdef LOOPBACK
