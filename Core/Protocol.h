@@ -18,8 +18,7 @@ enum PacketID : uint8
 	S2C_LOGIN_FAIL,				// 스스로 보내는 로그린 실패와 이유
 	S2C_MOVE_SELF,				// 스스로 위치 Update (스트레스 테스트용)
 	S2C_DAMAGE,					// 스스로 공격에 대한 Damage 출력용
-	S2C_STATS_CHANGE,			// 스스로 보내는 스텟 변경S
-	S2C_LEVEL_UP,				// 스스로 레벨이 올랐음을 알려주는 패킷
+	S2C_STATS_CHANGE,			// 스스로 보내는 스텟 변경
 	S2C_EXP_UP,					// 스스로 경험치가 올랐음을 알려주는 패킷
 	S2C_DEAD,					// 스스로 죽었다
 	S2C_REVIVE,					// 스스로 부활했다
@@ -144,17 +143,6 @@ struct SC_STATS_CHANGE_PACKET : public BASE_PACKET
 	SC_STATS_CHANGE_PACKET(Stats stats)
 		: BASE_PACKET{ sizeof(SC_STATS_CHANGE_PACKET), S2C_STATS_CHANGE }
 		, _stats{ stats } { }
-};
-
-struct SC_LEVEL_UP_PACKET : public BASE_PACKET
-{
-	uint32	_level;
-	uint64	_exp;
-
-	SC_LEVEL_UP_PACKET(uint32 level, uint64 exp)
-		: BASE_PACKET{ sizeof(SC_LEVEL_UP_PACKET), S2C_LEVEL_UP }
-		, _level{ level }
-		, _exp{ exp } { }
 };
 
 struct SC_EXP_UP_PACKET : public BASE_PACKET
