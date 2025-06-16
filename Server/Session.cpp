@@ -1012,6 +1012,7 @@ void Session::LoginDone()
 
 	SC_LOGIN_ALLOW_PACKET login_allow_packet{ _id, _position.x, _position.y, GetMaxHP(), _hp, _visual_type, _class_type, _level, _exp };
 	Send(&login_allow_packet);
+	StatsChange();
 
 	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.c_str(), GetMaxHP(), _hp, _visual_type, _class_type, _level };
 	SC_MOVE_PACKET move_packet{ _id, _position.x, _position.y };
@@ -1128,4 +1129,10 @@ void Session::SelfUpdate()
 	SC_MOVE_SELF_PACKET update_packet{ _position.x, _position.y, _last_move_time };
 
 	Send(&update_packet);
+}
+
+void Session::StatsChange()
+{
+	SC_STATS_CHANGE_PACKET stats_change_packet{ GetStats() };
+	Send(&stats_change_packet);
 }

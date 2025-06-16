@@ -85,7 +85,9 @@ public:
 	void SendNewCreature(uint64 id, void* enter_packet);
 	void SendLeaveCreature(uint64 id);
 
+private:
 	void SelfUpdate();
+	void StatsChange();
 
 };
 
