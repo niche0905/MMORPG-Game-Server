@@ -52,6 +52,9 @@
     <Filter Include="Content\Object\Button">
       <UniqueIdentifier>{42b97c64-3827-418c-85f4-0d000ebe850e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content\Object\Chat\ChatUI">
+      <UniqueIdentifier>{9c273897-169b-4fa5-b30a-6a95a8db7ff7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -123,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="CreateScene.cpp">
       <Filter>Content\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ChatUI.cpp">
+      <Filter>Content\Object\Chat\ChatUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="CreateScene.h">
       <Filter>Content\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ChatUI.h">
+      <Filter>Content\Object\Chat\ChatUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

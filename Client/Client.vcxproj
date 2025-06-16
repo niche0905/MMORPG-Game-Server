@@ -26,6 +26,7 @@
     <ClInclude Include="BaseScene.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Chat.h" />
+    <ClInclude Include="ChatUI.h" />
     <ClInclude Include="ClientDefines.h" />
     <ClInclude Include="Communication.h" />
     <ClInclude Include="CreateScene.h" />
@@ -52,6 +53,7 @@
     <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Chat.cpp" />
+    <ClCompile Include="ChatUI.cpp" />
     <ClCompile Include="Communication.cpp" />
     <ClCompile Include="CreateScene.cpp" />
     <ClCompile Include="FontManager.cpp" />
