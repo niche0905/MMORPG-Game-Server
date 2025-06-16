@@ -100,6 +100,8 @@ void ChatBox::FetchSendMessage()
 	_is_active = false;
 	if (_input_buffer.empty()) return;
 
+	if (game.HandleChatCommand(_input_buffer)) return;
+
 	game.SendChatting(_input_buffer);
 	_input_buffer.clear();
 	UpdateInputText();

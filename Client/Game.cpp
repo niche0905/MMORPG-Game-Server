@@ -177,8 +177,7 @@ bool Game::HandleChatCommand(const std::string& command)
 			int x = std::stoi(tokens[1]);
 			int y = std::stoi(tokens[2]);
 
-			// TODO: 서버에 텔레포트 패킷 전송
-			
+			SendTeleport(x, y);
 			return true;
 		}
 		catch (const std::exception&) {
