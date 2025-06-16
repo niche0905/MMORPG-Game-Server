@@ -277,6 +277,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			for (int index = 0; index < damage_packet->_num; ++index) {
 
 				DamageInfo& damage_info = damage_packet->_damage_infos[index];
+				if (other_players.find(damage_info._id) == other_players.end()) continue;
 				other_players[damage_info._id].AddDamage(damage_info._damage);
 			}
 		}
@@ -337,6 +338,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			SC_MOVE_PACKET* move_packet = reinterpret_cast<SC_MOVE_PACKET*>(packet);
 
 			uint64 now_id = static_cast<uint64>(move_packet->_id);
+			if (other_players.find(now_id) == other_players.end()) break;
 			other_players[now_id].Move(static_cast<int>(move_packet->_x), static_cast<int>(move_packet->_y));
 		}
 		break;
@@ -352,6 +354,8 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				now_text = client_player->GetName() + ": " + now_text;
 			}
 			else {
+				if (other_players.find(now_id) == other_players.end()) break;
+
 				other_players[now_id].AddChat(chat_packet->_message);
 				now_text = other_players[now_id].GetName() + ": " + now_text;
 			}
@@ -369,6 +373,8 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				client_player->ShowAttack(atk_packet->_atk_key, atk_packet->_atk_dir);
 			}
 			else {
+				if (other_players.find(now_id) == other_players.end()) break;
+
 				other_players[now_id].ShowAttack(atk_packet->_atk_key, atk_packet->_atk_dir);
 			}
 		}
@@ -384,6 +390,8 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				client_player->SetVisualInfo(update_vi_packet->_vi);
 			}
 			else {
+				if (other_players.find(now_id) == other_players.end()) break;
+
 				other_players[now_id].SetVisualInfo(update_vi_packet->_vi);
 			}
 		}
@@ -408,6 +416,8 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				client_player->ChangeHP(hp_update_packet->_hp);
 			}
 			else {
+				if (other_players.find(now_id) == other_players.end()) break;
+
 				other_players[now_id].ChangeHP(hp_update_packet->_hp);
 			}
 		}
@@ -423,6 +433,8 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				client_player->SetLevel(level_update_packet->_level);
 			}
 			else {
+				if (other_players.find(now_id) == other_players.end()) break;
+
 				other_players[now_id].SetLevel(level_update_packet->_level);
 			}
 		}
