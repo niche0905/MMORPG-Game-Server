@@ -174,6 +174,9 @@ void Creature::SetVisualInfo(uint8 visual_info)
 	case VisualInfo::VI_GRAVE:
 		SetSprite("grave");
 		break;
+	case VisualInfo::VI_MONSTER:
+		SetSprite("monster");
+		break;
 	case VisualInfo::VI_SLIME:
 		SetSprite("slime");
 		break;

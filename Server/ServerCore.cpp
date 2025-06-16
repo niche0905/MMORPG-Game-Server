@@ -12,6 +12,7 @@
 #include "FixedMonster.h"
 #include "AgroMonster.h"
 #include "NeutralMonster.h"
+#include "TalkNPC.h"
 
 
 
@@ -183,8 +184,8 @@ void ServerCore::NPCInit()
 {
 	StateInit();
 
-	for (int i = 0; i < NUM_MONSTER; ++i) {
-		Creature* creature = new PeaceMonster{ i };
+	for (uint64 i = 0; i < NUM_MONSTER; ++i) {
+		Creature* creature = new TalkNPC{ i };
 		std::string name = ("NPC" + std::to_string(i));
 		creature->SetName(name);
 		Position spawn_pos;
