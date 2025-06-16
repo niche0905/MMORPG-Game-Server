@@ -349,6 +349,20 @@ void ServerCore::Worker()
 			delete exp_overlapped;
 		}
 		break;
+		case OverOperation::DO_HEAL:
+		{
+			Creature* client = _clients.at(key);
+
+			if (client == nullptr) break;
+
+			if (client->IsNPC()) break;
+
+			auto session = static_cast<Session*>(client);
+			session->HealSelf10();
+
+			delete exp_overlapped;
+		}
+		break;
 		case OverOperation::DO_UPDATE:
 		{
 			Creature* client = _clients.at(key);
@@ -476,6 +490,13 @@ void ServerCore::TimerWorker()
 			case Event::EventType::EV_REVIVE:
 			{
 				ExOver* new_task = new ExOver(DO_REVIVE);
+				_iocp_core.AddTask(evt._id, new_task);
+			}
+			break;
+
+			case Event::EventType::EV_HEAL:
+			{
+				ExOver* new_task = new ExOver(DO_HEAL);
 				_iocp_core.AddTask(evt._id, new_task);
 			}
 			break;

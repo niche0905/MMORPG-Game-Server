@@ -1131,6 +1131,48 @@ void Session::SendLeaveCreature(uint64 id)
 	Send(&leave_packet);
 }
 
+void Session::HealSelf10()
+{
+	const uint16 healed_hp = GetMaxHP() / 10;
+
+	uint16 expected;
+	uint16 desired;
+	do {
+		uint16 max_hp = GetMaxHP();
+
+		expected = _hp.load();
+		if (expected <= 0 or expected >= max_hp) {
+			return;
+		}
+
+		int32 calc = static_cast<int32>(expected) + static_cast<int32>(healed_hp);
+		desired = static_cast<uint16>(std::min<int32>(calc, max_hp));
+	} while (not _hp.compare_exchange_strong(expected, desired));
+
+	SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
+
+	_view_lock.lock();
+	std::unordered_set<uint64> view_list = _view_list;
+	_view_lock.unlock();
+
+	Send(&hp_change_packet);
+	for (uint64 client_id : view_list) {
+
+		if (::IsNPC(client_id)) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+		Session* session = static_cast<Session*>(client);
+		session->Send(&hp_change_packet);
+	}
+
+	NeedGeneration();
+}
+
 void Session::AddExp(uint64 exp)
 {
 	if (_exp > UINT64_MAX - exp) {

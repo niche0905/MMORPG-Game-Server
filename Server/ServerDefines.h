@@ -21,6 +21,8 @@ enum OverOperation
 	IO_SEND,
 	IO_ACCEPT,
 
+	DO_HEAL,
+
 	DO_UPDATE,
 	DO_REVIVE,
 
