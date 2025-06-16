@@ -398,6 +398,8 @@ void Bot::AttackBroadcast(void* attack_packet)
 
 void Bot::DropItem(uint64 id)
 {
+	if (::IsNPC(id)) return;
+
 	Creature* client = server.GetClients()[id];
 	if (client == nullptr) return;
 
