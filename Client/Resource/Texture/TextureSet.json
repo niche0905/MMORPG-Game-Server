@@ -103,6 +103,10 @@
     {
       "key": "neut_a",
       "path": "Resource/Texture/neut_a.png"
+    },
+    {
+      "key": "knight_a",
+      "path": "Resource/Texture/knight_a.png"
     }
   ]
 }
