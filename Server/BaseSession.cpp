@@ -121,6 +121,9 @@ uint16 Creature::GetMaxHP()
 
 bool Creature::TakeDamage(uint64 id, uint16 damage)	// 만약 실제 들어간 데미지가 필요하면 이를 수정하거나 메서드를 추가하여야 함
 {
+	uint16 defensity = GetStats().DEF;
+	uint16 real_damage = static_cast<uint16>(damage * (defensity / 250.f));
+
 	uint16 expected;
 	uint16 desired;
 	do {
@@ -129,7 +132,7 @@ bool Creature::TakeDamage(uint64 id, uint16 damage)	// 만약 실제 들어간 �
 			return false;
 		}
 
-		int32 calc = static_cast<int32>(expected) - static_cast<int32>(damage);
+		int32 calc = static_cast<int32>(expected) - static_cast<int32>(real_damage);
 		desired = static_cast<uint16>(std::max<int32>(calc, 0));
 	} while (not _hp.compare_exchange_strong(expected, desired));
 
