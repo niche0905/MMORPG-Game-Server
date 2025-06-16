@@ -67,6 +67,8 @@ public:
 	Creature* GetTarget() const;
 
 	void AttackBroadcast(void* attack_packet);
+	
+	virtual void DropItem(uint64 id);
 
 };
 

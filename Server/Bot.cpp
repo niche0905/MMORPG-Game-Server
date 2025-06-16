@@ -365,3 +365,8 @@ void Bot::AttackBroadcast(void* attack_packet)
 		session->Send(attack_packet);
 	}
 }
+
+void Bot::DropItem(uint64 id)
+{
+
+}

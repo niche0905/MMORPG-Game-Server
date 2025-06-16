@@ -9,7 +9,4 @@ public:
 	Monster(uint64 id, bool neut, bool peac, bool fix);
 	~Monster();
 
-	virtual void DropItem(uint64 id);
-
 };
-
