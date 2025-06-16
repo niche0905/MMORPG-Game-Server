@@ -135,6 +135,12 @@ void Game::SendChatting(const std::string& str)
 	communication.Send(reinterpret_cast<BYTE*>(&chat_packet), sizeof(chat_packet));
 }
 
+void Game::SendRespawn()
+{
+	CS_RESPAWN_PACKET respawn_packet{};
+	communication.Send(reinterpret_cast<BYTE*>(&respawn_packet), sizeof(respawn_packet));
+}
+
 void Game::ProcessPacket(std::vector<BYTE> packet)
 {
 	if (packet.size() == 0)

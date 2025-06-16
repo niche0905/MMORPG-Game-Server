@@ -195,7 +195,7 @@ void GameScene::HandleInput(const sf::Event& input_event)
 		else {
 
 			if (input_event.key.code == sf::Keyboard::R) {
-				// TODO: 부활을 요청하는 패킷
+				game.SendRespawn();
 			}
 		}
 	}
