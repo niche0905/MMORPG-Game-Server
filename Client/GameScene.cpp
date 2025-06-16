@@ -216,6 +216,10 @@ void GameScene::HandleInput(const sf::Event& input_event)
 			if (input_event.key.code == sf::Keyboard::Numpad2) {
 				dir = DIR_DOWN;
 			}
+
+			if (input_event.key.code == sf::Keyboard::E) {
+				game.SendInteraction();
+			}
 		}
 		else {
 
