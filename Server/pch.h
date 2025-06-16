@@ -21,7 +21,6 @@
 #include "Astar.h"
 #include "Packet.h"
 #include "ServerDefines.h"
-#include "Stat.h"
 #include "ExpansionOverlapped.h"
 #include "IocpCore.h"
 #include "BaseSession.h"
