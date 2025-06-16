@@ -251,7 +251,11 @@ void Session::ProcessPacket(BYTE* packet)
 	}
 	break;
 
-	//case PacketID::C2S_TELEPORT:	// TODO: 구현 해야 함
+	case PacketID::C2S_TELEPORT:
+	{
+		TeleportProcess(packet);
+	}
+	break;
 	
 	case PacketID::C2S_RESPAWN:
 	{
@@ -745,6 +749,97 @@ void Session::AttackProcess(BYTE* packet)
 
 	if (damage_packet._num != 0)	// 맞은 사람이 없으면 보낼 이유가 없음
 		Send(&damage_packet);
+}
+
+void Session::TeleportProcess(BYTE* packet)
+{
+	if (_state == GameState::ST_DEAD) return;
+
+	CS_TELEPORT_PACKET* tp_packet = reinterpret_cast<CS_TELEPORT_PACKET*>(packet);
+
+	Position new_pos = { tp_packet->_x, tp_packet->_y };
+
+	if (not ::IsValid(new_pos)) return;
+
+	if (::IsBlock(new_pos) or _position == new_pos) return;
+
+	server.MoveSector(_id, _position, new_pos);
+
+	_position = new_pos;
+	SelfUpdate();
+
+	std::unordered_set<uint64> near_list;
+	_view_lock.lock();
+	std::unordered_set<uint64> old_list = _view_list;
+	_view_lock.unlock();
+
+	std::unordered_set<uint64> closed_clients = server.GetClientList(_position);
+	for (uint64 client_id : closed_clients) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;	// 게임 참여 중 아니라면 무시
+
+		if (client->IsNPC() and state == GameState::ST_DEAD) continue;
+
+		// view list 판단
+		if (client->CanSee(_position, VIEW_RANGE)) {	// 보이는 경우
+			near_list.insert(client_id);
+		}
+	}
+
+	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.c_str(),  GetMaxHP(), _hp, _visual_type, _class_type, _level };
+	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
+
+	for (uint64 client_id : near_list) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시 위에서 거르지만 혹시 모르니깐
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		if (client->IsPlayer()) {
+			auto session = static_cast<Session*>(client);
+			session->ProcessCloseCreature(_id, &enter_packet, &update_packet);
+		}
+		else {
+			auto npc = static_cast<Bot*>(client);
+			npc->WakeUp();
+		}
+
+		if (old_list.count(client_id) == 0) {
+			if (client->IsNPC()) {
+				auto npc = static_cast<Bot*>(client);
+				npc->FirstSeen(_id);
+			}
+
+			Position pos = client->GetPosition();
+			SC_ENTER_PACKET object_enter_packet{ client_id, pos.x, pos.y, client->GetName().c_str(), client->GetMaxHP(), client->GetHP(), client->GetVisualType(), client->GetClassType(), client->GetLevel() };
+
+			SendNewCreature(client_id, &object_enter_packet);
+		}
+	}
+
+	// view_list 벗어났다면 leave_packet 전송
+	for (uint64 client_id : old_list) {
+
+		if (client_id == _id) continue;	// 내 ID라면 무시 위에서 거르지만 혹시 모르니깐
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;	// nullptr 이라면 무시
+
+		if (near_list.count(client_id) == 0) {
+			if (client->IsPlayer()) {
+				auto session = static_cast<Session*>(client);
+				session->SendLeaveCreature(_id);
+			}
+			SendLeaveCreature(client_id);
+		}
+	}
 }
 
 void Session::RespawnProcess(BYTE* packet)

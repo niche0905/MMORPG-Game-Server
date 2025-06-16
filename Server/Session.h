@@ -60,7 +60,7 @@ public:
 	void Send(void* packet);
 	void Recv();
 
-	void ProcessPacket(BYTE* packet);	// 얘는 private 이여도 될 듯?
+	void ProcessPacket(BYTE* packet);
 	void ReassemblePacket(DWORD recv_size);
 
 	void LoginProcess(BYTE* packet);
@@ -68,6 +68,7 @@ public:
 	void MoveProcess(BYTE* packet);
 	void ChatProcess(BYTE* packet);
 	void AttackProcess(BYTE* packet);
+	void TeleportProcess(BYTE* packet);
 	void RespawnProcess(BYTE* packet);
 
 	uint64 GetUserID() const;
