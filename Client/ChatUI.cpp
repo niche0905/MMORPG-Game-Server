@@ -5,12 +5,12 @@
 
 ChatBox::ChatBox()
 {
-	_chat_box.setSize({ 300.f, 150.f });
+	_chat_box.setSize({ 800.f, 150.f });
 	_chat_box.setOrigin({ 0.f, 150.f });
 	_chat_box.setPosition(0.f, WINDOW_HEIGHT - 30.f);
 	_chat_box.setFillColor(sf::Color(0, 0, 0, 128));
 
-	_input_box.setSize({ 300.f, 30.f });
+	_input_box.setSize({ 800.f, 30.f });
 	_input_box.setOrigin({ 0.f, 30.f });
 	_input_box.setPosition(0.f, WINDOW_HEIGHT);
 	_input_box.setFillColor(sf::Color(255, 255, 255, 200));
@@ -57,16 +57,16 @@ void ChatBox::UpdateInputText()
 
 void ChatBox::Draw(sf::RenderWindow& window)
 {
-	window.draw(_chat_box);
-
 	if (_is_active) {
+		window.draw(_chat_box);
 		window.draw(_input_box);
 		window.draw(_input_text);
+
+		for (const auto& msg : _messages) {
+			window.draw(msg);
+		}
 	}
 
-	for (const auto& msg : _messages) {
-		window.draw(msg);
-	}
 }
 
 void ChatBox::AddMessage(const std::string& msg)
