@@ -792,7 +792,10 @@ void Session::RespawnProcess(BYTE* packet)
 	SC_UPDATE_VI_PACKET vi_packet{ _id, _visual_type };
 	SC_ENTER_PACKET enter_packet{ _id, _position.x, _position.y, _name.c_str(),  GetMaxHP(), _hp, _visual_type, _class_type, _level };
 	SC_MOVE_PACKET update_packet{ _id, _position.x, _position.y };
+	SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
 
+	Send(&vi_packet);
+	Send(&hp_change_packet);
 	for (uint64 client_id : near_list) {
 
 		if (client_id == _id) continue;	// 내 ID라면 무시 위에서 거르지만 혹시 모르니깐
@@ -803,6 +806,7 @@ void Session::RespawnProcess(BYTE* packet)
 		if (client->IsPlayer()) {
 			auto session = static_cast<Session*>(client);
 			session->ProcessCloseCreature(_id, &enter_packet, &update_packet, &vi_packet);
+			session->Send(&hp_change_packet);	// 꼭 불러야 하는 것은 아닌데 아쉽다; 위 vi_packet과 같다
 		}
 		else {
 			auto npc = static_cast<Bot*>(client);
