@@ -83,6 +83,10 @@
     {
       "key": "agro_a",
       "path": "Resource/Texture/agro_a.png"
+    },
+    {
+      "key": "neut_a",
+      "path": "Resource/Texture/neut_a.png"
     }
   ]
 }
