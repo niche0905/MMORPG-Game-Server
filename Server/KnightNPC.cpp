@@ -118,7 +118,14 @@ void KnightNPC::Attack()
 
 				if (client_id == _id) continue;
 
-				if (::IsPlayer(client_id)) continue;
+				if (::IsPlayer(client_id)) {
+					Creature* client = server.GetClients()[client_id];
+					if (client == nullptr) continue;
+					Session* session = static_cast<Session*>(client);
+					session->Send(&attack_packet);
+
+					continue;
+				} 
 
 				Creature* client = server.GetClients()[client_id];
 				if (client == nullptr) continue;
