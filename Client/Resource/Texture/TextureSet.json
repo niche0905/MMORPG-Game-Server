@@ -79,6 +79,10 @@
     {
       "key": "fixed_a",
       "path": "Resource/Texture/fixed_a.png"
+    },
+    {
+      "key": "agro_a",
+      "path": "Resource/Texture/agro_a.png"
     }
   ]
 }
