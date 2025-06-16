@@ -104,6 +104,7 @@ enum AttackType : uint8
 	SORCERER_S,		// 마법사 S
 
 	FIXED_A,
+	AGRO_A,
 
 	// TODO: 추가할 필요가 있는 공격 타입 추가하기
 };
