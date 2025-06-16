@@ -50,11 +50,11 @@ void ServerCore::Init()
 
 	NetworkInit();
 
-	//NPCInit();
+	NPCInit();
 
 	DatabaseInit();
 
-	TesterInit();
+	//TesterInit();
 
 	ThreadPoolInit();
 }
