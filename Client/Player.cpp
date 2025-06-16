@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include "World.h"
 #include "Chat.h"
+#include "FontManager.h"
 
 
 Creature::Creature()
@@ -37,6 +38,13 @@ void Creature::Init()
 	_hp_fg.setSize(sf::Vector2f(HP_WIDTH, HP_HEIGHT));
 	_hp_fg.setFillColor(sf::Color::Red);
 	_hp_fg.setOrigin(0.f, 0.f);
+
+	_level_text.setFont(FontManager::Instance().GetFont("neodot"));
+	_level_text.setCharacterSize(24);
+	_level_text.setFillColor(sf::Color::Yellow);
+	_level_text.setStyle(sf::Text::Regular);
+	_level_text.setOutlineColor(sf::Color::Black);
+	_level_text.setOutlineThickness(0.1f);
 }
 
 void Creature::Update(const int64 delta_time)
@@ -70,10 +78,21 @@ void Creature::Draw(sf::RenderWindow& window)
 {
 	Object::Draw(window);
 
+	DrawLevel(window);
 	DrawHP(window);
 	DrawAttacks(window);
 	DrawChatting(window);
 	DrawDamages(window);
+}
+
+void Creature::DrawLevel(sf::RenderWindow& window)
+{
+	sf::Vector2f pos = name_text.getPosition();
+	sf::FloatRect bounds = name_text.getLocalBounds();
+	float offset = 10.f;
+	_level_text.setPosition({ pos.x - (bounds.width / 2.f) - offset, pos.y });
+
+	window.draw(_level_text);
 }
 
 void Creature::DrawHP(sf::RenderWindow& window)
@@ -250,4 +269,17 @@ void Creature::SetDamageColor(sf::Color color)
 void Creature::SetMaxHP(uint16 max_hp_)
 {
 	max_hp = max_hp_;
+}
+
+void Creature::SetLevel(uint8 level)
+{
+	_level = level;
+	LevelUpdate();
+}
+
+void Creature::LevelUpdate()
+{
+	_level_text.setString(std::to_string(_level));
+	sf::FloatRect bounds = _level_text.getLocalBounds();
+	_level_text.setOrigin(bounds.width, bounds.height / 2.f);
 }

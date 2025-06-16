@@ -32,6 +32,9 @@ private:
 	sf::Color		_damage_color{ sf::Color::Red };
 	std::list<Chat> _damages;
 
+	uint8			_level = 1;
+	sf::Text		_level_text;
+
 public:
 	Creature();
 	Creature(std::shared_ptr<World> world);
@@ -42,6 +45,7 @@ public:
 	void Update(const int64 delta_time);
 
 	void Draw(sf::RenderWindow& window);
+	void DrawLevel(sf::RenderWindow& window);
 	void DrawHP(sf::RenderWindow& window);
 	void DrawAttacks(sf::RenderWindow& window);
 	void DrawChatting(sf::RenderWindow& window);
@@ -64,6 +68,9 @@ public:
 	void SetDamageColor(sf::Color color);
 
 	void SetMaxHP(uint16 max_hp);
+
+	void SetLevel(uint8 level);
+	void LevelUpdate();
 	
 };
 

@@ -236,6 +236,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				client_player->SetClassType(login_packet->_class_type);
 				client_player->SetMaxHP(login_packet->_max_hp);
 				client_player->ChangeHP(login_packet->_hp);
+				client_player->SetLevel(login_packet->_level);
 				client_player->SetDamageColor(sf::Color{ 145, 101, 226 });
 			}
 			else {
@@ -296,6 +297,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 			other_players[now_id].SetClassType(enter_packet->_class_type);
 			other_players[now_id].SetMaxHP(enter_packet->_max_hp);
 			other_players[now_id].ChangeHP(enter_packet->_hp);
+			other_players[now_id].SetLevel(enter_packet->_level);
 		}
 		break;
 
