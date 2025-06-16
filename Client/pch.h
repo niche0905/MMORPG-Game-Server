@@ -4,7 +4,7 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #define SFML_STATIC
 
-#define LOOPBACK
+//#define LOOPBACK
 
 #ifdef _DEBUG
 #pragma comment(lib, "Debug\\Core.lib")

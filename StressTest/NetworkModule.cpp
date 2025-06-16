@@ -9,7 +9,7 @@
 #include "CorePch.h"
 
 
-#define LOOPBACK	// 루프백 연결
+//#define LOOPBACK	// 루프백 연결
 
 using namespace std;
 using namespace chrono;
