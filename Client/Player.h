@@ -28,6 +28,8 @@ private:
 	Attack			_d_atk;
 
 	std::list<Chat> _chattings;
+
+	sf::Color		_damage_color{ sf::Color::Red };
 	std::list<Chat> _damages;
 
 public:
@@ -58,6 +60,8 @@ public:
 	void AddDamage(uint16 damage);
 	void ShowAttack(uint8 atk_type, uint8 atk_dir);
 	void ChangeHP(uint16 hp);
+
+	void SetDamageColor(sf::Color color);
 
 	void SetMaxHP(uint16 max_hp);
 	

@@ -202,6 +202,7 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				client_player->SetClassType(login_packet->_class_type);
 				client_player->SetMaxHP(login_packet->_max_hp);
 				client_player->ChangeHP(login_packet->_hp);
+				client_player->SetDamageColor(sf::Color{ 145, 101, 226 });
 			}
 			else {
 				std::cout << "re Login Allow Error\n";

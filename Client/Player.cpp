@@ -208,8 +208,8 @@ void Creature::AddChat(std::string_view chat)
 void Creature::AddDamage(uint16 damage)
 {
 	_damages.emplace_back(std::to_string(damage), 500000);
+	_damages.back().SetColor(_damage_color);
 	_damages.back().SetSize(20, 0.3);
-	_damages.back().SetColor(sf::Color::Red);
 }
 
 void Creature::ShowAttack(uint8 atk_key, uint8 atk_dir)
@@ -235,6 +235,11 @@ void Creature::ChangeHP(uint16 hp_)
 	float hp_size = (static_cast<float>(hp) / max_hp);
 
 	_hp_fg.setSize(sf::Vector2f(HP_WIDTH * hp_size, HP_HEIGHT));
+}
+
+void Creature::SetDamageColor(sf::Color color)
+{
+	_damage_color = color;
 }
 
 void Creature::SetMaxHP(uint16 max_hp_)
