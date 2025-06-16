@@ -106,7 +106,48 @@ void AgroMonster::DropItem(uint64 id)
 
 void AgroMonster::Attack()
 {
+	const uint16 damage = 15;
 
+	if (_target) {
+
+		if (Attackalbe(_target->GetPosition())) {
+
+			SC_ATTACK_PACKET attack_packet{ _id, KeyType::KEY_A, AttackDirection::NO_DIRECTION };
+
+			std::unordered_set<uint64> closed_clients = server.GetClientList(_position);
+
+			for (uint64 client_id : closed_clients) {
+
+				if (client_id == _id) continue;
+
+				if (::IsNPC(client_id)) continue;
+
+				Creature* client = server.GetClients()[client_id];
+				if (client == nullptr) continue;
+
+				uint8 state = client->GetState();
+				if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+				if (not client->CanSee(_position, VIEW_RANGE)) continue;
+
+				Session* session = static_cast<Session*>(client);
+				session->Send(&attack_packet);
+
+				if (state == GameState::ST_DEAD) continue;
+
+				if (Attackalbe(client->GetPosition())) {
+					// 맞은 것임
+
+					client->TakeDamage(_id, damage);
+				}
+
+			}
+
+			if (not _target->CanSee(_position, VIEW_RANGE)) {	// TODO: 어그로 풀리는 범위를 적용하고 싶다면 상수 정의 ㄱㄱ
+				_target = nullptr;
+			}
+		}
+	}
 }
 
 bool AgroMonster::Attackalbe(Position pos)
