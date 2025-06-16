@@ -16,7 +16,13 @@ void FM_IdleState::Enter(Bot* bot)
 void FM_IdleState::Execute(Bot* bot)
 {
 	using namespace std::chrono;
-	server.AddTimerEvent(Event{ bot->GetID(), system_clock::now() + 1s, Event::EventType::EV_UPDATE });
+
+	if (bot->ClosePlayer()) {
+		server.AddTimerEvent(Event{ bot->GetID(), system_clock::now() + 1s, Event::EventType::EV_UPDATE });
+	}
+	else {
+		bot->DisableActive();
+	}
 }
 
 void FM_IdleState::Exit(Bot* bot)
