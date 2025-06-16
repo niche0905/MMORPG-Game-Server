@@ -585,8 +585,8 @@ void Session::AttackProcess(BYTE* packet)
 	case AttackType::STANDARD_ATK:
 	{
 		uint16 damage = 20;
-		damage = addition_damage;
-		damage = static_cast<uint16>(addition_damage * critical);
+		damage += addition_damage;
+		damage = static_cast<uint16>(damage * critical);
 
 		for (uint64 client_id : closed_clients) {
 
@@ -621,8 +621,8 @@ void Session::AttackProcess(BYTE* packet)
 	case AttackType::WARRIOR_S:
 	{
 		uint16 damage = 40;
-		damage = addition_damage;
-		damage = static_cast<uint16>(addition_damage * critical);
+		damage += addition_damage;
+		damage = static_cast<uint16>(damage * critical);
 
 		for (uint64 client_id : closed_clients) {
 
@@ -657,8 +657,8 @@ void Session::AttackProcess(BYTE* packet)
 	case AttackType::ROGUE_S:
 	{
 		uint16 damage = 100;
-		damage = addition_damage;
-		damage = static_cast<uint16>(addition_damage * critical);
+		damage += addition_damage;
+		damage = static_cast<uint16>(damage * critical);
 
 		std::vector<Position> hit_pos;
 		hit_pos.reserve(2);
@@ -714,8 +714,8 @@ void Session::AttackProcess(BYTE* packet)
 	case AttackType::SORCERER_S:
 	{
 		uint16 damage = 60;
-		damage = addition_damage;
-		damage = static_cast<uint16>(addition_damage * critical);
+		damage += addition_damage;
+		damage = static_cast<uint16>(damage * critical);
 
 		std::vector<Position> hit_pos;
 		hit_pos.reserve(6);
