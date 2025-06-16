@@ -69,6 +69,8 @@ void GameScene::Draw(sf::RenderWindow& window)
 void GameScene::HUD(sf::RenderWindow& window)
 {
 	window.draw(player_coordinate);
+
+	_chat_box.Draw(window);
 }
 
 // Player에게 Input 전달하기
@@ -76,6 +78,8 @@ void GameScene::HandleInput(const sf::Event& input_event)
 {
 	using namespace std::chrono;
 	auto now_time = steady_clock::now();
+
+	_chat_box.HandleInput(input_event);
 
 	if (input_event.type == sf::Event::KeyPressed) {
 		if (_alive) {

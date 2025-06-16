@@ -1,9 +1,11 @@
 #pragma once
 #include "BaseScene.h"
 #include "Player.h"
+#include "ChatUI.h"
 
 class World;
 class Creature;
+class ChatBox;
 
 
 class GameScene : public BaseScene
@@ -28,6 +30,8 @@ private:
 	Cooltime	_aatk_cooltime;
 	Cooltime	_satk_cooltime;
 	Cooltime	_datk_cooltime;
+
+	ChatBox		_chat_box;
 
 public:
 	GameScene();
