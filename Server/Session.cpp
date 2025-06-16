@@ -1148,6 +1148,8 @@ void Session::AddExp(uint64 exp)
 		else break;
 
 	}
+
+	// TODO: Exp 변경된 것 알려야 함
 }
 
 void Session::DoLevelUp()
