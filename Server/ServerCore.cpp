@@ -183,7 +183,25 @@ void ServerCore::NPCInit()
 {
 	StateInit();
 
-	uint64 quater = NUM_MONSTER / 4;
+	for (int i = 0; i < NUM_MONSTER; ++i) {
+		Creature* creature = new PeaceMonster{ i };
+		std::string name = ("NPC" + std::to_string(i));
+		creature->SetName(name);
+		Position spawn_pos;
+		while (true) {
+			spawn_pos = { rand() % MAX_WIDTH, rand() % MAX_HEIGHT };
+			if (not IsBlock(spawn_pos))
+				break;
+		}
+		Bot* npc = static_cast<Bot*>(creature);
+		npc->SetBasePosition(spawn_pos);
+		creature->SetState(ST_INGAME);
+
+		RegisterSector(i, creature->GetPosition());
+		_clients.insert(std::make_pair(i, creature));
+	}
+
+	/*uint64 quater = NUM_MONSTER / 4;
 	uint64 now_range = quater;
 	uint64 i = 0;
 	for ( ; i < now_range; ++i) {
@@ -259,7 +277,7 @@ void ServerCore::NPCInit()
 
 		RegisterSector(i, creature->GetPosition());
 		_clients.insert(std::make_pair(i, creature));
-	}
+	}*/
 
 	std::cout << "NPC " << NUM_MONSTER << " Init Success\n";
 }
