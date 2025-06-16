@@ -8,7 +8,10 @@ public:
 	KnightNPC(uint64 id);
 	~KnightNPC();
 
-	// TODO: FSM 구성하기
+	void Update() override;
+
+	void Attack() override;
+	bool Attackalbe(Position pos);
 
 };
 
