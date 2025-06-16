@@ -152,6 +152,34 @@ void Bot::WakeUp()
 	server.AddTimerEvent(evt);
 }
 
+bool Bot::ClosePlayer()
+{
+	std::unordered_set<uint64> view_list = server.GetClientList(_position);
+
+	int cnt = 0;
+	for (uint64 client_id : view_list) {
+
+		if (::IsNPC(client_id)) continue;
+
+		Creature* client = server.GetClients()[client_id];
+		if (client == nullptr) continue;
+
+		uint8 state = client->GetState();
+		if (state == GameState::ST_ALLOC or state == GameState::ST_CLOSE) continue;
+
+		if (not client->CanSee(_position, VIEW_RANGE)) continue;
+
+		++cnt;
+	}
+
+	return (cnt != 0);
+}
+
+void Bot::DisableActive()
+{
+	_is_active = false;
+}
+
 void Bot::Attack()
 {
 }

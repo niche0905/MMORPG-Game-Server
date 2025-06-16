@@ -45,8 +45,10 @@ public:
 
 	virtual void Update();
 
-	void FirstSeen(uint64 id);
+	virtual void FirstSeen(uint64 id);
 	void WakeUp();
+	bool ClosePlayer();
+	void DisableActive();
 
 	virtual void Attack();
 
