@@ -33,6 +33,9 @@ private:
 
 	ChatBox		_chat_box;
 
+	sf::RectangleShape	_dead_info_bg;
+	sf::Text			_dead_info_text;
+
 public:
 	GameScene();
 

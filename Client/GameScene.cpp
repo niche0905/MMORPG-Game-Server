@@ -31,6 +31,21 @@ void GameScene::Init()
 	player_coordinate.setOutlineColor(sf::Color::Black);
 	player_coordinate.setOutlineThickness(1.0f);
 
+	_dead_info_bg.setSize({ WINDOW_WIDTH, WINDOW_HEIGHT });
+	_dead_info_bg.setFillColor(sf::Color{ 0, 0, 0, 128 });
+	_dead_info_bg.setPosition({ 0.f, 0.f });
+
+	_dead_info_text.setFont(FontManager::Instance().GetFont("neodot"));
+	_dead_info_text.setCharacterSize(50);
+	_dead_info_text.setString("You Died Respawn To 'E'");
+	_dead_info_text.setFillColor(sf::Color::Black);
+	_dead_info_text.setStyle(sf::Text::Regular);
+	_dead_info_text.setOutlineColor(sf::Color::White);
+	_dead_info_text.setOutlineThickness(1.f);
+	sf::FloatRect bounds = _dead_info_text.getLocalBounds();
+	_dead_info_text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+	_dead_info_text.setPosition({ WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f });
+
 	using namespace std::chrono;
 
 	_move_cooltime = steady_clock::now() - MOVE_COOLTIME;
@@ -71,6 +86,11 @@ void GameScene::HUD(sf::RenderWindow& window)
 	window.draw(player_coordinate);
 
 	_chat_box.Draw(window);
+
+	if (not _alive) {
+		window.draw(_dead_info_bg);
+		window.draw(_dead_info_text);
+	}
 }
 
 // Player에게 Input 전달하기
