@@ -37,7 +37,7 @@ void GameScene::Init()
 
 	_dead_info_text.setFont(FontManager::Instance().GetFont("neodot"));
 	_dead_info_text.setCharacterSize(50);
-	_dead_info_text.setString("You Died Respawn To 'E'");
+	_dead_info_text.setString("You Died Respawn To 'R'");
 	_dead_info_text.setFillColor(sf::Color::Black);
 	_dead_info_text.setStyle(sf::Text::Regular);
 	_dead_info_text.setOutlineColor(sf::Color::White);
