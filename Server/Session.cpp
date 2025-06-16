@@ -206,7 +206,7 @@ void Session::Send(void* packet)
 	if (ret == SOCKET_ERROR) {
 		int32 error = WSAGetLastError();
 		if (error != ERROR_IO_PENDING) {
-			PrintErrorMessage(L"WSASend", error);
+			//PrintErrorMessage(L"WSASend", error);
 		}
 	}
 }
@@ -220,7 +220,7 @@ void Session::Recv()
 	if (ret == SOCKET_ERROR) {
 		int32 error = WSAGetLastError();
 		if (error != ERROR_IO_PENDING) {
-			PrintErrorMessage(L"WSARecv", error);
+			//PrintErrorMessage(L"WSARecv", error);
 		}
 	}
 }

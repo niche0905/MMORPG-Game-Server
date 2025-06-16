@@ -97,7 +97,7 @@ void ServerCore::Accept()
 	if (ret == FALSE) {
 		int32 error = WSAGetLastError();
 		if (error != ERROR_IO_PENDING) {
-			PrintErrorMessage(L"AcceptEx", error);
+			//PrintErrorMessage(L"AcceptEx", error);
 		}
 	}
 }
@@ -302,7 +302,7 @@ void ServerCore::Worker()
 		_ebr_sessions.StartEpoch();
 
 		if (overlapped == nullptr) {
-			std::cout << "overlapped is nullptr\n";
+			//std::cout << "overlapped is nullptr\n";
 
 			_ebr_sessions.EndEpoch();
 			continue;
