@@ -48,6 +48,8 @@ bool Bot::IsNPC() const
 
 bool Bot::TakeDamage(uint64 id, uint16 damage)
 {
+	if (_is_invincibility) return false;		// 무적인데 실수로 불렸다면 바로 Return
+
 	bool my_kill = Creature::TakeDamage(id, damage);
 
 	SC_HP_CHANGE_PACKET hp_change_packet{ _id, _hp };
