@@ -133,9 +133,10 @@ bool Session::TakeDamage(uint64 id, uint16 damage)
 	}
 
 	if (my_kill) {
-		// TODO: 내가 죽었다면 사망 패킷 보내기
 		DeadSequence();
 	}
+
+	// TODO: 내 체력이 적다면 회복 타이머 걸기
 
 	return my_kill;
 }
