@@ -46,12 +46,6 @@ bool Bot::IsNPC() const
 	return true;
 }
 
-uint16 Bot::GetMaxHP() const
-{
-	//return _basic_stats.HP + _temp_stats.HP; // TODO: 정식으로 수정해야함
-	return 100;	// TEMP
-}
-
 bool Bot::TakeDamage(uint64 id, uint16 damage)
 {
 	bool my_kill = Creature::TakeDamage(id, damage);

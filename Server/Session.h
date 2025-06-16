@@ -53,7 +53,6 @@ public:
 	Stats GetStats() const override;
 	Stats GetEquipStats() const;
 
-	uint16 GetMaxHP() const override;
 	bool TakeDamage(uint64 id, uint16 damage) override;
 	void DeadSequence() override;
 

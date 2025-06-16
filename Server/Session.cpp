@@ -105,12 +105,6 @@ Stats Session::GetEquipStats() const
 	return Stats();		// TODO 구현 하여야 함
 }
 
-uint16 Session::GetMaxHP() const
-{
-	//return _basic_stats.HP + _temp_stats.HP + _equip_stats.HP; // TODO: 정식으로 수정해야함
-	return 100;	// TEMP
-}
-
 bool Session::TakeDamage(uint64 id, uint16 damage)
 {
 	if (_state == GameState::ST_DEAD) return false;

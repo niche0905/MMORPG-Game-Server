@@ -114,6 +114,11 @@ uint16 Creature::GetHP() const
 	return _hp;
 }
 
+uint16 Creature::GetMaxHP()
+{
+	return GetStats().HP;
+}
+
 bool Creature::TakeDamage(uint64 id, uint16 damage)	// 만약 실제 들어간 데미지가 필요하면 이를 수정하거나 메서드를 추가하여야 함
 {
 	uint16 expected;
