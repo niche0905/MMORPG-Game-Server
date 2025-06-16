@@ -59,6 +59,8 @@ private:
 	void StateInit();
 	void NPCInit();
 
+	void TesterInit();	// 한번만 쓸 거임
+
 	void CreateListenSocket();
 	void CreateAcceptSocket();
 

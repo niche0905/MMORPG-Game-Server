@@ -185,10 +185,11 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 					exit(-1);
 				}
 
+				// TEMP
 				Position pos = session->GetPosition();
-				int16 maxHP = 100, HP = 100;
+				int16 maxHP = session->GetMaxHP(), HP = session->GetMaxHP();
 				uint8 class_type = session->GetClassType();
-				int32 level = 1;
+				int32 level = session->GetLevel();	// 1
 				int64 exp = 0;
 				int32 result_code = -1;
 				int64 userID = -1;
@@ -211,7 +212,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 					exit(-1);
 				}
 
-				if (result_code == 0) {
+				/*if (result_code == 0) {
 					uint64 user_id = static_cast<uint64>(userID);
 
 					bool succ = session->RegisterInfo(user_id);
@@ -224,7 +225,7 @@ void DatabaseManager::DatabaseWorker(int32 index_)
 				else {
 					ExOver* new_task = new ExOver{ OverOperation::DB_REGISTER_FAIL };
 					server.AddTask(now_id, new_task);
-				}
+				}*/
 
 				SQLCloseCursor(_hstmts[index]);
 			}

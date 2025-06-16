@@ -50,9 +50,11 @@ void ServerCore::Init()
 
 	NetworkInit();
 
-	NPCInit();
+	//NPCInit();
 
 	DatabaseInit();
+
+	TesterInit();
 
 	ThreadPoolInit();
 }
@@ -223,6 +225,7 @@ void ServerCore::NPCInit()
 
 		std::string name = ("NPC" + std::to_string(i));
 		creature->SetName(name);
+		creature->SetLevel((rand() % MAX_LEVEL) + 1);
 		Position spawn_pos;
 		while (true) {
 			spawn_pos = { rand() % MAX_WIDTH, rand() % MAX_HEIGHT };
@@ -239,6 +242,33 @@ void ServerCore::NPCInit()
 
 
 	std::cout << "NPC " << NUM_MONSTER << " Init Success\n";
+}
+
+void ServerCore::TesterInit()
+{
+	for (uint64 i = 0; i < MAX_USER; ++i) {
+		Session* session = new Session{ i, i };
+
+		char name[MAX_NAME_LEN];
+		sprintf_s(name, "P%d", (int)i);
+
+		session->SetName(name);
+		session->SetClassType(static_cast<uint8>((rand() % 3) + 1));
+		Position spawn_pos;
+		while (true) {
+			spawn_pos = { rand() % MAX_WIDTH, rand() % MAX_HEIGHT };
+			if (not IsBlock(spawn_pos))
+				break;
+		}
+		session->SetPosition(spawn_pos);
+		session->SetLevel((rand() % 50) + 1);
+
+		_clients.insert(std::make_pair(i, session));
+
+		DatabaseEvent db_event{ i, DatabaseEvent::DbOperation::DB_REGISTER_REQUEST };
+		server.AddRequestDB(db_event);
+	}
+	std::cout << "DB QUEUE DONE!!\n";
 }
 
 void ServerCore::CreateListenSocket()
