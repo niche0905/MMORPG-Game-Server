@@ -122,7 +122,7 @@ uint16 Creature::GetMaxHP()
 bool Creature::TakeDamage(uint64 id, uint16 damage)	// 만약 실제 들어간 데미지가 필요하면 이를 수정하거나 메서드를 추가하여야 함
 {
 	uint16 defensity = GetStats().DEF;
-	uint16 real_damage = static_cast<uint16>(damage * (defensity / 250.f));
+	uint16 real_damage = static_cast<uint16>(damage * (1 - (defensity / 250.f)));
 
 	uint16 expected;
 	uint16 desired;
