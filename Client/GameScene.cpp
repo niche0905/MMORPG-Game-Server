@@ -46,6 +46,13 @@ void GameScene::Init()
 	_dead_info_text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 	_dead_info_text.setPosition({ WINDOW_WIDTH / 2.f, WINDOW_HEIGHT / 2.f });
 
+	_stats_text.setFont(FontManager::Instance().GetFont("neodot"));
+	_stats_text.setCharacterSize(20);
+	_stats_text.setFillColor(sf::Color::Blue);
+	_stats_text.setStyle(sf::Text::Regular);
+	_stats_text.setOutlineColor(sf::Color::White);
+	_stats_text.setOutlineThickness(0.2f);
+
 	using namespace std::chrono;
 
 	_move_cooltime = steady_clock::now() - MOVE_COOLTIME;
@@ -91,6 +98,8 @@ void GameScene::HUD(sf::RenderWindow& window)
 		window.draw(_dead_info_bg);
 		window.draw(_dead_info_text);
 	}
+
+	window.draw(_stats_text);
 }
 
 // Player에게 Input 전달하기
@@ -234,6 +243,15 @@ void GameScene::ProcessPacket(std::vector<BYTE> packets)
 				exit(-1);
 
 			}
+		}
+		break;
+
+		case PacketID::S2C_STATS_CHANGE:
+		{
+			SC_STATS_CHANGE_PACKET* stats_change_packet = reinterpret_cast<SC_STATS_CHANGE_PACKET*>(packet);
+
+			_stats = stats_change_packet->_stats;
+			StatsChangeUpdate();
 		}
 		break;
 
@@ -390,4 +408,16 @@ sf::Vector2f GameScene::GetCameraCenter() const
 	float offset = client_player->GetOffset();;
 	sf::Vector2f camera_center = sf::Vector2f(player_position.x * TILE_SIZE + offset, player_position.y * TILE_SIZE + offset);
 	return camera_center;
+}
+
+void GameScene::StatsChangeUpdate()
+{
+	client_player->SetMaxHP(_stats.HP);
+	std::string stats_string = "ATK: " + std::to_string(_stats.ATK) + " DEF: " + std::to_string(_stats.DEF) + " STR: " + std::to_string(_stats.STR) + " DEX: " + std::to_string(_stats.DEX) + " INT: " + std::to_string(_stats.INT) + " CRT: " + std::to_string(_stats.CRT) + " MOV: " + std::to_string(_stats.MOV);
+	_stats_text.setString(stats_string);
+
+	float offset = 40.f;
+	sf::FloatRect bounds = _stats_text.getLocalBounds();
+	_stats_text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+	_stats_text.setPosition({ WINDOW_WIDTH / 2.f, WINDOW_HEIGHT - offset });
 }

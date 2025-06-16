@@ -31,6 +31,9 @@ private:
 	Cooltime	_satk_cooltime;
 	Cooltime	_datk_cooltime;
 
+	Stats		_stats;
+	sf::Text	_stats_text;
+
 	ChatBox		_chat_box;
 
 	sf::RectangleShape	_dead_info_bg;
@@ -50,6 +53,7 @@ public:
 
 private:
 	// TODO : 클래스 내부에서 사용할 함수
+	void StatsChangeUpdate();
 
 };
 
