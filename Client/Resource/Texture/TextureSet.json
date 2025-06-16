@@ -33,6 +33,22 @@
       "path": "Resource/Texture/grave.png"
     },
     {
+      "key": "slime",
+      "path": "Resource/Texture/slime.png"
+    },
+    {
+      "key": "nepenthes",
+      "path": "Resource/Texture/nepenthes.png"
+    },
+    {
+      "key": "dog",
+      "path": "Resource/Texture/dog.png"
+    },
+    {
+      "key": "bear",
+      "path": "Resource/Texture/bear.png"
+    },
+    {
       "key": "grass",
       "path": "Resource/Texture/grass.png"
     },
