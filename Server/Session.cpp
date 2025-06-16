@@ -1170,7 +1170,15 @@ void Session::HealSelf10()
 		session->Send(&hp_change_packet);
 	}
 
-	NeedGeneration();
+	if (_hp < GetMaxHP()) {
+		using namespace std::chrono;
+
+		Event evt{ _id, std::chrono::system_clock::now() + 10s, Event::EventType::EV_HEAL };
+		server.AddTimerEvent(evt);
+	}
+	else {
+		_is_timed = false;
+	}
 }
 
 void Session::AddExp(uint64 exp)
@@ -1250,7 +1258,11 @@ void Session::NeedGeneration()
 
 	if (_hp < GetMaxHP()) {
 
-		Event evt{ _id, std::chrono::system_clock::now() + 10s, Event::EventType::EV_HEAL };
-		server.AddTimerEvent(evt);
+		bool expected = false;
+		if (_is_timed.compare_exchange_strong(expected, true)) {
+
+			Event evt{ _id, std::chrono::system_clock::now() + 10s, Event::EventType::EV_HEAL };
+			server.AddTimerEvent(evt);
+		}
 	}
 }
