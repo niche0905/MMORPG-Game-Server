@@ -18,9 +18,8 @@ ChatBox::ChatBox()
 	_input_text.setFont(FontManager::Instance().GetFont("neodot"));
 	_input_text.setCharacterSize(18);
 	sf::FloatRect bounds = _input_text.getLocalBounds();
-	_input_text.setOrigin({ 0.f, bounds.height });
 	_input_text.setFillColor(sf::Color::Black);
-	_input_text.setPosition(10.f, WINDOW_HEIGHT); // 입력 박스 안쪽 여백
+	_input_text.setPosition(10.f, WINDOW_HEIGHT - 30.f); // 입력 박스 안쪽 여백
 }
 
 void ChatBox::HandleInput(const sf::Event& ev)
@@ -78,14 +77,13 @@ void ChatBox::AddMessage(const std::string& msg)
 	new_text.setCharacterSize(18);		// TODO: chat_size를 생성자에서 받아서 설정
 	new_text.setFillColor(sf::Color::White);
 	sf::FloatRect bounds = new_text.getLocalBounds();
-	new_text.setOrigin({ 0.f,bounds.height });
 
 	float chat_height = 30.f;
 	_messages.push_front(std::move(new_text));
 	sf::Vector2f pos = { 10.f, WINDOW_HEIGHT - chat_height };
 	for (auto& msg : _messages) {
-		msg.setPosition(pos);
 		pos.y -= chat_height;
+		msg.setPosition(pos);
 	}
 
 	if (_messages.size() > _max_messages)
