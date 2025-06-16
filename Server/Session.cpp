@@ -248,6 +248,14 @@ void Session::ProcessPacket(BYTE* packet)
 	}
 	break;
 
+	//case PacketID::C2S_TELEPORT:	// TODO: 구현 해야 함
+	
+	case PacketID::C2S_RESPAWN:
+	{
+		RespawnProcess(packet);
+	}
+	break;
+
 	}
 }
 
@@ -734,6 +742,25 @@ void Session::AttackProcess(BYTE* packet)
 
 	if (damage_packet._num != 0)	// 맞은 사람이 없으면 보낼 이유가 없음
 		Send(&damage_packet);
+}
+
+void Session::RespawnProcess(BYTE* packet)
+{
+	if (_state != GameState::ST_DEAD) {
+		std::cout << "not dead respawn request ERROR!!!\n";
+		return;
+	}
+
+	UpdateVisualInfo();
+
+	_hp = GetMaxHP();
+	Position old_pos = _position;
+	_position = _base_pos;
+
+	_state = GameState::ST_ALIVE;
+
+	// TODO: 스스로에게 부활, 위치 업데이트
+	// TODO: 바뀐 위치에 따라 Leave, Enter, Move 해야함
 }
 
 uint64 Session::GetUserID() const

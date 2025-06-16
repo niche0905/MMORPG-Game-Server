@@ -30,6 +30,7 @@ private:
 
 	ExOver		_recv_overlapped;
 	int32		_remain_size;
+	Position	_base_pos = {0, 0};
 
 public:
 	uint64		_ebr_number{ EBR<Session>::MAX_ULLONG };
@@ -67,6 +68,7 @@ public:
 	void MoveProcess(BYTE* packet);
 	void ChatProcess(BYTE* packet);
 	void AttackProcess(BYTE* packet);
+	void RespawnProcess(BYTE* packet);
 
 	uint64 GetUserID() const;
 	bool LoginInfo(uint64 user_id, int16 x, int16 y, uint16 maxHP, uint16 HP, uint8 class_type, uint32 level, uint64 exp);
