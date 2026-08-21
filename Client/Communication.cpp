@@ -28,9 +28,9 @@ void Communication::Init()
 }
 
 // 주소와 통신 연결
-void Communication::Connect(const char* ip_address)
+void Communication::Connect(const char* ip_address, uint16 port)
 {
-	sf::Socket::Status status = socket.connect(ip_address, PORT_NUM);
+	sf::Socket::Status status = socket.connect(ip_address, port);
 	if (status == sf::Socket::Done) {
 		std::wcout << L"서버와 바로 연결되었습니다\n";
 	}

@@ -30,11 +30,14 @@ private:
 	std::string name;
 
 	bool is_developer = false;
+	std::string server_address = LOOPBACK_ADDRESS;
+	uint16 server_port = PORT_NUM;
 
 public:
 	Game();
 
 	void Init();
+	void ConfigInit();
 
 	void Run();
 	void Update(const int64 delta_time);

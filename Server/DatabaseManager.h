@@ -15,6 +15,7 @@ private:
 
 	std::vector<std::thread> _threads;
 	concurrency::concurrent_queue<DatabaseEvent> _queue;
+	std::wstring _dsn = L"GS2020180021";
 
 public:
 	DatabaseManager();
@@ -22,6 +23,7 @@ public:
 	~DatabaseManager();
 
 	void Init();
+	void SetDsn(std::wstring dsn);
 
 	void DatabaseThread();
 

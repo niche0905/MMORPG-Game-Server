@@ -64,6 +64,8 @@ int			global_delay;				// ms단위, 1000이 넘으면 클라이언트 증가 종
 vector <thread*> worker_threads;
 thread test_thread;
 char serverIP[64];
+uint16 serverPort = PORT_NUM;
+int maxTestClients = MAX_TEST;
 
 float point_cloud[MAX_TEST * 2];
 
@@ -266,7 +268,7 @@ void Adjust_Number_Of_Client()
 	static int max_limit = MAXINT;
 	static bool increasing = true;
 
-	if (active_clients >= MAX_TEST) return;
+	if (active_clients >= maxTestClients) return;
 	if (num_connections >= MAX_CLIENTS) return;
 
 	auto duration = high_resolution_clock::now() - last_connect_time;
@@ -299,7 +301,7 @@ void Adjust_Number_Of_Client()
 	SOCKADDR_IN ServerAddr;
 	ZeroMemory(&ServerAddr, sizeof(SOCKADDR_IN));
 	ServerAddr.sin_family = AF_INET;
-	ServerAddr.sin_port = htons(PORT_NUM);
+	ServerAddr.sin_port = htons(serverPort);
 	ServerAddr.sin_addr.s_addr = inet_addr(serverIP);
 
 	int Result = WSAConnect(g_clients[num_connections].client_socket, (sockaddr*)&ServerAddr, sizeof(ServerAddr), NULL, NULL, NULL, NULL);
@@ -364,16 +366,27 @@ void InitializeNetwork()
 {
 	setlocale(LC_ALL, "korean");
 	std::wcout.imbue(std::locale("korean"));
+	Runtime::UseExecutableDirectoryAsWorkingDirectory();
 
-#ifdef LOOPBACK
-	std::string temp;
-	std::cout << "Loopback Connect Waiting : ";
-	std::cin >> temp;
-	strcpy_s(serverIP, "127.0.0.1");
-#else
-	std::wcout << L"스트레스 테스트 서버 IP를 입력하세요: ";
-	std::cin >> serverIP;
-#endif // LOOPBACK
+	const auto config_path = Runtime::ExecutableDirectory() / "stresstest.ini";
+	Runtime::IniFile config;
+	if (not config.Load(config_path)) {
+		std::cout << "stresstest.ini not found. Using default settings.\n";
+	}
+
+	const std::string address = config.GetString("server", "address", "127.0.0.1");
+	serverPort = static_cast<uint16>(config.GetInt("server", "port", PORT_NUM, 1, 65535));
+	maxTestClients = config.GetInt("stress_test", "max_clients", MAX_TEST, 1, MAX_TEST);
+	strcpy_s(serverIP, address.c_str());
+
+	IN_ADDR parsed_address{};
+	if (InetPtonA(AF_INET, serverIP, &parsed_address) != 1) {
+		throw std::runtime_error("stresstest.ini server.address must be an IPv4 address");
+	}
+
+	std::cout << "Config: " << config_path << "\n";
+	std::cout << "Server: " << serverIP << ":" << serverPort << "\n";
+	std::cout << "Maximum clients: " << maxTestClients << "\n";
 
 	for (auto& cl : g_clients) {
 		cl.connected = false;

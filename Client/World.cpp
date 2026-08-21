@@ -43,16 +43,30 @@ void World::LoadWorld()
 {
 	std::cout << "Map Loading...\n";
 
-	std::ifstream input_file{ "../Resource/map.bin", std::ifstream::binary };
+	auto map_path = Runtime::ResolveFromExecutable("Resource/map.bin");
+	if (not std::filesystem::exists(map_path)) {
+		map_path = Runtime::ResolveFromExecutable("../Resource/map.bin");
+	}
+
+	std::ifstream input_file{ map_path, std::ifstream::binary };
+	if (not input_file.is_open()) {
+		throw std::runtime_error("Failed to open map file: " + map_path.string());
+	}
 	uint32 width, height;
 	input_file.read(reinterpret_cast<char*>(&width), sizeof(uint32));
 	input_file.read(reinterpret_cast<char*>(&height), sizeof(uint32));
+	if (not input_file or width == 0 or height == 0) {
+		throw std::runtime_error("Invalid map header: " + map_path.string());
+	}
 	area = sf::Vector2i{ (int)width, (int)height };
 
 	maps.resize(width * height);
 	uint8 tile_info;
 	for (auto& tile : maps) {
 		input_file.read(reinterpret_cast<char*>(&tile_info), sizeof(uint8));
+		if (not input_file) {
+			throw std::runtime_error("Invalid map data: " + map_path.string());
+		}
 		tile = static_cast<TileType>(tile_info - 1);
 	}
 	input_file.close();

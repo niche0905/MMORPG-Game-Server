@@ -22,6 +22,7 @@
 #include <fstream>
 #include <filesystem>
 #include <print>
+#include <stdexcept>
 
 #include <WinSock2.h>
 #include <MSWSock.h>
@@ -31,3 +32,4 @@
 #include <windows.h>
 
 #include "EpochBasedReclamation.h"
+#include "RuntimeConfig.h"

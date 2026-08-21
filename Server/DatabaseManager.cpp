@@ -60,7 +60,7 @@ void DatabaseManager::Init()
 		exit(-1);
 	}
 	SQLSetConnectAttr(_hdbc, SQL_LOGIN_TIMEOUT, (SQLPOINTER)5, 0);
-	retcode = SQLConnect(_hdbc, (SQLWCHAR*)L"GS2020180021", SQL_NTS, (SQLWCHAR*)NULL, 0, NULL, 0);
+	retcode = SQLConnect(_hdbc, reinterpret_cast<SQLWCHAR*>(_dsn.data()), SQL_NTS, nullptr, 0, nullptr, 0);
 	if (retcode != SQL_SUCCESS && retcode != SQL_SUCCESS_WITH_INFO) {
 		HandleDiagnosticRecord(_hdbc, SQL_HANDLE_DBC, retcode);
 		exit(-1);
@@ -72,6 +72,11 @@ void DatabaseManager::Init()
 		SQLAllocHandle(SQL_HANDLE_STMT, _hdbc, &hstmt);
 	}
 	std::cout << "DB SQL Handle " << _hstmts.size() << " created...\n";
+}
+
+void DatabaseManager::SetDsn(std::wstring dsn)
+{
+	if (not dsn.empty()) _dsn = std::move(dsn);
 }
 
 void DatabaseManager::DatabaseThread()

@@ -21,6 +21,7 @@ Game::Game()
 void Game::Init()
 {
 	std::wcout.imbue(std::locale("korean"));			// 표준 출력 스트림에 적용
+	ConfigInit();
 
 	if (not FontManager::Instance().LoadFont("neodot", "Resource/Font/neodgm.ttf")) {
 		std::wcout << L"폰트 로드 실패\n";
@@ -32,14 +33,26 @@ void Game::Init()
 
 	scene = std::make_shared<TitleScene>();
 
-	std::cout << "Developer Mode (1: true): ";
-	int input_value;
-	std::cin >> input_value;
-	if (input_value == 1)
-		is_developer = true;
-
 	// TODO : Loading이 끝나고 나서 last_time을 초기화 해야 함
 	last_time = Epoch::now();
+}
+
+void Game::ConfigInit()
+{
+	Runtime::UseExecutableDirectoryAsWorkingDirectory();
+
+	const auto config_path = Runtime::ExecutableDirectory() / "client.ini";
+	Runtime::IniFile config;
+	if (not config.Load(config_path)) {
+		std::cout << "client.ini not found. Using default settings.\n";
+	}
+
+	server_address = config.GetString("server", "address", LOOPBACK_ADDRESS);
+	server_port = static_cast<uint16>(config.GetInt("server", "port", PORT_NUM, 1, 65535));
+	is_developer = config.GetBool("client", "developer_mode", false);
+
+	std::cout << "Config: " << config_path << "\n";
+	std::cout << "Server: " << server_address << ":" << server_port << "\n";
 }
 
 // 게임 실행 루프 (Input 받고, timer 업데이트, Scene Update, Draw)
@@ -203,19 +216,7 @@ bool Game::HandleChatCommand(const std::string& command)
 
 void Game::ConnectServer()
 {
-#ifdef LOOPBACK
-	std::string temp;
-	std::wcout << L"루프팩 접속 대기 : ";
-	std::cin >> temp;
-	std::wcout << L"루프백 접속 중...\n";
-	std::string ip_address = LOOPBACK_ADDRESS;
-#else
-	std::wcout << L"접속할 주소를 입력해 주세요 : ";
-	std::string ip_address;
-	std::cin >> ip_address;
-#endif
-
-	communication.Connect(ip_address.data());
+	communication.Connect(server_address.c_str(), server_port);
 }
 
 void Game::SetCameraView()

@@ -38,13 +38,8 @@ ServerCore::~ServerCore()
 
 void ServerCore::Init()
 {
-	std::cout << "Is Developer?: ";
-	int temp;
-	std::cin >> temp;
-	if (temp == 1)
-		_is_developer = true;
-
 	LocaleInit();
+	ConfigInit();
 
 	WorldInit();
 
@@ -57,6 +52,35 @@ void ServerCore::Init()
 	//TesterInit();
 
 	ThreadPoolInit();
+}
+
+void ServerCore::ConfigInit()
+{
+	Runtime::UseExecutableDirectoryAsWorkingDirectory();
+
+	const auto config_path = Runtime::ExecutableDirectory() / "server.ini";
+	Runtime::IniFile config;
+	if (not config.Load(config_path)) {
+		std::cout << "server.ini not found. Using default settings.\n";
+	}
+
+	_listen_address = config.GetString("server", "listen_address", "0.0.0.0");
+	_port = static_cast<uint16>(config.GetInt("server", "port", PORT_NUM, 1, 65535));
+	_is_developer = config.GetBool("server", "developer_mode", false);
+	_map_path = config.GetPath("server", "map_path", "Resource/map.bin");
+
+	if (not std::filesystem::exists(_map_path)) {
+		const auto legacy_map_path = Runtime::ResolveFromExecutable("../Resource/map.bin");
+		if (std::filesystem::exists(legacy_map_path)) _map_path = legacy_map_path;
+	}
+
+	const std::string dsn = config.GetString("database", "dsn", "GS2020180021");
+	_db_manager.SetDsn(std::wstring(dsn.begin(), dsn.end()));
+
+	std::cout << "Config: " << config_path << "\n";
+	std::cout << "Listen: " << _listen_address << ":" << _port << "\n";
+	std::cout << "Map: " << _map_path << "\n";
+	std::cout << "Database DSN: " << dsn << "\n";
 }
 
 void ServerCore::Run()
@@ -110,7 +134,7 @@ void ServerCore::LocaleInit()
 
 void ServerCore::WorldInit()
 {
-	_world_map.LoadWorld();
+	_world_map.LoadWorld(_map_path);
 }
 
 void ServerCore::NetworkInit()
@@ -130,9 +154,16 @@ void ServerCore::NetworkInit()
 void ServerCore::BindAndListen()
 {
 	SOCKADDR_IN server_addr;
+	ZeroMemory(&server_addr, sizeof(server_addr));
 	server_addr.sin_family = AF_INET;
-	server_addr.sin_port = htons(PORT_NUM);
-	server_addr.sin_addr.s_addr = INADDR_ANY;
+	server_addr.sin_port = htons(_port);
+	if (_listen_address == "0.0.0.0" or _listen_address == "*") {
+		server_addr.sin_addr.s_addr = INADDR_ANY;
+	}
+	else if (InetPtonA(AF_INET, _listen_address.c_str(), &server_addr.sin_addr) != 1) {
+		std::cout << "Invalid listen_address in server.ini: " << _listen_address << "\n";
+		exit(-1);
+	}
 
 	if (bind(_listen_socket, reinterpret_cast<SOCKADDR*>(&server_addr), sizeof(server_addr)) == SOCKET_ERROR) {
 		std::cout << "bind Error\n";

@@ -21,7 +21,7 @@ public:
 	~Communication();
 
 	void Init();
-	void Connect(const char* ip_address);
+	void Connect(const char* ip_address, uint16 port);
 
 	void Send(BYTE* buffer, uint16 len);
 	std::vector<BYTE> Recv();

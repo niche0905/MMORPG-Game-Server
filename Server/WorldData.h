@@ -16,6 +16,6 @@ public:
 	bool IsBlock(int16 x, int16 y) const;
 	bool IsBlock(Position pos) const;
 
-	void LoadWorld();
+	void LoadWorld(const std::filesystem::path& path);
 };
 

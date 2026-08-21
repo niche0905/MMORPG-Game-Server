@@ -167,15 +167,48 @@ Client                         Server                         Database
 
 개발 당시 사용한 SQL Server DB에서 직접 추출한 테이블과 저장 프로시저가 [`Database/original_schema.sql`](Database/original_schema.sql)에 포함되어 있습니다. 빈 SQL Server 데이터베이스에서 이 스크립트를 실행한 뒤, `DatabaseManager`의 DSN 이름을 자신의 환경에 맞추면 됩니다. 선택적으로 공개 가능한 StressTest 계정 10,000개도 [`Database/stress_test_seed.sql`](Database/stress_test_seed.sql)에서 복원할 수 있습니다. 자세한 과정은 [`Database/README.md`](Database/README.md)를 참고하세요.
 
-서버는 현재 작업 디렉터리를 기준으로 `../Resource/map.bin`을 읽으며 기본 TCP 포트 `8252`에서 대기합니다. Visual Studio에서 실행하거나 실행 파일의 작업 디렉터리를 직접 지정할 때 이 상대 경로를 맞춰야 합니다. 클라이언트와 StressTest 실행 시에는 접속할 서버 IP를 콘솔에 입력합니다.
+실행 설정은 각 실행 파일과 같은 디렉터리의 INI 파일에서 읽습니다. 리소스 경로 역시 현재 작업 디렉터리가 아니라 실행 파일 위치를 기준으로 계산하므로 탐색기, 터미널, Visual Studio 중 어느 방식으로 실행해도 같은 파일을 참조합니다.
+
+| 파일 | 주요 설정 |
+| --- | --- |
+| `server.ini` | 수신 주소, 포트, 개발자 모드, 맵 경로, ODBC DSN |
+| `client.ini` | 서버 주소와 포트, 개발자 모드 |
+| `stresstest.ini` | 서버 주소와 포트, 최대 가상 클라이언트 수 |
+
+배포용 기본 설정은 [`Distribution`](Distribution) 디렉터리에 있습니다. 설정 파일이 없으면 로컬 접속 주소, 포트 `8252`, DSN `GS2020180021` 등의 기본값을 사용합니다.
 
 권장 실행 순서는 다음과 같습니다.
 
 1. 빈 SQL Server 데이터베이스에서 `Database/original_schema.sql`을 실행합니다.
-2. 코드에 설정된 이름으로 64비트 ODBC System DSN을 준비합니다.
-3. `Server.exe`를 실행하고 개발자 모드 사용 여부를 입력합니다.
-4. `Client.exe`를 실행한 뒤 서버 IP를 입력합니다.
+2. 64비트 ODBC System DSN을 준비하고 그 이름을 `server.ini`에 입력합니다.
+3. `server.ini`와 `client.ini`의 주소 및 포트가 서로 일치하는지 확인합니다.
+4. `Server.exe`를 실행한 뒤 `Client.exe`를 실행합니다.
 5. 부하 테스트가 필요한 경우 `StressTest.exe`를 별도로 실행합니다.
+
+## Release 패키지 만들기
+
+`Release | x64` 빌드가 끝난 뒤 저장소 루트에서 다음 명령을 실행합니다.
+
+```powershell
+.\Distribution\package_release.ps1 -Version 1.0.0
+```
+
+스크립트는 새로 빌드된 `Server.exe`, `Client.exe`, `StressTest.exe`와 설정 파일, 클라이언트 리소스, 월드 맵, DB 스크립트 및 README를 모아 `Artifacts/MMORPG-Game-Server-v1.0.0-win64.zip`을 생성합니다. 같은 위치에 SHA-256 체크섬 파일도 생성합니다. PDB와 `GraphicTest.exe`는 공개 패키지에 포함하지 않습니다.
+
+Release ZIP의 기본 구조는 다음과 같습니다.
+
+```text
+MMORPG-Game-Server-v1.0.0-win64/
+├─ Server.exe
+├─ Client.exe
+├─ StressTest.exe
+├─ server.ini
+├─ client.ini
+├─ stresstest.ini
+├─ Resource/
+├─ Database/
+└─ README.md
+```
 
 ## 구현하며 다룬 문제
 
@@ -192,8 +225,8 @@ Client                         Server                         Database
 
 학습 프로젝트로서 핵심 기능을 빠르게 구현하는 데 집중했기 때문에 다음 개선 과제가 남아 있습니다.
 
-- DB 연결 문자열과 마이그레이션 버전을 관리하는 배포 체계 추가
-- DSN, 포트, 월드 크기 등의 하드코딩된 값을 설정 파일로 분리
+- DB 마이그레이션 버전을 관리하는 배포 체계 추가
+- 월드 크기와 NPC 수처럼 자료구조에 영향을 주는 값을 안전하게 설정화
 - 네트워크 프로토콜의 버전 관리, 직렬화 및 입력값 검증 강화
 - 서버 종료 신호와 작업 스레드의 정상 종료 절차 보완
 - 스마트 포인터와 RAII 적용 범위 확대

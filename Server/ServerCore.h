@@ -34,6 +34,10 @@ private:
 
 	WorldData					_world_map;			// WorldMap 정보
 
+	std::string					_listen_address = "0.0.0.0";
+	uint16						_port = PORT_NUM;
+	std::filesystem::path		_map_path = "Resource/map.bin";
+
 public:
 	ServerCore();
 	~ServerCore();
@@ -46,6 +50,7 @@ public:
 
 private:
 	void LocaleInit();
+	void ConfigInit();
 
 	void WorldInit();
 
