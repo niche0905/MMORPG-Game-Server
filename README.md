@@ -165,16 +165,17 @@ Client                         Server                         Database
 - `register_request`: 신규 캐릭터 생성
 - `logout_process`: 로그아웃 시 캐릭터 상태 저장
 
-저장소에는 DB 스키마와 저장 프로시저 정의가 포함되어 있지 않습니다. 따라서 다른 환경에서 재현하려면 `DatabaseManager`의 DSN을 자신의 환경에 맞게 변경하고, 코드의 바인딩 순서와 타입에 맞는 테이블 및 저장 프로시저를 별도로 구성해야 합니다.
+개발 당시 사용한 SQL Server DB에서 직접 추출한 테이블과 저장 프로시저가 [`Database/original_schema.sql`](Database/original_schema.sql)에 포함되어 있습니다. 빈 SQL Server 데이터베이스에서 이 스크립트를 실행한 뒤, `DatabaseManager`의 DSN 이름을 자신의 환경에 맞추면 됩니다. 선택적으로 공개 가능한 StressTest 계정 10,000개도 [`Database/stress_test_seed.sql`](Database/stress_test_seed.sql)에서 복원할 수 있습니다. 자세한 과정은 [`Database/README.md`](Database/README.md)를 참고하세요.
 
 서버는 현재 작업 디렉터리를 기준으로 `../Resource/map.bin`을 읽으며 기본 TCP 포트 `8252`에서 대기합니다. Visual Studio에서 실행하거나 실행 파일의 작업 디렉터리를 직접 지정할 때 이 상대 경로를 맞춰야 합니다. 클라이언트와 StressTest 실행 시에는 접속할 서버 IP를 콘솔에 입력합니다.
 
 권장 실행 순서는 다음과 같습니다.
 
-1. ODBC 데이터 소스와 DB 저장 프로시저를 준비합니다.
-2. `Server.exe`를 실행하고 개발자 모드 사용 여부를 입력합니다.
-3. `Client.exe`를 실행한 뒤 서버 IP를 입력합니다.
-4. 부하 테스트가 필요한 경우 `StressTest.exe`를 별도로 실행합니다.
+1. 빈 SQL Server 데이터베이스에서 `Database/original_schema.sql`을 실행합니다.
+2. 코드에 설정된 이름으로 64비트 ODBC System DSN을 준비합니다.
+3. `Server.exe`를 실행하고 개발자 모드 사용 여부를 입력합니다.
+4. `Client.exe`를 실행한 뒤 서버 IP를 입력합니다.
+5. 부하 테스트가 필요한 경우 `StressTest.exe`를 별도로 실행합니다.
 
 ## 구현하며 다룬 문제
 
@@ -191,7 +192,7 @@ Client                         Server                         Database
 
 학습 프로젝트로서 핵심 기능을 빠르게 구현하는 데 집중했기 때문에 다음 개선 과제가 남아 있습니다.
 
-- DB 스키마와 초기화 스크립트를 저장소에 포함해 실행 환경 재현성 개선
+- DB 연결 문자열과 마이그레이션 버전을 관리하는 배포 체계 추가
 - DSN, 포트, 월드 크기 등의 하드코딩된 값을 설정 파일로 분리
 - 네트워크 프로토콜의 버전 관리, 직렬화 및 입력값 검증 강화
 - 서버 종료 신호와 작업 스레드의 정상 종료 절차 보완
